@@ -1,0 +1,105 @@
+##############################
+#attiny13.name=Attiny13 @ 128 KHz (internal watchdog oscillator)
+ 
+#attiny13.upload.using=arduino:arduinoisp
+# attiny13.upload.protocol=avrispv2
+# attiny2313at1.upload.using=pololu
+ 
+#attiny13.upload.maximum_size=1024
+#attiny13.upload.speed=250 # important for not losing connection to a slow processor
+ 
+#attiny13.bootloader.low_fuses=0x7B
+#attiny13.bootloader.high_fuses=0xFF
+ 
+#attiny13.bootloader.unlock_bits=0x3F
+#attiny13.bootloader.lock_bits=0x3F
+ 
+#attiny13.build.mcu=attiny13
+#attiny13.build.f_cpu=128000
+#attiny13.build.core=core13
+########################
+
+attiny13a.name=Attiny 13A standalone 128khz
+attiny13a.upload.using=arduino:arduinoisp
+attiny13a.upload.maximum_size=1024
+attiny13a.maximum_data_size=64
+attiny13a.upload.speed=19200
+attiny13a.bootloader.low_fuses=0x7b
+attiny13a.bootloader.high_fuses=0xFF
+attiny13a.bootloader.path=empty
+attiny13a.bootloader.file=empty
+attiny13a.bootloader.unlock_bits=0xFF
+attiny13a.bootloader.lock_bits=0xFF
+attiny13a.bootloader.tool=arduino:avrdude
+attiny13a.build.mcu=attiny13
+attiny13a.upload.tool=avrdude
+attiny13a.build.f_cpu=128000L
+attiny13a.build.core=core13
+attiny13a.upload.verbose=true
+#######################
+
+attiny13f.name=Attiny 13A standalone 600khz
+attiny13f.upload.using=arduino:arduinoisp
+attiny13f.upload.maximum_size=1024
+attiny13f.maximum_data_size=64
+attiny13f.upload.speed=19200
+attiny13f.bootloader.low_fuses=0x69
+attiny13f.bootloader.high_fuses=0xFF
+attiny13f.bootloader.path=empty
+attiny13f.bootloader.file=empty
+attiny13f.bootloader.unlock_bits=0xFF
+attiny13f.bootloader.lock_bits=0xFF
+attiny13f.build.mcu=attiny13
+attiny13f.upload.tool=avrdude
+attiny13f.build.f_cpu=600000L
+attiny13f.build.core=core13
+#######################
+
+attiny13c.name=Attiny 13A standalone 1.2mhz
+attiny13c.upload.using=arduino:arduinoisp
+attiny13c.upload.maximum_size=1024
+attiny13c.maximum_data_size=64
+attiny13c.upload.speed=19200
+attiny13c.bootloader.low_fuses=0x6a
+attiny13c.bootloader.high_fuses=0xFF
+attiny13c.bootloader.path=empty
+attiny13c.bootloader.file=empty
+attiny13c.bootloader.unlock_bits=0xFF
+attiny13c.bootloader.lock_bits=0xFF
+attiny13c.build.mcu=attiny13
+attiny13c.upload.tool=avrdude
+attiny13c.build.f_cpu=1200000L
+attiny13c.build.core=core13
+
+#######################
+attiny13d.name=Attiny 13A standalone 4.8Mhz
+attiny13d.upload.using=arduino:arduinoisp
+attiny13d.upload.maximum_size=1024
+attiny13d.maximum_data_size=64
+attiny13d.upload.speed=19200
+attiny13d.bootloader.low_fuses=0x79
+attiny13d.bootloader.high_fuses=0xFF
+attiny13d.bootloader.path=empty
+attiny13d.bootloader.file=empty
+attiny13d.bootloader.unlock_bits=0xFF
+attiny13d.bootloader.lock_bits=0xFF
+attiny13d.build.mcu=attiny13
+attiny13d.upload.tool=avrdude
+attiny13d.build.f_cpu=4800000L
+attiny13d.build.core=core13
+#######################
+attiny13e.name=Attiny 13A standalone 9.6Mhz
+attiny13e.upload.using=arduino:arduinoisp
+attiny13e.upload.maximum_size=1024
+attiny13e.upload.speed=19200
+attiny13e.maximum_data_size=64
+attiny13e.bootloader.low_fuses=0x7A
+attiny13e.bootloader.high_fuses=0xFF
+attiny13e.bootloader.path=empty
+attiny13e.bootloader.file=empty
+attiny13e.bootloader.unlock_bits=0xFF
+attiny13e.bootloader.lock_bits=0xFF
+attiny13e.build.mcu=attiny13
+attiny13e.upload.tool=avrdude
+attiny13e.build.f_cpu=9600000L
+attiny13e.build.core=core13
