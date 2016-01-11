@@ -11,4 +11,4 @@ Includes some compilation errors fixes.
 Copy attiny13 directory into /Applications/Arduino.app/Contents/Java/hardware/
 
 ### Windows:
-Copy attiny13 directory into C:\arduino\arduino-<version>\hardware\
+Copy attiny13 directory into C:\arduino\arduino-\<version\>\hardware\
