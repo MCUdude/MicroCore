@@ -1,48 +1,112 @@
-menu.freq=Frequency
- 
-attiny13.name=ATtiny13 (ATtiny13a)
-attiny13.upload.using=arduino:arduinoisp
-attiny13.upload.maximum_size=1024
-attiny13.maximum_data_size=64
-attiny13.upload.speed=19200
+# boards.txt for Arduino 1.6.4
+
+menu.flag=GCC Flags
+menu.cpu=Processor
+menu.clock=Clock
+
+attiny13.name=Attiny13
 attiny13.bootloader.tool=arduino:avrdude
-attiny13.bootloader.high_fuses=0xFF
-attiny13.bootloader.unlock_bits=0xFF
-attiny13.bootloader.lock_bits=0xFF
-attiny13.build.mcu=attiny13
-attiny13.upload.tool=avrdude
-attiny13.build.core=core13
-attiny13.upload.verbose=true
-attiny13.build.board=AVR_ATTINY13
+attiny13.upload.tool=arduino:avrdude
+attiny13.upload.tool=arduino:arduinoisp
+attiny13.upload.using=arduino:usbasp
+attiny13.bootloader.unlock_bits=0xff
+attiny13.bootloader.lock_bits=0xff
+attiny13.build.core=arduino:core13
+attiny13.build.board=attiny
 
-# Frequency menu:
+attiny13.menu.cpu.attiny13=ATtiny13
+attiny13.menu.cpu.attiny13.upload.maximum_size=1024
+attiny13.menu.cpu.attiny13.upload.maximum_data_size=64
+attiny13.menu.cpu.attiny13.build.mcu=attiny13
+attiny13.menu.cpu.attiny13.build.core=core13
+# attiny13.menu.cpu.attiny13.build.variant=core13
 
-## 128 KHz
+#################################################
+############## clock speeds #####################
+#################################################
 
-attiny13.menu.freq.f128000=128 KHz
-attiny13.menu.freq.f128000.bootloader.low_fuses=0x7b
-attiny13.menu.freq.f128000.build.f_cpu=128000L
+#### 9.6 MHz
+############
+attiny13.menu.clock.t13_9M6=9.6MHz (internal clock, Preserve EEPROM, BOD disable)
+attiny13.menu.clock.t13_9M6.bootloader.low_fuses=0x3A
+attiny13.menu.clock.t13_9M6.bootloader.high_fuses=0xFF
+attiny13.menu.clock.t13_9M6.upload.speed=57600L
+attiny13.menu.clock.t13_9M6.build.f_cpu=9600000L
 
-## 600 KHz
+#### 9.6 MHz - 2.7V
+attiny13.menu.clock.t13_9M6_bod=9.6MHz (internal clock, Preserve EEPROM, BOD - 2.7V)
+attiny13.menu.clock.t13_9M6_bod.bootloader.low_fuses=0x32
+attiny13.menu.clock.t13_9M6_bod.bootloader.high_fuses=0xFB
+attiny13.menu.clock.t13_9M6_bod.upload.speed=57600L
+attiny13.menu.clock.t13_9M6_bod.build.f_cpu=9600000L
 
-attiny13.menu.freq.f600000=600 KHz
-attiny13.menu.freq.f600000.bootloader.low_fuses=0x69
-attiny13.menu.freq.f600000.build.f_cpu=600000L
+#### 4.8 MHz - 2.7V
+attiny13.menu.clock.t13_4M8_bod=4.8 MHz (int 4.8 MHz clock, Preserve_EEPROM, BOD - 2.7V)
+attiny13.menu.clock.t13_4M8_bod.bootloader.low_fuses=0x31
+attiny13.menu.clock.t13_4M8_bod.bootloader.high_fuses=0xFB
+attiny13.menu.clock.t13_4M8_bod.upload.speed=57600L
+attiny13.menu.clock.t13_4M8_bod.build.f_cpu=4800000L
 
-## 1.2 MHz
+#### 1.2 MHz
+attiny13.menu.clock.t13_1M2=1.2 MHz (int 9.6 MHz divided by 8,Preserve_EEPROM, BOD - 2.7V)
+attiny13.menu.clock.t13_1M2.bootloader.low_fuses=0x2A
+attiny13.menu.clock.t13_1M2.bootloader.high_fuses=0xFB
+attiny13.menu.clock.t13_1M2.upload.speed=9600L
+attiny13.menu.clock.t13_1M2.build.f_cpu=1200000L
 
-attiny13.menu.freq.f1200000=1.2 MHz
-attiny13.menu.freq.f1200000.bootloader.low_fuses=0x6a
-attiny13.menu.freq.f1200000.build.f_cpu=1200000L
+#### 600 kHz
+attiny13.menu.clock.t13_0M6=600 kHz (int 4.8 MHz divided by 8, Preserve_EEPROM, BOD disable)
+attiny13.menu.clock.t13_0M6.bootloader.low_fuses=0x29
+attiny13.menu.clock.t13_0M6.bootloader.high_fuses=0xFF
+attiny13.menu.clock.t13_0M6.upload.speed=9600L
+attiny13.menu.clock.t13_0M6.build.f_cpu=600000L
 
-## 4.8 MHz
+## 128 kHz
+attiny13.menu.clock.t13_128k=128 KHz (internal watchdog oscillator)
+attiny13.menu.clock.t13_128k.bootloader.low_fuses=0x7B
+attiny13.menu.clock.t13_128k.bootloader.high_fuses=0xFF
+attiny13.menu.clock.t13_128k.upload.speed=250
+attiny13.menu.clock.t13_128k.build.f_cpu=128000L
 
-attiny13.menu.freq.f4800000=4.8 MHz
-attiny13.menu.freq.f4800000.bootloader.low_fuses=0x79
-attiny13.menu.freq.f4800000.build.f_cpu=4800000L
+## 16 kHz
+attiny13.menu.clock.t13_16k=16 KHz (internal watchdog oscillator, Preserve_EEPROM, BOD disable)
+attiny13.menu.clock.t13_16k.bootloader.low_fuses=0x2B
+attiny13.menu.clock.t13_16k.bootloader.high_fuses=0xFF
+attiny13.menu.clock.t13_16k.upload.speed=250
+attiny13.menu.clock.t13_16k.build.f_cpu=16000L
 
-## 9.6 MHz
 
-attiny13.menu.freq.f9000000=9.6 MHz
-attiny13.menu.freq.f9000000.bootloader.low_fuses=0x7A
-attiny13.menu.freq.f9000000.build.f_cpu=9600000L
+
+##-----------------------------------
+##--------- compiler flags ----------
+##-----------------------------------
+
+attiny13.menu.flag.Os=Default
+attiny13.menu.flag.Os.compiler.c.extra_flags=
+attiny13.menu.flag.Os.compiler.c.elf.extra_flags=
+attiny13.menu.flag.Os.compiler.cpp.extra_flags=
+
+attiny13.menu.flag.Os_flto=Default -flto
+attiny13.menu.flag.Os_flto.compiler.c.extra_flags=-Wextra -flto
+attiny13.menu.flag.Os_flto.compiler.c.elf.extra_flags=-w -flto
+attiny13.menu.flag.Os_flto.compiler.cpp.extra_flags=-Wextra -flto
+
+attiny13.menu.flag.O1=-O1
+attiny13.menu.flag.O1.compiler.c.extra_flags=-O1
+attiny13.menu.flag.O1.compiler.c.elf.extra_flags=-O1
+attiny13.menu.flag.O1.compiler.cpp.extra_flags=-O1
+
+attiny13.menu.flag.O1_flto=-O1 -flto
+attiny13.menu.flag.O1_flto.compiler.c.extra_flags=-O1 -Wextra -flto
+attiny13.menu.flag.O1_flto.compiler.c.elf.extra_flags=-O1 -w -flto
+attiny13.menu.flag.O1_flto.compiler.cpp.extra_flags=-O1 -Wextra -flto
+
+attiny13.menu.flag.O3=-O3
+attiny13.menu.flag.O3.compiler.c.extra_flags=-O3
+attiny13.menu.flag.O3.compiler.c.elf.extra_flags=-O3
+attiny13.menu.flag.O3.compiler.cpp.extra_flags=-O3
+
+attiny13.menu.flag.O3_flto=-O3 -flto
+attiny13.menu.flag.O3_flto.compiler.c.extra_flags=-O3 -Wextra -flto
+attiny13.menu.flag.O3_flto.compiler.c.elf.extra_flags=-O3 -w -flto
+attiny13.menu.flag.O3_flto.compiler.cpp.extra_flags=-O3 -Wextra -flto
