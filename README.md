@@ -11,7 +11,7 @@ Includes changes made by aleksey_ua from Arduino Forum.
 # Installation:
 
 ### Linux:
-Copy attiny13 directory to /opt/arduino-1.6.7/hardware/.
+Copy attiny13 directory to /opt/arduino-\<version\>/hardware/.
 
 ### OS X:
 Copy attiny13 directory into /Applications/Arduino.app/Contents/Java/hardware/.
