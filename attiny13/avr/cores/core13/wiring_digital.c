@@ -1,18 +1,17 @@
 /*** Core13 - wiring_digital.c ***
-Arduino core designed for Attiny13 and similar devices.
+Arduino core designed for ATtiny13
 NO WARRANTEE OR GUARANTEES!
+You are free to use, redistribute and modify at will EXCEPT IF MARKED OTHERWISE IN A PARTICULAR SOURCE FILE!
 Written by John "smeezekitty" 
 Modified by MCUdude
-You are free to use, redistribute and modify at will EXCEPT IF MARKED OTHERWISE IN A PARTICULAR SOURCE FILE!
-Version v0.3.0
 
- 	   ATTINY13 - ARDUINO
-                  +-\/-+
- AinX (D 4) PB5  1|    |8  Vcc
- AinX (D 3) PB3  2|    |7  PB2 (D 2)  AinX
- AinX (D 5) PB4  3|    |6  PB1 (D 1) PWM
-            GND  4|    |5  PB0 (D 0) PWM
-                  +----+
+ 	 ATTINY13 - ARDUINO
+               +-\/-+
+ A0 (D4) PB5  1|    |8  Vcc
+ A3 (D3) PB3  2|    |7  PB2 (D2)  A1
+ A2 (D5) PB4  3|    |6  PB1 (D1) PWM
+         GND  4|    |5  PB0 (D0) PWM
+               +----+
 */
 
 #include "wiring_private.h"
