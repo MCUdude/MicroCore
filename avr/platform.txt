@@ -2,8 +2,8 @@
 # Arduino AVR Core and platform.
 # ------------------------------
 
-name=Core13
-version=0.3.0
+name=MicroCore
+version=1.0.0
 
 # AVR compile variables
 # --------------------- 
