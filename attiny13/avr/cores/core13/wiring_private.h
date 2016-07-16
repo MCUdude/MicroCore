@@ -21,7 +21,7 @@ Version v0.3.0
 #include <stdio.h>
 #include <stdarg.h>
 
-#include "wiring.h"
+#include "Arduino.h"
 
 #ifdef __cplusplus
 extern "C"{
@@ -35,7 +35,7 @@ extern "C"{
 #endif
 #define EXTERNAL_INT_0 0
 
-#define EXTERNAL_NUM_INTERRUPTS 0
+#define EXTERNAL_NUM_INTERRUPTS 1
 
 typedef void (*voidFuncPtr)(void);
 
