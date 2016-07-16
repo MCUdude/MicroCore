@@ -86,9 +86,3 @@ buspirate.protocol=buspirate
 buspirate.program.protocol=buspirate
 buspirate.program.tool=avrdude
 buspirate.program.extra_params=-P{serial.port}
-
-MysmartUSB.name=mySmartUSB
-MysmartUSB.protocol=serial
-MysmartUSB.communication=serial
-MysmartUSB.program.tool=avrdude
-#MysmartUSB.program.extra_params=-P{serial.port}
