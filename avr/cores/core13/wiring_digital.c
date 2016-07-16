@@ -15,12 +15,12 @@ Modified by MCUdude
 */
 
 #include "wiring_private.h"
-
+#include "core_settings.h"
 
 void pinMode(uint8_t pin, uint8_t mode)
 {
 	#ifdef SAFEMODE
-		if(pin > 5 || pin < 0)
+		if(pin > 5)
 			return;
 	#endif
 	if(!mode) // Pin as input
@@ -41,8 +41,8 @@ void turnOffPWM(uint8_t timer)
 
 void digitalWrite(uint8_t pin, uint8_t val)
 {
-	#ifdef SAFEMODE
-		if(pin > 5 || pin < 0)
+	#if defined(SAFEMODE)
+		if(pin > 5)
 			return;
 		if(pin < 2)
 			turnOffPWM(pin); //If its a PWM pin, make sure the PWM is off
@@ -57,7 +57,7 @@ void digitalWrite(uint8_t pin, uint8_t val)
 uint8_t digitalRead(uint8_t pin)
 {
 	#ifdef SAFEMODE
-		if(pin > 5 || pin < 0)
+		if(pin > 5)
 			return 0;
 		if(pin < 2)
 			turnOffPWM(pin); //If its PWM pin, makes sure the PWM is off
