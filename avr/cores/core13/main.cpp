@@ -14,11 +14,13 @@ Modified by MCUdude
          GND  4|    |5  PB0 (D0) PWM
                +----+
 */  
-#include <Arduino.h>
+#include "Arduino.h"
 int main(void)
 {
-	init();  // Call init routine 
+	init();  // Call init routine (wiring.c)
 	setup(); // Call user provided setup()
 	while(1) // Continuiously call user provided loop()
+	{
 		loop(); 
+	}
 }
