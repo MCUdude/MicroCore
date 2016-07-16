@@ -123,5 +123,5 @@ This diagram shows the pinout and the pheripherals of the ATtiny13. The Arduino 
 
 
 ##Minimal setup
-~~Here is a simple schematic showing a minimal setup.~~ <br/>
+<br/>
 <img src="http://i.imgur.com/p7mtBWp.png" width="600">
