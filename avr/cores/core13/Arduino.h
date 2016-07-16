@@ -58,7 +58,7 @@ extern "C"{
   #define round(x)     ((x)>=0?(long)((x)+0.5):(long)((x)-0.5))
   #define radians(deg) ((deg)*DEG_TO_RAD)
   #define degrees(rad) ((rad)*RAD_TO_DEG)
-  #define sq(x) ((x)*(x))
+  #define sqrt(x) ((x)*(x))
   #define interrupts() sei()
   #define noInterrupts() cli()
   #define clockCyclesPerMicrosecond() ( F_CPU / 1000000L )
@@ -88,8 +88,8 @@ extern "C"{
   void shiftOut(uint8_t, uint8_t, uint8_t, uint8_t);
   uint8_t shiftIn(uint8_t, uint8_t, uint8_t);
   unsigned long pulseIn(unsigned char pin, unsigned char stat, unsigned long timeout);
-  //void attachInterrupt(uint8_t, void (*)(void), int mode);
-  //void detachInterrupt(uint8_t);
+  void attachInterrupt(uint8_t, void (*)(void), int mode);
+  void detachInterrupt(uint8_t);
   void setup(void);
   void loop(void);
 #ifdef __cplusplus
