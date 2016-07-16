@@ -1,4 +1,3 @@
-/* -*- mode: jde; c-basic-offset: 2; indent-tabs-mode: nil -*- */
 
 /*
   Part of the Wiring project - http://wiring.org.co
@@ -20,8 +19,9 @@
   Free Software Foundation, Inc., 59 Temple Place, Suite 330,
   Boston, MA  02111-1307  USA
   
-  $Id$
+
   Modified by John "smeezekitty" for core13
+  Modified by MCUdude
 */
 
 extern "C" {
@@ -30,24 +30,23 @@ extern "C" {
 
 void randomSeed(unsigned int seed)
 {
-  if (seed != 0) {
+  if (seed != 0) 
     srandom(seed);
-  }
 }
 
 long random(long howbig)
 {
-  if (howbig == 0) {
+  if (howbig == 0) 
     return 0;
-  }
+  
   return random() % howbig;
 }
 
 long random(long howsmall, long howbig)
 {
-  if (howsmall >= howbig) {
+  if (howsmall >= howbig) 
     return howsmall;
-  }
+  
   long diff = howbig - howsmall;
   return random(diff) + howsmall;
 }
