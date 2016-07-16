@@ -21,7 +21,7 @@
   
 
   Modified by John "smeezekitty" for core13
-  Modified by MCUdude
+  Modified by MCUdude for MicroCore
 */
 
 extern "C" {

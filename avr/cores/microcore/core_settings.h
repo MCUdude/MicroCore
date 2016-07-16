@@ -1,19 +1,11 @@
-/*** Core13 - core_settings.h ***
+/*** MicroCore - core_settings.h ***
 Arduino core designed for ATtiny13
-File created by MCUdude
+File created and maintained by MCUdude
 
 This file lets you turn on and off core functions.
 Since the ATtiny13 is really short on space, you
 might want to disable some functions you don't
 need anyway to save space.
-
- 	   		ATTINY13 - ARDUINO
-               +-\/-+
- A0 (D4) PB5  1|    |8  Vcc
- A3 (D3) PB3  2|    |7  PB2 (D2)  A1
- A2 (D5) PB4  3|    |6  PB1 (D1) PWM
-         GND  4|    |5  PB0 (D0) PWM
-               +----+
 */
 
 #ifndef core_settings_h
