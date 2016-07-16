@@ -26,8 +26,7 @@ void pinMode(uint8_t pin, uint8_t mode)
 	if(!mode) // Pin as input
 		DDRB &= ~_BV(pin);
 	else // Pin as output
-        DDRB |= _BV(pin);
-	}
+    DDRB |= _BV(pin);
 }
 
 

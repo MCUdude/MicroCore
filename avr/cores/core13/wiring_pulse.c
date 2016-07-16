@@ -17,7 +17,7 @@ Modified by MCUdude
 
 #include "wiring_private.h"
 //Untested code lurks ahead! If it does or does not work, please notify me!
-unsigned long pulseIn(unsigned char pin, unsigned char stat, unsigned long timeout = 0xFFFFFFFF)
+unsigned long pulseIn(unsigned char pin, unsigned char stat, unsigned long timeout)
 {
 	unsigned long st,to;
 	to = micros();
