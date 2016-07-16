@@ -1,9 +1,10 @@
 /*** Core13 - Arduino.h ***
 Arduino core designed for ATtiny13
 NO WARRANTEE OR GUARANTEES!
+You are free to use, redistribute and modify at will EXCEPT IF MARKED OTHERWISE IN A PARTICULAR SOURCE FILE!
+
 Written by John "smeezekitty" 
 Modified by MCUdude
-You are free to use, redistribute and modify at will EXCEPT IF MARKED OTHERWISE IN A PARTICULAR SOURCE FILE!
 
  	   ATTINY13 - ARDUINO
                +-\/-+
@@ -12,7 +13,7 @@ You are free to use, redistribute and modify at will EXCEPT IF MARKED OTHERWISE 
  A2 (D5) PB4  3|    |6  PB1 (D1) PWM
          GND  4|    |5  PB0 (D0) PWM
                +----+
-*/                  +----+
+*/                  
 #ifndef Arduino_h
 #define Arduino_h
 
