@@ -58,7 +58,7 @@ extern "C"{
   #define round(x)     ((x)>=0?(long)((x)+0.5):(long)((x)-0.5))
   #define radians(deg) ((deg)*DEG_TO_RAD)
   #define degrees(rad) ((rad)*RAD_TO_DEG)
-  #define sqrt(x) ((x)*(x))
+  #define sq(x) ((x)*(x))
   #define interrupts() sei()
   #define noInterrupts() cli()
   #define clockCyclesPerMicrosecond() ( F_CPU / 1000000L )
