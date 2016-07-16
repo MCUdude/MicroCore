@@ -18,13 +18,14 @@
  
  Modified 23 November 2006 by David A. Mellis
  Modified by John "smeezekitty" for core13
+ Modified by MCUdude for Core13
  */
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
-#include "wiring.h"
+#include "Arduino.h"
 
 #include "Print.h"
 
