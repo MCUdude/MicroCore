@@ -1,7 +1,6 @@
 # Boards.txt for Arduino 1.6
 
 menu.flag=GCC Flags
-menu.cpu=Processor
 menu.clock=Clock
 
 attiny13.name=ATtiny13
@@ -13,12 +12,11 @@ attiny13.bootloader.lock_bits=0xff
 attiny13.build.core=core13
 attiny13.build.board=attiny
 
-attiny13.menu.cpu.attiny13=ATtiny13
-attiny13.menu.cpu.attiny13.upload.maximum_size=1024
-attiny13.menu.cpu.attiny13.upload.maximum_data_size=64
-attiny13.menu.cpu.attiny13.build.mcu=attiny13
-attiny13.menu.cpu.attiny13.build.core=core13
-# attiny13.menu.cpu.attiny13.build.variant=core13
+attiny13.upload.maximum_size=1024
+attiny13.upload.maximum_data_size=64
+attiny13.build.mcu=attiny13
+attiny13.build.core=core13
+# attiny13.build.variant=core13
 
 #################################################
 ############## clock speeds #####################
