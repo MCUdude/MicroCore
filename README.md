@@ -60,7 +60,7 @@ Make sure you connect an ISP programmer, and select the correct one in the "Prog
 
 
 ##Core settings
-To make sure you're able to fit your whole project into this tiny microcontroller and still be able to use Arduino functions, I've added some <b>core settings</b>. By modifying the [`core_settings.h`]() file you can enable or disable core functions you need or don't need. For instance, you're able to save about 100 bytes of flash if you're willing to disable the millis()/micros() functions. 
+To make sure you're able to fit your whole project into this tiny microcontroller and still be able to use Arduino functions, I've added some <b>core settings</b>. By modifying the [`core_settings.h`](https://github.com/MCUdude/MicroCore/blob/master/avr/cores/microcore/core_settings.h) file you can enable or disable core functions you need or don't need. For instance, you're able to save about 100 bytes of flash if you're willing to disable the millis()/micros() functions. 
 
 If you know what you're doing and got full control, you can disable the safemode. For instance the safemode makes sure that PWM gets turned off is a pin drives high or low, or digital pins doesn't exeed the number 5 (6 digital pins in total). By disabling the safemode you'll gain some speed and flash space.
 
