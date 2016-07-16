@@ -18,8 +18,7 @@ Modified by MCUdude
 uint8_t shiftIn(uint8_t d, uint8_t c, uint8_t bitor) 
 {
 	uint8_t value = 0;
-	uint8_t i;
-	for(i = 0; i < 8; ++i) 
+	for(uint8_t i = 0; i < 8; ++i) 
 	{
 		digitalWrite(c, HIGH);
 		//if(bitor == LSBFIRST){value |= digitalRead(d) << i;}
@@ -32,8 +31,7 @@ uint8_t shiftIn(uint8_t d, uint8_t c, uint8_t bitor)
 
 void shiftOut(uint8_t d, uint8_t c, uint8_t bitor, uint8_t val)
 {
-	uint8_t i;
-	for(i = 0; i < 8; i++)  
+	for(uint8_t i = 0; i < 8; i++)  
 	{
 		if(bitor == LSBFIRST)
 			digitalWrite(d, !!(val & (1 << i)));
