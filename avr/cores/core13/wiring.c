@@ -15,11 +15,20 @@ Modified by MCUdude
 
 #include "wiring_private.h"
 #include <avr/interrupt.h>
+#include "core_settings.h"
+
+
+#ifdef ENABLE_MILLIS
 volatile unsigned long ovrf=0;
-ISR(TIM0_OVF_vect){
+
+ISR(TIM0_OVF_vect)
+{
 	ovrf++; //Increment counter every 256 clock cycles
 }
-unsigned long millis(){
+
+
+unsigned long millis()
+{
 	unsigned long x;
 	asm("cli"); 
 	/*Scale number of timer overflows to milliseconds*/
@@ -52,7 +61,8 @@ unsigned long millis(){
 	return x;
 }
 /*The following improved micros() code was contributed by a sourceforge user "BBC25185" Thanks!*/
-unsigned long micros(){
+unsigned long micros()
+{
 	unsigned long x;
 	asm("cli");
 	#if F_CPU < 150000 && F_CPU > 80000
@@ -83,11 +93,16 @@ unsigned long micros(){
 	asm("sei");
 	return x; 
 }
-void delay(unsigned ms){
+
+
+void delay(unsigned ms)
+{
 	while(ms--){
 		_delay_ms(1); //Using the libc routine over and over is non-optimal but it works and is close enough
 	}//Note, I may have to reimplement this because the avr-libc delay is too slow *todo*
 }
+
+
 //For bigger delays. Based on code by "kosine" on the Arduino forum
 void uS_new(unsigned us)
 {
@@ -136,7 +151,10 @@ uint8_t us_loops;  // define the number of outer loops based on CPU speed (defin
    :: "r" (us_low), "r" (us_high), "r" (us_loops) // tidy up registers
  );
 }
-void delayMicroseconds(int us){
+
+
+void delayMicroseconds(int us)
+{
 	if(us == 0){return;}
 	#if F_CPU == 16000000 || F_CPU == 12000000
 	if(us > 99){uS_new(us); return;}
@@ -169,23 +187,32 @@ void delayMicroseconds(int us){
 	asm __volatile__("1: sbiw %0,1\n\t"
 			 "brne 1b" : "=w" (us) : "0" (us));
 }
+#endif // ENABLE_MILLIS
+
+
 void init(){
-	//Setup timer interrupt and PWM pins
-	TCCR0B |= _BV(CS00);
-	TCCR0A |= _BV(WGM00)|_BV(WGM01);
-	TIMSK0 |= 2;
-	TCNT0=0; 
-	sei();
-	ADMUX=0;
-	//Set up ADC clock depending on F_CPU
-	#if F_CPU <= 200000
-	ADCSRA |= _BV(ADEN);
-	#elif F_CPU <= 1200000 && F_CPU > 200000
-	ADCSRA |= _BV(ADEN) | _BV(ADPS1);
-	#elif F_CPU > 1200000 && F_CPU < 6400001
-	ADCSRA |= _BV(ADEN) | _BV(ADPS2);
-	#else
-	ADCSRA |= _BV(ADEN) | _BV(ADPS1) | _BV(ADPS0) | _BV(ADPS2);
+	#ifdef SETUP_PWM
+		TCCR0B |= _BV(CS00);
+		TCCR0A |= _BV(WGM00)|_BV(WGM01);
+	#endif	
+		
+	#ifdef ENABLE_MILLIS	
+		TIMSK0 |= _BV(TOIE0);
+		TCNT0=0; 
+		sei();
+	#endif
+	
+	#ifdef SETUP_ADC
+		ADMUX=0;
+		#if F_CPU <= 200000
+		ADCSRA |= _BV(ADEN);
+		#elif F_CPU <= 1200000 && F_CPU > 200000
+		ADCSRA |= _BV(ADEN) | _BV(ADPS1);
+		#elif F_CPU > 1200000 && F_CPU < 6400001
+		ADCSRA |= _BV(ADEN) | _BV(ADPS2);
+		#else
+		ADCSRA |= _BV(ADEN) | _BV(ADPS1) | _BV(ADPS0) | _BV(ADPS2);
+		#endif
 	#endif
 }
 	
