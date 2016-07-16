@@ -1,5 +1,5 @@
-name=Attiny13
-version=0.22
+name=Core13
+version=0.30
 
 # AVR compile variables
 # --------------------- 
