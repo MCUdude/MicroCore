@@ -17,20 +17,20 @@ uint16_t counter = 0;
 
 int main(void)
 {
-  DDRB |= 0x20; 		 // Set PB5 as output, ignore the rest
-  //DDRB |= _BV(PB5);	 // Alternative method
-  //DDRB |= (1 << PB5); // Alternative method
+  DDRB |= 0x01; 		 // Set PB1 as output, ignore the rest
+  //DDRB |= _BV(PB1);	 // Alternative method
+  //DDRB |= (1 << PB1); // Alternative method
 
   DDRB &= ~0x10; 		 // Set PB4 as input, ignore the rest
   //DDRB &= _BV(PB4);	 // Alternative method
   //DDRB &= ~(1 << PB4);// Alternative method
   
-  PORTB |= 0x10; // Enable pullup on PB1
+  PORTB |= 0x10; // Enable pullup on PB4
 
   
   while((PINB & _BV(PB4)) == 1) // Wait for PB4 to be pulled down
   {
-    PORTB ^= 0x20; //Toggle PB5 while waiting
+    PORTB ^= 0x01; //Toggle PB1 while waiting
     _delay_ms(100);
   }
 
@@ -45,7 +45,7 @@ int main(void)
 
     if(counter >= 50000)
     {
-      PORTB ^= 0x20; // Toggle PBB every 50000th time
+      PORTB ^= 0x01; // Toggle PB1 every 50000th time
       counter = 0;
     }
   }

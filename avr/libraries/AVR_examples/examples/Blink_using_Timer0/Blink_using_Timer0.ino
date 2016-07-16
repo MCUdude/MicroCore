@@ -1,5 +1,5 @@
 /************************************************************* 
- This sketch makes the pin PB5 (digital pin 5) toggle every
+ This sketch makes the pin PB1 (digital pin 1) toggle every
  second (internal oscillator running at 9.6 MHz). It uses Timer0
  or Timer0B, and divide the clock frequncy by 1024.
  The divided frequencys period is multiplied with the
@@ -22,7 +22,7 @@ unsigned int timeCount;
 
 int main (void)
 {
-  DDRB |= 0x20; //Set PB5 as output, ignore the rest
+  DDRB |= 0x01; //Set PB1 as output, ignore the rest
 
   TCCR0B = 0x05; // clock frequency / 1024 
   OCR0B = 0x00;  // Output compare
@@ -41,8 +41,7 @@ ISR(TIM0_OVF_vect) //Timer 0 overflow vector - this run every time timer0 overfl
   timeCount++;
   if(timeCount == 37) //Timer overflown for the 61th time
   {
-    PORTB ^= 0x20; //toggle PB5
+    PORTB ^= 0x01; //toggle PB5
     timeCount = 0;
   }
 }
-
