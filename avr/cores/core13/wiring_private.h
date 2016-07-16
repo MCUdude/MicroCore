@@ -35,9 +35,9 @@ extern "C"{
 #ifndef sbi
   #define sbi(sfr, bit) (_SFR_BYTE(sfr) |= _BV(bit))
 #endif
-#define EXTERNAL_INT_0 0
+#define EXTERNAL_INTERRUPT_0 0
 
-#define EXTERNAL_NUM_INTERRUPTS 1
+#define NUMBER_EXTERNAL_INTERRUPTS 1
 
 typedef void (*voidFuncPtr)(void);
 
