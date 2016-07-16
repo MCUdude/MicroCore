@@ -1,20 +1,28 @@
+
+# Arduino AVR Core and platform.
+# ------------------------------
+
 name=Core13
-version=0.30
+version=0.3.0
 
 # AVR compile variables
 # --------------------- 
 
+compiler.warning_flags=-w
+compiler.warning_flags.none=-w
+compiler.warning_flags.default=
+compiler.warning_flags.more=-Wall
+compiler.warning_flags.all=-Wall -Wextra
+
 # Default "compiler.path" is correct, change only if you want to overidde the initial value
-compiler.path={runtime.ide.path}/hardware/tools/avr/bin/
+compiler.path={runtime.tools.avr-gcc.path}/bin/
 compiler.c.cmd=avr-gcc
-compiler.c.flags=-c -g -Os -w -ffunction-sections -fdata-sections -MMD
-# -w flag added to avoid printing a wrong warning http://gcc.gnu.org/bugzilla/show_bug.cgi?id=59396
-# This is fixed in gcc 4.8.3 and will be removed as soon as we update the toolchain
-compiler.c.elf.flags=-w -Os -Wl,--gc-sections
+compiler.c.flags=-c -g -Os {compiler.warning_flags} -std=gnu11 -ffunction-sections -fdata-sections -MMD
+compiler.c.elf.flags={compiler.warning_flags} -Os -Wl,--gc-sections
 compiler.c.elf.cmd=avr-gcc
 compiler.S.flags=-c -g -x assembler-with-cpp
 compiler.cpp.cmd=avr-g++
-compiler.cpp.flags=-c -g -Os -w -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD
+compiler.cpp.flags=-c -g -Os {compiler.warning_flags} -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD
 compiler.ar.cmd=avr-ar
 compiler.ar.flags=rcs
 compiler.objcopy.cmd=avr-objcopy
@@ -48,17 +56,21 @@ recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} -m
 ## Compile S files
 recipe.S.o.pattern="{compiler.path}{compiler.c.cmd}" {compiler.S.flags} -mmcu={build.mcu} -DF_CPU={build.f_cpu} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.S.extra_flags} {build.extra_flags} {includes} "{source_file}" -o "{object_file}"
 
-## Create archives
-recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} {compiler.ar.extra_flags} "{build.path}/{archive_file}" "{object_file}"
+## Create archives (We need to keep {build.path}/{archive_file} to keep backwards compability)
+archive_file_path={build.path}/{archive_file}
+recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} {compiler.ar.extra_flags} "{archive_file_path}" "{object_file}"
+
 
 ## Combine gc-sections, archives, and objects
 recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} -mmcu={build.mcu} {compiler.c.elf.extra_flags} -o "{build.path}/{build.project_name}.elf" {object_files} "{build.path}/{archive_file}" "-L{build.path}" -lm
 
-## Create eeprom
+## Create output files (.eep and .hex)
 recipe.objcopy.eep.pattern="{compiler.path}{compiler.objcopy.cmd}" {compiler.objcopy.eep.flags} {compiler.objcopy.eep.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.eep"
-
-## Create hex
 recipe.objcopy.hex.pattern="{compiler.path}{compiler.elf2hex.cmd}" {compiler.elf2hex.flags} {compiler.elf2hex.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.hex"
+
+## Save compiled hex
+recipe.output.tmp_file={build.project_name}.hex
+recipe.output.save_file={build.project_name}_{build.mcu}_{build.f_cpu}.hex
 
 ## Compute size
 recipe.size.pattern="{compiler.path}{compiler.size.cmd}" -A "{build.path}/{build.project_name}.elf"
@@ -66,12 +78,22 @@ recipe.size.regex=^(?:\.text|\.data|\.bootloader)\s+([0-9]+).*
 recipe.size.regex.data=^(?:\.data|\.bss|\.noinit)\s+([0-9]+).*
 recipe.size.regex.eeprom=^(?:\.eeprom)\s+([0-9]+).*
 
+## Preprocessor
+preproc.includes.flags=-w -x c++ -M -MG -MP
+recipe.preproc.includes="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} {preproc.includes.flags} -mmcu={build.mcu} -DF_CPU={build.f_cpu} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.cpp.extra_flags} {build.extra_flags} {includes} "{source_file}"
+
+# The following line provides Arduino IDE 1.6.6 compatibility with the Arduino IDE 1.6.7 version of recipe.preproc.macros used here
+preprocessed_file_path={build.path}/nul
+preproc.macros.flags=-w -x c++ -E -CC
+recipe.preproc.macros="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} {preproc.macros.flags} -mmcu={build.mcu} -DF_CPU={build.f_cpu} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.cpp.extra_flags} {build.extra_flags} {includes} "{source_file}" -o "{preprocessed_file_path}"
+
 
 # AVR Uploader/Programmers tools
 # ------------------------------
 
-tools.avrdude.cmd.path={runtime.ide.path}/hardware/tools/avr/bin/avrdude
-tools.avrdude.config.path={runtime.ide.path}/hardware/tools/avr/etc/avrdude.conf
+tools.avrdude.path={runtime.tools.avrdude.path}
+tools.avrdude.cmd.path={path}/bin/avrdude
+tools.avrdude.config.path={runtime.platform.path}/avrdude.conf
 
 tools.avrdude.upload.params.verbose=-v
 tools.avrdude.upload.params.quiet=-q -q
@@ -93,5 +115,5 @@ tools.avrdude.bootloader.pattern="{cmd.path}" "-C{config.path}" {bootloader.verb
 # USB Default Flags
 # Default blank usb manufacturer will be filled it at compile time
 # - from numeric vendor ID, set to Unknown otherwise
-build.usb_manufacturer=
+build.usb_manufacturer="Unknown"
 build.usb_flags=-DUSB_VID={build.vid} -DUSB_PID={build.pid} '-DUSB_MANUFACTURER={build.usb_manufacturer}' '-DUSB_PRODUCT={build.usb_product}'
