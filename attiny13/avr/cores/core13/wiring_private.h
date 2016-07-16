@@ -1,26 +1,15 @@
-/*
-  wiring_private.h - Internal header file.
-  Part of Arduino - http://www.arduino.cc/
-
-  Copyright (c) 2005-2006 David A. Mellis
-
-  This library is free software; you can redistribute it and/or
-  modify it under the terms of the GNU Lesser General Public
-  License as published by the Free Software Foundation; either
-  version 2.1 of the License, or (at your option) any later version.
-
-  This library is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-  Lesser General Public License for more details.
-
-  You should have received a copy of the GNU Lesser General
-  Public License along with this library; if not, write to the
-  Free Software Foundation, Inc., 59 Temple Place, Suite 330,
-  Boston, MA  02111-1307  USA
-
-  $Id: wiring.h 239 2007-01-12 17:58:39Z mellis $
-  Modified by John "smeezekitty" for core13
+/*** Core13 - wiring_analog.c ***
+Arduino core designed for Attiny13 and similar devices.
+NO WARRANTEE OR GUARANTEES!
+Modified by MCUdude
+Version v0.3.0
+ 	      ATTINY13 - ARDUINO
+               +-\/-+
+ A0 (D4) PB5  1|    |8  Vcc
+ A3 (D3) PB3  2|    |7  PB2 (D2)  A2
+ A2 (D5) PB4  3|    |6  PB1 (D1) PWM
+         GND  4|    |5  PB0 (D0) PWM
+               +----+
 */
 
 #ifndef WiringPrivate_h
@@ -45,18 +34,8 @@ extern "C"{
 #define sbi(sfr, bit) (_SFR_BYTE(sfr) |= _BV(bit))
 #endif
 #define EXTERNAL_INT_0 0
-#define EXTERNAL_INT_1 1
-#define EXTERNAL_INT_2 2
-#define EXTERNAL_INT_3 3
-#define EXTERNAL_INT_4 4
-#define EXTERNAL_INT_5 5
-/*#define EXTERNAL_INT_6 6
-#define EXTERNAL_INT_7 7*/
-//#if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)
-//#define EXTERNAL_NUM_INTERRUPTS 8
-//#else
-#define EXTERNAL_NUM_INTERRUPTS 5
-//#endif
+
+#define EXTERNAL_NUM_INTERRUPTS 0
 
 typedef void (*voidFuncPtr)(void);
 
