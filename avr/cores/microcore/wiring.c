@@ -55,6 +55,7 @@ unsigned long millis()
 	asm("sei");
 	return x;
 }
+
 /*The following improved micros() code was contributed by a sourceforge user "BBC25185" Thanks!*/
 unsigned long micros()
 {
@@ -92,6 +93,8 @@ unsigned long micros()
 	asm("sei");
 	return x; 
 }
+#endif // ENABLE_MILLIS
+
 
 
 void delay(unsigned ms)
@@ -187,7 +190,6 @@ void delayMicroseconds(int us)
 	asm __volatile__("1: sbiw %0,1\n\t"
 			 "brne 1b" : "=w" (us) : "0" (us));
 }
-#endif // ENABLE_MILLIS
 
 
 void init(){
