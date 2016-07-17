@@ -24,9 +24,11 @@ unsigned long millis()
 	unsigned long x;
 	asm("cli"); 
 	/*Scale number of timer overflows to milliseconds*/
-	#if F_CPU < 150000 && F_CPU > 80000
+	#if F_CPU == 16000
+	x = ovrf * 16;
+	#elif F_CPU < 150000 && F_CPU > 80000
 	x = ovrf * 2;
-    #elif F_CPU == 600000
+  #elif F_CPU == 600000
 	x = ovrf / 2;
 	#elif F_CPU == 1000000
 	x = ovrf / 4;
@@ -47,7 +49,8 @@ unsigned long millis()
 	#elif F_CPU == 16000000
 	x = ovrf / 63;
 	#else
-	#error This CPU frequency is not defined
+		#warning This CPU frequency is not defined
+		return 0;
 	#endif
 	asm("sei");
 	return x;
@@ -57,7 +60,9 @@ unsigned long micros()
 {
 	unsigned long x;
 	asm("cli");
-	#if F_CPU < 150000 && F_CPU > 80000
+	#if F_CPU == 16000
+	x = ovrf * 16000;
+	#elif F_CPU < 150000 && F_CPU > 80000
 	x = ovrf * 2000;
 	#elif F_CPU == 600000
 	x = ovrf * 427;
@@ -80,7 +85,9 @@ unsigned long micros()
 	#elif F_CPU == 16000000
 	x = ovrf * 16;
 	#else 
-	#error This CPU frequency is not defined
+	#error 
+		#warning This CPU frequency is not defined (choose 128 kHz or more)
+		return 0;
 	#endif
 	asm("sei");
 	return x; 
@@ -173,7 +180,8 @@ void delayMicroseconds(int us)
 	us-=125;
 	us >>= 5;
 	#else 
-	#error Invalid F_CPU value
+		#warning Invalid F_CPU value (choose 128 kHz or more)
+		return;
 	#endif
 	if(us < 0){return;} //Ran out of time
 	asm __volatile__("1: sbiw %0,1\n\t"
