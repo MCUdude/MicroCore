@@ -6,6 +6,7 @@ Modified and maintained by MCUdude
 
 #include "wiring_private.h"
 #include <avr/interrupt.h>
+#include <util/delay.h>
 #include "core_settings.h"
 
 

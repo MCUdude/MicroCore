@@ -13,6 +13,8 @@ Modified and maintained by MCUdude
 #include <math.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <util/delay.h>
+
 
 #ifdef __cplusplus
 extern "C"{
