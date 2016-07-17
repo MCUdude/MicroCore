@@ -30,10 +30,10 @@ If you're into "pure" AVR programming, I'm happy to tell you that all relevant k
 * 4.8 MHz internal oscillator
 * 1.2 MHz internal oscillator
 * 600 kHz internal oscillator
-* 128 kHz internal watchdog oscillator
-* 16 kHz internal watchdog oscillator
+* 128 kHz internal watchdog oscillator <b>*</b>
 
 Select the ATtiny13 in the boards menu, then select the clock frequency. You'll have to hit "Burn bootloader" in order to set the correct fuses. Make sure you connect an ISP programmer, and select the correct one in the "Programmers" menu.
+<b>*</b> Make sure to use one of the "slow" programmer options when using the 128 kHz option (e.g USBtinyISP (slow)).
 </br></br>
 
 

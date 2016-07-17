@@ -65,11 +65,11 @@ attiny13.menu.clock.t13_128k.upload.speed=250
 attiny13.menu.clock.t13_128k.build.f_cpu=128000L
 
 ## 16 kHz
-attiny13.menu.clock.t13_16k=16 KHz (BOD disabled)
-attiny13.menu.clock.t13_16k.bootloader.low_fuses=0x2B
-attiny13.menu.clock.t13_16k.bootloader.high_fuses=0xFF
-attiny13.menu.clock.t13_16k.upload.speed=250
-attiny13.menu.clock.t13_16k.build.f_cpu=16000L
+#attiny13.menu.clock.t13_16k=16 KHz (BOD disabled)
+#attiny13.menu.clock.t13_16k.bootloader.low_fuses=0x2B
+#attiny13.menu.clock.t13_16k.bootloader.high_fuses=0xFF
+#attiny13.menu.clock.t13_16k.upload.speed=250
+#attiny13.menu.clock.t13_16k.build.f_cpu=16000L
 
 
 
