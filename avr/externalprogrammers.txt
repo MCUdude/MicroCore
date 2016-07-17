@@ -5,6 +5,14 @@ avrisp.program.protocol=stk500v1
 avrisp.program.tool=avrdude
 avrisp.program.extra_params=-P{serial.port}
 
+avrispslow.name=AVR ISP (slow)
+avrispslow.communication=serial
+avrispslow.protocol=stk500v1
+avrispslow.program.protocol=stk500v1
+avrispslow.program.tool=avrdude
+avrispslow.program.extra_params=-P{serial.port} -B32
+
+
 avrispmkii.name=AVRISP mkII
 avrispmkii.communication=usb
 avrispmkii.protocol=stk500v2
@@ -12,40 +20,39 @@ avrispmkii.program.protocol=stk500v2
 avrispmkii.program.tool=avrdude
 avrispmkii.program.extra_params=-Pusb
 
+avrispmkiislow.name=AVRISP mkII (slow)
+avrispmkiislow.communication=usb
+avrispmkiislow.protocol=stk500v2
+avrispmkiislow.program.protocol=stk500v2
+avrispmkiislow.program.tool=avrdude
+avrispmkiislow.program.extra_params=-Pusb -B32
+
+
 usbtinyisp.name=USBtinyISP
 usbtinyisp.protocol=usbtiny
 usbtinyisp.program.tool=avrdude
 usbtinyisp.program.extra_params=
 
-arduinoisp.name=ArduinoISP
-arduinoisp.protocol=arduinoisp
-arduinoisp.program.tool=avrdude
-arduinoisp.program.extra_params=
-
-#usbasp.name=USBasp
-#usbasp.communication=usb
-#usbasp.protocol=usbasp
-#usbasp.program.protocol=usbasp
-#usbasp.program.tool=avrdude
-#usbasp.program.extra_params=-Pusb
+usbtinyispslow.name=USBtinyISP (slow)
+usbtinyispslow.protocol=usbtiny
+usbtinyispslow.program.tool=avrdude
+usbtinyispslow.program.extra_params=-B32
 
 
-############ USBasp (16 kHz) ##############
+usbasp.name=USBasp
+usbasp.communication=usb
+usbasp.protocol=usbasp
+usbasp.program.protocol=usbasp
+usbasp.program.tool=avrdude
+usbasp.program.extra_params=-Pusb
 
-usbasp_2.name=USBasp (-B 32: 16 kHz)
-usbasp_2.communication=usb
-usbasp_2.protocol=usbasp
-usbasp_2.program.protocol=usbasp
-usbasp_2.program.tool=avrdude
-usbasp_2.program.speed=32
-usbasp_2.program.extra_params=-B{program.speed}
+usbaspslow.name=USBasp (slow)
+usbaspslow.communication=usb
+usbaspslow.protocol=usbasp
+usbaspslow.program.protocol=usbasp
+usbaspslow.program.tool=avrdude
+usbaspslow.program.extra_params=-Pusb -B32
 
-parallel.name=Parallel Programmer
-parallel.protocol=dapa
-parallel.force=true
-# parallel.delay=200
-parallel.program.tool=avrdude
-parallel.program.extra_params=-F
 
 arduinoasisp.name=Arduino as ISP
 arduinoasisp.communication=serial
@@ -56,11 +63,15 @@ arduinoasisp.program.speed=19200
 arduinoasisp.program.tool=avrdude
 arduinoasisp.program.extra_params=-P{serial.port} -b{program.speed}
 
-usbGemma.name=Arduino Gemma
-usbGemma.protocol=arduinogemma
-usbGemma.program.tool=avrdude
-usbGemma.program.extra_params=
-usbGemma.config.path={runtime.platform.path}/bootloaders/gemma/avrdude.conf
+arduinoasispslow.name=Arduino as ISP (slow)
+arduinoasispslow.communication=serial
+arduinoasispslow.protocol=stk500v1
+arduinoasispslow.speed=19200
+arduinoasispslow.program.protocol=stk500v1
+arduinoasispslow.program.speed=250
+arduinoasispslow.program.tool=avrdude
+arduinoasispslow.program.extra_params=-P{serial.port} -b{program.speed}
+
 
 # STK500 firmware version v1 and v2 use different serial protocols.
 # Using the 'stk500' protocol tells avrdude to try and autodetect the
@@ -74,6 +85,14 @@ stk500.program.protocol=stk500
 stk500.program.tool=avrdude
 stk500.program.extra_params=-P{serial.port}
 
+stk500slow.name=Atmel STK500 development board (slow
+stk500slow.communication=serial
+stk500slow.protocol=stk500
+stk500slow.program.protocol=stk500
+stk500slow.program.tool=avrdude
+stk500slow.program.extra_params=-P{serial.port} -B32
+
+
 ## Notes about Dangerous Prototypes Bus Pirate as ISP
 ## Bus Pirate V3 need Firmware v5.10 or later
 ## Bus Pirate V4 need Firmware v6.3-r2151 or later
@@ -86,3 +105,10 @@ buspirate.protocol=buspirate
 buspirate.program.protocol=buspirate
 buspirate.program.tool=avrdude
 buspirate.program.extra_params=-P{serial.port}
+
+buspirateslow.name=BusPirate as ISP (slow)
+buspirateslow.communication=serial
+buspirateslow.protocol=buspirate
+buspirateslow.program.protocol=buspirate
+buspirateslow.program.tool=avrdude
+buspirateslow.program.extra_params=-P{serial.port} -B32
