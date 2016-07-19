@@ -14,6 +14,7 @@ Modified and maintained by MCUdude
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
+#include "WString.h"
 
 
 #ifdef __cplusplus
