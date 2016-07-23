@@ -1,3 +1,6 @@
+# This file will enable external programmers in Arduino Eclipse (formally Sloeber)
+# For more information about this great plugin/IDE please visit http://eclipse.baeyens.it
+
 avrisp.name=AVR ISP
 avrisp.communication=serial
 avrisp.protocol=stk500v1
