@@ -25,29 +25,29 @@ unsigned long millis()
 	asm("cli"); 
 	/*Scale number of timer overflows to milliseconds*/
 	#if F_CPU == 16000
-	x = ovrf * 16;
+		x = ovrf * 16;
 	#elif F_CPU < 150000 && F_CPU > 80000
-	x = ovrf * 2;
+		x = ovrf * 2;
   #elif F_CPU == 600000
-	x = ovrf / 2;
+		x = ovrf / 2;
 	#elif F_CPU == 1000000
-	x = ovrf / 4;
+		x = ovrf / 4;
 	#elif F_CPU == 1200000
-	x = ovrf / 5;
+		x = ovrf / 5;
 	#elif F_CPU == 4000000
-	x = ovrf / 16;
+		x = ovrf / 16;
 	#elif F_CPU == 4800000
-	x = ovrf / 19;
+		x = ovrf / 19;
 	#elif F_CPU == 8000000
-	x = ovrf / 31;
+		x = ovrf / 31;
 	#elif F_CPU == 9600000
-	x = ovrf / 37;
-    #elif F_CPU == 10000000
-	x = ovrf / 39;
+		x = ovrf / 37;
+  #elif F_CPU == 10000000
+		x = ovrf / 39;
 	#elif F_CPU == 12000000
-	x = ovrf / 47;
+		x = ovrf / 47;
 	#elif F_CPU == 16000000
-	x = ovrf / 63;
+		x = ovrf / 63;
 	#else
 		#warning This CPU frequency is not defined
 		return 0;
@@ -62,29 +62,29 @@ unsigned long micros()
 	unsigned long x;
 	asm("cli");
 	#if F_CPU == 16000
-	x = ovrf * 16000;
+		x = ovrf * 16000;
 	#elif F_CPU < 150000 && F_CPU > 80000
-	x = ovrf * 2000;
+		x = ovrf * 2000;
 	#elif F_CPU == 600000
-	x = ovrf * 427;
+		x = ovrf * 427;
 	#elif F_CPU == 1000000
-	x = ovrf * 256;
+		x = ovrf * 256;
 	#elif F_CPU == 1200000
-	x = ovrf * 213;
+		x = ovrf * 213;
 	#elif F_CPU == 4000000
-	x = ovrf * 64;
+		x = ovrf * 64;
 	#elif F_CPU == 4800000
-	x = ovrf * 53;
+		x = ovrf * 53;
 	#elif F_CPU == 8000000
-	x = ovrf * 32;
+		x = ovrf * 32;
 	#elif F_CPU == 9600000
-	x = ovrf * 27;
+		x = ovrf * 27;
 	#elif F_CPU == 10000000
-	x = ovrf * 26;
+		x = ovrf * 26;
 	#elif F_CPU == 12000000
-	x = ovrf * 21;
+		x = ovrf * 21;
 	#elif F_CPU == 16000000
-	x = ovrf * 16;
+		x = ovrf * 16;
 	#else 
 	#error 
 		#warning This CPU frequency is not defined (choose 128 kHz or more)
@@ -97,35 +97,36 @@ unsigned long micros()
 
 
 
-void delay(unsigned ms)
+void delay(uint16_t ms)
 {
-	while(ms--){
-		_delay_ms(1); //Using the libc routine over and over is non-optimal but it works and is close enough
-	}//Note, I may have to reimplement this because the avr-libc delay is too slow *todo*
+	// Using the libc routine over and over is non-optimal but it works
+	// This will probably be rewritten in the future
+	while(ms--)
+		_delay_ms(1); 
 }
 
 
 //For bigger delays. Based on code by "kosine" on the Arduino forum
-void uS_new(unsigned us)
+void uS_new(uint16_t us)
 {
-uint8_t us_loops;  // define the number of outer loops based on CPU speed (defined in boards.txt)
+	uint8_t us_loops;  // Define the number of outer loops based on CPU speed (defined in boards.txt)
   #if (F_CPU == 16000000L) 
-    us_loops=16;
+    us_loops = 16;
   #elif (F_CPU == 9600000L) || (F_CPU == 10000000)
     us=us + (us >> 3); // this should be *1.2 but *1.125 adjusts for overheads
-    us_loops=8;
+    us_loops = 8;
   #elif (F_CPU == 8000000L) 
-    us_loops=8;
+    us_loops = 8;
   #elif (F_CPU == 4800000L) 
     us = us + (us >> 3);
-    us_loops=4;
+    us_loops = 4;
   #elif (F_CPU == 4000000L)
-     us_loops=4;
+     us_loops = 4;
   #endif
 
   us = us >> 2;
-  uint8_t us_low = us & 255;
-  uint8_t us_high = us >> 8;
+  uint16_t us_low = us & 0xff;
+  uint16_t us_high = us >> 0x08;
     
   // loop is (4 clock cycles) + (4x us) + (4x us_loops)
   // each clock cycle is 62.5ns @ 16MHz
@@ -155,38 +156,60 @@ uint8_t us_loops;  // define the number of outer loops based on CPU speed (defin
 }
 
 
-void delayMicroseconds(int us)
+void delayMicroseconds(uint16_t us)
 {
-	if(us == 0){return;}
+	if(us == 0)
+		return;
+		
 	#if F_CPU == 16000000 || F_CPU == 12000000
-	if(us > 99){uS_new(us); return;}
-	us--;
-	us <<= 2;
-	//us -= 2; 
+		if(us > 99)
+		{
+			uS_new(us);
+			return;
+		}	
+		us--;
+		us <<= 2;
+		//us -= 2; 
+	
 	#elif F_CPU == 8000000 || F_CPU == 9600000 || F_CPU == 10000000
-	if(us > 199){uS_new(us); return;}
-	us-=3;
-	us <<= 1;
-	//us--; //underflow possible?
+		if(us > 199)
+		{
+			uS_new(us); 
+			return;
+		}
+		us -= 3;
+		us <<= 1;	
+		//us--; //underflow possible?
+	
 	#elif F_CPU == 4000000 || F_CPU == 4800000
-	if(us > 299){uS_new(us); return;}
-	us-=6;
-	//For 4MHz, 4 cycles take a uS. This is good for minimal overhead
+		if(us > 299)
+		{
+			uS_new(us); 
+			return;
+		}
+		us -= 6;
+		//For 4MHz, 4 cycles take a uS. This is good for minimal overhead
+	
 	#elif F_CPU == 1000000 || F_CPU == 1200000//For slow clocks, us delay is marginal.
-	us-=16;
-	us >>= 2; 
-	//us--; //Underflow?
+		us -= 16;
+		us >>= 2; 
+		//us--; //Underflow?
+	
 	#elif F_CPU == 600000
-	us-=32;
-	us >>= 3;
+		us -= 32;
+		us >>= 3;
+	
 	#elif F_CPU < 150000 && F_CPU > 80000
-	us-=125;
-	us >>= 5;
+		us -= 125;
+		us >>= 5;
+	
 	#else 
 		#warning Invalid F_CPU value (choose 128 kHz or more)
 		return;
 	#endif
-	if(us < 0){return;} //Ran out of time
+	if(us < 0)
+		return; //Ran out of time
+		
 	asm __volatile__("1: sbiw %0,1\n\t"
 			 "brne 1b" : "=w" (us) : "0" (us));
 }
@@ -200,20 +223,20 @@ void init(){
 		
 	#ifdef ENABLE_MILLIS	
 		TIMSK0 |= _BV(TOIE0);
-		TCNT0=0; 
+		TCNT0 = 0; 
 		sei();
 	#endif
 	
 	#ifdef SETUP_ADC
-		ADMUX=0;
+		ADMUX = 0;
 		#if F_CPU <= 200000
-		ADCSRA |= _BV(ADEN);
+			ADCSRA |= _BV(ADEN);
 		#elif F_CPU <= 1200000 && F_CPU > 200000
-		ADCSRA |= _BV(ADEN) | _BV(ADPS1);
+			ADCSRA |= _BV(ADEN) | _BV(ADPS1);
 		#elif F_CPU > 1200000 && F_CPU < 6400001
-		ADCSRA |= _BV(ADEN) | _BV(ADPS2);
+			ADCSRA |= _BV(ADEN) | _BV(ADPS2);
 		#else
-		ADCSRA |= _BV(ADEN) | _BV(ADPS1) | _BV(ADPS0) | _BV(ADPS2);
+			ADCSRA |= _BV(ADEN) | _BV(ADPS1) | _BV(ADPS0) | _BV(ADPS2);
 		#endif
 	#endif
 }

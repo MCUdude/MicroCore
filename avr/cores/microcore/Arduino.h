@@ -76,8 +76,8 @@ extern "C"{
   void analogWrite(uint8_t, uint8_t);
   unsigned long millis(void);
   unsigned long micros(void);
-  void delay(unsigned ms);
-  void delayMicroseconds(int us);
+  void delay(uint16_t ms);
+  void delayMicroseconds(uint16_t us);
   void shiftOut(uint8_t, uint8_t, uint8_t, uint8_t);
   uint8_t shiftIn(uint8_t, uint8_t, uint8_t);
   unsigned long pulseIn(unsigned char pin, unsigned char stat, unsigned long timeout);
