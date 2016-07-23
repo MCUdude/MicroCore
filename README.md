@@ -66,6 +66,8 @@ If you know what you're doing and got full control, you can disable the safemode
 
 
 ##Working Arduino functions
+
+####Arduino functions
 * [abs()](https://www.arduino.cc/en/Reference/Abs)
 * [analogRead()](https://www.arduino.cc/en/Reference/AnalogRead)
 * [analogWrite()](https://www.arduino.cc/en/Reference/AnalogWrite)
@@ -91,6 +93,11 @@ If you know what you're doing and got full control, you can disable the safemode
 * [shiftIn()](https://www.arduino.cc/en/Reference/ShiftIn)
 * [shiftOut()](https://www.arduino.cc/en/Reference/ShiftOut)
 * [sq()](https://www.arduino.cc/en/Reference/Sq)
+
+####avr-libc libraries
+* [Math library (math.h)](http://www.nongnu.org/avr-libc/user-manual/group__avr__math.html)
+* [String library (string.h)](http://www.nongnu.org/avr-libc/user-manual/group__avr__string.html)
+* [Standard library (stdlib.h)](http://www.nongnu.org/avr-libc/user-manual/group__avr__stdlib.html)
 
 
 ##How to install
