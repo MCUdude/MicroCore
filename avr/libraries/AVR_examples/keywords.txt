@@ -1,6 +1,12 @@
-# This file is a work in progress. The plan is to add (all/most) AVR specific words, so
-# they get highlighted in the Arduino IDE when used
-# More libraries will be added later
+#######################################
+## This file is created by MCUdude 
+## for use with MicroCore - an Arduino
+## core for the ATtiny13.
+## https://github.com/MCUdude/MicroCore
+##
+## This library will highlight all
+## ATtiny13 register and bit names.
+#######################################
 
 # FUNCTIONS are color coded with	KEYWORD2
 # MACROS WITH PARAMETERS are are color coded with	KEYWORD3	 	RESERVED_WORD

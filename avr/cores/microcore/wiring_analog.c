@@ -2,6 +2,11 @@
 An Arduino core designed for ATtiny13
 Based on the work done by "smeezekitty" 
 Modified and maintained by MCUdude
+https://github.com/MCUdude/MicroCore
+
+This file contains analog related
+functions such as analogRead(),
+analogWrite() and analogReference().
 */
 
 #include "wiring_private.h"

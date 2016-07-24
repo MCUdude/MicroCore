@@ -17,7 +17,9 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
   
   Modified by John "smeezekitty" for core13
+  
   Modified by MCUdude for the MicroCore
+  https://github.com/MCUdude/MicroCore
 */
 
 #ifndef Print_h

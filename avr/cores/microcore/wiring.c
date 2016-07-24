@@ -2,6 +2,13 @@
 An Arduino core designed for ATtiny13
 Based on the work done by "smeezekitty" 
 Modified and maintained by MCUdude
+https://github.com/MCUdude/MicroCore
+
+This file contains timing related
+functions such as millis(), micros(),
+delay() and delayMicroseconds(), but
+also the init() function that set up
+timers and analog related stuff.
 */
 
 #include "wiring_private.h"

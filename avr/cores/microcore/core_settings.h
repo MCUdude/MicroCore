@@ -1,6 +1,7 @@
 /*** MicroCore - core_settings.h ***
 Arduino core designed for ATtiny13
 File created and maintained by MCUdude
+https://github.com/MCUdude/MicroCore
 
 This file lets you turn on and off core functions.
 Since the ATtiny13 is really short on space, you

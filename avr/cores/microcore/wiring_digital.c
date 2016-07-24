@@ -2,6 +2,11 @@
 An Arduino core designed for ATtiny13
 Based on the work done by "smeezekitty" 
 Modified and maintained by MCUdude
+https://github.com/MCUdude/MicroCore
+
+This file contains digital related 
+functions such as pinMode(),
+digitalWrite() and digitalRead().
 */
 
 #include "wiring_private.h"

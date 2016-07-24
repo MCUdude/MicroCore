@@ -1,6 +1,13 @@
-
-# Arduino AVR Core and platform.
-# ------------------------------
+#########################################
+## This file is created by MCUdude 
+## for use with MicroCore - an Arduino
+## core for the ATtiny13.
+## https://github.com/MCUdude/MicroCore
+##
+## This is the file where all compilation,
+## uploading and fuse burning settings
+## are located.
+#########################################
 
 name=MicroCore
 version=1.0.0

@@ -18,7 +18,9 @@
  
  Modified 23 November 2006 by David A. Mellis
  Modified by John "smeezekitty" for core13
+ 
  Modified by MCUdude for MicroCore
+ https://github.com/MCUdude/MicroCore
  */
 
 #include <stdlib.h>
