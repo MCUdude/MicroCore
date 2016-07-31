@@ -1,9 +1,9 @@
 /********************************************************* 
  This sketch demonstrates the use of a watchdog timer.
  The watchdog timer causes a processor reset to occur if
- it is allowed to time out. When the sketch are running
+ it is allowed to time out. When the sketch is running
  inside the second while loop, the watch dog timer is
- consistently resat to prevent a timeout. When PB0 are 
+ consistently reset to prevent a timeout. When PB0 is 
  pulled high, it breaks put of the while loop and causes 
  the watch dog timer to reset the processor.
  ********************************************************/ 
@@ -17,40 +17,39 @@ uint16_t counter = 0;
 
 int main(void)
 {
-  DDRB |= 0x01; 		 // Set PB1 as output, ignore the rest
-  //DDRB |= _BV(PB1);	 // Alternative method
-  //DDRB |= (1 << PB1); // Alternative method
+  DDRB |= 0x04; 		 // Set PB2 as output, ignore the rest
+  //DDRB |= _BV(PB2);	 // Alternative method
+  //DDRB |= (1 << PB2); // Alternative method
 
-  DDRB &= ~0x10; 		 // Set PB4 as input, ignore the rest
-  //DDRB &= _BV(PB4);	 // Alternative method
-  //DDRB &= ~(1 << PB4);// Alternative method
+  DDRB &= ~0x01; 		 // Set PB0 as input, ignore the rest
+  //DDRB &= _BV(PB0);	 // Alternative method
+  //DDRB &= ~(1 << PB0);// Alternative method
   
-  PORTB |= 0x10; // Enable pullup on PB4
+  PORTB |= 0x01; // Enable pullup on PB0
 
   
-  while((PINB & _BV(PB4)) == 1) // Wait for PB4 to be pulled down
+  while((PINB & _BV(PB0)) == 1) // Wait for PB0 to be pulled down
   {
-    PORTB ^= 0x01; //Toggle PB1 while waiting
+    PORTB ^= 0x04; //Toggle PB1 while waiting
     _delay_ms(100);
   }
 
 
   wdt_enable(WDTO_1S); // Enable WDT with 1 second timeout
 
-  while((PINB & _BV(PB4)) == 0) // Wait for PB4 to be pulled high
+  while((PINB & _BV(PB0)) == 0) // Wait for PB0 to be pulled high
   {
-    wdt_reset(); // Reset WDT while PB4 are pulled low
+    wdt_reset(); // Reset WDT while PB0 are pulled low
     
     counter++;
 
     if(counter >= 50000)
     {
-      PORTB ^= 0x01; // Toggle PB1 every 50000th time
+      PORTB ^= 0x04; // Toggle PB1 every 50000th time
       counter = 0;
     }
   }
 
-  
   while(1); // The watchdog will reset the microcontroller after 1 second
 }
 
