@@ -1,5 +1,5 @@
 /************************************************************* 
- This sketch makes the pin PB1 (digital pin 1) toggle every
+ This sketch makes the pin PB2 (digital pin 2) toggle every
  second (internal oscillator running at 9.6 MHz). It uses Timer0
  or Timer0B, and divide the clock frequncy by 1024.
  The divided frequencys period is multiplied with the
@@ -17,17 +17,16 @@
 
 #include <avr/io.h>
 
-unsigned int timeCount;
-
+uint16_t timeCount = 0;
 
 int main (void)
 {
-  DDRB |= 0x01; //Set PB1 as output, ignore the rest
+  DDRB |= 0x04; //Set PB2 as output, ignore the rest
 
   TCCR0B = 0x05; // clock frequency / 1024 
   OCR0B = 0x00;  // Output compare
   TCNT0 = 0; // Set counter 0 to zero
-	TIMSK0 = 0x01; // Enable overflow interrupt
+  TIMSK0 = 0x01; // Enable overflow interrupt
   
   sei(); //Enable global interrupts
   
@@ -35,13 +34,12 @@ int main (void)
 }
 
 
-
 ISR(TIM0_OVF_vect) //Timer 0 overflow vector - this run every time timer0 overflows
 {
   timeCount++;
-  if(timeCount == 37) //Timer overflown for the 61th time
+  if(timeCount == 37) //Timer overflown for the 37th time
   {
-    PORTB ^= 0x01; //toggle PB5
+    PORTB ^= 0x04; //toggle PB2
     timeCount = 0;
   }
 }
