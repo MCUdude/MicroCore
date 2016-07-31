@@ -1,6 +1,6 @@
 /***************************************************
  Simple AVR sketch to blink an LED (or similar)
- connected to PB1 (Arduino pin D1)
+ connected to PB2 (Arduino pin D2)
  Note that the compiled sketch is significally
  smaller that the original Arduino blink sketch.
  A detailed explaination about debugging, port and
@@ -20,9 +20,9 @@ int main(void)
    A few different ways to set a pin as output and 
    ignore the rest of the pins. Pick your favorite!
   *************************************************/
-  DDRB |= 0x01; 		// XXXXXXXX | 00000010 = XXXXXX1X
-  //DDRB |= _BV(PB1);	 // Set PB1 as output, ignore the rest
-  //DDRB |= (1 << PB1); // Shift the number '1' left 'PB1' times (PB1 = 2)
+  DDRB |= 0x04; 		// XXXXXXXX | 00000100 = XXXXX1XX
+  //DDRB |= _BV(PB2);	 // Set PB1 as output, ignore the rest
+  //DDRB |= (1 << PB2); // Shift the number '1' left 'PB1' times (PB1 = 2)
 
 
 
@@ -30,9 +30,9 @@ int main(void)
    A few different ways to set a pin as input and 
    ignore the rest of the pins.
   *************************************************/
-  //DDRB &= ~0x01; //00000010 -> 11111101 & XXXXXXXX = XXXXXX0X
-  //DDRB &= ~_BV(PB1); 
-  //DDRB &= ~(1 << PB1);
+  //DDRB &= ~0x04; //00000100 -> 11111011 & XXXXXXXX = XXXXX0XX
+  //DDRB &= ~_BV(PB2); 
+  //DDRB &= ~(1 << PB2);
     
   
   // Infinite loop
@@ -42,10 +42,10 @@ int main(void)
      A few different ways to set a pin high and 
      ignore the rest of the pins. 
     ************************************************/
-    PORTB |= 0x01;  // XXXXXXXX | 00000010 = XXXXXX1X
-    //PORTB |= _BV(PB1);
-    //PORTB |= (1 << PB1);
-	  //SetPinHigh(&PORTB, 1); 
+    PORTB |= 0x04;  // XXXXXXXX | 00000100 = XXXXX1XX
+    //PORTB |= _BV(PB2);
+    //PORTB |= (1 << PB2);
+		//SetPinHigh(&PORTB, 2); 
     _delay_ms(1000);
     
     
@@ -53,10 +53,10 @@ int main(void)
      A few different ways to set a pin low and 
      ignore the rest of the pins.
     ************************************************/
-    PORTB &= ~0x01;  // 00000010 -> 11111101 & XXXXXXXX = XXXXXX0X
-    //PORTB &= ~_BV(PB1);
-    //PORTB &= ~(1 << PB1);
-    //SetPinLow(&PORTB, 1);
+    PORTB &= ~0x04;  // 00000100 -> 11111001 & XXXXXXXX = XXXXX0XX
+    //PORTB &= ~_BV(PB2);
+    //PORTB &= ~(1 << PB2);
+    //SetPinLow(&PORTB, 2);
     _delay_ms(1000);
   }
     
@@ -64,13 +64,13 @@ int main(void)
 }
 
 
-// Method to set a pin HIGH
+// Function to set a pin HIGH
 void SetPinHigh(volatile byte *port, byte pin)
 {
   *port |= (1 << pin); // The number '1' are shifted left 'pin' times
 }
 
-// Method to set pin LOW
+// Function to set pin LOW
 void SetPinLow(volatile byte *port, byte pin)
 {
   *port &= ~(1 << pin); // The number '1' are shifted left 'pin' times
