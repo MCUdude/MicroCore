@@ -4,29 +4,30 @@
  or Timer0B, and divide the clock frequncy by 1024.
  The divided frequencys period is multiplied with the
  number og counts Timer0/Timer0B can take before it overflows.
- The number is then multiplied by 61, and gives approximately
+ The number is then multiplied by 37, and gives approximately
  1 second.  
 
  9.6MHz / 1024 = 9370 Hz        We divide the 9.6 MHz clock by 1024
  1/9370 = 0.0001067s            Period time
  256 * 0.0001067 = 0.027315    
  0.027315 * 37 = 1.01065 ≈ 1s   
- X = 1.01065 / 0.027315 where X is approximately 61
+ X = 1.01065 / 0.027315 where X is approximately 37
 **************************************************************/ 
 
 
 #include <avr/io.h>
 
-uint16_t timeCount = 0;
+// Variable to store the time count (uint8_t = byte)
+uint8_t timeCount = 0;
 
 int main (void)
 {
-  DDRB |= 0x04; //Set PB2 as output, ignore the rest
+  DDRB |= _BV(PB2); //Set PB2 as output, ignore the rest
 
-  TCCR0B = 0x05; // clock frequency / 1024 
+  TCCR0B = _BV(CS02) | _BV(CS00); // clock frequency / 1024 
   OCR0B = 0x00;  // Output compare
   TCNT0 = 0; // Set counter 0 to zero
-  TIMSK0 = 0x01; // Enable overflow interrupt
+  TIMSK0 = _BV(TOIE0); // Enable overflow interrupt
   
   sei(); //Enable global interrupts
   
@@ -39,7 +40,7 @@ ISR(TIM0_OVF_vect) //Timer 0 overflow vector - this run every time timer0 overfl
   timeCount++;
   if(timeCount == 37) //Timer overflown for the 37th time
   {
-    PORTB ^= 0x04; //toggle PB2
+    PORTB ^= _BV(PB2); //toggle PB2
     timeCount = 0;
   }
 }

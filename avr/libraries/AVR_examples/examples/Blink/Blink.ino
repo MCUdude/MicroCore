@@ -64,14 +64,26 @@ int main(void)
 }
 
 
+
+/************************************************ 
+  Here are two custom functions to set a pin 
+  high or low. The "port pointer" is well
+  explained in the video linked in the header,
+  and the pointer is basically there to make sure
+  it's the actual port and not it's value you're
+  passing to the function.
+*************************************************/
+
 // Function to set a pin HIGH
 void SetPinHigh(volatile byte *port, byte pin)
 {
   *port |= (1 << pin); // The number '1' are shifted left 'pin' times
+  //*port |= _BV(pin); // Alternative method
 }
 
 // Function to set pin LOW
 void SetPinLow(volatile byte *port, byte pin)
 {
   *port &= ~(1 << pin); // The number '1' are shifted left 'pin' times
+  //*port &= ~_BV(pin); // Alternative method
 }

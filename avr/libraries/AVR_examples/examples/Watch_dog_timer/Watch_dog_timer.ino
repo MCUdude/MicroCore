@@ -12,25 +12,26 @@
 #include <util/delay.h>
 #include <avr/wdt.h>
 
-
+// Variable to store the counted value (uint16_t = unsigned int)
 uint16_t counter = 0;
 
 int main(void)
 {
-  DDRB |= 0x04; 		 // Set PB2 as output, ignore the rest
-  //DDRB |= _BV(PB2);	 // Alternative method
+ 
+  DDRB |= _BV(PB2);	 		// Set PB2 as output, ignore the rest
+  //DDRB |= 0x04; 		  // Alternative method
   //DDRB |= (1 << PB2); // Alternative method
 
-  DDRB &= ~0x01; 		 // Set PB0 as input, ignore the rest
-  //DDRB &= _BV(PB0);	 // Alternative method
+	DDRB &= _BV(PB0);	    // Set PB0 as input, ignore the rest
+  //DDRB &= ~0x01; 		  // Alternative method
   //DDRB &= ~(1 << PB0);// Alternative method
   
-  PORTB |= 0x01; // Enable pullup on PB0
+  PORTB |= _BV(PB0);    // Enable pullup on PB0
 
   
   while((PINB & _BV(PB0)) == 1) // Wait for PB0 to be pulled down
   {
-    PORTB ^= 0x04; //Toggle PB1 while waiting
+    PORTB ^= _BV(PB2); //Toggle PB2 while waiting
     _delay_ms(100);
   }
 
@@ -45,7 +46,7 @@ int main(void)
 
     if(counter >= 50000)
     {
-      PORTB ^= 0x04; // Toggle PB1 every 50000th time
+      PORTB ^= _BV(PB2); // Toggle PB2 every 50000th time
       counter = 0;
     }
   }
