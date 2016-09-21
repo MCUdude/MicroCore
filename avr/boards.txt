@@ -8,6 +8,7 @@
 ## and compiler flags are located.
 #######################################
 
+menu.BOD=B.O.D
 menu.flag=GCC Flags
 menu.clock=Clock
 
@@ -30,47 +31,78 @@ attiny13.build.mcu=attiny13
 #### Clock speeds ####
 ######################
 
-### 9.6 MHz
-attiny13.menu.clock.t13_9M6=9.6 MHz (BOD disabled)
+### 9.6 MHz internal osc.
+attiny13.menu.clock.t13_9M6=9.6 MHz internal osc.
 attiny13.menu.clock.t13_9M6.bootloader.low_fuses=0x3A
-attiny13.menu.clock.t13_9M6.bootloader.high_fuses=0xFF
 attiny13.menu.clock.t13_9M6.upload.speed=57600L
 attiny13.menu.clock.t13_9M6.build.f_cpu=9600000L
 
-### 9.6 MHz - 2.7V
-attiny13.menu.clock.t13_9M6_bod=9.6 MHz (BOD - 2.7V)
-attiny13.menu.clock.t13_9M6_bod.bootloader.low_fuses=0x3A
-attiny13.menu.clock.t13_9M6_bod.bootloader.high_fuses=0xFB
-attiny13.menu.clock.t13_9M6_bod.upload.speed=57600L
-attiny13.menu.clock.t13_9M6_bod.build.f_cpu=9600000L
-
-### 4.8 MHz - 2.7V
-attiny13.menu.clock.t13_4M8_bod=4.8 MHz (BOD - 2.7V)
+### 4.8 MHz internal osc.
+attiny13.menu.clock.t13_4M8_bod=4.8 MHz internal osc.
 attiny13.menu.clock.t13_4M8_bod.bootloader.low_fuses=0x39
-attiny13.menu.clock.t13_4M8_bod.bootloader.high_fuses=0xFB
 attiny13.menu.clock.t13_4M8_bod.upload.speed=57600L
 attiny13.menu.clock.t13_4M8_bod.build.f_cpu=4800000L
 
-### 1.2 MHz
-attiny13.menu.clock.t13_1M2=1.2 MHz (BOD - 2.7V)
+### 1.2 MHz internal osc.
+attiny13.menu.clock.t13_1M2=1.2 MHz internal osc.
 attiny13.menu.clock.t13_1M2.bootloader.low_fuses=0x2A
-attiny13.menu.clock.t13_1M2.bootloader.high_fuses=0xFB
 attiny13.menu.clock.t13_1M2.upload.speed=9600L
 attiny13.menu.clock.t13_1M2.build.f_cpu=1200000L
 
-### 600 kHz
-attiny13.menu.clock.t13_0M6=600 kHz (BOD disabled)
-attiny13.menu.clock.t13_0M6.bootloader.low_fuses=0x29
-attiny13.menu.clock.t13_0M6.bootloader.high_fuses=0xFF
-attiny13.menu.clock.t13_0M6.upload.speed=9600L
-attiny13.menu.clock.t13_0M6.build.f_cpu=600000L
+### 600 kHz internal osc.
+attiny13.menu.clock.t13_600k=600 kHz internal osc.
+attiny13.menu.clock.t13_600k.bootloader.low_fuses=0x29
+attiny13.menu.clock.t13_600k.upload.speed=9600L
+attiny13.menu.clock.t13_600k.build.f_cpu=600000L
 
-### 128 kHz
-attiny13.menu.clock.t13_128k=128 KHz (BOD disabled)
+### 128 kHz internal osc.
+attiny13.menu.clock.t13_128k=128 KHz internal osc.
 attiny13.menu.clock.t13_128k.bootloader.low_fuses=0x3B
-attiny13.menu.clock.t13_128k.bootloader.high_fuses=0xFF
 attiny13.menu.clock.t13_128k.upload.speed=250
 attiny13.menu.clock.t13_128k.build.f_cpu=128000L
+
+### 20 MHz external clock
+attiny13.menu.clock.t13_20M=20 MHz external clock
+attiny13.menu.clock.t13_20M.bootloader.low_fuses=0x38
+attiny13.menu.clock.t13_20M.upload.speed=57600L
+attiny13.menu.clock.t13_20M.build.f_cpu=20000000L
+
+### 16 MHz external clock
+attiny13.menu.clock.t13_16M=16 MHz external clock
+attiny13.menu.clock.t13_16M.bootloader.low_fuses=0x38
+attiny13.menu.clock.t13_16M.upload.speed=57600L
+attiny13.menu.clock.t13_16M.build.f_cpu=16000000L
+
+### 12 MHz external clock
+attiny13.menu.clock.t13_12M=12 MHz external clock
+attiny13.menu.clock.t13_12M.bootloader.low_fuses=0x38
+attiny13.menu.clock.t13_12M.upload.speed=57600L
+attiny13.menu.clock.t13_12M.build.f_cpu=12000000L
+
+### 8 MHz external clock
+attiny13.menu.clock.t13_8M=8 MHz external clock
+attiny13.menu.clock.t13_8M.bootloader.low_fuses=0x38
+attiny13.menu.clock.t13_8M.upload.speed=57600L
+attiny13.menu.clock.t13_8M.build.f_cpu=8000000L
+
+### 1 MHz external clock
+attiny13.menu.clock.t13_1M=1 MHz external clock
+attiny13.menu.clock.t13_1M.bootloader.low_fuses=0x38
+attiny13.menu.clock.t13_1M.upload.speed=9600L
+attiny13.menu.clock.t13_1M.build.f_cpu=1000000L
+
+
+############################
+#### Brownout detection ####
+############################
+attiny13.menu.BOD.2v7=2.7v
+attiny13.menu.BOD.2v7.bootloader.high_fuses=0xfb
+attiny13.menu.BOD.4v3=4.3v
+attiny13.menu.BOD.4v3.bootloader.high_fuses=0xf9
+attiny13.menu.BOD.1v8=1.8v
+attiny13.menu.BOD.1v8.bootloader.high_fuses=0xfd
+attiny13.menu.BOD.disabled=Disabled
+attiny13.menu.BOD.disabled.bootloader.high_fuses=0xff
 
 
 ########################
