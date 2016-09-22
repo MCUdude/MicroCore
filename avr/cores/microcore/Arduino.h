@@ -16,6 +16,7 @@ https://github.com/MCUdude/MicroCore
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
+#include <avr/wdt.h>
 #include "WString.h"
 
 
@@ -34,7 +35,7 @@ extern "C"{
   #define DEG_TO_RAD 0.0174533
   #define RAD_TO_DEG 57.2958
   #define SERIAL 0
-  #define DISPLAY 1 //WTF are these?
+  #define DISPLAY 1 
   #define LSBFIRST 0
   #define MSBFIRST 1
   #define CHANGE 1

@@ -5,12 +5,11 @@ Modified and maintained by MCUdude
 https://github.com/MCUdude/MicroCore
 
 This file contains analog related
-functions such as analogRead(),
-analogWrite() and analogReference().
+functions such as analogRead()
+and analogReference().
 */
 
 #include "wiring_private.h"
-//#include "pins_arduino.h"
 
 
 void analogReference(uint8_t mode)
@@ -34,25 +33,4 @@ int analogRead(uint8_t pin)
 }
 
 
-void analogWrite(uint8_t pin, uint8_t val)
-{
-	DDRB |= _BV(pin & 0x02); // Set the correct pin as output
-	if(val == 0) // Handle off condition
-		digitalWrite(pin, LOW);
-	else if(val == 255) //Handle On condition
-		digitalWrite(pin, HIGH);
-	else // Otherwise setup the appropriate timer compare 
-	{ 
-		if(pin == 1)
-		{
-			TCCR0A |= _BV(COM0B1);
-			OCR0B = val;
-		}
-		if(pin == 0)
-		{
-			TCCR0A |= _BV(COM0A1);
-			OCR0A = val;
-		}
-	}
-}
 		

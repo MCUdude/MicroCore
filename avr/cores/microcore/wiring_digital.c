@@ -18,18 +18,19 @@ void pinMode(uint8_t pin, uint8_t mode)
 		if(pin > 5)
 			return;
 	#endif
-	if(!mode) // Pin as input
-		DDRB &= ~_BV(pin);
-	else // Pin as output
-    DDRB |= _BV(pin);
+	
+	if(mode) // Pin as output
+		DDRB |= _BV(pin);
+	else     // Pin as input
+    DDRB &= ~_BV(pin);
 }
 
 
-void turnOffPWM(uint8_t timer)
+void turnOffPWM(uint8_t pin)
 {
-	if(timer == 0)
+	if(pin == 0)
 		TCCR0A &= ~_BV(COM0A1);
-	if(timer == 1)
+	if(pin == 1)
 		TCCR0A &= ~_BV(COM0B1);
 }
 
@@ -40,12 +41,13 @@ void digitalWrite(uint8_t pin, uint8_t val)
 		if(pin > 5)
 			return;
 		if(pin < 2)
-			turnOffPWM(pin); //If its a PWM pin, make sure the PWM is off
-	#endif		
-	if(!val)
-		PORTB &= ~_BV(pin);
+			turnOffPWM(pin); //If it's a PWM pin, make sure the PWM is off
+	#endif	
+		
+	if(val)
+		PORTB |= _BV(pin);  // Set pin high
 	else
-		PORTB |= _BV(pin);
+		PORTB &= ~_BV(pin); // Set pin low
 }
 
 
@@ -55,7 +57,8 @@ uint8_t digitalRead(uint8_t pin)
 		if(pin > 5)
 			return 0;
 		if(pin < 2)
-			turnOffPWM(pin); //If its PWM pin, makes sure the PWM is off
-	#endif		
+			turnOffPWM(pin); // If it's PWM pin, makes sure the PWM is off
+	#endif
+	
 	return !!(PINB & _BV(pin));
 }
