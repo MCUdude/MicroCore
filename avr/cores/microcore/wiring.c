@@ -14,100 +14,88 @@ timers and analog related stuff.
 #include "wiring_private.h"
 #include <avr/interrupt.h>
 #include <util/delay.h>
+#include <avr/wdt.h>
 #include "core_settings.h"
 
-
+/***** MILLIS() *****/
+// The millis counter is based on the watchdog timer, and takes very little processing time and power.
+// If 16 ms accuracy is enough, I strongly recommend you to use millis() instead of micros().
 #ifdef ENABLE_MILLIS
-volatile unsigned long ovrf=0;
+volatile unsigned long wdt_interrupt_counter = 0;
 
-ISR(TIM0_OVF_vect)
+// This ISR will execute every 16 ms, and increase 
+ISR(WDT_vect)
 {
-	ovrf++; //Increment counter every 256 clock cycles
+	wdt_interrupt_counter++;
 }
 
-
+// Since the WDT counter counts every 16th ms, we'll need to
+// multiply by 16 to get the correct millis value.
+// The WDT uses it's own clock, so this function is valid
+// for all F_CPUs.
 unsigned long millis()
-{
-	unsigned long x;
-	asm("cli"); 
-	/*Scale number of timer overflows to milliseconds*/
-	#if F_CPU == 16000
-		x = ovrf * 16;
-	#elif F_CPU < 150000 && F_CPU > 80000
-		x = ovrf * 2;
-  #elif F_CPU == 600000
-		x = ovrf / 2;
-	#elif F_CPU == 1000000
-		x = ovrf / 4;
-	#elif F_CPU == 1200000
-		x = ovrf / 5;
-	#elif F_CPU == 4000000
-		x = ovrf / 16;
-	#elif F_CPU == 4800000
-		x = ovrf / 19;
-	#elif F_CPU == 8000000
-		x = ovrf / 31;
-	#elif F_CPU == 9600000
-		x = ovrf / 37;
-  #elif F_CPU == 10000000
-		x = ovrf / 39;
-	#elif F_CPU == 12000000
-		x = ovrf / 47;
-	#elif F_CPU == 16000000
-		x = ovrf / 63;
-	#else
-		#warning This CPU frequency is not defined
-		return 0;
-	#endif
-	asm("sei");
-	return x;
-}
-
-/*The following improved micros() code was contributed by a sourceforge user "BBC25185" Thanks!*/
-unsigned long micros()
-{
-	unsigned long x;
-	asm("cli");
-	#if F_CPU == 16000
-		x = ovrf * 16000;
-	#elif F_CPU < 150000 && F_CPU > 80000
-		x = ovrf * 2000;
-	#elif F_CPU == 600000
-		x = ovrf * 427;
-	#elif F_CPU == 1000000
-		x = ovrf * 256;
-	#elif F_CPU == 1200000
-		x = ovrf * 213;
-	#elif F_CPU == 4000000
-		x = ovrf * 64;
-	#elif F_CPU == 4800000
-		x = ovrf * 53;
-	#elif F_CPU == 8000000
-		x = ovrf * 32;
-	#elif F_CPU == 9600000
-		x = ovrf * 27;
-	#elif F_CPU == 10000000
-		x = ovrf * 26;
-	#elif F_CPU == 12000000
-		x = ovrf * 21;
-	#elif F_CPU == 16000000
-		x = ovrf * 16;
-	#else 
-	#error 
-		#warning This CPU frequency is not defined (choose 128 kHz or more)
-		return 0;
-	#endif
-	asm("sei");
-	return x; 
+{	
+	return wdt_interrupt_counter * 16;
 }
 #endif // ENABLE_MILLIS
 
 
+/***** MICROS() *****/
+// To achieve accurate micros() readings, we'll have to enable the overflow interrupt
+// vector on timer 0. This means there will be an interrupt every 256 clock cycle.
+// Interrupts as rapidly as this tends to affect the overall time keeping.
+// E.g if micros() is enabled, the delay(1) function will actually last 1.3 ms instead.
+#ifdef ENABLE_MICROS
+volatile unsigned long timer0_overflow = 0;
+
+// This will cause an interrupt every 256 clock cycle
+ISR(TIM0_OVF_vect)
+{
+	timer0_overflow++; // Increment counter by one
+}
+
+unsigned long micros()
+{
+	unsigned long x;
+	cli();
+	#if F_CPU == 16000
+		x = timer0_overflow * 16000;
+	#elif F_CPU < 150000 && F_CPU > 80000
+		x = timer0_overflow * 2000;
+	#elif F_CPU == 600000
+		x = timer0_overflow * 427;
+	#elif F_CPU == 1000000
+		x = timer0_overflow * 256;
+	#elif F_CPU == 1200000
+		x = timer0_overflow * 213;
+	#elif F_CPU == 4000000
+		x = timer0_overflow * 64;
+	#elif F_CPU == 4800000
+		x = timer0_overflow * 53;
+	#elif F_CPU == 8000000
+		x = timer0_overflow * 32;
+	#elif F_CPU == 9600000
+		x = timer0_overflow * 27;
+	#elif F_CPU == 10000000
+		x = timer0_overflow * 26;
+	#elif F_CPU == 12000000
+		x = timer0_overflow * 21;
+	#elif F_CPU == 16000000
+		x = timer0_overflow * 16;
+	#else 
+	#error 
+		#warning This CPU frequency is not defined (choose 128 kHz or more)
+		sei();
+		return 0;
+	#endif
+	sei();
+	return x;
+}
+#endif // ENABLE_MICROS
+
 
 void delay(uint16_t ms)
 {
-	// Using the libc routine over and over is non-optimal but it works
-	// This will probably be rewritten in the future
 	while(ms--)
 		_delay_ms(1); 
 }
@@ -120,12 +108,12 @@ void uS_new(uint16_t us)
   #if (F_CPU == 16000000L) 
     us_loops = 16;
   #elif (F_CPU == 9600000L) || (F_CPU == 10000000)
-    us=us + (us >> 3); // this should be *1.2 but *1.125 adjusts for overheads
+    us += (us >> 3); // this should be *1.2 but *1.125 adjusts for overheads
     us_loops = 8;
   #elif (F_CPU == 8000000L) 
     us_loops = 8;
   #elif (F_CPU == 4800000L) 
-    us = us + (us >> 3);
+    us += (us >> 3);
     us_loops = 4;
   #elif (F_CPU == 4000000L)
      us_loops = 4;
@@ -195,7 +183,7 @@ void delayMicroseconds(uint16_t us)
 			return;
 		}
 		us -= 6;
-		//For 4MHz, 4 cycles take a uS. This is good for minimal overhead
+		// For 4MHz, 4 cycles take a uS. This is good for minimal overhead
 	
 	#elif F_CPU == 1000000 || F_CPU == 1200000//For slow clocks, us delay is marginal.
 		us -= 16;
@@ -214,36 +202,86 @@ void delayMicroseconds(uint16_t us)
 		#warning Invalid F_CPU value (choose 128 kHz or more)
 		return;
 	#endif
-	if(us < 0)
-		return; //Ran out of time
 		
 	asm __volatile__("1: sbiw %0,1\n\t"
 			 "brne 1b" : "=w" (us) : "0" (us));
 }
 
 
-void init(){
-	#ifdef SETUP_PWM
-		TCCR0B |= _BV(CS00);
-		TCCR0A |= _BV(WGM00)|_BV(WGM01);
+// This init() function will be executed before the setup() function does
+// Edit the core_settings.h file to choose what's going to be initialized 
+// and what's not.
+void init()
+{
+	#ifdef SETUP_PWM	
+		// Set Timer0 prescaler
+		#if defined(PRESCALER_NONE)				// PWM frequency = (F_CPU/256) / 1
+			TCCR0B |= _BV(CS00);
+		#elif  defined(PRESCALER_8)				// PWM frequency = (F_CPU/256) / 8
+			TCCR0B |= _BV(CS01);
+		#elif  defined(PRESCALER_64)			// PWM frequency = (F_CPU/256) / 64
+			TCCR0B |= _BV(CS00) | _BV(CS01);
+		#elif  defined(PRESCALER_256)			// PWM frequency = (F_CPU/256) / 256
+			TCCR0B |= _BV(CS02);
+		#elif  defined(PRESCALER_1024)		// PWM frequency = (F_CPU/256) / 1024
+			TCCR0B |= _BV(CS00) | _BV(CS02);
+		#endif
+		
+		// Set waveform generation mode
+		#if defined(PWM_FAST)
+			TCCR0A |= _BV(WGM00) | _BV(WGM01);
+		#elif defined(PWM_NORMAL)
+			TCCR0A &= ~_BV(WGM00) | ~_BV(WGM01);
+		#elif defined(PWM_PHASE_CORRECT)
+			TCCR0A |= _BV(WGM00);
+		#elif defined(PWM_CTC)
+			TCCR0A |= _BV(WGM01);
+		#endif	
 	#endif	
 		
-	#ifdef ENABLE_MILLIS	
+	#ifdef ENABLE_MILLIS
+		// Disable global interrupts			
+		cli();
+		// Reset watchdog
+		wdt_reset();
+		// Set up WDT interrupt with 16 ms prescaler
+		WDTCR = _BV(WDTIE);
+		// Enable global interrupts
+		sei();
+	#endif
+	
+	// WARNING! Enabling micros() will affect timing functions heavily!
+	#ifdef ENABLE_MICROS
+		// Enable overflow interrupt on Timer0
 		TIMSK0 |= _BV(TOIE0);
+		// Set timer0 couter to zero
 		TCNT0 = 0; 
+		// Turn on global interrupts
 		sei();
 	#endif
 	
 	#ifdef SETUP_ADC
 		ADMUX = 0;
-		#if F_CPU <= 200000
+		
+		// Less or equal to 200 kHz
+		#if F_CPU <= 200000 
+			// Enable the ADC, keep the prescaler of 2 --> F_CPU / 2
 			ADCSRA |= _BV(ADEN);
-		#elif F_CPU <= 1200000 && F_CPU > 200000
+			
+		// Between 200 kHz and 1.2 MHz	
+		#elif F_CPU <= 1200000 
+			// Enable the ADC, set the prescaler to 4 --> F_CPU / 4
 			ADCSRA |= _BV(ADEN) | _BV(ADPS1);
-		#elif F_CPU > 1200000 && F_CPU < 6400001
+			
+		// Between 1.2 MHz and 6.4 MHz
+		#elif F_CPU <= 6400000
+			// Enable the ADC, set the prescaler to 16 --> F_CPU / 16
 			ADCSRA |= _BV(ADEN) | _BV(ADPS2);
+		
+		// More than 6.4 MHz	
 		#else
-			ADCSRA |= _BV(ADEN) | _BV(ADPS1) | _BV(ADPS0) | _BV(ADPS2);
+			// Enable the ADC, set the prescaler to 128 --> F_CPU / 128
+			ADCSRA |= _BV(ADEN) | _BV(ADPS2) | _BV(ADPS1) | _BV(ADPS0);
 		#endif
 	#endif
 }
