@@ -76,24 +76,23 @@ Make sure you connect an ISP programmer, and select the correct one in the "Prog
 
 
 ##Core settings
-To make sure you're able to fit your whole project into this tiny microcontroller and still be able to use Arduino functions, I've added some <b>core settings</b>. By modifying the [`core_settings.h`](https://github.com/MCUdude/MicroCore/blob/master/avr/cores/microcore/core_settings.h) file you can enable or disable core functions you need or don't need. For instance, you're able to save about 100 bytes of flash if you're willing to disable the millis()/micros() functions. 
-
+To make sure you're able to fit your whole project into this tiny microcontroller and still be able to use Arduino functions, I've added some <b>core settings</b>. By modifying the [`core_settings.h`](https://github.com/MCUdude/MicroCore/blob/master/avr/cores/microcore/core_settings.h) file you can enable or disable core functions you need or don't need. 
+For instance, you're able to save about 100 bytes of flash if you're willing to disable the millis() function. 
 If you know what you're doing and got full control, you can disable the safemode. For instance the safemode makes sure that PWM gets turned off is a pin drives high or low, or digital pins doesn't exeed the number 5 (6 digital pins in total). By disabling the safemode you'll gain some speed and flash space.
 
 
 ##How to install
 #### Boards Manager Installation
-A boards manager URL will be added later
-~~This installation method requires Arduino IDE version 1.6.4 or greater.~~
-* ~~Open the Arduino IDE.~~
-* ~~Open the **File > Preferences** menu item.~~
-* ~~Enter the following URL in **Additional Boards Manager URLs**: `https://mcudude.github.io/MicroCore/package_MCUdude_MicroCore_index.json`~~
-* ~~Open the **Tools > Board > Boards Manager...** menu item.~~
-* ~~Wait for the platform indexes to finish downloading.~~
-* ~~Scroll down until you see the **MiniCore** entry and click on it.~~
-  * ~~**Note**: If you are using Arduino IDE 1.6.6 then you may need to close **Boards Manager** and then reopen it before the **MiniCore** entry will appear.~~
-* ~~Click **Install**.~~
-* ~~After installation is complete close the **Boards Manager** window.~~
+This installation method requires Arduino IDE version 1.6.4 or greater.
+* Open the Arduino IDE.
+* Open the **File > Preferences** menu item.
+* Enter the following URL in **Additional Boards Manager URLs**: `https://mcudude.github.io/MicroCore/package_MCUdude_MicroCore_index.json`
+* Open the **Tools > Board > Boards Manager...** menu item.
+* Wait for the platform indexes to finish downloading.
+* Scroll down until you see the **MiniCore** entry and click on it.
+  * **Note**: If you are using Arduino IDE 1.6.6 then you may need to close **Boards Manager** and then reopen it before the **MiniCore** entry will appear.
+* Click **Install**.
+* After installation is complete close the **Boards Manager** window.
 
 
 #### Manual Installation
@@ -143,8 +142,8 @@ This diagram shows the pinout and the pheripherals of the ATtiny13. The Arduino 
 * [max()](https://www.arduino.cc/en/Reference/Max)
 * [map()](https://www.arduino.cc/en/Reference/Map)
 * [min()](https://www.arduino.cc/en/Reference/Min)
-* [micros()](https://www.arduino.cc/en/Reference/Micros)
-* [millis()](https://www.arduino.cc/en/Reference/Millis)
+* [micros()](https://www.arduino.cc/en/Reference/Micros) [Must be manually enabled in the core settings](https://github.com/MCUdude/MicroCore/blob/master/avr/cores/microcore/core_settings.h)
+* [millis()](https://www.arduino.cc/en/Reference/Millis) Watchdog timer based. Will increase with steps of 16
 * [pinMode()](https://www.arduino.cc/en/Reference/PinMode)
 * [pulseIn()](https://www.arduino.cc/en/Reference/PulseIn)
 * [radians()](https://github.com/MCUdude/MicroCore/blob/master/avr/cores/microcore/Arduino.h#L59)
@@ -156,6 +155,8 @@ This diagram shows the pinout and the pheripherals of the ATtiny13. The Arduino 
 * [sq()](https://www.arduino.cc/en/Reference/Sq)
 
 ####avr-libc libraries
+* [Delay library (delay.h)](http://www.nongnu.org/avr-libc/user-manual/group__util__delay.html)
 * [Math library (math.h)](http://www.nongnu.org/avr-libc/user-manual/group__avr__math.html)
 * [String library (string.h)](http://www.nongnu.org/avr-libc/user-manual/group__avr__string.html)
 * [Standard library (stdlib.h)](http://www.nongnu.org/avr-libc/user-manual/group__avr__stdlib.html)
+* [Watchdog timer library (wdt.h)](http://www.nongnu.org/avr-libc/user-manual/group__avr__watchdog.html)
