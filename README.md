@@ -118,12 +118,12 @@ Ok, so you're downloaded and installed MicroCore, but how to the wheels spinning
 This diagram shows the pinout and the pheripherals of the ATtiny13. The Arduino pinout is directly mapped to the port number to minimize the code footprint.
 <b>Click to enlarge:</b> 
 </br> </br>
-<img src="http://i.imgur.com/qREdVMb.jpg" width="800">
+<img src="http://i.imgur.com/JsbguPV.jpg" width="800">
 
 
 ##Minimal setup
 <br/>
-<img src="http://i.imgur.com/p7mtBWp.png" width="600">
+<img src="http://i.imgur.com/SjCN7oZ.png" width="600">
 
 
 ##Working Arduino functions
