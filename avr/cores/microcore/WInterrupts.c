@@ -22,7 +22,8 @@ static volatile voidFuncPtr intFunc[NUMBER_EXTERNAL_INTERRUPTS];
 
 void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), int mode) 
 {
-	#ifdef SAFEMODE
+  // SAFEMODE prevents you from inserting a interrupt number that's not supported
+  #ifdef SAFEMODE
   if(interruptNum < NUMBER_EXTERNAL_INTERRUPTS) {
   #endif
     uint8_t SaveSREG = SREG; // Save interrupt flag
@@ -49,7 +50,8 @@ void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), int mode)
 
 void detachInterrupt(uint8_t interruptNum) 
 {
-	#ifdef SAFEMODE
+  // SAFEMODE prevents you from inserting a interrupt number that's not supported
+  #ifdef SAFEMODE
   if (interruptNum < NUMBER_EXTERNAL_INTERRUPTS) 
   {
   #endif

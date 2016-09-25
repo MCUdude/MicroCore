@@ -11,6 +11,7 @@ analogWrite().
 
 void analogWrite(uint8_t pin, uint8_t val)
 {
+  // SAFEMODE prevents you from inserting a pin number out of range
 	#ifdef SAFEMODE
 		DDRB |= _BV(pin & 0x02); // Set the correct pin as output
 	#endif
@@ -27,6 +28,7 @@ void analogWrite(uint8_t pin, uint8_t val)
 			OCR0B = val;
 		}
 		
+		// SAFEMODE prevents you from inserting a pin number out of range
 		#ifdef SAFEMODE
 		else if(pin == 0)
 		#else

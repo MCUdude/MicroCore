@@ -14,6 +14,7 @@ digitalWrite() and digitalRead().
 
 void pinMode(uint8_t pin, uint8_t mode)
 {
+  // SAFEMODE prevents you from inserting a pin number out of range
 	#ifdef SAFEMODE
 		if(pin > 5)
 			return;
@@ -37,6 +38,7 @@ void turnOffPWM(uint8_t pin)
 
 void digitalWrite(uint8_t pin, uint8_t val)
 {
+  // SAFEMODE prevents you from inserting a pin number out of range, and disables PWM if turned on
 	#if defined(SAFEMODE)
 		if(pin > 5)
 			return;
@@ -53,6 +55,7 @@ void digitalWrite(uint8_t pin, uint8_t val)
 
 uint8_t digitalRead(uint8_t pin)
 {
+  // SAFEMODE prevents you from inserting a pin number out of range, and disables PWM if turned on
 	#ifdef SAFEMODE
 		if(pin > 5)
 			return 0;
