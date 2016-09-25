@@ -105,7 +105,7 @@ Ok, so you're downloaded and installed MicroCore, but how to the wheels spinning
 * Hook up your microcontroller as shown in the [pinout diagram](#pinout).
 * Open the **Tools > Board** menu item, and select ATtiny13.
 * Select your prefered BOD option. Read more about BOD [here](#bod-option).
-* Select your prefered clock frequency. **9.6 MHz internal oscillator** is the default setting. Do not use the external oscillator option if you don't got an external clock source. A regular crystal will not work.
+* Select your prefered clock frequency. **9.6 MHz internal oscillator** is the default setting. Do not use the external oscillator option if you don't got an external clock source. Remember that a regular two pincrystal will not work on the ATtiny13.
 * If you want you can change the compiler flags for further optimization. Leave this on the default setting if you don't know what compiler flags is. 
 * Select what kind of programmer you're using under the **Programmers** menu. Use one of the **slow** programmers if you're using the 128 kHz oscillator option, e.g **USBtinyISP (slow)**.
 * Hit **Burn Bootloader** to burn the fuses. The "settings" are now stored on the microcontroller!
@@ -142,8 +142,8 @@ This diagram shows the pinout and the pheripherals of the ATtiny13. The Arduino 
 * [max()](https://www.arduino.cc/en/Reference/Max)
 * [map()](https://www.arduino.cc/en/Reference/Map)
 * [min()](https://www.arduino.cc/en/Reference/Min)
-* [micros()](https://www.arduino.cc/en/Reference/Micros) [Must be manually enabled in the core settings](https://github.com/MCUdude/MicroCore/blob/master/avr/cores/microcore/core_settings.h)
-* [millis()](https://www.arduino.cc/en/Reference/Millis) Watchdog timer based. Will increase with steps of 16
+* [micros()](https://www.arduino.cc/en/Reference/Micros)   *Must be manually enabled in the [core settings](https://github.com/MCUdude/MicroCore/blob/master/avr/cores/microcore/core_settings.h)*
+* [millis()](https://www.arduino.cc/en/Reference/Millis)   *Watchdog timer based. Will increase with steps of 16*
 * [pinMode()](https://www.arduino.cc/en/Reference/PinMode)
 * [pulseIn()](https://www.arduino.cc/en/Reference/PulseIn)
 * [radians()](https://github.com/MCUdude/MicroCore/blob/master/avr/cores/microcore/Arduino.h#L59)
