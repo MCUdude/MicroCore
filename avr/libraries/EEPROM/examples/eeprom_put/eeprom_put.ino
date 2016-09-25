@@ -24,10 +24,13 @@ struct MyObject {
 
 void setup() {
 
-  Serial.begin(9600);
-  while (!Serial) {
-    ; // wait for serial port to connect. Needed for native USB port only
-  }
+	/* If you want to implement serial output on the ATtiny13,
+	you should check out Ralph Doncaster's BasicSerial3 library!
+	http://nerdralph.blogspot.no/2014/01/avr-half-duplex-software-uart.html
+	*/
+	
+  //Serial.begin(9600);
+
 
   float f = 123.456f;  //Variable to store in EEPROM.
   int eeAddress = 0;   //Location we want the data to be put.
@@ -50,7 +53,7 @@ void setup() {
   eeAddress += sizeof(float); //Move address to the next byte after float 'f'.
 
   EEPROM.put(eeAddress, customVar);
-  Serial.print("Written custom data type! \n\nView the example sketch eeprom_get to see how you can retrieve the values!");
+  //Serial.print("Written custom data type! \n\nView the example sketch eeprom_get to see how you can retrieve the values!");
 }
 
 void loop() {

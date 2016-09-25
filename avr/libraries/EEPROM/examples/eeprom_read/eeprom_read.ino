@@ -13,21 +13,24 @@ int address = 0;
 byte value;
 
 void setup() {
-  // initialize serial and wait for port to open:
+  
+  /* If you want to implement serial output on the ATtiny13,
+	you should check out Ralph Doncaster's BasicSerial3 library!
+	http://nerdralph.blogspot.no/2014/01/avr-half-duplex-software-uart.html
+	*/
+  
   Serial.begin(9600);
-  while (!Serial) {
-    ; // wait for serial port to connect. Needed for native USB port only
-  }
+
 }
 
 void loop() {
   // read a byte from the current address of the EEPROM
   value = EEPROM.read(address);
 
-  Serial.print(address);
-  Serial.print("\t");
-  Serial.print(value, DEC);
-  Serial.println();
+  //Serial.print(address);
+  //Serial.print("\t");
+  //Serial.print(value, DEC);
+  //Serial.println();
 
   /***
     Advance to the next address, when at the end restart at the beginning.

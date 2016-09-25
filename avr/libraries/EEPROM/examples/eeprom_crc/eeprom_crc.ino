@@ -12,20 +12,21 @@
 
 void setup() {
 
+	/* If you want to implement serial output on the ATtiny13,
+	you should check out Ralph Doncaster's BasicSerial3 library!
+	http://nerdralph.blogspot.no/2014/01/avr-half-duplex-software-uart.html
+	*/
   //Start serial
-  Serial.begin(9600);
-  while (!Serial) {
-    ; // wait for serial port to connect. Needed for native USB port only
-  }
+  //Serial.begin(9600);
 
   //Print length of data to run CRC on.
-  Serial.print("EEPROM length: ");
-  Serial.println(EEPROM.length());
+  //Serial.print("EEPROM length: ");
+  //Serial.println(EEPROM.length());
 
   //Print the result of calling eeprom_crc()
-  Serial.print("CRC32 of EEPROM data: 0x");
-  Serial.println(eeprom_crc(), HEX);
-  Serial.print("\n\nDone!");
+  //Serial.print("CRC32 of EEPROM data: 0x");
+  //Serial.println(eeprom_crc(), HEX);
+  //Serial.print("\n\nDone!");
 }
 
 void loop() {
