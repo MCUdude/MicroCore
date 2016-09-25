@@ -15,9 +15,9 @@ menu.clock=Clock
 attiny13.name=ATtiny13
 attiny13.bootloader.tool=avrdude
 attiny13.upload.tool=avrdude
-attiny13.upload.using=arduno:{upload.protocol}
-attiny13.bootloader.unlock_bits=0xff
-attiny13.bootloader.lock_bits=0xff
+attiny13.upload.using=avrdude
+attiny13.bootloader.unlock_bits=0x3f
+attiny13.bootloader.lock_bits=0x3e
 attiny13.build.core=microcore
 attiny13.build.board=attiny
 
@@ -32,64 +32,54 @@ attiny13.build.mcu=attiny13
 ######################
 
 ### 9.6 MHz internal osc.
-attiny13.menu.clock.t13_9M6=9.6 MHz internal osc.
-attiny13.menu.clock.t13_9M6.bootloader.low_fuses=0x3A
-attiny13.menu.clock.t13_9M6.upload.speed=57600L
-attiny13.menu.clock.t13_9M6.build.f_cpu=9600000L
+attiny13.menu.clock.9M6=9.6 MHz internal osc.
+attiny13.menu.clock.9M6.bootloader.low_fuses=0x3A
+attiny13.menu.clock.9M6.build.f_cpu=9600000L
 
 ### 4.8 MHz internal osc.
-attiny13.menu.clock.t13_4M8_bod=4.8 MHz internal osc.
-attiny13.menu.clock.t13_4M8_bod.bootloader.low_fuses=0x39
-attiny13.menu.clock.t13_4M8_bod.upload.speed=57600L
-attiny13.menu.clock.t13_4M8_bod.build.f_cpu=4800000L
+attiny13.menu.clock.4M8=4.8 MHz internal osc.
+attiny13.menu.clock.4M8.bootloader.low_fuses=0x39
+attiny13.menu.clock.4M8.build.f_cpu=4800000L
 
 ### 1.2 MHz internal osc.
-attiny13.menu.clock.t13_1M2=1.2 MHz internal osc.
-attiny13.menu.clock.t13_1M2.bootloader.low_fuses=0x2A
-attiny13.menu.clock.t13_1M2.upload.speed=9600L
-attiny13.menu.clock.t13_1M2.build.f_cpu=1200000L
+attiny13.menu.clock.1M2=1.2 MHz internal osc.
+attiny13.menu.clock.1M2.bootloader.low_fuses=0x2A
+attiny13.menu.clock.1M2.build.f_cpu=1200000L
 
 ### 600 kHz internal osc.
-attiny13.menu.clock.t13_600k=600 kHz internal osc.
-attiny13.menu.clock.t13_600k.bootloader.low_fuses=0x29
-attiny13.menu.clock.t13_600k.upload.speed=9600L
-attiny13.menu.clock.t13_600k.build.f_cpu=600000L
+attiny13.menu.clock.600k=600 kHz internal osc.
+attiny13.menu.clock.600k.bootloader.low_fuses=0x29
+attiny13.menu.clock.600k.build.f_cpu=600000L
 
 ### 128 kHz internal osc.
-attiny13.menu.clock.t13_128k=128 KHz internal osc.
-attiny13.menu.clock.t13_128k.bootloader.low_fuses=0x3B
-attiny13.menu.clock.t13_128k.upload.speed=250
-attiny13.menu.clock.t13_128k.build.f_cpu=128000L
+attiny13.menu.clock.128k=128 KHz internal osc.
+attiny13.menu.clock.128k.bootloader.low_fuses=0x3B
+attiny13.menu.clock.128k.build.f_cpu=128000L
 
 ### 20 MHz external clock
-attiny13.menu.clock.t13_20M=20 MHz external clock
-attiny13.menu.clock.t13_20M.bootloader.low_fuses=0x38
-attiny13.menu.clock.t13_20M.upload.speed=57600L
-attiny13.menu.clock.t13_20M.build.f_cpu=20000000L
+attiny13.menu.clock.20M=20 MHz external clock
+attiny13.menu.clock.20M.bootloader.low_fuses=0x38
+attiny13.menu.clock.20M.build.f_cpu=20000000L
 
 ### 16 MHz external clock
-attiny13.menu.clock.t13_16M=16 MHz external clock
-attiny13.menu.clock.t13_16M.bootloader.low_fuses=0x38
-attiny13.menu.clock.t13_16M.upload.speed=57600L
-attiny13.menu.clock.t13_16M.build.f_cpu=16000000L
+attiny13.menu.clock.16M=16 MHz external clock
+attiny13.menu.clock.16M.bootloader.low_fuses=0x38
+attiny13.menu.clock.16M.build.f_cpu=16000000L
 
 ### 12 MHz external clock
-attiny13.menu.clock.t13_12M=12 MHz external clock
-attiny13.menu.clock.t13_12M.bootloader.low_fuses=0x38
-attiny13.menu.clock.t13_12M.upload.speed=57600L
-attiny13.menu.clock.t13_12M.build.f_cpu=12000000L
+attiny13.menu.clock.12M=12 MHz external clock
+attiny13.menu.clock.12M.bootloader.low_fuses=0x38
+attiny13.menu.clock.12M.build.f_cpu=12000000L
 
 ### 8 MHz external clock
-attiny13.menu.clock.t13_8M=8 MHz external clock
-attiny13.menu.clock.t13_8M.bootloader.low_fuses=0x38
-attiny13.menu.clock.t13_8M.upload.speed=57600L
-attiny13.menu.clock.t13_8M.build.f_cpu=8000000L
+attiny13.menu.clock.8M=8 MHz external clock
+attiny13.menu.clock.8M.bootloader.low_fuses=0x38
+attiny13.menu.clock.8M.build.f_cpu=8000000L
 
 ### 1 MHz external clock
-attiny13.menu.clock.t13_1M=1 MHz external clock
-attiny13.menu.clock.t13_1M.bootloader.low_fuses=0x38
-attiny13.menu.clock.t13_1M.upload.speed=9600L
-attiny13.menu.clock.t13_1M.build.f_cpu=1000000L
+attiny13.menu.clock.1M=1 MHz external clock
+attiny13.menu.clock.1M.bootloader.low_fuses=0x38
+attiny13.menu.clock.1M.build.f_cpu=1000000L
 
 
 ############################
