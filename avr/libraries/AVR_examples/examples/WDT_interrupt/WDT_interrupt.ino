@@ -24,7 +24,7 @@ int main(void)
   // Read more about how to change the interrupt delay on page
   // 42 in the ATtiny13 datasheet
   // http://www.atmel.com/images/doc2535.pdf
-  WDTCR = _BV(WDTIE) | _BV(WDP2); | _BV(WDP0); 
+  WDTCR = _BV(WDTIE) | _BV(WDP2) | _BV(WDP0); 
 
   sei(); // Turn on global interrupts
   
