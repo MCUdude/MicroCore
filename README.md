@@ -9,7 +9,7 @@ If you're into "pure" AVR programming, I'm happy to tell you that all relevant k
 * [GCC flags](#gcc-flags)
 * [BOD option](#bod-option)
 * [Programmers](#programmers)
-* [Core settings](#core-settings)
+* **[Core settings](#core-settings)**
 * **[How to install](#how-to-install)**
 	- [Boards Manager Installation](#boards-manager-installation)
 	- [Manual Installation](#manual-installation)
@@ -43,7 +43,7 @@ Supported external clock frequencies:
 * 1 MHz external oscillator
 
 Select the ATtiny13 in the boards menu, then select the clock frequency. You'll have to hit "Burn bootloader" in order to set the correct fuses. Make sure you connect an ISP programmer, and select the correct one in the "Programmers" menu.
-<b>*</b> Make sure to use one of the "slow" programmer options when using the 128 kHz option (e.g USBtinyISP (slow)).
+<b>*</b> Make sure to use one of the "slow" programmer options when using the 128 kHz option (e.g _USBtinyISP (slow)_).
 </br></br>
 
 
@@ -132,31 +132,45 @@ This diagram shows the pinout and the pheripherals of the ATtiny13. The Arduino 
 * [analogRead()](https://www.arduino.cc/en/Reference/AnalogRead)
 * [analogWrite()](https://www.arduino.cc/en/Reference/AnalogWrite)
 * [attachInterrupt()](https://www.arduino.cc/en/Reference/AttachInterrupt)
+* [bit()](https://www.arduino.cc/en/Reference/Bit)
+* [bitClear()](https://www.arduino.cc/en/Reference/BitClear)
+* [bitRead()](https://www.arduino.cc/en/Reference/BitRead)
+* [bitSet()](https://www.arduino.cc/en/Reference/BitSet)
+* [bitWrite()](https://www.arduino.cc/en/Reference/BitWrite)
 * [constrain()](https://www.arduino.cc/en/Reference/Constrain)
-* [degrees()](https://github.com/MCUdude/MicroCore/blob/master/avr/cores/microcore/Arduino.h#L60)
+* [degrees()](https://github.com/MCUdude/MicroCore/blob/83b192f46fa5c58f8b7a60d7a678b2199d167ba5/avr/cores/microcore/Arduino.h#L56)
 * [delay()](https://www.arduino.cc/en/Reference/Delay)
 * [delayMicroseconds()](https://www.arduino.cc/en/Reference/DelayMicroseconds)
 * [detachInterrupt()](https://www.arduino.cc/en/Reference/DetachInterrupt)
 * [digitalRead()](https://www.arduino.cc/en/Reference/DigitalRead)
 * [digitalWrite()](https://www.arduino.cc/en/Reference/DigitalWrite)
-* [max()](https://www.arduino.cc/en/Reference/Max)
+* [highByte()](https://www.arduino.cc/en/Reference/HighByte)
+* [interrupts()](https://www.arduino.cc/en/Reference/Interrupts)
+* [lowByte()](https://www.arduino.cc/en/Reference/LowByte)
 * [map()](https://www.arduino.cc/en/Reference/Map)
+* [max()](https://www.arduino.cc/en/Reference/Max)
 * [min()](https://www.arduino.cc/en/Reference/Min)
 * [micros()](https://www.arduino.cc/en/Reference/Micros)   *Must be manually enabled in the [core settings](https://github.com/MCUdude/MicroCore/blob/master/avr/cores/microcore/core_settings.h)*
 * [millis()](https://www.arduino.cc/en/Reference/Millis)   *Watchdog timer based. Will increase with steps of 16*
+* [noInterrupts()](https://www.arduino.cc/en/Reference/NoInterrupts)
 * [pinMode()](https://www.arduino.cc/en/Reference/PinMode)
+* [pow()](https://www.arduino.cc/en/Reference/Pow)
 * [pulseIn()](https://www.arduino.cc/en/Reference/PulseIn)
-* [radians()](https://github.com/MCUdude/MicroCore/blob/master/avr/cores/microcore/Arduino.h#L59)
+* [radians()](https://github.com/MCUdude/MicroCore/blob/83b192f46fa5c58f8b7a60d7a678b2199d167ba5/avr/cores/microcore/Arduino.h#L55)
 * [random()](https://www.arduino.cc/en/Reference/Random)
 * [randomSeed()](https://www.arduino.cc/en/Reference/RandomSeed)
-* [round()](https://github.com/MCUdude/MicroCore/blob/master/avr/cores/microcore/Arduino.h#L58)
+* [round()](https://github.com/MCUdude/MicroCore/blob/83b192f46fa5c58f8b7a60d7a678b2199d167ba5/avr/cores/microcore/Arduino.h#L54)
 * [shiftIn()](https://www.arduino.cc/en/Reference/ShiftIn)
 * [shiftOut()](https://www.arduino.cc/en/Reference/ShiftOut)
+* [sizeof()](https://www.arduino.cc/en/Reference/Sizeof)
 * [sq()](https://www.arduino.cc/en/Reference/Sq)
+* [sqrt()](https://www.arduino.cc/en/Reference/Sqrt)
 
-####avr-libc libraries
+####avr-libc libraries including
 * [Delay library (delay.h)](http://www.nongnu.org/avr-libc/user-manual/group__util__delay.html)
 * [Math library (math.h)](http://www.nongnu.org/avr-libc/user-manual/group__avr__math.html)
+* [Power library (power.h)](http://www.nongnu.org/avr-libc/user-manual/group__avr__power.html)
+* [Sleep library (sleep.h)](http://www.nongnu.org/avr-libc/user-manual/group__avr__sleep.html)
 * [String library (string.h)](http://www.nongnu.org/avr-libc/user-manual/group__avr__string.html)
 * [Standard library (stdlib.h)](http://www.nongnu.org/avr-libc/user-manual/group__avr__stdlib.html)
 * [Watchdog timer library (wdt.h)](http://www.nongnu.org/avr-libc/user-manual/group__avr__watchdog.html)
