@@ -28,7 +28,7 @@ need, in order to free up some space.
 // WARNING!! Enabling micros() will cause the processor to interrupt every 256 clock cycle, and will mess
 // up timing functions such as delay() and _delay_ms(). E.g delay(1) will actually last 1.3 ms instead.
 // Do you really want this? The choice is always yours ;)
-#define ENABLE_MICROS
+//#define ENABLE_MICROS
 
 // If you're not using the analog pins or want to set it up yourself, you can disable it here
 #define SETUP_ADC

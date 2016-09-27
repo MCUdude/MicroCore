@@ -20,10 +20,15 @@ void pinMode(uint8_t pin, uint8_t mode)
 			return;
 	#endif
 	
-	if(mode) // Pin as output
+	if(mode == OUTPUT) // Pin as output
 		DDRB |= _BV(pin);
-	else     // Pin as input
-    DDRB &= ~_BV(pin);
+			
+	else // Pin as input or input pullup
+	{
+    DDRB &= ~_BV(pin); // Set pin as input
+    if(mode == INPUT_PULLUP)
+    	PORTB |= _BV(pin); // Enable pullup resistors
+  }
 }
 
 
@@ -31,7 +36,7 @@ void turnOffPWM(uint8_t pin)
 {
 	if(pin == 0)
 		TCCR0A &= ~_BV(COM0A1);
-	if(pin == 1)
+	else if(pin == 1)
 		TCCR0A &= ~_BV(COM0B1);
 }
 
