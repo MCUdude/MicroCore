@@ -139,8 +139,8 @@ This diagram shows the pinout and the pheripherals of the ATtiny13. The Arduino 
 * [bitWrite()](https://www.arduino.cc/en/Reference/BitWrite)
 * [constrain()](https://www.arduino.cc/en/Reference/Constrain)
 * [degrees()](https://github.com/MCUdude/MicroCore/blob/83b192f46fa5c58f8b7a60d7a678b2199d167ba5/avr/cores/microcore/Arduino.h#L56)
-* [delay()](https://www.arduino.cc/en/Reference/Delay)
-* [delayMicroseconds()](https://www.arduino.cc/en/Reference/DelayMicroseconds)
+* [delay()](https://www.arduino.cc/en/Reference/Delay)   *Macro wrapper for _delay_ms()*
+* [delayMicroseconds()](https://www.arduino.cc/en/Reference/DelayMicroseconds)   *Macro wrapper for _delay_us()*
 * [detachInterrupt()](https://www.arduino.cc/en/Reference/DetachInterrupt)
 * [digitalRead()](https://www.arduino.cc/en/Reference/DigitalRead)
 * [digitalWrite()](https://www.arduino.cc/en/Reference/DigitalWrite)
