@@ -11,17 +11,17 @@ https://github.com/MCUdude/MicroCore
 
 #include <stdlib.h>
 #include <stdbool.h>
+#include <stdint.h>
 #include <string.h>
 #include <math.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
 #include <avr/wdt.h>
-#include "WString.h"
 
 
 #ifdef __cplusplus
-extern "C"{
+extern "C"{	
 #endif
   #define HIGH 1
   #define LOW 0
@@ -67,10 +67,12 @@ extern "C"{
   #define bitSet(value, bit) ((value) |= (1UL << (bit)))
   #define bitClear(value, bit) ((value) &= ~(1UL << (bit)))
   #define bitWrite(value, bit, bitvalue) (bitvalue ? bitSet(value, bit) : bitClear(value, bit))
-  typedef unsigned int word;
+  #define delay(ms) _delay_ms(ms) // _delay_ms function wrapper
+  #define delayMicroseconds(us) _delay_us(us) // _delay_us function wrapper
   #define bit(b) (1UL << (b))
-  typedef uint8_t boolean;
+  typedef unsigned int word;
   typedef uint8_t byte;
+  typedef bool boolean;
   void init(void);
   void pinMode(uint8_t, uint8_t);
   void digitalWrite(uint8_t, uint8_t);
@@ -80,8 +82,6 @@ extern "C"{
   void analogWrite(uint8_t, uint8_t);
   unsigned long millis(void);
   unsigned long micros(void);
-  void delay(uint16_t ms);
-  void delayMicroseconds(uint16_t us);
   void shiftOut(uint8_t, uint8_t, uint8_t, uint8_t);
   uint8_t shiftIn(uint8_t, uint8_t, uint8_t);
   unsigned long pulseIn(unsigned char pin, unsigned char stat, unsigned long timeout);
