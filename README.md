@@ -57,6 +57,9 @@ Available compiler flags:
 * -O3
 * -O3 -flto
 
+Compiler optimization can certainly make your code smaller in size. Still, it's all about writing efficient code. Atmel have actually created an application note on how to write more efficient C code for AVR microcontrollers.
+This is great knowledge, so you should absolutely check it out - [AVR4027: Tips and Tricks to Optimize Your C Code for 8-bit AVR Microcontrollers](http://www.atmel.com/images/doc8453.pdf).
+
 
 ##BOD option
 Brown out detection, or BOD for short lets the microcontroller sense the input voltage and shut down if the voltage goes below the brown out setting.
