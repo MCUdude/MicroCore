@@ -26,16 +26,18 @@
 */
 
 extern "C" {
-  #include "stdlib.h"
+  #include <stdlib.h>
+  #include <stdint.h>
+
 }
 
-void randomSeed(unsigned int seed)
+void randomSeed(uint16_t seed)
 {
   if (seed != 0) 
     srandom(seed);
 }
 
-long random(long howbig)
+int32_t random(int32_t howbig)
 {
   if (howbig == 0) 
     return 0;
@@ -43,19 +45,19 @@ long random(long howbig)
   return random() % howbig;
 }
 
-long random(long howsmall, long howbig)
+int32_t random(int32_t howsmall, int32_t howbig)
 {
   if (howsmall >= howbig) 
     return howsmall;
   
-  long diff = howbig - howsmall;
+  int32_t diff = howbig - howsmall;
   return random(diff) + howsmall;
 }
 
-long map(long x, long in_min, long in_max, long out_min, long out_max)
+int32_t map(int32_t x, int32_t in_min, int32_t in_max, int32_t out_min, int32_t out_max)
 {
   return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 
-unsigned int makeWord(unsigned int w) { return w; }
-unsigned int makeWord(unsigned char h, unsigned char l) { return (h << 8) | l; }
+uint16_t makeWord(uint16_t w) { return w; }
+uint16_t makeWord(uint8_t h, uint8_t l) { return (h << 8) | l; }

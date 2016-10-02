@@ -21,7 +21,7 @@ timers and analog related stuff.
 // The millis counter is based on the watchdog timer, and takes very little processing time and power.
 // If 16 ms accuracy is enough, I strongly recommend you to use millis() instead of micros().
 #ifdef ENABLE_MILLIS
-volatile unsigned long wdt_interrupt_counter = 0;
+volatile uint32_t wdt_interrupt_counter = 0;
 
 // This ISR will execute every 16 ms, and increase 
 ISR(WDT_vect)
@@ -33,7 +33,7 @@ ISR(WDT_vect)
 // multiply by 16 to get the correct millis value.
 // The WDT uses it's own clock, so this function is valid
 // for all F_CPUs.
-unsigned long millis()
+uint32_t millis()
 {	
 	return wdt_interrupt_counter * 16;
 }
@@ -46,7 +46,7 @@ unsigned long millis()
 // Interrupts as rapidly as this tends to affect the overall time keeping.
 // E.g if micros() is enabled, the delay(1) function will actually last 1.3 ms instead.
 #ifdef ENABLE_MICROS
-volatile unsigned long timer0_overflow = 0;
+volatile uint32_t timer0_overflow = 0;
 
 // This will cause an interrupt every 256 clock cycle
 ISR(TIM0_OVF_vect)
@@ -54,9 +54,9 @@ ISR(TIM0_OVF_vect)
 	timer0_overflow++; // Increment counter by one
 }
 
-unsigned long micros()
+uint32_t micros()
 {
-	unsigned long x;
+	uint32_t x;
 	cli();
 	#if F_CPU == 16000
 		x = timer0_overflow * 16000;

@@ -18,6 +18,7 @@ https://github.com/MCUdude/MicroCore
 #include <avr/interrupt.h>
 #include <util/delay.h>
 #include <avr/wdt.h>
+#include "WString.h"
 
 
 #ifdef __cplusplus
@@ -52,7 +53,7 @@ extern "C"{
   #define max(a,b) ((a)>(b)?(a):(b))
   #define abs(x) ((x)>0?(x):-(x))
   #define constrain(amt,low,high) ((amt)<(low)?(low):((amt)>(high)?(high):(amt)))
-  #define round(x)     ((x)>=0?(long)((x)+0.5):(long)((x)-0.5))
+  #define round(x)     ((x)>=0?(int32_t)((x)+0.5):(int32_t)((x)-0.5))
   #define radians(deg) ((deg)*DEG_TO_RAD)
   #define degrees(rad) ((rad)*RAD_TO_DEG)
   #define sq(x) ((x)*(x))
@@ -70,22 +71,22 @@ extern "C"{
   #define delay(ms) _delay_ms(ms) // _delay_ms function wrapper
   #define delayMicroseconds(us) _delay_us(us) // _delay_us function wrapper
   #define bit(b) (1UL << (b))
-  typedef unsigned int word;
+  typedef uint16_t word;
   typedef uint8_t byte;
   typedef bool boolean;
   void init(void);
   void pinMode(uint8_t, uint8_t);
   void digitalWrite(uint8_t, uint8_t);
   uint8_t digitalRead(uint8_t);
-  int analogRead(uint8_t); 
+  int16_t analogRead(uint8_t); 
   void analogReference(uint8_t mode);
   void analogWrite(uint8_t, uint8_t);
-  unsigned long millis(void);
-  unsigned long micros(void);
+  uint32_t millis(void);
+  uint32_t micros(void);
   void shiftOut(uint8_t, uint8_t, uint8_t, uint8_t);
   uint8_t shiftIn(uint8_t, uint8_t, uint8_t);
-  unsigned long pulseIn(unsigned char pin, unsigned char stat, unsigned long timeout);
-  void attachInterrupt(uint8_t, void (*)(void), int mode);
+  uint32_t pulseIn(uint8_t pin, uint8_t stat, uint32_t timeout);
+  void attachInterrupt(uint8_t, void (*)(void), uint8_t mode);
   void detachInterrupt(uint8_t);
   void setup(void);
   void loop(void);
@@ -100,12 +101,12 @@ const static uint8_t A3 = 3;
 
 #ifdef __cplusplus
   uint16_t makeWord(uint16_t w);
-  uint16_t makeWord(byte h, byte l);
+  uint16_t makeWord(uint8_t h, uint8_t l);
   #define word(...) makeWord(__VA_ARGS__)
-  long random(long);
-  long random(long, long);
-  void randomSeed(unsigned int);
-  long map(long, long, long, long, long);
+  int32_t random(int32_t);
+  int32_t random(int32_t, int32_t);
+  void randomSeed(uint16_t);
+  int32_t map(int32_t, int32_t, int32_t, int32_t, int32_t);
 #endif
 
 #endif

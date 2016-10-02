@@ -21,7 +21,7 @@ void analogReference(uint8_t mode)
 }
 
 
-int analogRead(uint8_t pin)
+int16_t analogRead(uint8_t pin)
 {
 	uint8_t l,h;
 	ADMUX = (ADMUX & _BV(REFS0)) | (pin & 0x03); // Setup ADC, preserve REFS0

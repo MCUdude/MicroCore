@@ -9,9 +9,9 @@ This file contains the pulseIn() function.
 
 #include "wiring_private.h"
 
-unsigned long pulseIn(unsigned char pin, unsigned char stat, unsigned long timeout)
+uint32_t pulseIn(uint8_t pin, uint8_t stat, uint32_t timeout)
 {
-	unsigned long st,to;
+	uint32_t st,to;
 	to = micros();
 	while(digitalRead(pin) == stat){if((micros() - to) > timeout){return 0;}}
 	while(digitalRead(pin) != stat){if((micros() - to) > timeout){return 0;}}

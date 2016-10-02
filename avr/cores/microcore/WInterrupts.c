@@ -20,7 +20,7 @@ detachInterrupt().
 
 static volatile voidFuncPtr intFunc[NUMBER_EXTERNAL_INTERRUPTS];
 
-void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), int mode) 
+void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), uint8_t mode) 
 {
   // SAFEMODE prevents you from inserting a interrupt number that's not supported
   #ifdef SAFEMODE
