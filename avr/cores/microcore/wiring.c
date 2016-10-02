@@ -94,6 +94,14 @@ uint32_t micros()
 #endif // ENABLE_MICROS
 
 
+// Wrapper to deal with _delay_ms(), which is an inline function
+void delay(uint16_t ms)
+{
+  while(--ms)
+    _delay_ms(1);
+}
+
+
 // This init() function will be executed before the setup() function does
 // Edit the core_settings.h file to choose what's going to be initialized 
 // and what's not.

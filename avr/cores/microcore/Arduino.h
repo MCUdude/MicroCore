@@ -68,7 +68,6 @@ extern "C"{
   #define bitSet(value, bit) ((value) |= (1UL << (bit)))
   #define bitClear(value, bit) ((value) &= ~(1UL << (bit)))
   #define bitWrite(value, bit, bitvalue) (bitvalue ? bitSet(value, bit) : bitClear(value, bit))
-  #define delay(ms) _delay_ms(ms) // _delay_ms function wrapper
   #define delayMicroseconds(us) _delay_us(us) // _delay_us function wrapper
   #define bit(b) (1UL << (b))
   typedef uint16_t word;
@@ -77,6 +76,7 @@ extern "C"{
   void init(void);
   void pinMode(uint8_t, uint8_t);
   void digitalWrite(uint8_t, uint8_t);
+  void delay(uint16_t);
   uint8_t digitalRead(uint8_t);
   int16_t analogRead(uint8_t); 
   void analogReference(uint8_t mode);
