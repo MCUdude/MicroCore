@@ -48,14 +48,14 @@ Select the ATtiny13 in the boards menu, then select the clock frequency. You'll 
 
 
 ##GCC flags
-Compiler flags indicates what level of optimization the compiler should use. Just leave this on the default setting if you don't know what this is. If you want to learn more, head over to the [GNU GCC website](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html).<br/>
+Compiler flags indicates what level of optimization the compiler should use. Just leave this on the default setting if you don't know what this is. If you want to learn more about compiler flags and link time optimization (LTO), head over to the [GNU GCC website](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html). Nerd Ralph have also written a [great post about LTO](http://nerdralph.blogspot.no/2014/04/gcc-link-time-optimization-can-fix-bad.html) you should read.<br/>
 Available compiler flags:
-* -Os (default)
-* -Os -flto
-* -O1
+* -Os -flto (default)
+* -Os
 * -O1 -flto
-* -O3
+* -O1
 * -O3 -flto
+* -O3
 
 Compiler optimization can certainly make your code smaller in size. Still, it's all about writing efficient code. Atmel have actually created an application note on how to write more efficient C code for AVR microcontrollers.
 This is great knowledge, so you should absolutely check it out - [AVR4027: Tips and Tricks to Optimize Your C Code for 8-bit AVR Microcontrollers](http://www.atmel.com/images/doc8453.pdf).
