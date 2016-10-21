@@ -1,5 +1,5 @@
 # MicroCore
-A lightweight and heavily optimized Arduino core for the ATtiny13, ATtiny13A and ATtiny13V. This core requires at least Arduino IDE v1.6, where v1.6.5+ is recommended. <br/> This core is a heavily modified fork of the [at13 repository](https://github.com/bartgee/at13), which is again based on Smeezekitty's [core13](https://sourceforge.net/projects/ard-core13/). A lot of work have been put into this fork to make it up to date with todays requirements.
+A lightweight and heavily optimized Arduino core for the ATtiny13, ATtiny13A and ATtiny13V. This core requires at least Arduino IDE v1.6, where v1.6.11 or newer is recommended and required if you want to enable [LTO](#gcc-flags). <br/> This core is a heavily modified fork of the [at13 repository](https://github.com/bartgee/at13), which is again based on Smeezekitty's [core13](https://sourceforge.net/projects/ard-core13/). A lot of work have been put into this fork to make it up to date with todays requirements.
 If you're into "pure" AVR programming, I'm happy to tell you that all relevant keywords are being highlighted by the IDE through a separate keywords file. Make sure to check out the [example files](https://github.com/MCUdude/MicroCore/tree/master/avr/libraries/AVR_examples/examples) (File > Examples > AVR C code examples).
 
 
@@ -50,11 +50,11 @@ Select the ATtiny13 in the boards menu, then select the clock frequency. You'll 
 ##GCC flags
 Compiler flags indicates what level of optimization the compiler should use. Just leave this on the default setting if you don't know what this is. If you want to learn more about compiler flags and link time optimization (LTO), head over to the [GNU GCC website](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html). Nerd Ralph have also written a [great post about LTO](http://nerdralph.blogspot.no/2014/04/gcc-link-time-optimization-can-fix-bad.html) you should read.<br/>
 Available compiler flags:
-* -Os -flto (default)
+* -Os LTO enabled (default)
 * -Os
-* -O1 -flto
+* -O1 LTO enabled
 * -O1
-* -O3 -flto
+* -O3 LTO enabled
 * -O3
 
 Compiler optimization can certainly make your code smaller in size. Still, it's all about writing efficient code. Atmel have actually created an application note on how to write more efficient C code for AVR microcontrollers.
@@ -177,3 +177,4 @@ This diagram shows the pinout and the pheripherals of the ATtiny13. The Arduino 
 * [String library (string.h)](http://www.nongnu.org/avr-libc/user-manual/group__avr__string.html)
 * [Standard library (stdlib.h)](http://www.nongnu.org/avr-libc/user-manual/group__avr__stdlib.html)
 * [Watchdog timer library (wdt.h)](http://www.nongnu.org/avr-libc/user-manual/group__avr__watchdog.html)
+Note that more avr-libc libraries probably works out of the box, but haven't been tested by me.
