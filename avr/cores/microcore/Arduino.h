@@ -93,7 +93,8 @@ extern "C"{
 #ifdef __cplusplus
 } // extern "C"
 
-// Analog pin defs
+// Pin definitions
+#define LED_BUILTIN 0
 const static uint8_t A0 = 5;
 const static uint8_t A1 = 2;
 const static uint8_t A2 = 4;
