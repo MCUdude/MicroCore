@@ -54,6 +54,7 @@ ISR(TIM0_OVF_vect)
 	timer0_overflow++; // Increment counter by one
 }
 
+
 uint32_t micros()
 {
 	uint32_t x;
@@ -97,8 +98,10 @@ uint32_t micros()
 // Wrapper to deal with _delay_ms(), which is an inline function
 void delay(uint16_t ms)
 {
-  while(--ms)
-    _delay_ms(1);
+	do
+		_delay_ms(1);
+  while(--ms);
+    
 }
 
 
@@ -132,7 +135,8 @@ void init()
 			TCCR0A |= _BV(WGM01);
 		#endif	
 	#endif	
-		
+	
+	// Enable WDT interrupt and enable global interrupts	
 	#ifdef ENABLE_MILLIS
 		// Disable global interrupts			
 		cli();
@@ -154,9 +158,9 @@ void init()
 		sei();
 	#endif
 	
+	// Enable the ADC and set the prescaler according to the clock frequency
 	#ifdef SETUP_ADC
 		ADMUX = 0;
-		
 		// Less or equal to 200 kHz
 		#if F_CPU <= 200000 
 			// Enable the ADC, keep the prescaler of 2 --> F_CPU / 2
