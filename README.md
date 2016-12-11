@@ -92,8 +92,8 @@ This installation method requires Arduino IDE version 1.6.4 or greater.
 * Enter the following URL in **Additional Boards Manager URLs**: `https://mcudude.github.io/MicroCore/package_MCUdude_MicroCore_index.json`
 * Open the **Tools > Board > Boards Manager...** menu item.
 * Wait for the platform indexes to finish downloading.
-* Scroll down until you see the **MiniCore** entry and click on it.
-  * **Note**: If you are using Arduino IDE 1.6.6 then you may need to close **Boards Manager** and then reopen it before the **MiniCore** entry will appear.
+* Scroll down until you see the **MicroCore** entry and click on it.
+  * **Note**: If you are using Arduino IDE 1.6.6 then you may need to close **Boards Manager** and then reopen it before the **MicroCore** entry will appear.
 * Click **Install**.
 * After installation is complete close the **Boards Manager** window.
 
