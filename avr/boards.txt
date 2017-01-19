@@ -23,7 +23,8 @@ attiny13.build.board=attiny
 
 attiny13.upload.maximum_size=1024
 attiny13.upload.maximum_data_size=64
-attiny13.build.mcu=attiny13a
+attiny13.build.mcu_compile=attiny13a
+attiny13.build.mcu=attiny13
 #attiny13.build.variant=microcore
 
 
