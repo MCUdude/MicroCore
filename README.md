@@ -26,7 +26,7 @@ If you're into "pure" AVR programming, I'm happy to tell you that all relevant k
 * You can still fit a lot of low level code into 1024 bytes :wink:
 
 
-##Supported clock frequencies
+## Supported clock frequencies
 The ATtiny13 has several internal oscillators, and these are the available clock frequencies:
 * 9.6 MHz internal oscillator (default)
 * 4.8 MHz internal oscillator
@@ -47,7 +47,7 @@ Select the ATtiny13 in the boards menu, then select the clock frequency. You'll 
 </br></br>
 
 
-##GCC flags
+## GCC flags
 Compiler flags indicates what level of optimization the compiler should use. Just leave this on the default setting if you don't know what this is. If you want to learn more about compiler flags and link time optimization (LTO), head over to the [GNU GCC website](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html). Nerd Ralph have also written a [great post about LTO](http://nerdralph.blogspot.no/2014/04/gcc-link-time-optimization-can-fix-bad.html) you should read.<br/>
 Available compiler flags:
 * -Os LTO enabled (default)
@@ -61,7 +61,7 @@ Compiler optimization can certainly make your code smaller in size. Still, it's 
 This is great knowledge, so you should absolutely check it out - [AVR4027: Tips and Tricks to Optimize Your C Code for 8-bit AVR Microcontrollers](http://www.atmel.com/images/doc8453.pdf).
 
 
-##BOD option
+## BOD option
 Brown out detection, or BOD for short lets the microcontroller sense the input voltage and shut down if the voltage goes below the brown out setting.
 These are the available BOD options:
 * 4.3 v
@@ -70,7 +70,7 @@ These are the available BOD options:
 * Disabled
 
 
-##Programmers
+## Programmers
 When the ATtiny13 is running from the internal 128 kHz oscillator, it's actually too slow to interact with the programming tool. That's why this core adds some additional programmers to the list, with the suffix *(slow)*. These options makes the programmers run at a lower clock speed, so the microcontroller can keep up.
 The `externalprogrammers.txt` file is for use with [the Arduino Eclipse plugin](http://eclipse.baeyens.it), and will not appear under the "Programmers" menu in Arduino IDE.
  
@@ -78,13 +78,13 @@ Select your microcontroller in the boards menu, then select the clock frequency.
 Make sure you connect an ISP programmer, and select the correct one in the "Programmers" menu. 
 
 
-##Core settings
+## Core settings
 To make sure you're able to fit your whole project into this tiny microcontroller and still be able to use Arduino functions, I've added some <b>core settings</b>. By modifying the [`core_settings.h`](https://github.com/MCUdude/MicroCore/blob/master/avr/cores/microcore/core_settings.h) file you can enable or disable core functions you need or don't need. 
 For instance, you're able to save about 100 bytes of flash if you're willing to disable the millis() function. 
 If you know what you're doing and got full control, you can disable the safemode. For instance the safemode makes sure that PWM gets turned off is a pin drives high or low, or digital pins doesn't exeed the number 5 (6 digital pins in total). By disabling the safemode you'll gain some speed and flash space.
 
 
-##How to install
+## How to install
 #### Boards Manager Installation
 This installation method requires Arduino IDE version 1.6.4 or greater.
 * Open the Arduino IDE.
@@ -103,7 +103,7 @@ Click on the "Clone or download" button in the upper right corner. Exctract the 
 Open Arduino IDE, and a new category in the boards menu called "MicroCore" will show up.
 
 
-##Getting started with MicroCore
+## Getting started with MicroCore
 Ok, so you're downloaded and installed MicroCore, but how to the wheels spinning? Here's a quick start guide:
 * Hook up your microcontroller as shown in the [pinout diagram](#pinout).
 * Open the **Tools > Board** menu item, and select ATtiny13.
@@ -116,21 +116,21 @@ Ok, so you're downloaded and installed MicroCore, but how to the wheels spinning
 * If you want to do some changes; change the BOD option for instance, you'll have to hit **Burn Bootloader** again.
 
 
-##Pinout
+## Pinout
 This diagram shows the pinout and the pheripherals of the ATtiny13. The Arduino pinout is directly mapped to the port number to minimize the code footprint.
 <b>Click to enlarge:</b> 
 </br> </br>
 <img src="http://i.imgur.com/JsbguPV.jpg" width="800">
 
 
-##Minimal setup
+## Minimal setup
 <br/>
 <img src="http://i.imgur.com/SjCN7oZ.png" width="600">
 
 
-##Working Arduino functions
+## Working Arduino functions
 
-####Arduino functions
+#### Arduino functions
 * [abs()](https://www.arduino.cc/en/Reference/Abs)
 * [analogRead()](https://www.arduino.cc/en/Reference/AnalogRead)
 * [analogWrite()](https://www.arduino.cc/en/Reference/AnalogWrite)
@@ -169,7 +169,7 @@ This diagram shows the pinout and the pheripherals of the ATtiny13. The Arduino 
 * [sq()](https://www.arduino.cc/en/Reference/Sq)
 * [sqrt()](https://www.arduino.cc/en/Reference/Sqrt)
 
-####avr-libc libraries including
+#### avr-libc libraries including
 * [Delay library (delay.h)](http://www.nongnu.org/avr-libc/user-manual/group__util__delay.html)
 * [Math library (math.h)](http://www.nongnu.org/avr-libc/user-manual/group__avr__math.html)
 * [Power library (power.h)](http://www.nongnu.org/avr-libc/user-manual/group__avr__power.html)
@@ -177,4 +177,4 @@ This diagram shows the pinout and the pheripherals of the ATtiny13. The Arduino 
 * [String library (string.h)](http://www.nongnu.org/avr-libc/user-manual/group__avr__string.html)
 * [Standard library (stdlib.h)](http://www.nongnu.org/avr-libc/user-manual/group__avr__stdlib.html)
 * [Watchdog timer library (wdt.h)](http://www.nongnu.org/avr-libc/user-manual/group__avr__watchdog.html)
-Note that more avr-libc libraries probably works out of the box, but haven't been tested by me.
+Note that more (all?) avr-libc libraries probably works out of the box, but haven't been tested by me.
