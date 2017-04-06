@@ -46,6 +46,7 @@ extern "C"{
   #define INTERNAL 1
   #define EXTERNAL 0
   #define DEFAULT 0
+  #define NOT_AN_INTERRUPT -1
   #ifdef abs
     #undef abs
   #endif
@@ -70,6 +71,7 @@ extern "C"{
   #define bitWrite(value, bit, bitvalue) (bitvalue ? bitSet(value, bit) : bitClear(value, bit))
   #define delayMicroseconds(us) _delay_us(us) // _delay_us function wrapper
   #define bit(b) (1UL << (b))
+  #define digitalPinToInterrupt(p) ((p) == 1 ? 0 : NOT_AN_INTERRUPT)
   typedef uint16_t word;
   typedef uint8_t byte;
   typedef bool boolean;
