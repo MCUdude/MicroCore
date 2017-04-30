@@ -97,9 +97,11 @@ extern "C"{
 
 // Pin definitions
 #define LED_BUILTIN 0
-const static uint8_t A0 = 5;
-const static uint8_t A1 = 2;
-const static uint8_t A2 = 4;
+
+// Ax constants cannot be used for digitalRead/digitalWrite/analogWrite functions, only analogRead()
+const static uint8_t A0 = 0;
+const static uint8_t A1 = 1;
+const static uint8_t A2 = 2;
 const static uint8_t A3 = 3;
 
 #ifdef __cplusplus
