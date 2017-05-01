@@ -3,7 +3,6 @@ An Arduino core designed for ATtiny13
 Based on the work done by "smeezekitty" 
 Modified and maintained by MCUdude
 https://github.com/MCUdude/MicroCore
-
 This file contains low level macros.
 */
 
@@ -28,9 +27,6 @@ extern "C"{
 #ifndef sbi
   #define sbi(sfr, bit) (_SFR_BYTE(sfr) |= _BV(bit))
 #endif
-#define EXTERNAL_INTERRUPT_0 0
-
-#define NUMBER_EXTERNAL_INTERRUPTS 1
 
 typedef void (*voidFuncPtr)(void);
 
