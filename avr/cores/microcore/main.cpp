@@ -13,10 +13,10 @@ runs.
 
 int main(void)
 {
-	init();  // Call init routine (wiring.c)
-	setup(); // Call user provided setup()
-	while(1) // Continuously call user provided loop()
-	{
-		loop(); 
-	}
+  init();  // Call init routine (wiring.c)
+  setup(); // Call user provided setup()
+  while(1) // Continuously call user provided loop()
+  {
+    loop(); 
+  }
 }

@@ -23,14 +23,14 @@ void analogReference(uint8_t mode)
 
 int16_t analogRead(uint8_t pin)
 {
-	uint8_t l,h;
-	ADMUX = (ADMUX & _BV(REFS0)) | (pin & 0x03); // Setup ADC, preserve REFS0
-	ADCSRA |= _BV(ADSC);	
-	while(ADCSRA & _BV(ADSC)); // Wait for conversion
-	l = ADCL;  // Read and return 10 bit result
-	h = ADCH;
-	return (h << 8)|l; 
+  uint8_t l,h;
+  ADMUX = (ADMUX & _BV(REFS0)) | (pin & 0x03); // Setup ADC, preserve REFS0
+  ADCSRA |= _BV(ADSC);  
+  while(ADCSRA & _BV(ADSC)); // Wait for conversion
+  l = ADCL;  // Read and return 10 bit result
+  h = ADCH;
+  return (h << 8)|l; 
 }
 
 
-		
+    
