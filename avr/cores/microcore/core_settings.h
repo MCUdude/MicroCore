@@ -25,9 +25,11 @@ need, in order to free up some space.
 // accurate down to 1 ms, but will increase with steps of 16.
 #define ENABLE_MILLIS
 
-// WARNING!! Enabling micros() will cause the processor to interrupt every 256 clock cycle, and will mess
-// up timing functions such as delay() and _delay_ms(). E.g delay(1) will actually last 1.3 ms instead.
-// Do you really want this? The choice is always yours ;)
+// Enabling micros() will cause the processor to interrupt more often (every 2048th clock cycle if 
+// F_CPU < 4.8 MHz, every 16384th clock cycle if F_CPU >= 4.8 MHz. This will add some overhead when F_CPU is
+// less than 4.8 MHz. It's disabled by default because it occupies precious flash space and loads the CPU with
+// additional interrupts and calculations. Also note that micros() very aren't precise for frequencies that 64
+// doesn't divide evenly by.
 //#define ENABLE_MICROS
 
 // If you're not using the analog pins or want to set it up yourself, you can disable it here
@@ -38,17 +40,17 @@ need, in order to free up some space.
 
 // Here's the PWM settings for Timer0
 // These settings will also be disabled if SETUP_PWM is commented out
-#define PRESCALER_8			  // PWM frequency = (F_CPU/256) / 8   <-- DEFAULT
+// Note that ENABLE_MICROS will override this setting 
+#define PRESCALER_DEFAULT // Selects the "best suited" prescaler based on F_CPU
 //#define PRESCALER_NONE	// PWM frequency = (F_CPU/256) / 1
+//#define PRESCALER_8			// PWM frequency = (F_CPU/256) / 8
 //#define PRESCALER_64		// PWM frequency = (F_CPU/256) / 64
 //#define PRESCALER_256		// PWM frequency = (F_CPU/256) / 256
 //#define PRESCALER_1024	// PWM frequency = (F_CPU/256) / 1024
 
 // These are the waveform generation settings for timer0
-#define PWM_FAST				//  <-- DEFAULT
-//#define PWM_NORMAL
+#define PWM_FAST				  //  <-- DEFAULT
 //#define PWM_PHASE_CORRECT
-//#define PWM_CTC
 
 
 #endif
