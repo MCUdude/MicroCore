@@ -44,6 +44,7 @@ extern "C"{
   #define FALLING 2
   #define RISING 3
   #define INTERNAL 1
+  #define INTERNAL1V1 1
   #define EXTERNAL 0
   #define DEFAULT 0
   #define NOT_AN_INTERRUPT -1
