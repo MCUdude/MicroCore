@@ -1,5 +1,5 @@
 # MicroCore
-A lightweight and heavily optimized Arduino core for the ATtiny13, ATtiny13A and ATtiny13V. This core requires at least Arduino IDE v1.6, where v1.6.11 or newer is recommended and required if you want to enable [LTO](#gcc-flags). <br/> This core is a heavily modified fork of the [at13 repository](https://github.com/bartgee/at13), which is again based on Smeezekitty's [core13](https://sourceforge.net/projects/ard-core13/). A lot of work have been put into this fork to make it up to date with todays requirements.
+A lightweight Arduino hardware package for ATtiny13, ATtiny13A and ATtiny13V. This core requires at least Arduino IDE v1.6, where v1.6.13 or newer is recommended. <br/> This core is almost a complete rewrite of the [at13 repository](https://github.com/bartgee/at13), which is again based on Smeezekitty's [core13](https://sourceforge.net/projects/ard-core13/). A lot of work have been put into this fork to make it up to date with todays requirements.
 If you're into "pure" AVR programming, I'm happy to tell you that all relevant keywords are being highlighted by the IDE through a separate keywords file. Make sure to check out the [example files](https://github.com/MCUdude/MicroCore/tree/master/avr/libraries/AVR_examples/examples) (File > Examples > AVR C code examples).
 
 
@@ -28,7 +28,7 @@ If you're into "pure" AVR programming, I'm happy to tell you that all relevant k
 
 ## Supported clock frequencies
 The ATtiny13 has several internal oscillators, and these are the available clock frequencies:
-* 9.6 MHz internal oscillator (default)
+* 9.6 MHz internal oscillator *(default)*
 * 4.8 MHz internal oscillator
 * 1.2 MHz internal oscillator
 * 600 kHz internal oscillator
@@ -42,15 +42,15 @@ Supported external clock frequencies:
 * 8 MHz external oscillator
 * 1 MHz external oscillator
 
-Select the ATtiny13 in the boards menu, then select the clock frequency. You'll have to hit "Burn bootloader" in order to set the correct fuses. Make sure you connect an ISP programmer, and select the correct one in the "Programmers" menu.
+Select the ATtiny13 in the boards menu, then select the clock frequency. You'll have to hit "Burn bootloader" in order to set the correct fuses. Make sure you connect an ISP programmer, and select the correct one in the "Programmers" menu. <br/> <br/>
 <b>*</b> Make sure to use one of the "slow" programmer options when using the 128 kHz option (e.g _USBtinyISP (slow)_).
 </br></br>
 
 
 ## GCC flags
-Compiler flags indicates what level of optimization the compiler should use. Just leave this on the default setting if you don't know what this is. If you want to learn more about compiler flags and link time optimization (LTO), head over to the [GNU GCC website](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html). Nerd Ralph have also written a [great post about LTO](http://nerdralph.blogspot.no/2014/04/gcc-link-time-optimization-can-fix-bad.html) you should read.<br/>
+Compiler flags indicates what level of optimization the compiler should use. Just leave this on the default setting if you don't know what this is. If you want to learn more about compiler flags and link time optimization (LTO), head over to the [GNU GCC website](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html). Ralph Doncaster have also written a [great post about LTO](http://nerdralph.blogspot.no/2014/04/gcc-link-time-optimization-can-fix-bad.html) you should read.<br/>
 Available compiler flags:
-* -Os LTO enabled (default)
+* -Os LTO enabled *(default)*
 * -Os
 * -O1 LTO enabled
 * -O1
@@ -80,8 +80,8 @@ Make sure you connect an ISP programmer, and select the correct one in the "Prog
 
 ## Core settings
 To make sure you're able to fit your whole project into this tiny microcontroller and still be able to use Arduino functions, I've added some <b>core settings</b>. By modifying the [`core_settings.h`](https://github.com/MCUdude/MicroCore/blob/master/avr/cores/microcore/core_settings.h) file you can enable or disable core functions you need or don't need. 
-For instance, you're able to save about 100 bytes of flash if you're willing to disable the millis() function. 
-If you know what you're doing and got full control, you can disable the safemode. For instance the safemode makes sure that PWM gets turned off is a pin drives high or low, or digital pins doesn't exeed the number 5 (6 digital pins in total). By disabling the safemode you'll gain some speed and flash space.
+For instance, you save about 100 bytes of flash if you're willing to disable the millis() function. 
+If you know what you're doing and got full control, you can disable the safemode. For instance safemode makes sure that PWM gets turned off is a pin drives high or low, or digital pins doesn't exeed the number 5 (6 digital pins in total). By disabling safemode you'll gain some speed and flash space.
 
 
 ## How to install
@@ -93,7 +93,6 @@ This installation method requires Arduino IDE version 1.6.4 or greater.
 * Open the **Tools > Board > Boards Manager...** menu item.
 * Wait for the platform indexes to finish downloading.
 * Scroll down until you see the **MicroCore** entry and click on it.
-  * **Note**: If you are using Arduino IDE 1.6.6 then you may need to close **Boards Manager** and then reopen it before the **MicroCore** entry will appear.
 * Click **Install**.
 * After installation is complete close the **Boards Manager** window.
 
@@ -108,7 +107,7 @@ Ok, so you're downloaded and installed MicroCore, but how to the wheels spinning
 * Hook up your microcontroller as shown in the [pinout diagram](#pinout).
 * Open the **Tools > Board** menu item, and select ATtiny13.
 * Select your prefered BOD option. Read more about BOD [here](#bod-option).
-* Select your prefered clock frequency. **9.6 MHz internal oscillator** is the default setting. Do not use the external oscillator option if you don't got an external clock source. Remember that a regular two pincrystal will not work on the ATtiny13.
+* Select your prefered clock frequency. **9.6 MHz internal oscillator** is the default setting. Do not use the external oscillator option if you don't got an external clock source. Remember that a regular two pin crystal will not work on the ATtiny13.
 * If you want you can change the compiler flags for further optimization. Leave this on the default setting if you don't know what compiler flags is. 
 * Select what kind of programmer you're using under the **Programmers** menu. Use one of the **slow** programmers if you're using the 128 kHz oscillator option, e.g **USBtinyISP (slow)**.
 * Hit **Burn Bootloader** to burn the fuses. The "settings" are now stored on the microcontroller!
@@ -117,7 +116,7 @@ Ok, so you're downloaded and installed MicroCore, but how to the wheels spinning
 
 
 ## Pinout
-This diagram shows the pinout and the pheripherals of the ATtiny13. The Arduino pinout is directly mapped to the port number to minimize the code footprint.
+This diagram shows the pinout and the pheripherals of ATtiny13. The Arduino pinout is directly mapped to the port number to minimize code footprint.
 <b>Click to enlarge:</b> 
 </br> </br>
 <img src="http://i.imgur.com/JsbguPV.jpg" width="800">
@@ -158,7 +157,7 @@ This diagram shows the pinout and the pheripherals of the ATtiny13. The Arduino 
 * [noInterrupts()](https://www.arduino.cc/en/Reference/NoInterrupts)
 * [pinMode()](https://www.arduino.cc/en/Reference/PinMode)
 * [pow()](https://www.arduino.cc/en/Reference/Pow)
-* [pulseIn()](https://www.arduino.cc/en/Reference/PulseIn)
+* [pulseIn()](https://www.arduino.cc/en/Reference/PulseIn)   *micros() must be enabled in the [core settings](https://github.com/MCUdude/MicroCore/blob/master/avr/cores/microcore/core_settings.h) first* 
 * [radians()](https://github.com/MCUdude/MicroCore/blob/83b192f46fa5c58f8b7a60d7a678b2199d167ba5/avr/cores/microcore/Arduino.h#L55)
 * [random()](https://www.arduino.cc/en/Reference/Random)
 * [randomSeed()](https://www.arduino.cc/en/Reference/RandomSeed)
@@ -168,13 +167,3 @@ This diagram shows the pinout and the pheripherals of the ATtiny13. The Arduino 
 * [sizeof()](https://www.arduino.cc/en/Reference/Sizeof)
 * [sq()](https://www.arduino.cc/en/Reference/Sq)
 * [sqrt()](https://www.arduino.cc/en/Reference/Sqrt)
-
-#### avr-libc libraries including
-* [Delay library (delay.h)](http://www.nongnu.org/avr-libc/user-manual/group__util__delay.html)
-* [Math library (math.h)](http://www.nongnu.org/avr-libc/user-manual/group__avr__math.html)
-* [Power library (power.h)](http://www.nongnu.org/avr-libc/user-manual/group__avr__power.html)
-* [Sleep library (sleep.h)](http://www.nongnu.org/avr-libc/user-manual/group__avr__sleep.html)
-* [String library (string.h)](http://www.nongnu.org/avr-libc/user-manual/group__avr__string.html)
-* [Standard library (stdlib.h)](http://www.nongnu.org/avr-libc/user-manual/group__avr__stdlib.html)
-* [Watchdog timer library (wdt.h)](http://www.nongnu.org/avr-libc/user-manual/group__avr__watchdog.html)
-Note that more (all?) avr-libc libraries probably works out of the box, but haven't been tested by me.
