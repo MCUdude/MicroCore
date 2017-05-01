@@ -18,13 +18,16 @@ detachInterrupt().
 #include "wiring_private.h"
 #include "core_settings.h"
 
-static volatile voidFuncPtr intFunc[NUMBER_EXTERNAL_INTERRUPTS];
+#define EXTERNAL_NUM_INTERRUPTS 1
+#define EXTERNAL_INTERRUPT_0 0
+
+static volatile voidFuncPtr intFunc[EXTERNAL_NUM_INTERRUPTS];
 
 void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), uint8_t mode) 
 {
   // SAFEMODE prevents you from inserting a interrupt number that's not supported
   #ifdef SAFEMODE
-  if(interruptNum < NUMBER_EXTERNAL_INTERRUPTS) {
+  if(interruptNum < EXTERNAL_NUM_INTERRUPTS) {
   #endif
     uint8_t SaveSREG = SREG; // Save interrupt flag
 
@@ -52,7 +55,7 @@ void detachInterrupt(uint8_t interruptNum)
 {
   // SAFEMODE prevents you from inserting a interrupt number that's not supported
   #ifdef SAFEMODE
-  if (interruptNum < NUMBER_EXTERNAL_INTERRUPTS) 
+  if (interruptNum < EXTERNAL_NUM_INTERRUPTS) 
   {
   #endif
     // Disable INT0 on pin PB1
@@ -66,6 +69,5 @@ void detachInterrupt(uint8_t interruptNum)
 
 ISR(INT0_vect)
 {
-  if(intFunc[EXTERNAL_INTERRUPT_0])
-    intFunc[EXTERNAL_INTERRUPT_0]();
+  intFunc[EXTERNAL_INTERRUPT_0]();
 }
