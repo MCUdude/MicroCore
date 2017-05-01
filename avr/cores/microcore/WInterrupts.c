@@ -18,7 +18,6 @@ detachInterrupt().
 #include "wiring_private.h"
 #include "core_settings.h"
 
-#define EXTERNAL_NUM_INTERRUPTS 1
 #define EXTERNAL_INTERRUPT_0 0
 
 static volatile voidFuncPtr intFunc[EXTERNAL_NUM_INTERRUPTS];
