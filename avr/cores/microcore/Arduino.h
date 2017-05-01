@@ -19,7 +19,7 @@ https://github.com/MCUdude/MicroCore
 #include <util/delay.h>
 #include <avr/wdt.h>
 #include "WString.h"
-
+#include "pins_arduino.h"
 
 #ifdef __cplusplus
 extern "C"{	
@@ -43,9 +43,6 @@ extern "C"{
   #define CHANGE 1
   #define FALLING 2
   #define RISING 3
-  #define INTERNAL 1
-  #define INTERNAL1V1 1
-  #define EXTERNAL 0
   #define DEFAULT 0
   #define NOT_AN_INTERRUPT -1
   #ifdef abs
@@ -72,7 +69,6 @@ extern "C"{
   #define bitWrite(value, bit, bitvalue) (bitvalue ? bitSet(value, bit) : bitClear(value, bit))
   #define delayMicroseconds(us) _delay_us(us) // _delay_us function wrapper
   #define bit(b) (1UL << (b))
-  #define digitalPinToInterrupt(p) ((p) == 1 ? 0 : NOT_AN_INTERRUPT)
   typedef uint16_t word;
   typedef uint8_t byte;
   typedef bool boolean;
@@ -96,14 +92,7 @@ extern "C"{
 #ifdef __cplusplus
 } // extern "C"
 
-// Pin definitions
-#define LED_BUILTIN 0
 
-// Ax constants cannot be used for digitalRead/digitalWrite/analogWrite functions, only analogRead()
-const static uint8_t A0 = 0;
-const static uint8_t A1 = 1;
-const static uint8_t A2 = 2;
-const static uint8_t A3 = 3;
 
 #ifdef __cplusplus
   uint16_t makeWord(uint16_t w);
