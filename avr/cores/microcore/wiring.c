@@ -48,48 +48,70 @@ uint32_t millis()
 #ifdef ENABLE_MICROS
 volatile uint32_t timer0_overflow = 0;
 
-// This will cause an interrupt every 256 clock cycle
+// This will cause an interrupt every 256/64 clock cycle
 ISR(TIM0_OVF_vect)
 {
   timer0_overflow++; // Increment counter by one
 }
 
-
 uint32_t micros()
 {
-  uint32_t x;
+  // Preserve old SREG vale
+  uint8_t oldSREG = SREG;
+  // Disable global interrupts
   cli();
-  #if F_CPU == 16000
-    x = timer0_overflow * 16000;
-  #elif F_CPU < 150000 && F_CPU > 80000
-    x = timer0_overflow * 2000;
-  #elif F_CPU == 600000
-    x = timer0_overflow * 427;
-  #elif F_CPU == 1000000
-    x = timer0_overflow * 256;
-  #elif F_CPU == 1200000
-    x = timer0_overflow * 213;
-  #elif F_CPU == 4000000
-    x = timer0_overflow * 64;
-  #elif F_CPU == 4800000
-    x = timer0_overflow * 53;
-  #elif F_CPU == 8000000
-    x = timer0_overflow * 32;
-  #elif F_CPU == 9600000
-    x = timer0_overflow * 27;
-  #elif F_CPU == 10000000
-    x = timer0_overflow * 26;
-  #elif F_CPU == 12000000
-    x = timer0_overflow * 21;
-  #elif F_CPU == 16000000
-    x = timer0_overflow * 16;
-  #else 
-  #error 
-    #warning This CPU frequency is not defined (choose 128 kHz or more)
-    sei();
-    return 0;
-  #endif
-  sei();
+  // Variable to hold the return value
+  uint32_t x;
+  
+  #if F_CPU == 20000000L
+    // Each timer tick is 1/(16MHz/64) = 3.2us long. We multiply the timer0_overflow variable
+    // by 256 (bitshift 8 times) and we add the current timer count TCNT0. Since each tick is 3.2us long,
+    // we multiply by 3 at the end
+    x = ((timer0_overflow << 8) + TCNT0) * 3;
+  #elif F_CPU == 16000000L
+    // Each timer tick is 1/(16MHz/64) = 4us long. We multiply the timer0_overflow variable
+    // by 256 (bitshift 8 times) and we add the current timer count TCNT0. Since each tick is 4us long,
+    // we multiply by 4 at the end
+    x = ((timer0_overflow << 8) + TCNT0) * 4;
+  #elif F_CPU == 1200000L
+    // Each timer tick is 1/(12MHz/64) = 5.333us long. We multiply the timer0_overflow variable
+    // by 256 (bitshift 8 times) and we add the current timer count TCNT0. Since each tick is 5.333us long,
+    // we multiply by 5 at the end
+    x = ((timer0_overflow << 8) + TCNT0) * 5;  
+  #elif F_CPU == 9600000L
+    // Each timer tick is 1/(9.6MHz/64) = 6.666us long. We multiply the timer0_overflow variable
+    // by 256 (bitshift 8 times) and we add the current timer count TCNT0. Since each tick is 6.666us long,
+    // we multiply by 7 at the end
+    x = ((timer0_overflow << 8) + TCNT0) * 7;
+  #elif F_CPU == 80000000L
+    // Each timer tick is 1/(8MHz/64) = 8us long. We multiply the timer0_overflow variable
+    // by 256 (bitshift 8 times) and we add the current timer count TCNT0. Since each tick is 8us long,
+    // we multiply by 8 at the end
+    x = ((timer0_overflow << 8) + TCNT0) * 8;
+  #elif F_CPU == 4800000L
+    // Each timer tick is 1/(4.8MHz/64) = 13.333us long. We multiply the timer0_overflow variable
+    // by 256 (bitshift 8 times) and we add the current timer count TCNT0. Since each tick is 13.333us long,
+    // we multiply by 13 at the end
+    x = ((timer0_overflow << 8) + TCNT0) * 13;
+  #elif F_CPU == 1200000L
+    // Each timer tick is 1/(1.2MHz/8) = 6.666us long. We multiply the timer0_overflow variable
+    // by 256 (bitshift 8 times) and we add the current timer count TCNT0. Since each tick is 6.666us long,
+    // we multiply by 7 at the end
+    x = ((timer0_overflow << 8) + TCNT0) * 7;
+  #elif F_CPU == 1000000L
+    // Each timer tick is 1/(1MHz/8) = 8us long. We multiply the timer0_overflow variable
+    // by 256 (bitshift 8 times) and we add the current timer count TCNT0. Since each tick is 8us long,
+    // we multiply by 8 at the end
+    x = ((timer0_overflow << 8) + TCNT0) * 8;  
+  #elif F_CPU == 600000L
+    // Each timer tick is 1/(600kHz/8) = 13.333us long. We multiply the timer0_overflow variable
+    // by 256 (bitshift 8 times) and we add the current timer count TCNT0. Since each tick is 13.333us long,
+    // we multiply by 13 at the end
+    x = ((timer0_overflow << 8) + TCNT0) * 13;    
+ #endif
+ 
+  // Restore SREG
+  SREG = oldSREG;
   return x;
 }
 #endif // ENABLE_MICROS
@@ -112,28 +134,30 @@ void init()
 {
   #ifdef SETUP_PWM  
     // Set Timer0 prescaler
-    #if defined(PRESCALER_NONE)        // PWM frequency = (F_CPU/256) / 1
+    #if defined(PRESCALER_DEFAULT)
+      #if F_CPU >= 4800000L
+        TCCR0B |= _BV(CS00) | _BV(CS01); // PWM frequency = (F_CPU/256) / 64
+      #else  
+        TCCR0B |= _BV(CS01);             // PWM frequency = (F_CPU/256) / 8
+      #endif
+    #elif defined(PRESCALER_NONE)        // PWM frequency = (F_CPU/256) / 1
       TCCR0B |= _BV(CS00);
-    #elif  defined(PRESCALER_8)        // PWM frequency = (F_CPU/256) / 8
+    #elif  defined(PRESCALER_8)          // PWM frequency = (F_CPU/256) / 8
       TCCR0B |= _BV(CS01);
-    #elif  defined(PRESCALER_64)      // PWM frequency = (F_CPU/256) / 64
+    #elif  defined(PRESCALER_64)         // PWM frequency = (F_CPU/256) / 64
       TCCR0B |= _BV(CS00) | _BV(CS01);
-    #elif  defined(PRESCALER_256)      // PWM frequency = (F_CPU/256) / 256
+    #elif  defined(PRESCALER_256)        // PWM frequency = (F_CPU/256) / 256
       TCCR0B |= _BV(CS02);
-    #elif  defined(PRESCALER_1024)    // PWM frequency = (F_CPU/256) / 1024
+    #elif  defined(PRESCALER_1024)       // PWM frequency = (F_CPU/256) / 1024
       TCCR0B |= _BV(CS00) | _BV(CS02);
     #endif
     
     // Set waveform generation mode
     #if defined(PWM_FAST)
       TCCR0A |= _BV(WGM00) | _BV(WGM01);
-    #elif defined(PWM_NORMAL)
-      TCCR0A &= ~_BV(WGM00) | ~_BV(WGM01);
     #elif defined(PWM_PHASE_CORRECT)
       TCCR0A |= _BV(WGM00);
-    #elif defined(PWM_CTC)
-      TCCR0A |= _BV(WGM01);
-    #endif  
+    #endif
   #endif  
   
   // Enable WDT interrupt and enable global interrupts  
@@ -148,8 +172,17 @@ void init()
     sei();
   #endif
   
-  // WARNING! Enabling micros() will affect timing functions heavily!
+  // WARNING! Enabling micros() will affect timing functions!
   #ifdef ENABLE_MICROS
+    
+    // Clear all Timer0 settings
+    TCCR0B = 0;
+    // Set a suited prescaler based on F_CPU
+    #if F_CPU >= 4800000L
+      TCCR0B |= _BV(CS00) | _BV(CS01); // F_CPU/64 
+    #else  
+      TCCR0B |= _BV(CS01);             // F_CPU/8
+    #endif      
     // Enable overflow interrupt on Timer0
     TIMSK0 |= _BV(TOIE0);
     // Set timer0 couter to zero
