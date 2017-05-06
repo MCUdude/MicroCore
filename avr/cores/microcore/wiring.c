@@ -41,10 +41,11 @@ uint32_t millis()
 
 
 /***** MICROS() *****/
-// To achieve accurate micros() readings, we'll have to enable the overflow interrupt
-// vector on timer 0. This means there will be an interrupt every 256 clock cycle.
-// Interrupts as rapidly as this tends to affect the overall time keeping.
-// E.g if micros() is enabled, the delay(1) function will actually last 1.3 ms instead.
+// Enabling micros() will cause the processor to interrupt more often (every 2048th clock cycle if 
+// F_CPU < 4.8 MHz, every 16384th clock cycle if F_CPU >= 4.8 MHz. This will add some overhead when F_CPU is
+// less than 4.8 MHz. It's disabled by default because it occupies precious flash space and loads the CPU with
+// additional interrupts and calculations. Also note that micros() very aren't precise for frequencies that 64
+// doesn't divide evenly by, such as 9.6 and 4.8 MHz.
 #ifdef ENABLE_MICROS
 volatile uint32_t timer0_overflow = 0;
 
