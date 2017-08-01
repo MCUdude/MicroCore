@@ -79,6 +79,7 @@ extern "C"{
   uint8_t digitalRead(uint8_t);
   int16_t analogRead(uint8_t); 
   void analogReference(uint8_t mode);
+  void turnOffPWM(uint8_t pin);
   void analogWrite(uint8_t, uint8_t);
   uint32_t millis(void);
   uint32_t micros(void);
@@ -101,7 +102,11 @@ extern "C"{
   int32_t random(int32_t);
   int32_t random(int32_t, int32_t);
   void randomSeed(uint16_t);
-  int32_t map(int32_t, int32_t, int32_t, int32_t, int32_t);
+  template <typename A, typename B, typename C, typename D, typename E> 
+  int32_t map(A x, B in_min, C in_max, D out_min, E out_max)
+  {
+    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+  }
 #endif
 
 #endif
