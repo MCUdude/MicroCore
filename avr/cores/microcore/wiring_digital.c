@@ -32,15 +32,6 @@ void pinMode(uint8_t pin, uint8_t mode)
 }
 
 
-void turnOffPWM(uint8_t pin)
-{
-  if(pin == 0)
-    TCCR0A &= ~_BV(COM0A1);
-  else if(pin == 1)
-    TCCR0A &= ~_BV(COM0B1);
-}
-
-
 void digitalWrite(uint8_t pin, uint8_t val)
 {
   // SAFEMODE prevents you from inserting a pin number out of range, and disables PWM if turned on
@@ -48,7 +39,7 @@ void digitalWrite(uint8_t pin, uint8_t val)
     if(pin > 5)
       return;
     if(pin < 2)
-      turnOffPWM(pin); //If it's a PWM pin, make sure the PWM is off
+      turnOffPWM(pin); // If it's a PWM pin, make sure PWM is off
   #endif  
     
   if(val)
