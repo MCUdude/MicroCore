@@ -9,18 +9,45 @@ analogWrite().
 
 #include "wiring_private.h"
 
+
+void turnOffPWM(uint8_t pin)
+{
+  if(pin == 0)
+    TCCR0A &= ~_BV(COM0A1);
+  else if(pin == 1)
+    TCCR0A &= ~_BV(COM0B1);
+}
+
+
 void analogWrite(uint8_t pin, uint8_t val)
 {
   // SAFEMODE prevents you from inserting a pin number out of range
   #ifdef SAFEMODE
     DDRB |= _BV(pin & 0x02); // Set the correct pin as output
   #endif
-    
-  if(val == 0) // Handle off condition
+  
+  // Handle off condition  
+  if(val == 0)
+  {
+    // Turn off PWM even when SAFEMODE is disabled
+    #ifndef SAFEMODE
+      turnOffPWM(pin);
+    #endif
     digitalWrite(pin, LOW);
-  else if(val == 255) // Handle on condition
+  }
+  
+  // Handle on condition
+  else if(val == 255) 
+  {
+    // Turn off PWM even when SAFEMODE is disabled
+    #ifndef SAFEMODE
+      turnOffPWM(pin);
+    #endif
     digitalWrite(pin, HIGH);
-  else // Otherwise setup the appropriate timer compare 
+  }
+  
+  // Otherwise setup the appropriate timer compare
+  else
   { 
     if(pin == 1)    
     {
