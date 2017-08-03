@@ -62,6 +62,17 @@ usbaspslow.program.tool=avrdude
 usbaspslow.program.extra_params=-Pusb -B32
 
 
+arduinoisporg.name=ArduinoISP.org
+arduinoisporg.protocol=arduinoisporg
+arduinoisporg.program.tool=avrdude
+arduinoisporg.program.extra_params=
+
+arduinoisporgslow.name=ArduinoISP.org (slow)
+arduinoisporgslow.protocol=arduinoisporg
+arduinoisporgslow.program.tool=avrdude
+arduinoisporgslow.program.extra_params=-B32
+
+
 arduinoasisp.name=Arduino as ISP
 arduinoasisp.communication=serial
 arduinoasisp.protocol=stk500v1
@@ -120,3 +131,18 @@ buspirateslow.protocol=buspirate
 buspirateslow.program.protocol=buspirate
 buspirateslow.program.tool=avrdude
 buspirateslow.program.extra_params=-P{serial.port} -B32
+
+
+atmel_ice.name=Atmel-ICE (AVR)
+atmel_ice.communication=usb
+atmel_ice.protocol=atmelice_isp
+atmel_ice.program.protocol=atmelice_isp
+atmel_ice.program.tool=avrdude
+atmel_ice.program.extra_params=-Pusb
+
+atmel_iceslow.name=Atmel-ICE (AVR) (slow)
+atmel_iceslow.communication=usb
+atmel_iceslow.protocol=atmelice_isp
+atmel_iceslow.program.protocol=atmelice_isp
+atmel_iceslow.program.tool=avrdude
+atmel_iceslow.program.extra_params=-Pusb -B32
