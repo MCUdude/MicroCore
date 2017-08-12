@@ -29,21 +29,15 @@ void analogWrite(uint8_t pin, uint8_t val)
   // Handle off condition  
   if(val == 0)
   {
-    // Turn off PWM even when SAFEMODE is disabled
-    #ifndef SAFEMODE
-      turnOffPWM(pin);
-    #endif
-    digitalWrite(pin, LOW);
+    turnOffPWM(pin);    // Turn off PWM
+    PORTB &= ~_BV(pin); // Set pin low
   }
   
   // Handle on condition
   else if(val == 255) 
   {
-    // Turn off PWM even when SAFEMODE is disabled
-    #ifndef SAFEMODE
-      turnOffPWM(pin);
-    #endif
-    digitalWrite(pin, HIGH);
+    turnOffPWM(pin);   // Turn off PWM
+    PORTB |= _BV(pin); // Set pin high
   }
   
   // Otherwise setup the appropriate timer compare

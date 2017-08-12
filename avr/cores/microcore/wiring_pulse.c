@@ -12,12 +12,21 @@ which depend on micros().
 
 uint32_t pulseIn(uint8_t pin, uint8_t stat, uint32_t timeout)
 { 
+  #if defined(SAFEMODE)
+    if(c > 5 || d > 5) // Return if pin number is too high
+      return;
+    if(c < 2)
+      turnOffPWM(c); // If it's a PWM pin, make sure PWM is off
+    else if(d < 2)
+      turnOffPWM(d); // If it's a PWM pin, make sure PWM is off
+  #endif   
+  
   uint32_t st,to;
   to = micros();
-  while(digitalRead(pin) == stat){if((micros() - to) > timeout){return 0;}}
-  while(digitalRead(pin) != stat){if((micros() - to) > timeout){return 0;}}
+  while(!!(PINB & _BV(pin)) == stat){if((micros() - to) > timeout){return 0;}}
+  while(!!(PINB & _BV(pin)) != stat){if((micros() - to) > timeout){return 0;}}
   st = micros();
-  while(digitalRead(pin) == stat){if((micros() - to) > timeout){return 0;}}
+  while(!!(PINB & _BV(pin)) == stat){if((micros() - to) > timeout){return 0;}}
   return micros()-st;
 }
   
