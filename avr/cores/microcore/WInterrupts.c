@@ -20,7 +20,7 @@ detachInterrupt().
 
 #define EXTERNAL_INTERRUPT_0 0
 
-static volatile voidFuncPtr intFunc[EXTERNAL_NUM_INTERRUPTS];
+static volatile voidFuncPtr intFunc;
 
 void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), uint8_t mode) 
 {
@@ -32,7 +32,7 @@ void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), uint8_t mode)
 
     cli(); // Disable interrupts
     
-    intFunc[interruptNum] = userFunc; // access the shared data
+    intFunc = userFunc; // access the shared data
     
     SREG = SaveSREG; // Restore the interrupt flag
     
@@ -59,14 +59,14 @@ void detachInterrupt(uint8_t interruptNum)
   #endif
     // Disable INT0 on pin PB1
     GIMSK &= ~(1 << INT0);
-    intFunc[interruptNum] = 0;
+    intFunc = 0;
   #ifdef SAFEMODE  
   }
   #endif
 }
 
-
+// AttachInterrupt ISR
 ISR(INT0_vect)
 {
-  intFunc[EXTERNAL_INTERRUPT_0]();
+  intFunc();
 }
