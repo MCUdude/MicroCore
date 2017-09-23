@@ -22,10 +22,23 @@ specific hardware definitions.
 #define NUM_DIGITAL_PINS           6
 #define NUM_ANALOG_INPUTS          4
 #define EXTERNAL_NUM_INTERRUPTS    1
-#define digitalPinToInterrupt(p)   ((p) == 1 ? 0 : NOT_AN_INTERRUPT)
+#define digitalPinToInterrupt(p)   (((p) == 1) ? 0 : NOT_AN_INTERRUPT)
 #define analogInputToDigitalPin(p) (((p) == 0) ? 5 : (((p) == 1) ? 2 : (((p) == 2) ? 4 :(((p) == 3) ? 3 : -1))))
 #define analogPinToChannel(p)      (p)
-#define digitalPinHasPWM(p)        ((p) == 0 || (p) == 1)
+#define digitalPinHasPWM(p)        (((p) == 0) || ((p) == 1))
+
+// Port and pin mapping
+#if defined(SAFEMODE)
+  #define digitalPinToPort(p)      (((p) >= 0 && (p) <= 5) ? 2 : 0)
+  #define portOutputRegister(p)    (((p) == 2) ? (&PORTB) : ((uint8_t *)NULL))
+  #define portInputRegister(p)     (((p) == 2) ? (&PINB)  : ((uint8_t *)NULL))
+  #define portModeRegister(p)      (((p) == 2) ? (&DDRB)  : ((uint8_t *)NULL))
+#else
+  #define digitalPinToPort(p)      (2)
+  #define portOutputRegister(p)    (&PORTB)
+  #define portInputRegister(p)     (&PINB)
+  #define portModeRegister(p)      (&DDRB)
+#endif
 
 // Analog reference macros
 #define EXTERNAL 0
@@ -40,7 +53,7 @@ specific hardware definitions.
   #define digitalPinToPCICR(p)     (&GIMSK)
   #define digitalPinToPCMSK(p)     (&PCMSK)
 #endif
-#define digitalPinToPCICRbit(p)    5
+#define digitalPinToPCICRbit(p)    (5)
 #define digitalPinToPCMSKbit(p)    (p)
 
 
