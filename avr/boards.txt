@@ -104,35 +104,40 @@ attiny13.menu.flag.Os_flto=-Os LTO enabled (default)
 attiny13.menu.flag.Os_flto.compiler.c.extra_flags=-Wextra -flto
 attiny13.menu.flag.Os_flto.compiler.c.elf.extra_flags=-w -flto
 attiny13.menu.flag.Os_flto.compiler.cpp.extra_flags=-Wextra -flto
+attiny13.menu.flag.Os_flto.compiler.flag_indicator=-D COMPILER_LTO
 attiny13.menu.flag.Os_flto.ltoarcmd=avr-gcc-ar
-
 
 attiny13.menu.flag.Os=-Os
 attiny13.menu.flag.Os.compiler.c.extra_flags=
 attiny13.menu.flag.Os.compiler.c.elf.extra_flags=
 attiny13.menu.flag.Os.compiler.cpp.extra_flags=
+attiny13.menu.flag.Os.compiler.flag_indicator=
 attiny13.menu.flag.Os.ltoarcmd=avr-ar
 
 attiny13.menu.flag.O1_flto=-O1 LTO enabled
 attiny13.menu.flag.O1_flto.compiler.c.extra_flags=-O1 -Wextra -flto
 attiny13.menu.flag.O1_flto.compiler.c.elf.extra_flags=-O1 -w -flto
 attiny13.menu.flag.O1_flto.compiler.cpp.extra_flags=-O1 -Wextra -flto
+attiny13.menu.flag.O1_flto.compiler.lto_indicator=-D COMPILER_LTO
 attiny13.menu.flag.O1_flto.ltoarcmd=avr-gcc-ar
 
 attiny13.menu.flag.O1=-O1
 attiny13.menu.flag.O1.compiler.c.extra_flags=-O1
 attiny13.menu.flag.O1.compiler.c.elf.extra_flags=-O1
 attiny13.menu.flag.O1.compiler.cpp.extra_flags=-O1
+attiny13.menu.flag.O1.compiler.flag_indicator=
 attiny13.menu.flag.O1.ltoarcmd=avr-ar
 
 attiny13.menu.flag.O3_flto=-O3 LTO enabled
 attiny13.menu.flag.O3_flto.compiler.c.extra_flags=-O3 -Wextra -flto
 attiny13.menu.flag.O3_flto.compiler.c.elf.extra_flags=-O3 -w -flto
 attiny13.menu.flag.O3_flto.compiler.cpp.extra_flags=-O3 -Wextra -flto
+attiny13.menu.flag.O3_flto.compiler.flag_indicator=-D COMPILER_LTO
 attiny13.menu.flag.O3_flto.ltoarcmd=avr-gcc-ar
 
 attiny13.menu.flag.O3=-O3
 attiny13.menu.flag.O3.compiler.c.extra_flags=-O3
 attiny13.menu.flag.O3.compiler.c.elf.extra_flags=-O3
 attiny13.menu.flag.O3.compiler.cpp.extra_flags=-O3
+attiny13.menu.flag.O3.compiler.flag_indicator=
 attiny13.menu.flag.O3.ltoarcmd=avr-ar
