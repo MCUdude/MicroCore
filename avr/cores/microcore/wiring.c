@@ -86,7 +86,7 @@ uint32_t micros()
     // by 256 (bitshift 8 times) and we add the current timer count TCNT0. Since each tick is 6.666us long,
     // we multiply by 7 at the end
     return ((x << 8) + t) * 7;
-  #elif F_CPU == 80000000L
+  #elif F_CPU == 8000000L
     // Each timer tick is 1/(8MHz/64) = 8us long. We multiply the timer0_overflow variable
     // by 256 (bitshift 8 times) and we add the current timer count TCNT0. Since each tick is 8us long,
     // we multiply by 8 at the end
