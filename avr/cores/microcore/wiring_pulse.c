@@ -75,11 +75,8 @@ dozen microseconds before the start of the pulse.
   // if F_CPU doesn't divide evenly by 64
   uint32_t pulseIn(uint8_t pin, uint8_t stat, uint32_t timeout)
   { 
-    #if !defined(ENABLE_MICROS)
-      #error Please enable micros()
-    #endif  
-    
-    #if defined(SAFEMODE)
+  
+   #if defined(SAFEMODE)
      if(pin > 5) // Return if pin number is too high
        return;
      if(pin < 2)
