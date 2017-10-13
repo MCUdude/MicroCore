@@ -4,7 +4,7 @@
  it is allowed to time out. When the sketch is running
  inside the second while loop, the watch dog timer is
  consistently reset to prevent a timeout. When PB0 is 
- pulled high, it breaks put of the while loop and causes 
+ pulled high, it breaks out of the while loop and causes 
  the watch dog timer to reset the processor.
  ********************************************************/ 
 

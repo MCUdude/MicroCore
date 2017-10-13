@@ -4,7 +4,7 @@ Based on the work done by "smeezekitty"
 Modified and maintained by MCUdude
 https://github.com/MCUdude/MicroCore
 
-This fine contains intterupt functions
+This fine contains interrupt functions
 such as attachInterrupt() and
 detachInterrupt().
 */
@@ -24,7 +24,7 @@ static volatile voidFuncPtr intFunc;
 
 void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), uint8_t mode) 
 {
-  // SAFEMODE prevents you from inserting a interrupt number that's not supported
+  // SAFEMODE prevents you from inserting an interrupt number that's not supported
   #ifdef SAFEMODE
   if(interruptNum < EXTERNAL_NUM_INTERRUPTS) {
   #endif
@@ -52,7 +52,7 @@ void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), uint8_t mode)
 
 void detachInterrupt(uint8_t interruptNum) 
 {
-  // SAFEMODE prevents you from inserting a interrupt number that's not supported
+  // SAFEMODE prevents you from inserting an interrupt number that's not supported
   #ifdef SAFEMODE
   if (interruptNum < EXTERNAL_NUM_INTERRUPTS) 
   {

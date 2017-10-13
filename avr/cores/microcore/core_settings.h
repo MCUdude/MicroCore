@@ -3,7 +3,7 @@ Arduino core designed for ATtiny13
 File created and maintained by MCUdude
 https://github.com/MCUdude/MicroCore
 
-This file lets you turn on and off core functions.
+This file lets you turn core functions on and off.
 Since the ATtiny13 is really short on space, you
 might want to disable some functions you don't
 need, in order to free up some space.
@@ -14,7 +14,7 @@ need, in order to free up some space.
 
 
 // Makes the core "idiot proof" (see wiring_digital.c and wiring_pwm.h for examples where SAFEMODE is used).
-// Enabling SAFEMODE takes up more flash space, but "makes sure" you doesn't screw up, like by reading the 
+// Enabling SAFEMODE takes up more flash space, but "makes sure" you don't screw up, like by reading the 
 // state of a pin while it's outputting a PWM signal. If you know what you're doing, like explicitly writing
 // a pin as an output before using the analogWrite() function, you can save a lot of space by disabling this.
 #define SAFEMODE 
@@ -28,7 +28,7 @@ need, in order to free up some space.
 // Enabling micros() will cause the processor to interrupt more often (every 2048th clock cycle if 
 // F_CPU < 4.8 MHz, every 16384th clock cycle if F_CPU >= 4.8 MHz. This will add some overhead when F_CPU is
 // less than 4.8 MHz. It's disabled by default because it occupies precious flash space and loads the CPU with
-// additional interrupts and calculations. Also note that micros() very aren't precise for frequencies that 64
+// additional interrupts and calculations. Also note that micros() aren't very precise for frequencies that 64
 // doesn't divide evenly by.
 //#define ENABLE_MICROS
 
