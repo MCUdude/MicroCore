@@ -1,5 +1,5 @@
 # MicroCore
-A lightweight Arduino hardware package for ATtiny13, ATtiny13A and ATtiny13V. This core requires at least Arduino IDE v1.6, where v1.6.13 or newer is recommended. <br/> This core is almost a complete rewrite of the [at13 repository](https://github.com/bartgee/at13), which is again based on Smeezekitty's [core13](https://sourceforge.net/projects/ard-core13/). A lot of work have been put into this fork to make it up to date with todays requirements.
+A lightweight Arduino hardware package for ATtiny13, ATtiny13A and ATtiny13V. This core requires at least Arduino IDE v1.6, but v1.6.13 or newer is recommended. <br/> This core is almost a complete rewrite of the [at13 repository](https://github.com/bartgee/at13), which is again based on Smeezekitty's [core13](https://sourceforge.net/projects/ard-core13/). A lot of work has been put into this fork to make it up to date with the latest requirements.
 If you're into "pure" AVR programming, I'm happy to tell you that all relevant keywords are being highlighted by the IDE through a separate keywords file. Make sure to check out the [example files](https://github.com/MCUdude/MicroCore/tree/master/avr/libraries/AVR_examples/examples) (File > Examples > AVR C code examples).
 
 
@@ -34,7 +34,7 @@ The ATtiny13 has several internal oscillators, and these are the available clock
 * 600 kHz internal oscillator
 * 128 kHz internal watchdog oscillator <b>*</b>
 
-If you want other or higher clock frequencies, you can apply an external clock source. Note that the ATtiny13 requires an external clock signal, and is not able to drive an resonator circuit itself. You may use a [quartz crystal oscillator](https://en.wikipedia.org/wiki/Crystal_oscillator#/media/File:18MHZ_12MHZ_Crystal_110.jpg).
+If you want other or higher clock frequencies, you can apply an external clock source. Note that the ATtiny13 requires an external clock signal, and is not able to drive a resonator circuit itself. You may use a [quartz crystal oscillator](https://en.wikipedia.org/wiki/Crystal_oscillator#/media/File:18MHZ_12MHZ_Crystal_110.jpg).
 Supported external clock frequencies:
 * 20 MHz external oscillator
 * 26 MHz external oscillator
@@ -48,7 +48,7 @@ Select the ATtiny13 in the boards menu, then select the clock frequency. You'll 
 
 
 ## GCC flags
-Compiler flags indicates what level of optimization the compiler should use. Just leave this on the default setting if you don't know what this is. If you want to learn more about compiler flags and link time optimization (LTO), head over to the [GNU GCC website](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html). Ralph Doncaster have also written a [great post about LTO](http://nerdralph.blogspot.no/2014/04/gcc-link-time-optimization-can-fix-bad.html) you should read.<br/>
+Compiler flags indicate what level of optimization the compiler should use. Just leave this on the default setting if you don't know what this is. If you want to learn more about compiler flags and link time optimization (LTO), head over to the [GNU GCC website](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html). Ralph Doncaster has also written a [great post about LTO](http://nerdralph.blogspot.no/2014/04/gcc-link-time-optimization-can-fix-bad.html) you should read.<br/>
 Available compiler flags:
 * -Os LTO enabled *(default)*
 * -Os
@@ -72,7 +72,7 @@ These are the available BOD options:
 
 ## Programmers
 When the ATtiny13 is running from the internal 128 kHz oscillator, it's actually too slow to interact with the programming tool. That's why this core adds some additional programmers to the list, with the suffix *(slow)*. These options makes the programmers run at a lower clock speed, so the microcontroller can keep up.
-The `externalprogrammers.txt` file is for use with [the Arduino Eclipse plugin](http://eclipse.baeyens.it), and will not appear under the "Programmers" menu in Arduino IDE.
+The `externalprogrammers.txt` file is for use with [the Arduino Eclipse plugin](http://eclipse.baeyens.it), and will not appear under the "Programmers" menu in the Arduino IDE.
  
 Select your microcontroller in the boards menu, then select the clock frequency. You'll have to hit "Burn bootloader" in order to set the correct fuses and upload the correct bootloader. <br/>
 Make sure you connect an ISP programmer, and select the correct one in the "Programmers" menu. 
@@ -81,7 +81,7 @@ Make sure you connect an ISP programmer, and select the correct one in the "Prog
 ## Core settings
 To make sure you're able to fit your whole project into this tiny microcontroller and still be able to use Arduino functions, I've added some <b>core settings</b>. By modifying the [`core_settings.h`](https://github.com/MCUdude/MicroCore/blob/master/avr/cores/microcore/core_settings.h) file you can enable or disable core functions you need or don't need. 
 For instance, you save about 100 bytes of flash if you're willing to disable the millis() function. 
-If you know what you're doing and got full control, you can disable the safemode. For instance safemode makes sure that PWM gets turned off is a pin drives high or low, or digital pins doesn't exeed the number 5 (6 digital pins in total). By disabling safemode you'll gain some speed and flash space.
+If you know what you're doing and want full control, you can disable the safemode. For instance safemode makes sure that PWM gets turned off if a pin drives high or low, or digital pins don't exceed the number 5 (6 digital pins in total). By disabling safemode you'll gain some speed and flash space.
 
 
 ## How to install
@@ -98,17 +98,17 @@ This installation method requires Arduino IDE version 1.6.4 or greater.
 
 
 #### Manual Installation
-Click on the "Clone or download" button in the upper right corner. Exctract the ZIP file, and move the extracted folder to the location "**~/Documents/Arduino/hardware**". Create the "hardware" folder if it doesn't exist.
+Click on the "Clone or download" button in the upper right corner. Extract the ZIP file, and move the extracted folder to the location "**~/Documents/Arduino/hardware**". Create the "hardware" folder if it doesn't exist.
 Open Arduino IDE, and a new category in the boards menu called "MicroCore" will show up.
 
 
 ## Getting started with MicroCore
-Ok, so you're downloaded and installed MicroCore, but how to the wheels spinning? Here's a quick start guide:
+Ok, so you have downloaded and installed MicroCore, but how do you get the wheels spinning? Here's a quick start guide:
 * Hook up your microcontroller as shown in the [pinout diagram](#pinout).
 * Open the **Tools > Board** menu item, and select ATtiny13.
 * Select your prefered BOD option. Read more about BOD [here](#bod-option).
-* Select your prefered clock frequency. **9.6 MHz internal oscillator** is the default setting. Do not use the external oscillator option if you don't got an external clock source. Remember that a regular two pin crystal will not work on the ATtiny13.
-* If you want you can change the compiler flags for further optimization. Leave this on the default setting if you don't know what compiler flags is. 
+* Select your prefered clock frequency. **9.6 MHz internal oscillator** is the default setting. Do not use the external oscillator option if you don't have an external clock source. Remember that a regular two pin crystal will not work on the ATtiny13.
+* If you want you can change the compiler flags for further optimization. Leave this on the default setting if you don't know what compiler flags are. 
 * Select what kind of programmer you're using under the **Programmers** menu. Use one of the **slow** programmers if you're using the 128 kHz oscillator option, e.g **USBtinyISP (slow)**.
 * Hit **Burn Bootloader** to burn the fuses. The "settings" are now stored on the microcontroller!
 * Now that the correct fuse settings is sat you can upload your code by using your programmer tool. Simply hit *Upload*, and the code will be uploaded to the microcontroller.
@@ -116,7 +116,7 @@ Ok, so you're downloaded and installed MicroCore, but how to the wheels spinning
 
 
 ## Pinout
-This diagram shows the pinout and the pheripherals of ATtiny13. The Arduino pinout is directly mapped to the port number to minimize code footprint.
+This diagram shows the pinout and the peripherals of ATtiny13. The Arduino pinout is directly mapped to the port number to minimize code footprint.
 <b>Click to enlarge:</b> 
 </br> </br>
 <img src="http://i.imgur.com/JsbguPV.jpg" width="800">

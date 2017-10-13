@@ -93,7 +93,8 @@ void Print::print(unsigned long n, int base)
   else printNumber(n, base);
 }
 
-/*void Print::print(double n, int digits)
+/*
+void Print::print(double n, int digits)
 {
   printFloat(n, digits);
 }
@@ -146,12 +147,14 @@ void Print::println(unsigned long n, int base)
   println();
 }
 
-/*void Print::println(double n, int digits)
+/*
+void Print::println(double n, int digits)
 {
   print(n, digits);
   println();
 }
 */
+
 // Private Methods /////////////////////////////////////////////////////////////
 
 void Print::printNumber(unsigned long n, uint8_t base)
@@ -175,7 +178,8 @@ void Print::printNumber(unsigned long n, uint8_t base)
       'A' + buf[i - 1] - 10));
 }
 
-/*void Print::printFloat(double number, uint8_t digits) 
+/*
+void Print::printFloat(double number, uint8_t digits) 
 {
  
   // Handle negative numbers
@@ -209,4 +213,5 @@ void Print::printNumber(unsigned long n, uint8_t base)
     print(toPrint);
     remainder -= toPrint; 
   } 
-}*/
+}
+*/

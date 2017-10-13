@@ -2,8 +2,8 @@
  This sketch makes the pin PB2 (digital pin 2) toggle every
  second (internal oscillator running at 9.6 MHz). It uses Timer0
  or Timer0B, and divide the clock frequncy by 1024.
- The divided frequencys period is multiplied with the
- number og counts Timer0/Timer0B can take before it overflows.
+ The divided frequencies period is multiplied with the
+ number of counts Timer0/Timer0B can take before it overflows.
  The number is then multiplied by 37, and gives approximately
  1 second.  
 
@@ -35,7 +35,7 @@ int main (void)
 }
 
 
-ISR(TIM0_OVF_vect) //Timer 0 overflow vector - this run every time timer0 overflows
+ISR(TIM0_OVF_vect) //Timer 0 overflow vector - this runs every time timer0 overflows
 {
   timeCount++;
   if(timeCount == 37) //Timer overflown for the 37th time
