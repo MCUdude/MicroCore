@@ -31,6 +31,10 @@ _SFR_MEM16	KEYWORD3	 	RESERVED_WORD
 
 
 
+# Custom MicroCore functions
+stopTone	KEYWORD2
+
+
 # <util/atomic.h> - http://www.nongnu.org/avr-libc/user-manual/group__util__atomic.html
 ATOMIC_BLOCK	KEYWORD3	 	RESERVED_WORD
 NONATOMIC_BLOCK	KEYWORD3	 	RESERVED_WORD
