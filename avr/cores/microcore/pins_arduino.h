@@ -30,11 +30,17 @@ specific hardware definitions.
 // Port and pin mapping
 #if defined(SAFEMODE)
   #define digitalPinToPort(p)      (((p) >= 0 && (p) <= 5) ? 2 : 0)
+  #define digitalPinToBitMask(p)   (((p) >= 0 && (p) <= 5) ? _BV(p) : -1)
+  #define digitalPinToTimer(p)     (((p) == 0) ? TIMER0A : (((p) == 1) ? TIMER0B : (NOT_ON_TIMER)))
+  #define analogInPinToBit(p)      (p)  
   #define portOutputRegister(p)    (((p) == 2) ? (&PORTB) : ((uint8_t *)NULL))
   #define portInputRegister(p)     (((p) == 2) ? (&PINB)  : ((uint8_t *)NULL))
   #define portModeRegister(p)      (((p) == 2) ? (&DDRB)  : ((uint8_t *)NULL))
 #else
   #define digitalPinToPort(p)      (2)
+  #define digitalPinToBitMask(p)   (_BV(p))
+  #define digitalPinToTimer(p)     (p + 1)
+  #define analogInPinToBit(p)      (p)
   #define portOutputRegister(p)    (&PORTB)
   #define portInputRegister(p)     (&PINB)
   #define portModeRegister(p)      (&DDRB)
