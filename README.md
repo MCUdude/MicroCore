@@ -155,6 +155,7 @@ This diagram shows the pinout and the peripherals of ATtiny13. The Arduino pinou
 * [micros()](https://www.arduino.cc/en/Reference/Micros)   *Must be manually enabled in the [core settings](https://github.com/MCUdude/MicroCore/blob/master/avr/cores/microcore/core_settings.h)*
 * [millis()](https://www.arduino.cc/en/Reference/Millis)   *Watchdog timer based. Will increase with steps of 16*
 * [noInterrupts()](https://www.arduino.cc/en/Reference/NoInterrupts)
+* [noTone()](https://www.arduino.cc/en/Reference/NoTone)
 * [pinMode()](https://www.arduino.cc/en/Reference/PinMode)
 * [pow()](https://www.arduino.cc/en/Reference/Pow)
 * [pulseIn()](https://www.arduino.cc/en/Reference/PulseIn)   *micros() must be enabled in the [core settings](https://github.com/MCUdude/MicroCore/blob/master/avr/cores/microcore/core_settings.h) first* 
@@ -165,5 +166,8 @@ This diagram shows the pinout and the peripherals of ATtiny13. The Arduino pinou
 * [shiftIn()](https://www.arduino.cc/en/Reference/ShiftIn)
 * [shiftOut()](https://www.arduino.cc/en/Reference/ShiftOut)
 * [sizeof()](https://www.arduino.cc/en/Reference/Sizeof)
+* [stopTone](https://github.com/MCUdude/MicroCore/blob/master/avr/cores/microcore/Tone.cpp)
 * [sq()](https://www.arduino.cc/en/Reference/Sq)
 * [sqrt()](https://www.arduino.cc/en/Reference/Sqrt)
+* [tone()](https://www.arduino.cc/en/Reference/Tone)
+
