@@ -29,6 +29,7 @@
  *
  */
 
+#include <util/atomic.h>
 #include "TinySPI.h"
 
 // We need to be able to handle both MSB First and MSB Last
@@ -131,16 +132,16 @@ byte TinySoftSPIClass::transferMode3(byte _data)
 
 byte TinySoftSPIClass::transfer(byte _data)
 {
-	//byte _newData = 0;
-  byte oldSREG = SREG;
-	cli();
-
-  // The transfer functions all do MSB FIRST (most common)
-  // so flip in and out if we need LSB FIRST (least common)
-  if((_bitOrder != MSBFIRST)) 
-    _data = reverseByte(_data);
-  _data = (*this.*transferType)(_data);
-  SREG = oldSREG;
+  // Disable global interrupts if they are enabled,
+  // then restore them to their previous state afterwards
+  ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+  {
+    // The transfer functions all do MSB FIRST (most common)
+    // so flip in and out if we need LSB FIRST (least common)
+    if((_bitOrder != MSBFIRST))
+      _data = reverseByte(_data);
+    _data = (*this.*transferType)(_data);
+  }
   if((_bitOrder != MSBFIRST)) 
     _data = reverseByte(_data);
   return _data;

@@ -21,6 +21,7 @@ This modified version of Tone.cpp is released under the MIT license (MIT).
 @license The MIT License (MIT) 
 */
 
+#include <util/atomic.h>
 #include "Arduino.h"
 
 static volatile uint32_t CurrentToneDuration = 0;
@@ -133,28 +134,28 @@ void toneRaw(uint8_t pin, uint8_t midPoint, uint32_t lengthTicks, uint8_t presca
   }
     
   // Shut down interrupts while we fiddle about with the timer.
-  cli();
-  
-  TCCR0B &= ~0b00000111; // Turn off the timer before changing anytning
-  TCNT0   = 0;           // Timer counter back to zero
-  
-  // Set the comparison, we will flip the bit every time this is hit      
-  // (actually, this will set TOP of the timer and we flip on the overflow) 
-  OCR0A = midPoint;
-  CurrentToneMidpoint = midPoint;
-  
-  // Enable the overflow interrupt
-  TIMSK0 |= _BV(OCIE0A);
-  
-  // Start playing and record time
-  digitalWrite(pin, HIGH);   
-  
-  // Start the timer    
-  TCCR0A = 0b00000011;  
-  TCCR0B = 0b00001000 | prescaleBitMask;
-  
-  sei(); // We **have** to enable interrupts here even if they were disabled coming in,
-         // otherwise it's not going to do anything.  Hence not saving/restoring SREG.
+  // We **have** to enable interrupts afterwards even if they were disabled
+  // coming in, otherwise it's not going to do anything.
+  ATOMIC_BLOCK(ATOMIC_FORCEON)
+  {
+    TCCR0B &= ~0b00000111; // Turn off the timer before changing anything
+    TCNT0   = 0;           // Timer counter back to zero
+    
+    // Set the comparison, we will flip the bit every time this is hit
+    // (actually, this will set TOP of the timer and we flip on the overflow)
+    OCR0A = midPoint;
+    CurrentToneMidpoint = midPoint;
+    
+    // Enable the overflow interrupt
+    TIMSK0 |= _BV(OCIE0A);
+    
+    // Start playing and record time
+    digitalWrite(pin, HIGH);
+    
+    // Start the timer
+    TCCR0A = 0b00000011;
+    TCCR0B = 0b00001000 | prescaleBitMask;
+  }
 }
 
 

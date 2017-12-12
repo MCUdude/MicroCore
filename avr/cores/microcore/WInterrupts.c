@@ -13,6 +13,7 @@ detachInterrupt().
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/pgmspace.h>
+#include <util/atomic.h>
 #include <stdio.h>
 
 #include "wiring_private.h"
@@ -28,13 +29,11 @@ void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), uint8_t mode)
   #ifdef SAFEMODE
   if(interruptNum < EXTERNAL_NUM_INTERRUPTS) {
   #endif
-    uint8_t SaveSREG = SREG; // Save interrupt flag
-
-    cli(); // Disable interrupts
-    
-    intFunc = userFunc; // access the shared data
-    
-    SREG = SaveSREG; // Restore the interrupt flag
+    // Disable global interrupts, then enable them afterwards
+    ATOMIC_BLOCK(ATOMIC_FORCEON)
+    {
+      intFunc = userFunc; // access the shared data
+    }
     
     // Configure the interrupt mode (trigger on low input, any change, rising
     // edge, or falling edge).  The mode constants were chosen to correspond

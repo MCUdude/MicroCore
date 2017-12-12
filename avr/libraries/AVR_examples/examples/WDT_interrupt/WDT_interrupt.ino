@@ -11,23 +11,23 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/wdt.h>
+#include <util/atomic.h>
 
 int main(void)
 {
-  cli(); // Turn off global interrupts
-
-  DDRB |= _BV(PB2); // Set PB2 as output
-  
-  wdt_reset(); // Reset watchdog
-
-  // Turn on WDT interrupt and cause an interrupt every 500 ms
-  // Read more about how to change the interrupt delay on page
-  // 42 in the ATtiny13 datasheet
-  // http://www.atmel.com/images/doc2535.pdf
-  WDTCR = _BV(WDTIE) | _BV(WDP2) | _BV(WDP0); 
-
-  sei(); // Turn on global interrupts
-  
+  // Disable global interrupts, then enable them afterwards
+  ATOMIC_BLOCK(ATOMIC_FORCEON)
+  {
+    DDRB |= _BV(PB2); // Set PB2 as output
+    
+    wdt_reset(); // Reset watchdog
+    
+    // Turn on WDT interrupt and cause an interrupt every 500 ms
+    // Read more about how to change the interrupt delay on page
+    // 42 in the ATtiny13 datasheet
+    // http://www.atmel.com/images/doc2535.pdf
+    WDTCR = _BV(WDTIE) | _BV(WDP2) | _BV(WDP0);
+  }
   while(1); // Wait forever
 }
 

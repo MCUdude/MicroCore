@@ -13,6 +13,7 @@ timers and analog related stuff.
 
 #include "wiring_private.h"
 #include <avr/interrupt.h>
+#include <util/atomic.h>
 #include <util/delay.h>
 #include <avr/wdt.h>
 #include "core_settings.h"
@@ -60,11 +61,12 @@ uint32_t micros()
   uint32_t x;
   uint8_t t;  
   
-  uint8_t oldSREG = SREG; // Preserve old SREG value 
   t = TCNT0;              // Store timer0 counter value
-  cli();                  // Disable global interrupts
-  x = timer0_overflow;    // Store timer0 overflow count
-  SREG = oldSREG;         // Restore SREG
+  // Disable global interrupts, then enable them afterwards
+  ATOMIC_BLOCK(ATOMIC_FORCEON)
+  {
+    x = timer0_overflow;  // Store timer0 overflow count
+  }
   
   #if F_CPU == 20000000L
     // Each timer tick is 1/(16MHz/64) = 3.2us long. We multiply the timer0_overflow variable
@@ -162,14 +164,14 @@ void init()
   
   // Enable WDT interrupt and enable global interrupts  
   #ifdef ENABLE_MILLIS
-    // Disable global interrupts      
-    cli();
-    // Reset watchdog
-    wdt_reset();
-    // Set up WDT interrupt with 16 ms prescaler
-    WDTCR = _BV(WDTIE);
-    // Enable global interrupts
-    sei();
+    // Disable global interrupts, then enable them afterwards
+    ATOMIC_BLOCK(ATOMIC_FORCEON)
+    {
+      // Reset watchdog
+      wdt_reset();
+      // Set up WDT interrupt with 16 ms prescaler
+      WDTCR = _BV(WDTIE);
+    }
   #endif
   
   // WARNING! Enabling micros() will affect timing functions!
