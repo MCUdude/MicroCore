@@ -26,7 +26,7 @@ void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), uint8_t mode)
 {
   // SAFEMODE prevents you from inserting an interrupt number that's not supported
   #ifdef SAFEMODE
-  if(interruptNum < EXTERNAL_NUM_INTERRUPTS) {
+  if(interruptNum < EXTERNAL_NUM_INTERRUPTS && interruptNum > NOT_AN_INTERRUPT) {
   #endif
     uint8_t SaveSREG = SREG; // Save interrupt flag
 
@@ -54,7 +54,7 @@ void detachInterrupt(uint8_t interruptNum)
 {
   // SAFEMODE prevents you from inserting an interrupt number that's not supported
   #ifdef SAFEMODE
-  if (interruptNum < EXTERNAL_NUM_INTERRUPTS) 
+  if (interruptNum < EXTERNAL_NUM_INTERRUPTS && interruptNum > NOT_AN_INTERRUPT) 
   {
   #endif
     // Disable INT0 on pin PB1
