@@ -1,12 +1,12 @@
 # MicroCore
-A lightweight Arduino hardware package for ATtiny13, ATtiny13A and ATtiny13V. This core requires at least Arduino IDE v1.6, but v1.6.13 or newer is recommended. <br/> This core is almost a complete rewrite of the [at13 repository](https://github.com/bartgee/at13), which is again based on Smeezekitty's [core13](https://sourceforge.net/projects/ard-core13/). A lot of work has been put into this fork to make it up to date with the latest requirements.
+A lightweight Arduino hardware package for ATtiny13, ATtiny13A and ATtiny13V. This core is a complete rewrite of Smeezekitty's [core13](https://sourceforge.net/projects/ard-core13/). A lot of work has been put into MicroCore to make it up to date with the latest requirements.
 If you're into "pure" AVR programming, I'm happy to tell you that all relevant keywords are being highlighted by the IDE through a separate keywords file. Make sure to check out the [example files](https://github.com/MCUdude/MicroCore/tree/master/avr/libraries/AVR_examples/examples) (File > Examples > AVR C code examples).
 
 
-# Table of contents
-* [Why add Arduino support for these microcontrollers?](#why-add-arduino-support-for-these-microcontrollers)
+## Table of contents
+* [Why use the ATtiny13 in an Arduino project?](#why-use-the-attiny13-in-an-arduino-project)
 * [Supported clock frequencies](#supported-clock-frequencies)
-* [GCC flags](#gcc-flags)
+* [LTO](#lto)
 * [BOD option](#bod-option)
 * [Programmers](#programmers)
 * **[Core settings](#core-settings)**
@@ -19,11 +19,12 @@ If you're into "pure" AVR programming, I'm happy to tell you that all relevant k
 * [Working Arduino functions](#working-arduino-functions)
 
 
-## Why add Arduino support for these microcontrollers?
-* They're SUPER cheap (we're talking cents here!)
+## Why use the ATtiny13 in an Arduino project?
+* They're DIRT cheap (we're talking cents here!)
 * They come in both DIP and SOIC packages
-* They're pin compatible with the ATtiny25/45/85
-* You can still fit a lot of low level code into 1024 bytes :wink:
+* They're pin compatible with the ATtiny25/45/85 family and often code compatible
+* Most of the [Arduino functions](https://www.arduino.cc/reference/en/) is implemented in MicroCore
+* Thanks to MicroCore you can fit a lot of high level code into 1024 bytes!
 
 
 ## Supported clock frequencies
@@ -47,17 +48,9 @@ Select the ATtiny13 in the boards menu, then select the clock frequency. You'll 
 </br></br>
 
 
-## GCC flags
-Compiler flags indicate what level of optimization the compiler should use. Just leave this on the default setting if you don't know what this is. If you want to learn more about compiler flags and link time optimization (LTO), head over to the [GNU GCC website](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html). Ralph Doncaster has also written a [great post about LTO](http://nerdralph.blogspot.no/2014/04/gcc-link-time-optimization-can-fix-bad.html) you should read.<br/>
-Available compiler flags:
-* -Os LTO enabled *(default)*
-* -Os
-* -O1 LTO enabled
-* -O1
-* -O3 LTO enabled
-* -O3
-
-Compiler optimization can certainly make your code smaller in size. Still, it's all about writing efficient code. Atmel have actually created an application note on how to write more efficient C code for AVR microcontrollers.
+## LTO
+LTO or link time optimization is enabled by default, and reduces the code size at compile time. If you want to learn more about compiler flags and link time optimization (LTO), head over to the [GNU GCC website](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html). Ralph Doncaster has also written a [great post about LTO](http://nerdralph.blogspot.no/2014/04/gcc-link-time-optimization-can-fix-bad.html) you should read.<br/>
+Compiler optimization can certainly make your code smaller in size. Still, it's all about writing efficient code. Atmel have created an application note on how to write more efficient C code for AVR microcontrollers.
 This is great knowledge, so you should absolutely check it out - [AVR4027: Tips and Tricks to Optimize Your C Code for 8-bit AVR Microcontrollers](http://www.atmel.com/images/doc8453.pdf).
 
 
@@ -71,7 +64,7 @@ These are the available BOD options:
 
 
 ## Programmers
-When the ATtiny13 is running from the internal 128 kHz oscillator, it's actually too slow to interact with the programming tool. That's why this core adds some additional programmers to the list, with the suffix *(slow)*. These options makes the programmers run at a lower clock speed, so the microcontroller can keep up.
+When the ATtiny13 is running from the internal 128 kHz oscillator, it's too slow to interact with the programming tool. That's why this core adds some additional programmers to the list, with the suffix *(slow)*. These options makes the programmers run at a lower clock speed, so the microcontroller can keep up.
 The `externalprogrammers.txt` file is for use with [the Arduino Eclipse plugin](http://eclipse.baeyens.it), and will not appear under the "Programmers" menu in the Arduino IDE.
  
 Select your microcontroller in the boards menu, then select the clock frequency. You'll have to hit "Burn bootloader" in order to set the correct fuses and upload the correct bootloader. <br/>
