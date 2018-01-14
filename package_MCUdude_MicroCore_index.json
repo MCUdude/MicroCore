@@ -50,6 +50,20 @@
             {"name": "ATtiny13"}
           ],
           "toolsDependencies": []
+        },
+        {
+          "name": "MicroCore",
+          "architecture": "avr",
+          "version": "1.0.3",
+          "category": "Contributed",
+          "url": "https://MCUdude.github.io/MicroCore/MicroCore-1.0.3.tar.bz2",
+          "archiveFileName": "MicroCore-1.0.3.tar.bz2",
+          "checksum": "SHA-256:ffce37797a5c1df0016e4e30da29707fe41d6e72bdf2af2235e9c2ddd3d1a0fa",
+          "size": "47676",
+          "boards": [
+            {"name": "ATtiny13"}
+          ],
+          "toolsDependencies": []
         }
       ],
       "tools": []
