@@ -24,11 +24,8 @@ static volatile voidFuncPtr intFunc;
 
 void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), uint8_t mode) 
 {
-  // SAFEMODE prevents you from inserting an interrupt number that's not supported
-  #ifdef SAFEMODE
-  if(interruptNum != EXTERNAL_INTERRUPT_0)
-    return;
-  #endif
+  // The ATtiny13 only has one interrupt
+  (void)interruptNum;
   
   uint8_t SaveSREG = SREG; // Save interrupt flag
 
@@ -44,21 +41,18 @@ void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), uint8_t mode)
   // the mode into place.
       
   // Enable INT0 on pin PB1
-  MCUCR = (MCUCR & ~((1 << ISC00) | (1 << ISC01))) | (mode << ISC00);
-  GIMSK |= (1 << INT0);
+  MCUCR = (MCUCR & ~(_BV(ISC00) | (ISC01))) | (mode << ISC00);
+  GIMSK |= _BV(INT0);
 }
 
 
 void detachInterrupt(uint8_t interruptNum) 
 {
-  // SAFEMODE prevents you from inserting an interrupt number that's not supported
-  #ifdef SAFEMODE
-  if(interruptNum != EXTERNAL_INTERRUPT_0)
-    return;
-  #endif
+  // The ATtiny13 only has one interrupt
+  (void)interruptNum;
   
   // Disable INT0 on pin PB1
-  GIMSK &= ~(1 << INT0);
+  GIMSK &= ~_BV(INT0);
   intFunc = 0;
 }
 
