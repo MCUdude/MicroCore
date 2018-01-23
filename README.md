@@ -51,7 +51,7 @@ Select the ATtiny13 in the boards menu, then select the clock frequency. You'll 
 ## LTO
 LTO or link time optimization is enabled by default, and reduces the code size at compile time. If you want to learn more about compiler flags and link time optimization (LTO), head over to the [GNU GCC website](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html). Ralph Doncaster has also written a [great post about LTO](http://nerdralph.blogspot.no/2014/04/gcc-link-time-optimization-can-fix-bad.html) you should read.<br/>
 Compiler optimization can certainly make your code smaller in size. Still, it's all about writing efficient code. Atmel have created an application note on how to write more efficient C code for AVR microcontrollers.
-This is great knowledge, so you should absolutely check it out - [AVR4027: Tips and Tricks to Optimize Your C Code for 8-bit AVR Microcontrollers](http://www.atmel.com/images/doc8453.pdf).
+This is great knowledge, so you should absolutely check it out - [AVR4027: Tips and Tricks to Optimize Your C Code for 8-bit AVR Microcontrollers](http://ww1.microchip.com/downloads/en/AppNotes/doc8453.pdf).
 
 
 ## BOD option
