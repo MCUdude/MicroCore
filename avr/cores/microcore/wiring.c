@@ -8,7 +8,7 @@ This file contains timing related
 functions such as millis(), micros(),
 delay() and delayMicroseconds(), but
 also the init() function that set up
-timers and analog related stuff.
+timers.
 */
 
 #include "wiring_private.h"
@@ -132,31 +132,32 @@ void delay(uint16_t ms)
 // and what's not.
 void init()
 {
+
   #ifdef SETUP_PWM  
     // Set Timer0 prescaler
-    #if defined(PWM_PRESCALER_DEFAULT)
+    #if defined(PWM_PRESCALER_AUTO)
       #if F_CPU >= 4800000L
-        TCCR0B |= _BV(CS00) | _BV(CS01); // PWM frequency = (F_CPU/256) / 64
+        TCCR0B = _BV(CS00) | _BV(CS01); // PWM frequency = (F_CPU/256) / 64
       #else  
-        TCCR0B |= _BV(CS01);             // PWM frequency = (F_CPU/256) / 8
+        TCCR0B = _BV(CS01);             // PWM frequency = (F_CPU/256) / 8
       #endif
     #elif defined(PWM_PRESCALER_NONE)    // PWM frequency = (F_CPU/256) / 1
-      TCCR0B |= _BV(CS00);
+      TCCR0B = _BV(CS00);
     #elif  defined(PWM_PRESCALER_8)      // PWM frequency = (F_CPU/256) / 8
-      TCCR0B |= _BV(CS01);
+      TCCR0B = _BV(CS01);
     #elif  defined(PWM_PRESCALER_64)     // PWM frequency = (F_CPU/256) / 64
-      TCCR0B |= _BV(CS00) | _BV(CS01);
+      TCCR0B = _BV(CS00) | _BV(CS01);
     #elif  defined(PWM_PRESCALER_256)    // PWM frequency = (F_CPU/256) / 256
-      TCCR0B |= _BV(CS02);
+      TCCR0B = _BV(CS02);
     #elif  defined(PWM_PRESCALER_1024)   // PWM frequency = (F_CPU/256) / 1024
-      TCCR0B |= _BV(CS00) | _BV(CS02);
+      TCCR0B = _BV(CS00) | _BV(CS02);
     #endif
     
     // Set waveform generation mode
     #if defined(PWM_FAST)
-      TCCR0A |= _BV(WGM00) | _BV(WGM01);
+      TCCR0A = _BV(WGM00) | _BV(WGM01);
     #elif defined(PWM_PHASE_CORRECT)
-      TCCR0A |= _BV(WGM00);
+      TCCR0A = _BV(WGM00);
     #endif
   #endif  
   
@@ -175,68 +176,17 @@ void init()
   // WARNING! Enabling micros() will affect timing functions!
   #ifdef ENABLE_MICROS
     
-    // Clear all Timer0 settings
-    TCCR0B = 0;
     // Set a suited prescaler based on F_CPU
     #if F_CPU >= 4800000L
-      TCCR0B |= _BV(CS00) | _BV(CS01); // F_CPU/64 
+      TCCR0B = _BV(CS00) | _BV(CS01); // F_CPU/64 
     #else  
-      TCCR0B |= _BV(CS01);             // F_CPU/8
+      TCCR0B = _BV(CS01);             // F_CPU/8
     #endif      
     // Enable overflow interrupt on Timer0
-    TIMSK0 |= _BV(TOIE0);
+    TIMSK0 = _BV(TOIE0);
     // Set timer0 couter to zero
     TCNT0 = 0; 
     // Turn on global interrupts
     sei();
-  #endif
-  
-  // Enable the ADC and set the prescaler according to the clock frequency
-  #ifdef SETUP_ADC
-    ADMUX = 0;
-    
-    // Default ADC prescaler option
-    #ifdef ADC_PRESCALER_DEFAULT
-      // Less or equal to 200 kHz
-      #if F_CPU <= 200000
-        // Enable the ADC, keep the prescaler of 2 --> F_CPU / 2
-        ADCSRA |= _BV(ADEN);      
-      // Between 200 kHz and 1.2 MHz  
-      #elif F_CPU <= 1200000
-        // Enable the ADC, set the prescaler to 4 --> F_CPU / 4
-        ADCSRA |= _BV(ADEN) | _BV(ADPS1);    
-      // Between 1.2 MHz and 6.4 MHz
-      #elif F_CPU <= 6400000
-        // Enable the ADC, set the prescaler to 16 --> F_CPU / 16
-        ADCSRA |= _BV(ADEN) | _BV(ADPS2);
-      // More than 6.4 MHz
-      #else
-        // Enable the ADC, set the prescaler to 128 --> F_CPU / 128
-        ADCSRA |= _BV(ADEN) | _BV(ADPS2) | _BV(ADPS1) | _BV(ADPS0); 
-      #endif
-      
-    // ADC prescaler 2   
-    #elif defined(ADC_PRESCALER_2)   
-      ADCSRA |= _BV(ADEN);     
-    // ADC prescaler 4
-    #elif defined(ADC_PRESCALER_4)
-      ADCSRA |= _BV(ADEN) | _BV(ADPS1);       
-    // ADC prescaler 8
-    #elif defined(ADC_PRESCALER_8)
-      ADCSRA |= _BV(ADEN) | _BV(ADPS1) | _BV(ADPS0);     
-    // ADC prescaler 16
-    #elif defined(ADC_PRESCALER_16)
-      ADCSRA |= _BV(ADEN) | _BV(ADPS2);
-    // ADC prescaler 32
-    #elif defined(ADC_PRESCALER_32)
-      ADCSRA |= _BV(ADEN) | _BV(ADPS2) | _BV(ADPS0);
-    // ADC prescaler 64
-    #elif defined(ADC_PRESCALER_64)
-      ADCSRA |= _BV(ADEN) | _BV(ADPS2) | _BV(ADPS1);
-    // ADC prescaler 128
-    #elif defined(ADC_PRESCALER_128)
-      ADCSRA |= _BV(ADEN) | _BV(ADPS2) | _BV(ADPS1) | _BV(ADPS0);  
-    #endif
-  #endif
+  #endif 
 }
-  
