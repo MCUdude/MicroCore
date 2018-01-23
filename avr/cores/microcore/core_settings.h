@@ -32,13 +32,10 @@ need, in order to free up some space.
 // doesn't divide evenly by.
 //#define ENABLE_MICROS
 
-// If you're not using the analog pins or want to set it up yourself, you can disable it here
-#define SETUP_ADC
-
 // This is the ADC settings
 // Here the ADC prescaler can be changed if needed.
 // Note that the sample rate should exceed 200 kHz
-#define ADC_PRESCALER_DEFAULT // Selects the "best suited" prescaler based on F_CPU
+#define ADC_PRESCALER_AUTO    // Selects the "best suited" prescaler based on F_CPU
 //#define ADC_PRESCALER_2     // ADC sample rate = (F_CPU/13) / 2
 //#define ADC_PRESCALER_4     // ADC sample rate = (F_CPU/13) / 4
 //#define ADC_PRESCALER_8     // ADC sample rate = (F_CPU/13) / 8
@@ -53,7 +50,7 @@ need, in order to free up some space.
 // Here's the PWM settings for Timer0
 // These settings will also be disabled if SETUP_PWM is commented out
 // Note that ENABLE_MICROS will override this setting 
-#define PWM_PRESCALER_DEFAULT // Selects the "best suited" prescaler based on F_CPU
+#define PWM_PRESCALER_AUTO    // Selects the "best suited" prescaler based on F_CPU
 //#define PWM_PRESCALER_NONE	// PWM frequency = (F_CPU/256) / 1
 //#define PWM_PRESCALER_8			// PWM frequency = (F_CPU/256) / 8
 //#define PWM_PRESCALER_64		// PWM frequency = (F_CPU/256) / 64
