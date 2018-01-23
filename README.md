@@ -38,7 +38,7 @@ The ATtiny13 has several internal oscillators, and these are the available clock
 If you want other or higher clock frequencies, you can apply an external clock source. Note that the ATtiny13 requires an external clock signal, and is not able to drive a resonator circuit itself. You may use a [quartz crystal oscillator](https://en.wikipedia.org/wiki/Crystal_oscillator#/media/File:18MHZ_12MHZ_Crystal_110.jpg).
 Supported external clock frequencies:
 * 20 MHz external oscillator
-* 26 MHz external oscillator
+* 16 MHz external oscillator
 * 12 MHz external oscillator
 * 8 MHz external oscillator
 * 1 MHz external oscillator
