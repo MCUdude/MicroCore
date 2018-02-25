@@ -22,7 +22,7 @@ https://github.com/MCUdude/MicroCore
 #include "pins_arduino.h"
 
 #ifdef __cplusplus
-extern "C"{	
+extern "C"{
 #endif
   #define HIGH 1
   #define LOW 0

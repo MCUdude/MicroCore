@@ -13,9 +13,9 @@ If you're into "pure" AVR programming, I'm happy to tell you that all relevant k
 * [Programmers](#programmers)
 * **[Core settings](#core-settings)**
 * **[How to install](#how-to-install)**
-	- [Boards Manager Installation](#boards-manager-installation)
-	- [Manual Installation](#manual-installation)
-* **[Getting started with MicroCore](#getting-started-with-microcore)**	
+  - [Boards Manager Installation](#boards-manager-installation)
+  - [Manual Installation](#manual-installation)
+* **[Getting started with MicroCore](#getting-started-with-microcore)**
 * [Pinout](#pinout)
 * [Minimal setup](#minimal-setup)
 * [Working Arduino functions](#working-arduino-functions)

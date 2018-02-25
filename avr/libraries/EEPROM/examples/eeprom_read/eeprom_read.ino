@@ -15,9 +15,9 @@ byte value;
 void setup() {
   
   /* If you want to implement serial output on the ATtiny13,
-	you should check out Ralph Doncaster's BasicSerial3 library!
-	http://nerdralph.blogspot.no/2014/01/avr-half-duplex-software-uart.html
-	*/
+  you should check out Ralph Doncaster's BasicSerial3 library!
+  http://nerdralph.blogspot.no/2014/01/avr-half-duplex-software-uart.html
+  */
   
   //Serial.begin(9600);
 

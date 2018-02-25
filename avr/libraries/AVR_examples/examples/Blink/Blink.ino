@@ -20,8 +20,8 @@ int main(void)
    A few different ways to set a pin as output and 
    ignore the rest of the pins. Pick your favorite!
   *************************************************/
-  DDRB |= 0x04; 		// XXXXXXXX | 00000100 = XXXXX1XX
-  //DDRB |= _BV(PB2);	 // Set PB1 as output, ignore the rest
+  DDRB |= 0x04;     // XXXXXXXX | 00000100 = XXXXX1XX
+  //DDRB |= _BV(PB2);  // Set PB1 as output, ignore the rest
   //DDRB |= (1 << PB2); // Shift the number '1' left 'PB1' times (PB1 = 2)
 
 
@@ -45,7 +45,7 @@ int main(void)
     PORTB |= 0x04;  // XXXXXXXX | 00000100 = XXXXX1XX
     //PORTB |= _BV(PB2);
     //PORTB |= (1 << PB2);
-		//SetPinHigh(&PORTB, 2); 
+    //SetPinHigh(&PORTB, 2); 
     _delay_ms(1000);
     
     

@@ -109,7 +109,7 @@ class TinySoftSPIClass
     // Not Implemented
     // usingInterrupt
     
-  private:	
+  private:
     byte _bitOrder;
 };
 
