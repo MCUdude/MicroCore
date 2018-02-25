@@ -1,6 +1,6 @@
 # MicroCore
 [![Build Status](https://travis-ci.org/MCUdude/MicroCore.svg?branch=master)](https://travis-ci.org/MCUdude/MicroCore)
-(https://img.shields.io/badge/support-forum-blue.svg)](https://forum.arduino.cc/index.php?topic=426153.0)
+[![MicroCore forum thread](https://img.shields.io/badge/support-forum-blue.svg)](https://forum.arduino.cc/index.php?topic=426153.0)
 
 A lightweight Arduino hardware package for ATtiny13, ATtiny13A and ATtiny13V. This core is a complete rewrite of Smeezekitty's [core13](https://sourceforge.net/projects/ard-core13/). A lot of work has been put into MicroCore to make it up to date with the latest requirements.
 If you're into "pure" AVR programming, I'm happy to tell you that all relevant keywords are being highlighted by the IDE through a separate keywords file. Make sure to check out the [example files](https://github.com/MCUdude/MicroCore/tree/master/avr/libraries/AVR_examples/examples) (File > Examples > AVR C code examples).
