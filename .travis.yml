@@ -1,0 +1,93 @@
+# This file is used to configure the Travis CI tests of MicroCore
+
+# Although sudo is no longer required by arduino-ci-script since the 1.0.0 release, for some reason setting "sudo: false" causes the Travis CI build time to significantly increase so this setting is left as "sudo: required"
+sudo: required
+
+
+env:
+  global:
+    # The Arduino IDE will be installed at APPLICATION_FOLDER/arduino
+    - APPLICATION_FOLDER="${HOME}/arduino-ide"
+    - SKETCHBOOK_FOLDER="${HOME}/Arduino"
+
+    - OLDEST_IDE_VERSION_TO_TEST_WITH_LTO="1.6.11"
+
+    # The oldest version of the Arduino IDE that MicroCore's platform.txt is compatible with is 1.6.2 but that IDE version has a bug that interferes with other installations of the IDE.
+    # Arduino IDE 1.6.3-1.6.5-r5 on Linux don't seem to include the MicroCore bundled library files (this information copied from MegaCore so may not apply to MicroCore).
+    # Arduino IDE 1.6.6 has many function prototype generation failures.
+    # So testing is done with milestone Arduino IDE versions, 1.6.7 and newer.
+    - IDE_VERSIONS_BEFORE_OLDEST_IDE_VERSION_TO_TEST_WITH_LTO='"1.6.7" "1.6.9"'
+    - IDE_VERSIONS_FROM_OLDEST_IDE_VERSION_TO_TEST_WITH_LTO='"'"$OLDEST_IDE_VERSION_TO_TEST_WITH_LTO"'" "1.6.13" "1.8.0" "1.8.5" "newest"'
+    - IDE_VERSION_LIST_LTO='('"$IDE_VERSIONS_FROM_OLDEST_IDE_VERSION_TO_TEST_WITH_LTO"')'
+    - IDE_VERSION_LIST_FULL='('"${IDE_VERSIONS_BEFORE_OLDEST_IDE_VERSION_TO_TEST_WITH_LTO} ${IDE_VERSIONS_FROM_OLDEST_IDE_VERSION_TO_TEST_WITH_LTO}"')'
+
+
+  matrix:
+    # clock=9M6, BOD=2v7, lto=Os_flto
+    - BOARD_ID="MicroCore:avr:attiny13:clock=9M6,BOD=2v7,lto=Os_flto" IDE_VERSIONS="$IDE_VERSION_LIST_LTO"
+    # clock=4M8, BOD=4v3, lto=Os
+    - BOARD_ID="MicroCore:avr:attiny13:clock=4M8,BOD=4v3,lto=Os" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # clock=1M2, BOD=1v8
+    - BOARD_ID="MicroCore:avr:attiny13:clock=1M2,BOD=1v8,lto=Os" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # clock=600k, BOD=disabled
+    - BOARD_ID="MicroCore:avr:attiny13:clock=600k,BOD=disabled,lto=Os" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # clock=128k
+    - BOARD_ID="MicroCore:avr:attiny13:clock=128k,BOD=2v7,lto=Os" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # clock=20M
+    - BOARD_ID="MicroCore:avr:attiny13:clock=20M,BOD=2v7,lto=Os" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # clock=16M
+    - BOARD_ID="MicroCore:avr:attiny13:clock=16M,BOD=2v7,lto=Os" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # clock=12M
+    - BOARD_ID="MicroCore:avr:attiny13:clock=12M,BOD=2v7,lto=Os" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # clock=8M
+    - BOARD_ID="MicroCore:avr:attiny13:clock=8M,BOD=2v7,lto=Os" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # clock=1M
+    - BOARD_ID="MicroCore:avr:attiny13:clock=1M,BOD=2v7,lto=Os" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+
+before_install:
+  # Install the script used to simplify use of Travis CI for testing Arduino projects
+  - source "${TRAVIS_BUILD_DIR}/avr/travis-ci/arduino-ci-script/arduino-ci-script.sh"
+
+  # These functions can be used to get verbose output for debugging the script
+  # set_script_verbosity can be set to values from 0 - 2 (verbosity off - maximum verbosity)
+  #- set_script_verbosity 1
+  # Setting set_verbose_output_during_compilation to true is the same as File > Preferences > Show verbose output during > compilation (check) in the Arduino IDE
+  #- set_verbose_output_during_compilation "true"
+
+  - set_application_folder "$APPLICATION_FOLDER"
+  - set_sketchbook_folder "$SKETCHBOOK_FOLDER"
+
+  # Check for board definition errors that don't affect compilation
+  - set_board_testing "true"
+
+  # Check for library issues that don't affect compilation
+  - set_library_testing "true"
+
+  # Install all IDE version required by the job
+  - install_ide "$IDE_VERSIONS"
+
+  # Install MicroCore from the repository
+  - install_package
+
+
+script:
+  # Verify every sketch in SKETCH_PATH using the environment variables set in the matrix
+  - build_sketch "${SKETCHBOOK_FOLDER}/hardware/MicroCore/avr/libraries" "$BOARD_ID" "false" "all"
+
+
+after_script:
+  # Determine user name and repository name from TRAVIS_REPO_SLUG so the configuration will automatically adjust to forks
+  - USER_NAME="$(echo "$TRAVIS_REPO_SLUG" | cut -d'/' -f 1)"
+  - REPOSITORY_NAME="$(echo "$TRAVIS_REPO_SLUG" | cut -d'/' -f 2)"
+  # Commit a report of the job results to a folder named with the build number in the MicroCore branch of the CI-reports repository
+  - publish_report_to_repository "$REPORT_GITHUB_TOKEN" "https://github.com/${USER_NAME}/CI-reports.git" "$REPOSITORY_NAME" "build_$(printf "%05d\n" "${TRAVIS_BUILD_NUMBER}")" "false"
+
+  # Print a tab separated report of all sketch verification results to the log
+  - display_report
+
+
+notifications:
+  email:
+    on_success: never
+    on_failure: always

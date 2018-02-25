@@ -39,7 +39,7 @@ void setup() {
   //One simple call, with the address first and the object second.
   EEPROM.put(eeAddress, f);
 
-  Serial.println("Written float data type!");
+  //Serial.println("Written float data type!");
 
   /** Put is designed for use with custom structures also. **/
 
