@@ -19,7 +19,7 @@ void setup() {
 	http://nerdralph.blogspot.no/2014/01/avr-half-duplex-software-uart.html
 	*/
   
-  Serial.begin(9600);
+  //Serial.begin(9600);
 
 }
 
