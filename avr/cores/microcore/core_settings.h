@@ -51,14 +51,14 @@ need, in order to free up some space.
 // These settings will also be disabled if SETUP_PWM is commented out
 // Note that ENABLE_MICROS will override this setting 
 #define PWM_PRESCALER_AUTO    // Selects the "best suited" prescaler based on F_CPU
-//#define PWM_PRESCALER_NONE	// PWM frequency = (F_CPU/256) / 1
-//#define PWM_PRESCALER_8			// PWM frequency = (F_CPU/256) / 8
-//#define PWM_PRESCALER_64		// PWM frequency = (F_CPU/256) / 64
-//#define PWM_PRESCALER_256		// PWM frequency = (F_CPU/256) / 256
-//#define PWM_PRESCALER_1024	// PWM frequency = (F_CPU/256) / 1024
+//#define PWM_PRESCALER_NONE  // PWM frequency = (F_CPU/256) / 1
+//#define PWM_PRESCALER_8     // PWM frequency = (F_CPU/256) / 8
+//#define PWM_PRESCALER_64    // PWM frequency = (F_CPU/256) / 64
+//#define PWM_PRESCALER_256   // PWM frequency = (F_CPU/256) / 256
+//#define PWM_PRESCALER_1024  // PWM frequency = (F_CPU/256) / 1024
 
 // These are the waveform generation settings for timer0
-#define PWM_FAST				  //  <-- DEFAULT
+#define PWM_FAST          //  <-- DEFAULT
 //#define PWM_PHASE_CORRECT
 
 
