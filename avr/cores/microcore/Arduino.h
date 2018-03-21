@@ -21,6 +21,12 @@ https://github.com/MCUdude/MicroCore
 #include "WString.h"
 #include "pins_arduino.h"
 
+// Throw error if LTO is enabled and GCC version is lower than 4.9.2
+#define GCC_VERSION (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
+#if defined(COMPILER_LTO) && GCC_VERSION < 40902
+#error Your compiler does not support LTO. Please either upgrade Arduino AVR Boards or select Tools > Compiler LTO > Disabled.
+#endif  //defined(COMPILER_LTO) && GCC_VERSION < 40902
+
 #ifdef __cplusplus
 extern "C"{
 #endif
@@ -94,10 +100,11 @@ extern "C"{
   void detachInterrupt(uint8_t interruptNum);
   void setup(void);
   void loop(void);
-  
+  void yield(void) __attribute__ ((weak, alias("__empty")));
+  static void __empty() { /* Empty*/	}
+ 
 #ifdef __cplusplus
 } // extern "C"
-
 
 
 #ifdef __cplusplus
