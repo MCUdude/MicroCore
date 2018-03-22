@@ -101,7 +101,7 @@ extern "C"{
   void setup(void);
   void loop(void);
   void yield(void) __attribute__ ((weak, alias("__empty")));
-  static void __empty() { /* Empty*/	}
+  static void __empty() { /* Empty*/ }
  
 #ifdef __cplusplus
 } // extern "C"
