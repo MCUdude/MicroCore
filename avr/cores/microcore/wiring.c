@@ -21,21 +21,21 @@ timers.
 // The millis counter is based on the watchdog timer, and takes very little processing time and power.
 // If 16 ms accuracy is enough, I strongly recommend you to use millis() instead of micros().
 #ifdef ENABLE_MILLIS
-volatile uint32_t wdt_interrupt_counter = 0;
+//volatile uint32_t wdt_interrupt_counter = 0;
 
 // This ISR will execute every 16 ms, and increase 
-ISR(WDT_vect)
+/*ISR(WDT_vect)
 {
   wdt_interrupt_counter++;
 }
-
+*/
 // Since the WDT counter counts every 16th ms, we'll need to
 // multiply by 16 to get the correct millis value.
 // The WDT uses it's own clock, so this function is valid
 // for all F_CPUs.
 uint32_t millis()
 {  
-  return wdt_interrupt_counter * 16;
+  return wdt_interrupt_counter;
 }
 #endif // ENABLE_MILLIS
 
@@ -146,15 +146,15 @@ void init()
       #else  
         TCCR0B = _BV(CS01);             // PWM frequency = (F_CPU/256) / 8
       #endif
-    #elif defined(PWM_PRESCALER_NONE)    // PWM frequency = (F_CPU/256) / 1
+    #elif defined(PWM_PRESCALER_NONE)   // PWM frequency = (F_CPU/256) / 1
       TCCR0B = _BV(CS00);
-    #elif  defined(PWM_PRESCALER_8)      // PWM frequency = (F_CPU/256) / 8
+    #elif  defined(PWM_PRESCALER_8)     // PWM frequency = (F_CPU/256) / 8
       TCCR0B = _BV(CS01);
-    #elif  defined(PWM_PRESCALER_64)     // PWM frequency = (F_CPU/256) / 64
+    #elif  defined(PWM_PRESCALER_64)    // PWM frequency = (F_CPU/256) / 64
       TCCR0B = _BV(CS00) | _BV(CS01);
-    #elif  defined(PWM_PRESCALER_256)    // PWM frequency = (F_CPU/256) / 256
+    #elif  defined(PWM_PRESCALER_256)   // PWM frequency = (F_CPU/256) / 256
       TCCR0B = _BV(CS02);
-    #elif  defined(PWM_PRESCALER_1024)   // PWM frequency = (F_CPU/256) / 1024
+    #elif  defined(PWM_PRESCALER_1024)  // PWM frequency = (F_CPU/256) / 1024
       TCCR0B = _BV(CS00) | _BV(CS02);
     #endif
     
@@ -169,9 +169,9 @@ void init()
   // Enable WDT interrupt and enable global interrupts  
   #ifdef ENABLE_MILLIS
     // Disable global interrupts      
-    cli();
+    // cli();
     // Reset watchdog
-    wdt_reset();
+    // wdt_reset();
     // Set up WDT interrupt with 16 ms prescaler
     WDTCR = _BV(WDTIE);
     // Enable global interrupts

@@ -21,6 +21,8 @@ https://github.com/MCUdude/MicroCore
 #include "WString.h"
 #include "pins_arduino.h"
 
+extern volatile uint32_t wdt_interrupt_counter;
+
 // Throw error if LTO is enabled and GCC version is lower than 4.9.2
 #define GCC_VERSION (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
 #if defined(COMPILER_LTO) && GCC_VERSION < 40902
