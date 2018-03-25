@@ -1,6 +1,23 @@
-/* Ralph Doncaster 2018 public domain software
- * timer ISR counter
- */
+/*** MicroCore - millis.S ***
+An Arduino core designed for ATtiny13
+File created and maintained by MCUdude
+https://github.com/MCUdude/MicroCore
+
+This file contains the interrupt 
+service routine for millis().
+
+Thanks to Ralph Doncaster for
+creating this ISR in assembly.
+*/
+
+/*
+// Replaces
+ISR(WDT_vect)
+{
+  wdt_interrupt_counter++;
+  wdt_interrupt_counter *= 16;
+}
+*/
 
 ; needed for <avr/io.h> to give io constant addresses
 #define __SFR_OFFSET 0
@@ -23,19 +40,20 @@ WDT_vect:
     push ZL
     in ZL, SREG
     push ZL                             ; save SREG
-    push ZH
     push tmp1
     ldi ZL, lo8(wdt_interrupt_counter)  ; must be 8-byte aligned
-    sub ZH, ZH                          ; also clears carry
+    ld tmp1, Z
+    sbci tmp1, -16                      ; multiply by 16
+    rjmp save
 add:
     ld tmp1, Z
-    sbci tmp1, -16
+    sbci tmp1, -1
+save:
     st Z+, tmp1
-    andi ZL, 0x04
-    breq add
+    brcc add
     pop tmp1
-    pop ZH
     pop ZL
     out SREG, ZL
     pop ZL
     reti
+    

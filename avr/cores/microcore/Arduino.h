@@ -21,6 +21,7 @@ https://github.com/MCUdude/MicroCore
 #include "WString.h"
 #include "pins_arduino.h"
 
+// Millis counter variable defined in millis.S
 extern volatile uint32_t wdt_interrupt_counter;
 
 // Throw error if LTO is enabled and GCC version is lower than 4.9.2

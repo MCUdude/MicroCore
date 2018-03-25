@@ -20,19 +20,8 @@ timers.
 /***** MILLIS() *****/
 // The millis counter is based on the watchdog timer, and takes very little processing time and power.
 // If 16 ms accuracy is enough, I strongly recommend you to use millis() instead of micros().
+// The WDT uses it's own clock, so this function is valid for all F_CPUs.
 #ifdef ENABLE_MILLIS
-//volatile uint32_t wdt_interrupt_counter = 0;
-
-// This ISR will execute every 16 ms, and increase 
-/*ISR(WDT_vect)
-{
-  wdt_interrupt_counter++;
-}
-*/
-// Since the WDT counter counts every 16th ms, we'll need to
-// multiply by 16 to get the correct millis value.
-// The WDT uses it's own clock, so this function is valid
-// for all F_CPUs.
 uint32_t millis()
 {  
   return wdt_interrupt_counter;
@@ -168,10 +157,6 @@ void init()
   
   // Enable WDT interrupt and enable global interrupts  
   #ifdef ENABLE_MILLIS
-    // Disable global interrupts      
-    // cli();
-    // Reset watchdog
-    // wdt_reset();
     // Set up WDT interrupt with 16 ms prescaler
     WDTCR = _BV(WDTIE);
     // Enable global interrupts
