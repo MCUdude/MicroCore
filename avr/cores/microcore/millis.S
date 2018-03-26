@@ -26,8 +26,8 @@ ISR(WDT_vect)
 .section .bss
 .global __do_clear_bss
 
-; 4 byte (long) global variable in RAM
-.lcomm wdt_interrupt_counter, 4
+; 5 byte global variable in RAM + overflow byte
+.lcomm wdt_interrupt_counter, 5
 .global wdt_interrupt_counter
 
 .section .text
@@ -39,11 +39,11 @@ ISR(WDT_vect)
 WDT_vect:
     push ZL
     in ZL, SREG
-    push ZL                             ; save SREG
+    push ZL                             ; Save SREG
     push tmp1
-    ldi ZL, lo8(wdt_interrupt_counter)  ; must be 8-byte aligned
+    ldi ZL, lo8(wdt_interrupt_counter)  ; Must be 8-byte aligned
     ld tmp1, Z
-    sbci tmp1, -16                      ; multiply by 16
+    sbci tmp1, -16                      ; Multiply by 16
     rjmp save
 add:
     ld tmp1, Z

@@ -164,8 +164,7 @@ void init()
   #endif
   
   // WARNING! Enabling micros() will affect timing functions!
-  #ifdef ENABLE_MICROS
-    
+  #ifdef ENABLE_MICROS   
     // Set a suited prescaler based on F_CPU
     #if F_CPU >= 4800000L
       TCCR0B = _BV(CS00) | _BV(CS01); // F_CPU/64 
