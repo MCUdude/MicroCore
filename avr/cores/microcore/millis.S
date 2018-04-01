@@ -43,7 +43,7 @@ WDT_vect:
     push tmp1
     ldi ZL, lo8(wdt_interrupt_counter)  ; Must be 8-byte aligned
     ld tmp1, Z
-    sbci tmp1, -16                      ; Multiply by 16
+    sbci tmp1, -19                      ; Multiply by 19 because the WDT clock isn't really 128 kHz
     rjmp save
 add:
     ld tmp1, Z
