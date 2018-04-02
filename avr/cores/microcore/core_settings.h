@@ -19,19 +19,6 @@ need, in order to free up some space.
 // a pin as an output before using the analogWrite() function, you can save a lot of space by disabling this.
 #define SAFEMODE 
 
-// If you're not using millis(), you can save about 100b by commenting this out.
-// Note that the millis() interrupt is based on the watch dog timer, and will interrupt
-// every 16th ms (which is very little. This means the millis() function will not be 
-// accurate down to 1 ms, but will increase with steps of 16.
-#define ENABLE_MILLIS
-
-// Enabling micros() will cause the processor to interrupt more often (every 2048th clock cycle if 
-// F_CPU < 4.8 MHz, every 16384th clock cycle if F_CPU >= 4.8 MHz. This will add some overhead when F_CPU is
-// less than 4.8 MHz. It's disabled by default because it occupies precious flash space and loads the CPU with
-// additional interrupts and calculations. Also note that micros() aren't very precise for frequencies that 64
-// doesn't divide evenly by.
-//#define ENABLE_MICROS
-
 // This is the ADC settings
 // Here the ADC prescaler can be changed if needed.
 // Note that the sample rate should exceed 200 kHz
