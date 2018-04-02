@@ -11,6 +11,7 @@
 menu.BOD=BOD
 menu.lto=Compiler LTO
 menu.clock=Clock
+menu.timers=Millis & Micros
 
 attiny13.name=ATtiny13
 attiny13.bootloader.tool=avrdude
@@ -95,6 +96,17 @@ attiny13.menu.BOD.1v8.bootloader.high_fuses=0xfd
 attiny13.menu.BOD.disabled=Disabled
 attiny13.menu.BOD.disabled.bootloader.high_fuses=0xff
 
+########################
+#### Timers Using   ####
+########################
+attiny13.menu.timers.millis=Millis enabled
+attiny13.menu.timers.millis.build.variant=ATtiny13Millis
+
+attiny13.menu.timers.millis=Millis & Micros enabled
+attiny13.menu.timers.millis.build.variant=ATtiny13Micros
+
+attiny13.menu.timers.nouse=Millis & Micros disabled
+attiny13.menu.timers.nouse.build.variant=ATtiny13NoMillis
 
 #############
 #### LTO ####
