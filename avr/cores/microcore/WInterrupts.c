@@ -41,8 +41,14 @@ void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), uint8_t mode)
   // the mode into place.
       
   // Enable INT0 on pin PB1
-  MCUCR = (MCUCR & ~(_BV(ISC00) | (ISC01))) | (mode << ISC00);
-  GIMSK |= _BV(INT0);
+  #if defined(__AVR_ATtiny10__)||defined(__AVR_ATtiny9__)
+		EICRA = (EICRA & ~(_BV(ISC00) | (ISC01))) | (mode << ISC00);
+    EIMSK |= _BV(INT0);	
+  #else
+    MCUCR = (MCUCR & ~(_BV(ISC00) | (ISC01))) | (mode << ISC00);
+    GIMSK |= _BV(INT0);
+  #endif
+  
 }
 
 
@@ -52,8 +58,12 @@ void detachInterrupt(uint8_t interruptNum)
   (void)interruptNum;
   
   // Disable INT0 on pin PB1
-  GIMSK &= ~_BV(INT0);
-  intFunc = 0;
+  #if defined(__AVR_ATtiny10__)||defined(__AVR_ATtiny9__)
+    EIMSK &= ~_BV(INT0);
+  #else
+    GIMSK &= ~_BV(INT0);
+  #endif
+  intFunc = 0; 
 }
 
 
