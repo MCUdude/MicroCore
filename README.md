@@ -117,6 +117,11 @@ This diagram shows the pinout and the peripherals of ATtiny13. The Arduino pinou
 </br> </br>
 <img src="http://i.imgur.com/JsbguPV.jpg" width="800">
 
+This diagram show the pinout and programming pin of Attiny10 and Attiny9. For programming, require a USBASP usb key with the latest firmware and a 10K resistor connecting Miso and Mosi. Miso direc connection to TPIData
+<b>Click to enlarge:</b> 
+</br> </br>
+<img src="https://github.com/bbc25185/MicroCore/blob/master/images/attiny10-ISP2.png" width="800">
+
 
 ## Minimal setup
 <br/>
