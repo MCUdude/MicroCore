@@ -53,14 +53,22 @@ int16_t analogRead(uint8_t pin)
   #elif defined(ADC_PRESCALER_128) // ADC prescaler 128
     ADCSRA = _BV(ADEN) | _BV(ADPS2) | _BV(ADPS1) | _BV(ADPS0);  
   #endif
-
-  uint8_t l, h;
-  ADMUX = (analog_reference & _BV(REFS0)) | (pin & 0x03); // Select channel and reference
-  ADCSRA |= _BV(ADSC); // Start conversion
-  while(ADCSRA & _BV(ADSC)); // Wait for conversion
-  l = ADCL;  // Read and return 10 bit result
-  h = ADCH;
-  return (h << 8) | l; 
+  #if defined(__AVR_ATtiny13__)
+    uint8_t l, h;
+    ADMUX = (analog_reference & _BV(REFS0)) | (pin & 0x03); // Select channel and reference
+    ADCSRA |= _BV(ADSC); // Start conversion
+    while(ADCSRA & _BV(ADSC)); // Wait for conversion
+    l = ADCL;  // Read and return 10 bit result
+    h = ADCH;
+    return (h << 8) | l;
+  #elif defined (__AVR_ATtiny10__)
+    ADMUX = (pin & 0x03); // Select channel
+    ADCSRA |= _BV(ADSC); // Start conversion
+    while(ADCSRA & _BV(ADSC)); // Wait for conversion
+    return (ADCL << 2);  //return the read with conversion from 8 bit to 10 bit
+  #else
+    return 0;
+  #endif
 }
 
 
