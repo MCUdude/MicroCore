@@ -113,3 +113,126 @@ attiny13.menu.lto.Os.compiler.c.elf.extra_flags=
 attiny13.menu.lto.Os.compiler.cpp.extra_flags=
 attiny13.menu.lto.Os.compiler.flag_indicator=
 attiny13.menu.lto.Os.ltoarcmd=avr-ar
+
+############################################################################
+
+attiny10.name=ATtiny10
+
+attiny10.upload.tool=arduino:avrdude
+attiny10.upload.maximum_size=1024
+attiny10.upload.maximum_data_size=32
+
+attiny10.bootloader.tool=arduino:avrdude
+attiny10.bootloader.fuses=
+
+attiny10.bootloader.unlock_bits=
+attiny10.bootloader.lock_bits=
+attiny10.bootloader.file=dummy.hex
+
+attiny10.build.mcu=attiny10
+attiny10.build.f_cpu=8000000L
+attiny10.build.board=AVR_attiny10
+attiny10.build.core=microcore
+attiny10.build.mcu_compile=attiny10
+
+
+######################
+#### Clock speeds ####
+######################
+
+###        internal 8MHz
+attiny10.menu.clock.internal-8=8MHz(Internal)
+attiny10.menu.clock.internal-8.build.f_cpu=8000000L
+
+###        internal 4MHz
+attiny10.menu.clock.internal-4=4MHz(Internal)
+attiny10.menu.clock.internal-4.build.f_cpu=4000000L
+
+###        internal 2MHz
+attiny10.menu.clock.internal-2=2MHz(Internal)
+attiny10.menu.clock.internal-2.build.f_cpu=2000000L
+
+###        internal 1MHz
+attiny10.menu.clock.internal-1=1MHz(Internal)
+attiny10.menu.clock.internal-1.build.f_cpu=1000000L
+
+########################
+#### Compiler flags ####
+########################
+attiny10.menu.flag.Os_flto=-Os LTO enabled (default)
+attiny10.menu.flag.Os_flto.compiler.c.extra_flags=-Wextra -flto
+attiny10.menu.flag.Os_flto.compiler.c.elf.extra_flags=-w -flto
+attiny10.menu.flag.Os_flto.compiler.cpp.extra_flags=-Wextra -flto
+attiny10.menu.flag.Os_flto.ltoarcmd=avr-gcc-ar
+
+attiny10.menu.BOD.disabled=Disabled
+
+########################
+#### Timers Using   ####
+########################
+attiny10.menu.timers.millis=Millis enabled
+attiny10.menu.timers.millis.build.variant=ATtiny10Millis
+
+attiny10.menu.timers.nouse=Millis disabled
+attiny10.menu.timers.nouse.build.variant=ATtiny10NoMillis
+
+##################################################################
+
+attiny9.name=ATtiny9
+
+attiny9.upload.tool=arduino:avrdude
+attiny9.upload.maximum_size=1024
+attiny9.upload.maximum_data_size=32
+
+attiny9.bootloader.tool=arduino:avrdude
+attiny9.bootloader.fuses=
+
+attiny9.bootloader.unlock_bits=
+attiny9.bootloader.lock_bits=
+attiny9.bootloader.file=dummy.hex
+
+attiny9.build.mcu=attiny9
+attiny9.build.f_cpu=8000000L
+attiny9.build.board=AVR_attiny9
+attiny9.build.core=microcore
+attiny9.build.mcu_compile=attiny9
+
+######################
+#### Clock speeds ####
+######################
+
+###        internal 8MHz
+attiny9.menu.clock.internal-8=8MHz(Internal)
+attiny9.menu.clock.internal-8.build.f_cpu=8000000L
+
+###        internal 4MHz
+attiny9.menu.clock.internal-4=4MHz(Internal)
+attiny9.menu.clock.internal-4.build.f_cpu=4000000L
+
+###        internal 2MHz
+attiny9.menu.clock.internal-2=2MHz(Internal)
+attiny9.menu.clock.internal-2.build.f_cpu=2000000L
+
+###        internal 1MHz
+attiny9.menu.clock.internal-1=1MHz(Internal)
+attiny9.menu.clock.internal-1.build.f_cpu=1000000L
+
+########################
+#### Compiler flags ####
+########################
+attiny9.menu.flag.Os_flto=-Os LTO enabled (default)
+attiny9.menu.flag.Os_flto.compiler.c.extra_flags=-Wextra -flto
+attiny9.menu.flag.Os_flto.compiler.c.elf.extra_flags=-w -flto
+attiny9.menu.flag.Os_flto.compiler.cpp.extra_flags=-Wextra -flto
+attiny9.menu.flag.Os_flto.ltoarcmd=avr-gcc-ar
+
+attiny9.menu.BOD.disabled=Disabled
+
+########################
+#### Timers Using   ####
+########################
+attiny9.menu.timers.millis=Millis enabled
+attiny9.menu.timers.millis.build.variant=ATtiny9Millis
+
+attiny9.menu.timers.nouse=Millis disabled
+attiny9.menu.timers.nouse.build.variant=ATtiny9NoMillis
