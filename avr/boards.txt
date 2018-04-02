@@ -127,7 +127,6 @@ attiny10.bootloader.fuses=
 
 attiny10.bootloader.unlock_bits=
 attiny10.bootloader.lock_bits=
-attiny10.bootloader.file=dummy.hex
 
 attiny10.build.mcu=attiny10
 attiny10.build.f_cpu=8000000L
@@ -190,7 +189,6 @@ attiny9.bootloader.fuses=
 
 attiny9.bootloader.unlock_bits=
 attiny9.bootloader.lock_bits=
-attiny9.bootloader.file=dummy.hex
 
 attiny9.build.mcu=attiny9
 attiny9.build.f_cpu=8000000L
