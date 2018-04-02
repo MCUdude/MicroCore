@@ -23,9 +23,6 @@ void analogWrite(uint8_t pin, uint8_t val)
 {
   // SAFEMODE prevents you from inserting a pin number out of range
   #ifdef SAFEMODE
-    #if defined(__AVR_ATtiny10__)||defined(__AVR_ATtiny9__)
-			DIDR0 &= ~(1 << pin);	// Digital Input Disable Register 0
-		#endif
     DDRB |= _BV(pin & 0x02); // Set the correct pin as output
   #endif
   
