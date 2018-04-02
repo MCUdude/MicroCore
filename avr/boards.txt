@@ -163,6 +163,7 @@ attiny10.menu.flag.Os_flto=-Os LTO enabled (default)
 attiny10.menu.flag.Os_flto.compiler.c.extra_flags=-Wextra -flto
 attiny10.menu.flag.Os_flto.compiler.c.elf.extra_flags=-w -flto
 attiny10.menu.flag.Os_flto.compiler.cpp.extra_flags=-Wextra -flto
+attiny10.menu.lto.Os_flto.compiler.flag_indicator=-D COMPILER_LTO
 attiny10.menu.flag.Os_flto.ltoarcmd=avr-gcc-ar
 
 attiny10.menu.BOD.disabled=Disabled
@@ -224,6 +225,7 @@ attiny9.menu.flag.Os_flto=-Os LTO enabled (default)
 attiny9.menu.flag.Os_flto.compiler.c.extra_flags=-Wextra -flto
 attiny9.menu.flag.Os_flto.compiler.c.elf.extra_flags=-w -flto
 attiny9.menu.flag.Os_flto.compiler.cpp.extra_flags=-Wextra -flto
+attiny9.menu.lto.Os_flto.compiler.flag_indicator=-D COMPILER_LTO
 attiny9.menu.flag.Os_flto.ltoarcmd=avr-gcc-ar
 
 attiny9.menu.BOD.disabled=Disabled
