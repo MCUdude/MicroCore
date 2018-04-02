@@ -46,7 +46,8 @@ uint32_t millis()
 // less than 4.8 MHz. It's disabled by default because it occupies precious flash space and loads the CPU with
 // additional interrupts and calculations. Also note that micros() aren't very precise for frequencies that 64
 // doesn't divide evenly by, such as 9.6 and 4.8 MHz.
-#ifdef ENABLE_MICROS
+//Micros not working on Attiny10 and Attiny9 (probably for low memory ram)
+#if defined(ENABLE_MICROS) && defined(__AVR_ATtiny13__)
 volatile uint32_t timer0_overflow = 0;
 
 // This will cause an interrupt every 256*64 clock cycle
@@ -137,7 +138,37 @@ void delay(uint16_t ms)
 // and what's not.
 void init()
 {
-
+  
+  #if defined(__AVR_ATtiny10__) || defined(__AVR_ATtiny9__)
+    //Set the working clock of the Attiny10 and Attiny9
+		CCP = 0xd8;
+		CLKPSR = 0x00;
+		#if   F_CPU == 8000000
+			CCP=0xD8;
+			CLKPSR=0;
+		#elif F_CPU == 4000000
+			CCP=0xD8;
+			CLKPSR=1;
+		#elif F_CPU == 2000000
+			CCP=0xD8;
+			CLKPSR=2;
+		#elif F_CPU == 1000000
+			CCP=0xD8;
+			CLKPSR=3;
+		#elif F_CPU == 500000
+			CCP=0xD8;
+			CLKPSR=4;
+		#elif F_CPU == 250000
+			CCP=0xD8;
+			CLKPSR=5;
+		#elif F_CPU == 125000
+			CCP=0xD8;
+			CLKPSR=6;
+		#else
+			#error CPU SET FREQUENCY ERROR
+		#endif
+  #endif
+  
   #ifdef SETUP_PWM  
     // Set Timer0 prescaler
     #if defined(PWM_PRESCALER_AUTO)
@@ -158,11 +189,21 @@ void init()
       TCCR0B = _BV(CS00) | _BV(CS02);
     #endif
     
-    // Set waveform generation mode
-    #if defined(PWM_FAST)
-      TCCR0A = _BV(WGM00) | _BV(WGM01);
-    #elif defined(PWM_PHASE_CORRECT)
-      TCCR0A = _BV(WGM00);
+    #if defined(__AVR_ATtiny13__)
+      // Set waveform generation mode for Attiny13
+      #if defined(PWM_FAST)
+        TCCR0A = _BV(WGM00) | _BV(WGM01);
+      #elif defined(PWM_PHASE_CORRECT)
+        TCCR0A = _BV(WGM00);
+      #endif
+    #else
+      // Set waveform generation mode for Attiny10 and Attiny9
+      #if defined(PWM_FAST)			//Fast PWM for ATtiny10 and ATtiny9
+				TCCR0B |= _BV(WGM02);		//Fast PWM
+				TCCR0A |= _BV(WGM00);
+			#elif defined(PWM_PHASE_CORRECT)
+				#error PWM_PHASE_CORRECT non implemented on ATtiny10 and ATtiny9
+			#endif
     #endif
   #endif  
   
@@ -172,14 +213,20 @@ void init()
     cli();
     // Reset watchdog
     wdt_reset();
-    // Set up WDT interrupt with 16 ms prescaler
-    WDTCR = _BV(WDTIE);
+    #if defined(__AVR_ATtiny13__)
+      // Set up WDT interrupt with 16 ms prescaler
+      WDTCR = _BV(WDTIE);
+    #else
+      // Set up WDT of Attiny10 and Attiny9 interrupt with 16 ms prescaler
+      WDTCSR = _BV(WDIE);
+    #endif
     // Enable global interrupts
     sei();
   #endif
   
   // WARNING! Enabling micros() will affect timing functions!
-  #ifdef ENABLE_MICROS
+  //Micros not working on Attiny10 and Attiny9 (probably for low memory ram)
+  #if defined(ENABLE_MICROS) && defined(__AVR_ATtiny13__)
     
     // Set a suited prescaler based on F_CPU
     #if F_CPU >= 4800000L
