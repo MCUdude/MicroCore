@@ -102,8 +102,8 @@ attiny13.menu.BOD.disabled.bootloader.high_fuses=0xff
 attiny13.menu.timers.millis=Millis enabled
 attiny13.menu.timers.millis.build.variant=ATtiny13Millis
 
-attiny13.menu.timers.millis=Millis & Micros enabled
-attiny13.menu.timers.millis.build.variant=ATtiny13Micros
+attiny13.menu.timers.micros=Millis & Micros enabled
+attiny13.menu.timers.micros.build.variant=ATtiny13Micros
 
 attiny13.menu.timers.nouse=Millis & Micros disabled
 attiny13.menu.timers.nouse.build.variant=ATtiny13NoMillis
