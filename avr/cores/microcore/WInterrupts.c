@@ -27,13 +27,20 @@ void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), uint8_t mode)
   // The ATtiny13 only has one interrupt
   (void)interruptNum;
   
-  uint8_t SaveSREG = SREG; // Save interrupt flag
-
+  #if !defined(SAFEMODE)
+    uint8_t SaveSREG = SREG; // Save interrupt flag
+  #endif
+  
   cli(); // Disable interrupts
     
-  intFunc = userFunc; // access the shared data
-    
-  SREG = SaveSREG; // Restore the interrupt flag
+  intFunc = userFunc; // Access the shared data
+  
+  #if !defined(SAFEMODE)
+    SREG = SaveSREG; // Restore the interrupt flag
+  #else
+    sei(); // Enable global interrupts  
+  #endif  
+  
     
   // Configure the interrupt mode (trigger on low input, any change, rising
   // edge, or falling edge).  The mode constants were chosen to correspond
