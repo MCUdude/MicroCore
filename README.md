@@ -2,8 +2,8 @@
 [![Build Status](https://travis-ci.org/MCUdude/MicroCore.svg?branch=master)](https://travis-ci.org/MCUdude/MicroCore)
 [![MicroCore forum thread](https://img.shields.io/badge/support-forum-blue.svg)](https://forum.arduino.cc/index.php?topic=426153.0)
 
-A lightweight Arduino hardware package for ATtiny13, ATtiny13A and ATtiny13V. This core is a complete rewrite of Smeezekitty's [core13](https://sourceforge.net/projects/ard-core13/). A lot of work has been put into MicroCore to make it up to date with the latest requirements.
-If you're into "pure" AVR programming, I'm happy to tell you that all relevant keywords are being highlighted by the IDE through a separate keywords file. Make sure to check out the [example files](https://github.com/MCUdude/MicroCore/tree/master/avr/libraries/AVR_examples/examples) (File > Examples > AVR C code examples).
+MicroCore is a lightweight Arduino hardware package for ATtiny13, ATtiny13A and ATtiny13V. It's easy to install, easy to use, have lots of features and support most Arduino functions.
+If you're into low level AVR programming, I'm happy to tell you that all relevant keywords are being highlighted by the IDE through a separate keywords file. Make sure to check out the [example files](https://github.com/MCUdude/MicroCore/tree/master/avr/libraries/AVR_examples/examples) (File > Examples > AVR C code examples).
 
 
 ## Table of contents
@@ -166,4 +166,8 @@ This diagram shows the pinout and the peripherals of ATtiny13. The Arduino pinou
 * [sq()](https://www.arduino.cc/en/Reference/Sq)
 * [sqrt()](https://www.arduino.cc/en/Reference/Sqrt)
 * [tone()](https://www.arduino.cc/en/Reference/Tone)
+
+
+## Acknowledgements
+MicroCore is based Smeezekitty's [core13](https://sourceforge.net/projects/ard-core13/), which is an Arduino ATTiny13 hardware package for IDE 1.0.x.
 
