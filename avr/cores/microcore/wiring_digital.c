@@ -38,8 +38,10 @@ void digitalWrite(uint8_t pin, uint8_t val)
   #if defined(SAFEMODE)
     if(pin > 5)
       return;
-    if(pin < 2)
-      turnOffPWM(pin); // If it's a PWM pin, make sure PWM is off
+    #if defined(SETUP_PWM)
+      if(pin < 2)
+        turnOffPWM(pin); // If it's a PWM pin, make sure PWM is off
+    #endif
   #endif  
     
   if(val)
@@ -55,8 +57,10 @@ uint8_t digitalRead(uint8_t pin)
   #ifdef SAFEMODE
     if(pin > 5)
       return 0;
-    if(pin < 2)
-      turnOffPWM(pin); // If it's PWM pin, makes sure the PWM is off
+    #if defined(SETUP_PWM)
+      if(pin < 2)
+        turnOffPWM(pin); // If it's a PWM pin, make sure PWM is off
+    #endif
   #endif
   
   return !!(PINB & _BV(pin));
