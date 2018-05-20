@@ -21,7 +21,7 @@ void pinMode(uint8_t pin, uint8_t mode)
         return;
     #else
       if(pin > 3)
-			  return;
+        return;
     #endif
   #endif
   
@@ -50,7 +50,7 @@ void digitalWrite(uint8_t pin, uint8_t val)
         return;
     #else
       if(pin > 3)
-			  return; 
+        return; 
     #endif
     if(pin < 2)
       turnOffPWM(pin); // If it's a PWM pin, make sure PWM is off
@@ -72,7 +72,7 @@ uint8_t digitalRead(uint8_t pin)
         return;
     #else
       if(pin > 3)
-			  return; 
+        return; 
     #endif
     if(pin < 2)
       turnOffPWM(pin); // If it's PWM pin, makes sure the PWM is off
