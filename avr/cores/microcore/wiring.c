@@ -141,32 +141,32 @@ void init()
   
   #if defined(__AVR_ATtiny10__) || defined(__AVR_ATtiny9__)
     //Set the working clock of the Attiny10 and Attiny9
-		CCP = 0xd8;
-		CLKPSR = 0x00;
-		#if   F_CPU == 8000000
-			CCP=0xD8;
-			CLKPSR=0;
-		#elif F_CPU == 4000000
-			CCP=0xD8;
-			CLKPSR=1;
-		#elif F_CPU == 2000000
-			CCP=0xD8;
-			CLKPSR=2;
-		#elif F_CPU == 1000000
-			CCP=0xD8;
-			CLKPSR=3;
-		#elif F_CPU == 500000
-			CCP=0xD8;
-			CLKPSR=4;
-		#elif F_CPU == 250000
-			CCP=0xD8;
-			CLKPSR=5;
-		#elif F_CPU == 125000
-			CCP=0xD8;
-			CLKPSR=6;
-		#else
-			#error CPU SET FREQUENCY ERROR
-		#endif
+      CCP = 0xd8;
+      CLKPSR = 0x00;
+    #if   F_CPU == 8000000
+      CCP=0xD8;
+      CLKPSR=0;
+    #elif F_CPU == 4000000
+      CCP=0xD8;
+      CLKPSR=1;
+    #elif F_CPU == 2000000
+      CCP=0xD8;
+      CLKPSR=2;
+    #elif F_CPU == 1000000
+      CCP=0xD8;
+      CLKPSR=3;
+    #elif F_CPU == 500000
+      CCP=0xD8;
+      CLKPSR=4;
+    #elif F_CPU == 250000
+      CCP=0xD8;
+      CLKPSR=5;
+    #elif F_CPU == 125000
+      CCP=0xD8;
+      CLKPSR=6;
+    #else
+      #error CPU SET FREQUENCY ERROR
+    #endif
   #endif
   
   #ifdef SETUP_PWM  
