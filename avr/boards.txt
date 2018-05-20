@@ -26,7 +26,7 @@ attiny13.upload.maximum_size=1024
 attiny13.upload.maximum_data_size=64
 attiny13.build.mcu_compile=attiny13a
 attiny13.build.mcu=attiny13
-#attiny13.build.variant=microcore
+attiny13.build.variant=ATtiny13
 
 
 ######################
@@ -100,13 +100,12 @@ attiny13.menu.BOD.disabled.bootloader.high_fuses=0xff
 #### Timers Using   ####
 ########################
 attiny13.menu.timers.millis=Millis enabled
-attiny13.menu.timers.millis.build.variant=ATtiny13Millis
+attiny13.menu.timers.millis.build.extra_flags=-DENABLE_MILLIS
 
 attiny13.menu.timers.micros=Millis & Micros enabled
-attiny13.menu.timers.micros.build.variant=ATtiny13Micros
+attiny13.menu.timers.micros.build.extra_flags=-DENABLE_MICROS
 
 attiny13.menu.timers.nouse=Millis & Micros disabled
-attiny13.menu.timers.nouse.build.variant=ATtiny13NoMillis
 
 #############
 #### LTO ####
@@ -145,6 +144,8 @@ attiny10.build.f_cpu=8000000L
 attiny10.build.board=AVR_attiny10
 attiny10.build.core=microcore
 attiny10.build.mcu_compile=attiny10
+attiny10.build.variant=ATtiny10
+attiny10.build.extra_flags=-D__AVR_ATtiny10__
 
 
 ######################
@@ -183,10 +184,9 @@ attiny10.menu.BOD.disabled=Disabled
 #### Timers Using   ####
 ########################
 attiny10.menu.timers.millis=Millis enabled
-attiny10.menu.timers.millis.build.variant=ATtiny10Millis
+attiny10.menu.timers.millis.build.extra_flags=-DENABLE_MILLIS
 
 attiny10.menu.timers.nouse=Millis disabled
-attiny10.menu.timers.nouse.build.variant=ATtiny10NoMillis
 
 ##################################################################
 
@@ -207,6 +207,8 @@ attiny9.build.f_cpu=8000000L
 attiny9.build.board=AVR_attiny9
 attiny9.build.core=microcore
 attiny9.build.mcu_compile=attiny9
+attiny9.build.variant=ATtiny10
+attiny10.build.extra_flags=-D__AVR_ATtiny9__
 
 ######################
 #### Clock speeds ####
@@ -244,7 +246,6 @@ attiny9.menu.BOD.disabled=Disabled
 #### Timers Using   ####
 ########################
 attiny9.menu.timers.millis=Millis enabled
-attiny9.menu.timers.millis.build.variant=ATtiny9Millis
+attiny9.menu.timers.millis.build.extra_flags=-DENABLE_MILLIS
 
 attiny9.menu.timers.nouse=Millis disabled
-attiny9.menu.timers.nouse.build.variant=ATtiny9NoMillis
