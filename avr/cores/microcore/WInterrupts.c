@@ -42,7 +42,7 @@ void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), uint8_t mode)
       
   // Enable INT0 on pin PB1
   #if defined(__AVR_ATtiny10__)||defined(__AVR_ATtiny9__)
-		EICRA = (EICRA & ~(_BV(ISC00) | (ISC01))) | (mode << ISC00);
+    EICRA = (EICRA & ~(_BV(ISC00) | (ISC01))) | (mode << ISC00);
     EIMSK |= _BV(INT0);	
   #else
     MCUCR = (MCUCR & ~(_BV(ISC00) | (ISC01))) | (mode << ISC00);
