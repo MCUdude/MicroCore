@@ -69,6 +69,14 @@ int16_t analogRead(uint8_t pin)
   #else
     return 0;
   #endif
+
+  uint8_t l, h;
+  ADMUX = (analog_reference << REFS0) | (pin & 0x03); // Select channel and reference
+  ADCSRA |= _BV(ADSC); // Start conversion
+  while(ADCSRA & _BV(ADSC)); // Wait for conversion
+  l = ADCL;  // Read and return 10 bit result
+  h = ADCH;
+  return (h << 8) | l; 
 }
 
 
