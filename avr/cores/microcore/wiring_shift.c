@@ -22,13 +22,26 @@ uint8_t shiftIn(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder)
   #endif  
  
   uint8_t value = 0;
-  
-  for(uint8_t i = 0; i < 8; ++i)
+  uint8_t i = 8;
+  const uint8_t clkpinMask = _BV(clockPin);
+  do
   {
-    PORTB |= _BV(clockPin);  // Set clockPin high
-    value |= (!!(PINB & _BV(dataPin)) << ((bitOrder == LSBFIRST) ? i : 7 - i)); // clock in to dataPin
-    PORTB &= ~_BV(clockPin); // Set clockPin low
+    PINB = clkpinMask; // Toggle clock pin
+    if(PINB & _BV(dataPin))
+    { 
+      if(bitOrder == MSBFIRST) 
+        value |= 0x01;
+      else 
+        value |= 0x80;
+    }
+    PINB = clkpinMask; // Toggle clock pin
+    if(bitOrder == MSBFIRST) 
+      value <<= 1;
+    else 
+      value >>= 1;
   }
+  while(--i);
+  
   return value;
 }
 
