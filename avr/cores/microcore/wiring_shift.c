@@ -65,7 +65,6 @@ void shiftOut(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder, uint8_t value
    
   do
   {
-    PORTB = portbits; // Clock and data pin low
     if(bitOrder == MSBFIRST)
     {
       if(value & 0x80)
@@ -81,6 +80,7 @@ void shiftOut(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder, uint8_t value
       value <<= 1;
     else 
       value >>= 1;
+    PORTB = portbits; // Clock and data pin low  
   }
   while(--i);
 }
