@@ -10,6 +10,7 @@ functions shiftIn() and shiftOut().
 
 #include "wiring_private.h"
 
+
 uint8_t shiftIn(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder)
 {  
   #if defined(SAFEMODE)
@@ -23,25 +24,24 @@ uint8_t shiftIn(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder)
  
   uint8_t value = 0;
   uint8_t i = 8;
-  const uint8_t clkpinMask = _BV(clockPin);
   do
   {
-    PINB = clkpinMask; // Toggle clock pin
-    if(PINB & _BV(dataPin))
-    { 
-      if(bitOrder == MSBFIRST) 
-        value |= 0x01;
-      else 
-        value |= 0x80;
-    }
-    PINB = clkpinMask; // Toggle clock pin
+    digitalWrite(clockPin, HIGH);
     if(bitOrder == MSBFIRST) 
       value <<= 1;
     else 
       value >>= 1;
+    if(digitalRead(dataPin))
+    { 
+      if(bitOrder == MSBFIRST)
+        value |= 0x01;
+      else 
+        value |= 0x80;
+    }  
+    digitalWrite(clockPin, LOW);
   }
   while(--i);
-  
+ 
   return value;
 }
 
