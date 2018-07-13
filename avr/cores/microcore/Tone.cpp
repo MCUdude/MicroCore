@@ -45,7 +45,6 @@ void tone(const uint8_t pin, const uint16_t frequency, const uint32_t length)
   uint8_t   prescaleBitMask = 1; // The bitmask only increments unitarily
   uint32_t  ticksPerMs      = F_CPU / 1000;
   
-  
   // The numbers in each if statement are the lowest frequency that can be achieved
   // with the prescale inside the if statement
   //
@@ -96,8 +95,10 @@ void tone(const uint8_t pin, const uint16_t frequency, const uint32_t length)
     ticksPerMs      = (F_CPU/1024) / 1000;
     prescaleBitMask = 5;
   }
+  else
+    return;
   
-  toneRaw(pin, ((F_CPU / prescaleDivider) / frequency), length ? length * ticksPerMs : ~(0UL), prescaleBitMask);
+  toneRaw(pin, (((F_CPU / prescaleDivider) / frequency) / 2), length ? length * ticksPerMs : ~(0UL), prescaleBitMask);
 }
 
 
