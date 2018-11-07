@@ -101,9 +101,9 @@ attiny13.menu.BOD.disabled.bootloader.high_fuses=0xff
 #############
 
 attiny13.menu.lto.Os_flto=Enabled (default)
-attiny13.menu.lto.Os_flto.compiler.c.extra_flags=-Wextra -flto
-attiny13.menu.lto.Os_flto.compiler.c.elf.extra_flags=-w -flto
-attiny13.menu.lto.Os_flto.compiler.cpp.extra_flags=-Wextra -flto
+attiny13.menu.lto.Os_flto.compiler.c.extra_flags=-Wextra -flto -g
+attiny13.menu.lto.Os_flto.compiler.c.elf.extra_flags=-w -flto -g
+attiny13.menu.lto.Os_flto.compiler.cpp.extra_flags=-Wextra -flto -g
 attiny13.menu.lto.Os_flto.compiler.flag_indicator=-D COMPILER_LTO
 attiny13.menu.lto.Os_flto.ltoarcmd=avr-gcc-ar
 
