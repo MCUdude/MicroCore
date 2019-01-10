@@ -187,12 +187,12 @@ void init()
       #endif
     #else
       // Set waveform generation mode for Attiny10 and Attiny9
-      #if defined(PWM_FAST)			//Fast PWM for ATtiny10 and ATtiny9
-				TCCR0B |= _BV(WGM02);		//Fast PWM
-				TCCR0A |= _BV(WGM00);
-			#elif defined(PWM_PHASE_CORRECT)
-				#error PWM_PHASE_CORRECT non implemented on ATtiny10 and ATtiny9
-			#endif
+      #if defined(PWM_FAST)         //Fast PWM for ATtiny10 and ATtiny9
+        TCCR0B |= _BV(WGM02);		//Fast PWM
+        TCCR0A |= _BV(WGM00);
+      #elif defined(PWM_PHASE_CORRECT)
+        #error PWM_PHASE_CORRECT non implemented on ATtiny10 and ATtiny9
+      #endif
     #endif
   #endif  
   
