@@ -20,6 +20,7 @@ https://github.com/MCUdude/MicroCore
 #include <avr/wdt.h>
 #include "WString.h"
 #include "pins_arduino.h"
+#include "binary.h"
 
 // Millis counter variable defined in millis.S
 extern uint32_t wdt_interrupt_counter;
