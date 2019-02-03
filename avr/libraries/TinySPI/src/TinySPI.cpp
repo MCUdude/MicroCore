@@ -65,10 +65,10 @@ void TinySoftSPIClass::begin()
   pinMode(SCK, OUTPUT);
 }
 
-byte TinySoftSPIClass::transferMode0(byte _data)
+uint8_t TinySoftSPIClass::transferMode0(uint8_t _data)
 {
-  byte _newData = 0;
-  for(byte i = 0; i < 8; i++)
+  uint8_t _newData = 0;
+  for(uint8_t i = 0; i < 8; i++)
   {
     ((_data & 0x80) ? PORTB |= _BV(MOSI) : PORTB &= ~_BV(MOSI));    
     _data <<= 1;
@@ -81,10 +81,10 @@ byte TinySoftSPIClass::transferMode0(byte _data)
 }
 
 
-byte TinySoftSPIClass::transferMode1(byte _data)
+uint8_t TinySoftSPIClass::transferMode1(uint8_t _data)
 {
-  byte _newData = 0;
-  for(byte i = 0; i < 8; i++)
+  uint8_t _newData = 0;
+  for(uint8_t i = 0; i < 8; i++)
   {
     PORTB |= _BV(SCK);
     ((_data & 0x80) ? PORTB |= _BV(MOSI) : PORTB &= ~_BV(MOSI));
@@ -97,10 +97,10 @@ byte TinySoftSPIClass::transferMode1(byte _data)
 }
 
 
-byte TinySoftSPIClass::transferMode2(byte _data)
+uint8_t TinySoftSPIClass::transferMode2(uint8_t _data)
 {
-  byte _newData = 0;
-  for(byte i = 0; i < 8; i++)
+  uint8_t _newData = 0;
+  for(uint8_t i = 0; i < 8; i++)
   {
     ((_data & 0x80) ? PORTB |= _BV(MOSI) : PORTB &= ~_BV(MOSI));  
     _data <<= 1;
@@ -113,10 +113,10 @@ byte TinySoftSPIClass::transferMode2(byte _data)
 }
 
 
-byte TinySoftSPIClass::transferMode3(byte _data)
+uint8_t TinySoftSPIClass::transferMode3(uint8_t _data)
 {
-  byte _newData = 0;
-  for(byte i = 0; i < 8; i++)
+  uint8_t _newData = 0;
+  for(uint8_t i = 0; i < 8; i++)
   {
     PORTB &= ~_BV(SCK);
     ((_data & 0x80) ? PORTB |= _BV(MOSI) : PORTB &= ~_BV(MOSI));
@@ -129,10 +129,10 @@ byte TinySoftSPIClass::transferMode3(byte _data)
 }
 
 
-byte TinySoftSPIClass::transfer(byte _data)
+uint8_t TinySoftSPIClass::transfer(uint8_t _data)
 {
-  //byte _newData = 0;
-  byte oldSREG = SREG;
+  //uint8_t _newData = 0;
+  uint8_t oldSREG = SREG;
   cli();
 
   // The transfer functions all do MSB FIRST (most common)

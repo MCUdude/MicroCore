@@ -79,7 +79,7 @@ class SPISettings
 };
 
 class TinySoftSPIClass;
-typedef byte (TinySoftSPIClass::*TransferFunction)(byte _data);
+typedef uint8_t (TinySoftSPIClass::*TransferFunction)(uint8_t _data);
 
 class TinySoftSPIClass 
 {
@@ -89,14 +89,14 @@ class TinySoftSPIClass
   private:
     TransferFunction transferType;
     
-    byte transferMode0(byte _data);
-    byte transferMode1(byte _data);
-    byte transferMode2(byte _data);
-    byte transferMode3(byte _data);
+    uint8_t transferMode0(uint8_t _data);
+    uint8_t transferMode1(uint8_t _data);
+    uint8_t transferMode2(uint8_t _data);
+    uint8_t transferMode3(uint8_t _data);
     
   public:
     void begin();
-    byte transfer(byte _data);
+    uint8_t transfer(uint8_t _data);
     void end();
     
     void setBitOrder(uint8_t);
@@ -110,7 +110,7 @@ class TinySoftSPIClass
     // usingInterrupt
     
   private:
-    byte _bitOrder;
+    uint8_t _bitOrder;
 };
 
 extern TinySoftSPIClass SPI;
