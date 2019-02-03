@@ -60,9 +60,9 @@ This is great knowledge, so you should absolutely check it out - [AVR4027: Tips 
 ## BOD option
 Brown out detection, or BOD for short lets the microcontroller sense the input voltage and shut down if the voltage goes below the brown out setting.
 These are the available BOD options:
-* 4.3 v
-* 2.7 v
-* 1.8 v
+* 4.3V
+* 2.7V
+* 1.8V
 * Disabled
 
 

@@ -86,13 +86,13 @@ attiny13.menu.clock.1M.build.f_cpu=1000000L
 ############################
 #### Brownout detection ####
 ############################
-attiny13.menu.BOD.2v7=2.7v
+attiny13.menu.BOD.2v7=BOD 2.7V
 attiny13.menu.BOD.2v7.bootloader.high_fuses=0xfb
-attiny13.menu.BOD.4v3=4.3v
+attiny13.menu.BOD.4v3=BOD 4.3V
 attiny13.menu.BOD.4v3.bootloader.high_fuses=0xf9
-attiny13.menu.BOD.1v8=1.8v
+attiny13.menu.BOD.1v8=BOD 1.8V
 attiny13.menu.BOD.1v8.bootloader.high_fuses=0xfd
-attiny13.menu.BOD.disabled=Disabled
+attiny13.menu.BOD.disabled=BOD disabled
 attiny13.menu.BOD.disabled.bootloader.high_fuses=0xff
 
 
@@ -100,14 +100,14 @@ attiny13.menu.BOD.disabled.bootloader.high_fuses=0xff
 #### LTO ####
 #############
 
-attiny13.menu.lto.Os_flto=Enabled (default)
+attiny13.menu.lto.Os_flto=LTO enabled (default)
 attiny13.menu.lto.Os_flto.compiler.c.extra_flags=-Wextra -flto -g
 attiny13.menu.lto.Os_flto.compiler.c.elf.extra_flags=-w -flto -g
 attiny13.menu.lto.Os_flto.compiler.cpp.extra_flags=-Wextra -flto -g
 attiny13.menu.lto.Os_flto.compiler.flag_indicator=-D COMPILER_LTO
 attiny13.menu.lto.Os_flto.ltoarcmd=avr-gcc-ar
 
-attiny13.menu.lto.Os=Disabled
+attiny13.menu.lto.Os=LTO disabled
 attiny13.menu.lto.Os.compiler.c.extra_flags=
 attiny13.menu.lto.Os.compiler.c.elf.extra_flags=
 attiny13.menu.lto.Os.compiler.cpp.extra_flags=
