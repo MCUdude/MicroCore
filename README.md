@@ -19,8 +19,9 @@ If you're into low level AVR programming, I'm happy to tell you that all relevan
 * **[Getting started with MicroCore](#getting-started-with-microcore)**
 * [Pinout](#pinout)
 * [Minimal setup](#minimal-setup)
-* [Working Arduino functions](#working-arduino-functions)
-
+* [Working Arduino functions and libraries](#working-arduino-functions-and-libraries)
+  - [Arduino functions](#arduino-functions)
+  - [Arduino libraries](#arduino-libraries)
 
 ## Why use the ATtiny13 in an Arduino project?
 * They're DIRT cheap (we're talking cents here!)
@@ -123,9 +124,10 @@ This diagram shows the pinout and the peripherals of ATtiny13. The Arduino pinou
 <img src="http://i.imgur.com/SjCN7oZ.png" width="600">
 
 
-## Working Arduino functions
+## Working Arduino functions and libaraies
+Due to the limited hardware not all default Arduino functions and libraries is supported by the ATtiny13. Here's a list of all working Arduino functions and libraries that's included in the MicroCore package.
 
-#### Arduino functions
+### Arduino functions
 * [abs()](https://www.arduino.cc/en/Reference/Abs)
 * [analogRead()](https://www.arduino.cc/en/Reference/AnalogRead)
 * [analogWrite()](https://www.arduino.cc/en/Reference/AnalogWrite)
@@ -167,6 +169,26 @@ This diagram shows the pinout and the peripherals of ATtiny13. The Arduino pinou
 * [sqrt()](https://www.arduino.cc/en/Reference/Sqrt)
 * [tone()](https://www.arduino.cc/en/Reference/Tone)
 
+### Arduino libraries
+* [SPI library, **TinySPI.h** (software implementation)](https://www.arduino.cc/en/Reference/SPI)
+  - [SPISettings](https://www.arduino.cc/en/Reference/SPISettings)
+  - [begin()](https://www.arduino.cc/en/Reference/SPIBegin)
+  - [end()](https://www.arduino.cc/en/Reference/SPIEnd)
+  - [beginTransmission()](https://www.arduino.cc/en/Reference/SPIbeginTransaction)
+  - [endTransmission()](https://www.arduino.cc/en/Reference/SPIendTransaction)
+  - [setBitOrder()](https://www.arduino.cc/en/Reference/SPISetBitOrder)
+  - [setClockDivider()](https://www.arduino.cc/en/Reference/SPISetClockDivider)
+  - [setDataMode()](https://www.arduino.cc/en/Reference/SPISetDataMode)
+  - [transfer()](https://www.arduino.cc/en/Reference/SPITransfer)
+  - ~~[usingInterrupt()](https://www.arduino.cc/en/Reference/SPIusingInterrupt)~~ **Not implemented**
+
+* [EEPROM library, **EEPROM.h**](https://www.arduino.cc/en/reference/EEPROM)
+  - [EEPROM[]](https://www.arduino.cc/en/Reference/EEPROMObject)
+  - [read()](https://www.arduino.cc/en/Reference/EEPROMRead)
+  - [write()](https://www.arduino.cc/en/Reference/EEPROMWrite)
+  - [update()](https://www.arduino.cc/en/Reference/EEPROMUpdate)
+  - [get()](https://www.arduino.cc/en/Reference/EEPROMGet)
+  - [put()](https://www.arduino.cc/en/Reference/EEPROMPut)
 
 ## Acknowledgements
 MicroCore is based Smeezekitty's [core13](https://sourceforge.net/projects/ard-core13/), which is an Arduino ATTiny13 hardware package for IDE 1.0.x.
