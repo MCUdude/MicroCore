@@ -46,65 +46,72 @@ ISR(TIM0_OVF_vect)
 
 uint32_t micros()
 {
-  uint32_t x;
+  uint32_t m;
   uint8_t t;  
   
   uint8_t oldSREG = SREG; // Preserve old SREG value 
   t = TCNT0;              // Store timer0 counter value
   cli();                  // Disable global interrupts
-  x = timer0_overflow;    // Store timer0 overflow count
+  m = timer0_overflow;    // Store timer0 overflow count
   SREG = oldSREG;         // Restore SREG
   
   #if F_CPU == 20000000L
-    // Each timer tick is 1/(16MHz/64) = 3.2us long. We multiply the timer0_overflow variable
+    // Each timer tick is 1/(20MHz/64) = 3.2us long. We multiply the timer0_overflow variable
     // by 256 (bitshift 8 times) and we add the current timer count TCNT0. Since each tick is 3.2us long,
-    // we multiply by 3 at the end
-    return ((x << 8) + t) * 3;
+    // we multiply by 3.1875 at the end
+	m = (m << 8) + t;
+    return m + (m << 1) + (m >> 2) - (m >> 4);
   #elif F_CPU == 16000000L
     // Each timer tick is 1/(16MHz/64) = 4us long. We multiply the timer0_overflow variable
     // by 256 (bitshift 8 times) and we add the current timer count TCNT0. Since each tick is 4us long,
     // we multiply by 4 at the end
-    return ((x << 8) + t) * 4;
+    return ((m << 8) + t) * 4;
   #elif F_CPU == 12000000L
     // Each timer tick is 1/(12MHz/64) = 5.333us long. We multiply the timer0_overflow variable
     // by 256 (bitshift 8 times) and we add the current timer count TCNT0. Since each tick is 5.333us long,
-    // we multiply by 5 at the end
-    return ((x << 8) + t) * 5;  
+    // we multiply by 5.3437 at the end
+    m = (m << 8) + t;
+    return m + (m << 2) + (m >> 2) + (m >> 3) - (m >> 4) + (m >> 5);
   #elif F_CPU == 9600000L
     // Each timer tick is 1/(9.6MHz/64) = 6.666us long. We multiply the timer0_overflow variable
     // by 256 (bitshift 8 times) and we add the current timer count TCNT0. Since each tick is 6.666us long,
-    // we multiply by 7 at the end
-    return ((x << 8) + t) * 7;
+    // we multiply by 6.65625 at the end
+	m = (m << 8) + t;
+    return (m << 3) - (m << 1) + (m >> 1) + (m >> 3) + (m >> 5);
   #elif F_CPU == 8000000L
     // Each timer tick is 1/(8MHz/64) = 8us long. We multiply the timer0_overflow variable
     // by 256 (bitshift 8 times) and we add the current timer count TCNT0. Since each tick is 8us long,
     // we multiply by 8 at the end
-    return ((x << 8) + t) * 8;
+    return ((m << 8) + t) * 8;
   #elif F_CPU == 4800000L
     // Each timer tick is 1/(4.8MHz/64) = 13.333us long. We multiply the timer0_overflow variable
     // by 256 (bitshift 8 times) and we add the current timer count TCNT0. Since each tick is 13.333us long,
-    // we multiply by 13 at the end
-    return ((x << 8) + t) * 13;
+    // we multiply by 13,34375 at the end
+    m = (m << 8) + t;
+    return (m << 3) + (m << 2) + m + (m >> 2) + (m >> 3) - (m >> 4) + (m >> 5);
   #elif F_CPU == 1200000L
     // Each timer tick is 1/(1.2MHz/8) = 6.666us long. We multiply the timer0_overflow variable
     // by 256 (bitshift 8 times) and we add the current timer count TCNT0. Since each tick is 6.666us long,
     // we multiply by 7 at the end
-    return ((x << 8) + t) * 7;
+    m = (m << 8) + t;
+    return m + (m << 2) + (m >> 2) + (m >> 3) - (m >> 4) + (m >> 5);
   #elif F_CPU == 1000000L
     // Each timer tick is 1/(1MHz/8) = 8us long. We multiply the timer0_overflow variable
     // by 256 (bitshift 8 times) and we add the current timer count TCNT0. Since each tick is 8us long,
     // we multiply by 8 at the end
-    return ((x << 8) + t) * 8;  
+    return ((m << 8) + t) * 8;  
   #elif F_CPU == 600000L
     // Each timer tick is 1/(600kHz/8) = 13.333us long. We multiply the timer0_overflow variable
     // by 256 (bitshift 8 times) and we add the current timer count TCNT0. Since each tick is 13.333us long,
-    // we multiply by 13 at the end
-    return ((x << 8) + t) * 13;    
+    // we multiply by 13,34375 at the end
+    m = (m << 8) + t;
+    return (m << 3) + (m << 2) + m + (m >> 2) + (m >> 3) - (m >> 4) + (m >> 5);
   #elif F_CPU == 128000L
     // Each timer tick is 1/(128kHz/8) = 62.5us long. We multiply the timer0_overflow variable
     // by 256 (bitshift 8 times) and we add the current timer count TCNT0. Since each tick is 62.5us long,
-    // we multiply by 62 at the end
-    return ((x << 8) + t) * 62;      
+    // we multiply by 62.5 at the end
+	m = (m << 8) + t;
+    return m * 62 + (m >> 1);      
  #endif
 
 }
