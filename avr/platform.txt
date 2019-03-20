@@ -126,6 +126,10 @@ tools.avrdude.bootloader.params.verbose=-v
 tools.avrdude.bootloader.params.quiet=-q -q
 tools.avrdude.bootloader.pattern="{cmd.path}" "-C{config.path}" {bootloader.verbose} -p{build.mcu} -c{protocol} -B32 {program.extra_params} -Ulock:w:{bootloader.lock_bits}:m
 
+tools.atprogram.program.params.verbose=-v
+tools.atprogram.program.params.quiet=-q
+tools.atprogram.program.pattern="C:\Program Files (x86)\Atmel\Studio\7.0\atbackend\atprogram.exe" -t atmelice -i debugWIRE -d attiny13a program -f {build.path}\{build.project_name}.hex
+
 # USB Default Flags
 # Default blank usb manufacturer will be filled it at compile time
 # - from numeric vendor ID, set to Unknown otherwise
