@@ -96,3 +96,9 @@ atmel_ice.upload.protocol=atmelice_isp
 atmel_ice.program.protocol=atmelice_isp
 atmel_ice.program.tool=avrdude
 atmel_ice.program.extra_params=-Pusb -B32
+
+atmel_ice_dw.name=Atmel-ICE debugWIRE
+atmel_ice_dw.communication=usb
+atmel_ice_dw.protocol=atmelice_dw
+atmel_ice_dw.program.protocol=atmelice_dw
+atmel_ice_dw.program.tool=atprogram
