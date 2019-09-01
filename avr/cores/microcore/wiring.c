@@ -28,6 +28,7 @@ uint32_t millis()
   cli();
   m = wdt_interrupt_counter;
   sei();
+  return m;
 }
 #endif // ENABLE_MILLIS
 
