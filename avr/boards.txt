@@ -11,6 +11,7 @@
 menu.BOD=BOD
 menu.lto=Compiler LTO
 menu.clock=Clock
+menu.timing=Timing
 
 attiny13.name=ATtiny13
 attiny13.bootloader.tool=avrdude
@@ -20,6 +21,7 @@ attiny13.bootloader.unlock_bits=0x3f
 attiny13.bootloader.lock_bits=0x3e
 attiny13.build.core=microcore
 attiny13.build.board=attiny
+attiny13.build.extra_flags={build.timing}
 
 attiny13.upload.maximum_size=1024
 attiny13.upload.maximum_data_size=64
@@ -86,6 +88,7 @@ attiny13.menu.clock.1M.build.f_cpu=1000000L
 ############################
 #### Brownout detection ####
 ############################
+
 attiny13.menu.BOD.2v7=BOD 2.7V
 attiny13.menu.BOD.2v7.bootloader.high_fuses=0xfb
 attiny13.menu.BOD.4v3=BOD 4.3V
@@ -113,3 +116,20 @@ attiny13.menu.lto.Os.compiler.c.elf.extra_flags=
 attiny13.menu.lto.Os.compiler.cpp.extra_flags=
 attiny13.menu.lto.Os.compiler.flag_indicator=
 attiny13.menu.lto.Os.ltoarcmd=avr-ar
+
+
+################
+#### Timing ####
+################
+
+attiny13.menu.timing.millis_enabled_micros_disabled=Millis enabled, Micros disabled
+attiny13.menu.timing.millis_enabled_micros_disabled.build.timing=-DENABLE_MILLIS
+
+attiny13.menu.timing.millis_enabled_micros_enabled=Millis enabled, Micros enabled
+attiny13.menu.timing.millis_enabled_micros_enabled.build.timing=-DENABLE_MILLIS -DENABLE_MICROS
+
+attiny13.menu.timing.millis_disabled_micros_enabled=Millis disabled, Micros enabled
+attiny13.menu.timing.millis_disabled_micros_enabled.build.timing=-DENABLE_MICROS
+
+attiny13.menu.timing.millis_disabled_micros_disabled=Millis disabled, Micros disabled
+attiny13.menu.timing.millis_disabled_micros_disabled.build.timing=

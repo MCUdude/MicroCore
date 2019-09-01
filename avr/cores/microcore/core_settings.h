@@ -13,24 +13,26 @@ need, in order to free up some space.
 #define core_settings_h
 
 
-// Makes the core "idiot proof" (see wiring_digital.c and wiring_pwm.h for examples where SAFEMODE is used).
-// Enabling SAFEMODE takes up more flash space, but "makes sure" you don't screw up, like by reading the 
-// state of a pin while it's outputting a PWM signal. If you know what you're doing, like explicitly writing
-// a pin as an output before using the analogWrite() function, you can save a lot of space by disabling this.
-#define SAFEMODE 
-
 // If you're not using millis(), you can save about 100b by commenting this out.
 // Note that the millis() interrupt is based on the watch dog timer, and will interrupt
 // every 16th ms (which is very little. This means the millis() function will not be 
 // accurate down to 1 ms, but will increase with steps of 16.
-#define ENABLE_MILLIS
+// NOTE THAT THIS MACRO CAN BE OVERRIDDEN IN ARDUINO IDE
+//#define ENABLE_MILLIS
 
 // Enabling micros() will cause the processor to interrupt more often (every 2048th clock cycle if 
 // F_CPU < 4.8 MHz, every 16384th clock cycle if F_CPU >= 4.8 MHz. This will add some overhead when F_CPU is
 // less than 4.8 MHz. It's disabled by default because it occupies precious flash space and loads the CPU with
 // additional interrupts and calculations. Also note that micros() aren't very precise for frequencies that 64
 // doesn't divide evenly by.
+// NOTE THAT THIS MACRO CAN BE OVERRIDDEN IN ARDUINO IDE
 //#define ENABLE_MICROS
+
+// Makes the core "idiot proof" (see wiring_digital.c and wiring_pwm.h for examples where SAFEMODE is used).
+// Enabling SAFEMODE takes up more flash space, but "makes sure" you don't screw up, like by reading the 
+// state of a pin while it's outputting a PWM signal. If you know what you're doing, like explicitly writing
+// a pin as an output before using the analogWrite() function, you can save a lot of space by disabling this.
+#define SAFEMODE 
 
 // This is the ADC settings
 // Here the ADC prescaler can be changed if needed.

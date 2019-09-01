@@ -11,6 +11,7 @@ If you're into low level AVR programming, I'm happy to tell you that all relevan
 * [Supported clock frequencies](#supported-clock-frequencies)
 * [LTO](#lto)
 * [BOD option](#bod-option)
+* [Timing options](#timing-option)
 * [Programmers](#programmers)
 * **[Core settings](#core-settings)**
 * **[How to install](#how-to-install)**
@@ -67,6 +68,10 @@ These are the available BOD options:
 * Disabled
 
 
+## Timing options
+You can choose to enable or disable millis() and micros() directly from the Timing menu. Great if you want to save some flash memory!
+
+
 ## Programmers
 When the ATtiny13 is running from the internal 128 kHz oscillator, it's too slow to interact with the programming tool. That's why this core adds some additional programmers to the list, with the suffix *(slow)*. These options makes the programmers run at a lower clock speed, so the microcontroller can keep up.
 The `externalprogrammers.txt` file is for use with [the Arduino Eclipse plugin](http://eclipse.baeyens.it), and will not appear under the "Programmers" menu in the Arduino IDE.
@@ -77,7 +82,6 @@ Make sure you connect an ISP programmer, and select the correct one in the "Prog
 
 ## Core settings
 To make sure you're able to fit your whole project into this tiny microcontroller and still be able to use Arduino functions, I've added some <b>core settings</b>. By modifying the [`core_settings.h`](https://github.com/MCUdude/MicroCore/blob/master/avr/cores/microcore/core_settings.h) file you can enable or disable core functions you need or don't need. 
-For instance, you save about 100 bytes of flash if you're willing to disable the millis() function. 
 If you know what you're doing and want full control, you can disable the safemode. For instance safemode makes sure that PWM gets turned off if a pin drives high or low, or digital pins don't exceed the number 5 (6 digital pins in total). By disabling safemode you'll gain some speed and flash space.
 
 

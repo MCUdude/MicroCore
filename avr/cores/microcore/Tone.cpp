@@ -22,6 +22,7 @@ This modified version of Tone.cpp is released under the MIT license (MIT).
 */
 
 #include "Arduino.h"
+#include "wiring.c"
 
 static volatile uint32_t CurrentToneDuration = 0;
 static volatile uint8_t  CurrentTonePin      = 255;
