@@ -3,6 +3,7 @@ An Arduino core designed for ATtiny13
 Based on the work done by "smeezekitty" 
 Modified and maintained by MCUdude
 https://github.com/MCUdude/MicroCore
+Optimized for size by Nerd Ralph
 
 Simplified Tone "Library"
 The Tone.cpp file in the official Arduino core is a complete and utter mess,
@@ -22,11 +23,10 @@ This modified version of Tone.cpp is released under the MIT license (MIT).
 */
 
 #include "Arduino.h"
-#include "wiring.c"
 
-static volatile uint32_t CurrentToneDuration = 0;
-static volatile uint8_t  CurrentTonePin      = 255;
-static volatile uint8_t  CurrentToneMidpoint = 0;
+static __uint24 CurrentToneDuration = 0;
+static uint8_t  CurrentTonePin      = 0;
+static uint8_t  CurrentToneMidpoint = 0;
 
 #ifndef TONE_MIN_FREQ
   #define TONE_MIN_FREQ 130 // 130.81 = C3
@@ -122,17 +122,8 @@ void toneRaw(uint8_t pin, uint8_t midPoint, uint32_t lengthTicks, uint8_t presca
     
   CurrentToneDuration = lengthTicks;
 
-  // Are we already playing that tone, if so, just keep doing that
-  // otherwise we would make a clicking sound.
-  if(pin == CurrentTonePin && midPoint == CurrentToneMidpoint) 
-    return;
-  
-  // The official Arduino tone() sets it as output for you so we will also.
-  if(pin != CurrentTonePin)
-  {
-    CurrentTonePin = pin;
-    pinMode(pin, OUTPUT);    
-  }
+  CurrentTonePin = _BV(pin);
+  pinMode(pin, OUTPUT);    
     
   // Shut down interrupts while we fiddle about with the timer.
   cli();
@@ -168,11 +159,7 @@ void noTone(uint8_t pin)
   TIMSK0 &= ~_BV(OCIE0A);
   
   // Pin goes back to input state  
-  pinMode(pin == 255 ? CurrentTonePin : pin, INPUT);
-  
-  // And make sure we will reset it to output state next time you call
-  // tone() by treating it as a new pin
-  CurrentTonePin = 255;  
+  DDRB &= ~pin;
 }
 
 
@@ -232,14 +219,17 @@ void stopTone()
 
 ISR(TIM0_COMPA_vect) 
 {  
+  auto toneDuration = CurrentToneDuration;
+  auto tonePin      = CurrentTonePin;
+  auto toneMidpoint = CurrentToneMidpoint;
   // Toggle the pin, most AVR can toggle an output pin by writing a 1 to the input 
   // register bit for that pin.
-  PINB = _BV(CurrentTonePin);
+  PINB = CurrentTonePin;
   
   // If we have played this tone for the requested duration, stop playing it.
-  if (CurrentToneDuration < CurrentToneMidpoint)
-    noTone(255); 
+  if (toneDuration < toneMidpoint)
+    noTone(tonePin); 
+  CurrentToneDuration = toneDuration - toneMidpoint;
   
-  CurrentToneDuration -= CurrentToneMidpoint;
   TCNT0 = 0; // Restart timer
 }
