@@ -23,8 +23,14 @@ env:
 
 
   matrix:
-    # clock=9M6, BOD=2v7, lto=Os_flto
-    - BOARD_ID="MicroCore:avr:attiny13:clock=9M6,BOD=2v7,lto=Os_flto" IDE_VERSIONS="$IDE_VERSION_LIST_LTO"
+    # clock=9M6, BOD=2v7, lto=Os_flto, millis enabled, micros disabled
+    - BOARD_ID="MicroCore:avr:attiny13:clock=9M6,BOD=2v7,lto=Os_flto,timing=millis_enabled_micros_disabled" IDE_VERSIONS="$IDE_VERSION_LIST_LTO"
+    # clock=9M6, BOD=2v7, lto=Os_flto, millis enabled, micros enabled
+    - BOARD_ID="MicroCore:avr:attiny13:clock=9M6,BOD=2v7,lto=Os_flto,timing=millis_enabled_micros_enabled" IDE_VERSIONS="$IDE_VERSION_LIST_LTO"
+    # clock=9M6, BOD=2v7, lto=Os_flto, millis disabled, micros enabled
+    - BOARD_ID="MicroCore:avr:attiny13:clock=9M6,BOD=2v7,lto=Os_flto,timing=millis_disabled_micros_enabled" IDE_VERSIONS="$IDE_VERSION_LIST_LTO"
+    # clock=9M6, BOD=2v7, lto=Os_flto, millis disabled, micros disabled
+    - BOARD_ID="MicroCore:avr:attiny13:clock=9M6,BOD=2v7,lto=Os_flto,timing=millis_disabled_micros_disabled" IDE_VERSIONS="$IDE_VERSION_LIST_LTO"
     # clock=4M8, BOD=4v3, lto=Os
     - BOARD_ID="MicroCore:avr:attiny13:clock=4M8,BOD=4v3,lto=Os" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
     # clock=1M2, BOD=1v8
