@@ -14,8 +14,12 @@ This file contains low level macros.
 #include <util/delay.h>
 #include <stdio.h>
 #include <stdarg.h>
-
 #include "Arduino.h"
+
+// timer0 count variable
+#ifdef ENABLE_MICROS
+volatile uint32_t timer0_overflow = 0;
+#endif
 
 #ifdef __cplusplus
 extern "C"{
