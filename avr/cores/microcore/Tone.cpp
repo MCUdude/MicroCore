@@ -23,7 +23,6 @@ This modified version of Tone.cpp is released under the MIT license (MIT).
 */
 
 #include "Arduino.h"
-#include "wiring_private.h"
 
 static __uint24 CurrentToneDuration = 0;
 static uint8_t  CurrentTonePin      = 0;

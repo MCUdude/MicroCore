@@ -25,6 +25,9 @@ https://github.com/MCUdude/MicroCore
 // Millis counter variable defined in millis.S
 extern uint32_t wdt_interrupt_counter;
 
+// timer0 count variable defined in wiring.c
+extern volatile uint32_t timer0_overflow;
+
 // Throw error if LTO is enabled and GCC version is lower than 4.9.2
 #define GCC_VERSION (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
 #if defined(COMPILER_LTO) && GCC_VERSION < 40902

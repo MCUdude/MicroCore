@@ -40,11 +40,12 @@ uint32_t millis()
 // additional interrupts and calculations. Also note that micros() aren't very precise for frequencies that 64
 // doesn't divide evenly by, such as 9.6 and 4.8 MHz.
 #ifdef ENABLE_MICROS
-
+// timer0 count variable
+volatile uint32_t timer0_overflow = 0;
 // This will cause an interrupt every 256*64 clock cycle
 ISR(TIM0_OVF_vect)
 {
-  timer0_overflow++; // Increment counter by one (variable defined in wiring_private.h)
+  timer0_overflow++; // Increment counter by one
 }
 
 uint32_t micros()
