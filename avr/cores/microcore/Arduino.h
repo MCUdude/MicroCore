@@ -115,6 +115,9 @@ extern "C"{
 
 
 #ifdef __cplusplus
+
+  #include "HalfDuplexSerial.h"
+
   // Tone functions
   void tone(uint8_t pin, uint16_t frequency, uint32_t duration = 0);
   void toneRaw(uint8_t pin, uint8_t midPoint, uint32_t lengthTicks, uint8_t prescaleBitMask);
