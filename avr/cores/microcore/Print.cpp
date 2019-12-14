@@ -417,33 +417,33 @@ size_t Print::printNumber(UNSIGNED_PRINT_INT_TYPE n, uint8_t base)
       #if defined(PRINT_USE_BASE_HEX)
         write('x');
         base = 16;
-        __attribute__ ((fallthrough)); // Mute fall through warning
       #elif defined(PRINT_USE_BASE_DEC)
         write('d');
         base = 10;
-        __attribute__ ((fallthrough)); // Mute fall through warning
       #elif defined(PRINT_USE_BASE_OCT)
         write('o');
         base = 8;
-        __attribute__ ((fallthrough)); // Mute fall through warning
       #elif defined(PRINT_USE_BASE_BIN)
         write('b');
         base = 2;
-        __attribute__ ((fallthrough)); // Mute fall through warning
       #endif
 
-      #ifdef PRINT_USE_BASE_HEX
-        case 16: bt = base16; break;
-      #endif
-      #ifdef PRINT_USE_BASE_DEC
-        case 10: bt = base10; break;
-      #endif
-      #ifdef PRINT_USE_BASE_OCT
-        case 8:  bt = base8;  break;
-      #endif
-      #ifdef PRINT_USE_BASE_BIN
-        case 2:  bt = base2;  break;
-      #endif
+    #ifdef PRINT_USE_BASE_HEX
+      // Fall through
+      case 16: bt = base16; break;
+    #endif
+    #ifdef PRINT_USE_BASE_DEC
+      // Fall through
+      case 10: bt = base10; break;
+    #endif
+    #ifdef PRINT_USE_BASE_OCT
+      // Fall through
+      case 8:  bt = base8;  break;
+    #endif
+    #ifdef PRINT_USE_BASE_BIN
+      // Fall through
+      case 2:  bt = base2;  break;
+    #endif
   }
 
   // Reuse base for counting the digits since we don't need it any more.
