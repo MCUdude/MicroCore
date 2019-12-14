@@ -34,7 +34,7 @@
     #define BAUD_RATE  19200
   #else
     #define BAUD_RATE  300
-    #error Clock speed too slow for serial communication!
+    #warning 128 kHz oscillator not suited for serial communication!
   #endif
 #else
   #define BAUD_RATE CUSTOM_BAUD_RATE
