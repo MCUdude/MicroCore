@@ -30,11 +30,11 @@
 #include "WString.h"
 #include "core_settings.h"
 
-#define DEC 10
-#define HEX 16
-#define OCT 8
-#define BIN 2
-#define BYTE 0
+#define DEC  ((uint8_t) 10)
+#define HEX  ((uint8_t) 16)
+#define OCT  ((uint8_t)  8)
+#define BIN  ((uint8_t)  2)
+#define BYTE ((uint8_t)  0)
 
 // Maximum integer type to be handled.
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
