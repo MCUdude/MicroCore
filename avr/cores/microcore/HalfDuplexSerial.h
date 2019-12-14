@@ -25,17 +25,19 @@
 #include "core_settings.h"
 
 // Set default baud rate based on F_CPU
-#ifndef BAUD_RATE
+#ifndef CUSTOM_BAUD_RATE
   #if F_CPU >= 4800000L
     #define BAUD_RATE  115200
   #elif F_CPU >= 1000000L
     #define BAUD_RATE  38400
   #elif F_CPU >= 600000L
-    #define BAUD_RATE  9600
+    #define BAUD_RATE  19200
   #else
     #define BAUD_RATE  300
     #error Clock speed too slow for serial communication!
   #endif
+#else
+  #define BAUD_RATE CUSTOM_BAUD_RATE
 #endif
 
 #ifdef __cplusplus
@@ -52,16 +54,13 @@ extern "C" {
 }
 #endif
 
-#define STR1(x) #x
-#define STR(x) STR1(x)
-
 #define DIVIDE_ROUNDED(NUMERATOR, DIVISOR) ((((2*(NUMERATOR))/(DIVISOR))+1)/2)
 
-// txbit takes 3*RXDELAY + 15 cycles
-#define BIT_CYCLES DIVIDE_ROUNDED(F_CPU,BAUD_RATE)
+// txbit takes 3*RXDELAY + 7 cycles
+#define BIT_CYCLES DIVIDE_ROUNDED(F_CPU,BAUD_RATE*1L)
 #define TXDELAYCOUNT DIVIDE_ROUNDED(BIT_CYCLES - 7, 3)
 
-#define RXSTART_CYCLES DIVIDE_ROUNDED(3*F_CPU,2*BAUD_RATE)
+#define RXSTART_CYCLES DIVIDE_ROUNDED(3L*F_CPU,2L*BAUD_RATE)
 // 1st bit sampled 3*RXDELAY + 11 cycles after start bit begins
 #define RXSTARTCOUNT DIVIDE_ROUNDED(RXSTART_CYCLES - 13, 3)
 // rxbit takes 3*RXDELAY + 12 cycles

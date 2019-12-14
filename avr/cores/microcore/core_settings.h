@@ -26,22 +26,23 @@ need in order to free up space.
 //#define PRINT_USE_BASE_OCT
 
 // Baudrate is automatically selected based on F_CPU. If a different speed is needed, BAUD_RATE can be defined
-// to reflect this. See table below for all supported baud rates.
+// to reflect this.
+// See table below for all supported baud rates.
 
-//#define BAUD_RATE 38400
+//#define CUSTOM_BAUD_RATE 9600
 
-// | Clock & baud | 460800 | 250000 | 230400 | 115200   | 57600 | 38400    | 19200 | 9600     | 4800 | 2400 | 1200 |
-// |--------------|--------|--------|--------|----------|-------|----------|-------|----------|------|------|------|
-// | 20 MHz       | X      | X      | X      | X (def.) | X     |          |       |          |      |      |      |
-// | 16 MHz       | X      | X      | X      | X (def.) | X     | X        |       |          |      |      |      |
-// | 12 MHz       |        | X      | X      | X (def.) | X     | X        |       |          |      |      |      |
-// | 9.6 MHz      |        | X      | X      | X (def.) | X     | X        |       |          |      |      |      |
-// | 8 MHz        |        | X      | X      | X (def.) | X     | X        |       |          |      |      |      |
-// | 4.8 MHz      |        |        |        | X (def.) | X     | X        |       | X        |      |      |      |
-// | 1.2 MHz      |        |        |        |          |       | X (def.) |       | X        | X    | X    |      |
-// | 1 MHz        |        |        |        |          |       | X (def.) |       | X        | X    | X    |      |
-// | 600 kHz      |        |        |        |          |       |          |       | X (def.) | X    | X    | X    |
-// | 128 kHz      |        |        |        |          |       |          |       |          |      |      |      |
+// | Clock & baud | 460800 | 250000 | 230400 | 115200   | 57600 | 38400    | 19200L   | 9600 | 4800 | 2400 | 1200 |
+// |--------------|--------|--------|--------|----------|-------|----------|----------|------|------|------|------|
+// | 20 MHz       | X      | X      | X      | X (def.) | X     |          |          |      |      |      |      |
+// | 16 MHz       | X      | X      | X      | X (def.) | X     | X        |          |      |      |      |      |
+// | 12 MHz       |        | X      | X      | X (def.) | X     | X        |          |      |      |      |      |
+// | 9.6 MHz      |        | X      | X      | X (def.) | X     | X        |          |      |      |      |      |
+// | 8 MHz        |        | X      | X      | X (def.) | X     | X        |          |      |      |      |      |
+// | 4.8 MHz      |        |        |        | X (def.) | X     | X        | X        | X    |      |      |      |
+// | 1.2 MHz      |        |        |        |          |       | X (def.) | X        | X    | X    | X    |      |
+// | 1 MHz        |        |        |        |          |       | X (def.) | X        | X    | X    | X    |      |
+// | 600 kHz      |        |        |        |          |       |          | X (def.) | X    | X    | X    | X    |
+// | 128 kHz      |        |        |        |          |       |          |          |      |      |      |      |
 
 
 // Makes the core "idiot proof" (see wiring_digital.c and wiring_pwm.h for examples where SAFEMODE is used).
