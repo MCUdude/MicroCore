@@ -27,12 +27,14 @@
 
 // Set default baud rate based on F_CPU
 #ifndef CUSTOM_BAUD_RATE
-  #if F_CPU >= 4800000L
+  #if F_CPU >= 5000000L
     #define BAUD_RATE  115200
+  #elif F_CPU >= 4800000L
+    #define BAUD_RATE  57600  
   #elif F_CPU >= 1000000L
-    #define BAUD_RATE  38400
-  #elif F_CPU >= 600000L
     #define BAUD_RATE  19200
+  #elif F_CPU >= 600000L
+    #define BAUD_RATE  9600
   #else
     #define BAUD_RATE  300
     #warning Clock speed too slow for serial communication!
