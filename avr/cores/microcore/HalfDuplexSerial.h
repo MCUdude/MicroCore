@@ -24,6 +24,7 @@
 #include "Print.h"
 #include "core_settings.h"
 
+
 // Set default baud rate based on F_CPU
 #ifndef CUSTOM_BAUD_RATE
   #if F_CPU >= 4800000L
@@ -34,7 +35,7 @@
     #define BAUD_RATE  19200
   #else
     #define BAUD_RATE  300
-    #warning 128 kHz oscillator not suited for serial communication!
+    #error Clock speed too slow for serial communication!
   #endif
 #else
   #define BAUD_RATE CUSTOM_BAUD_RATE
@@ -56,11 +57,11 @@ extern "C" {
 
 #define DIVIDE_ROUNDED(NUMERATOR, DIVISOR) ((((2*(NUMERATOR))/(DIVISOR))+1)/2)
 
-// txbit takes 3*RXDELAY + 7 cycles
-#define BIT_CYCLES DIVIDE_ROUNDED(F_CPU,BAUD_RATE*1L)
+// txbit takes 3*RXDELAY + 15 cycles
+#define BIT_CYCLES DIVIDE_ROUNDED(F_CPU,BAUD_RATE*1L) 
 #define TXDELAYCOUNT DIVIDE_ROUNDED(BIT_CYCLES - 7, 3)
 
-#define RXSTART_CYCLES DIVIDE_ROUNDED(3L*F_CPU,2L*BAUD_RATE)
+#define RXSTART_CYCLES DIVIDE_ROUNDED(3*F_CPU,2L*BAUD_RATE) 
 // 1st bit sampled 3*RXDELAY + 11 cycles after start bit begins
 #define RXSTARTCOUNT DIVIDE_ROUNDED(RXSTART_CYCLES - 13, 3)
 // rxbit takes 3*RXDELAY + 12 cycles
@@ -115,11 +116,12 @@ asm (
 class HalfDuplexSerial : public Print
 {
   public:
-    void begin(const uint32_t) { } // Does NOTHING, you have no need to call this, here only for compatability
-    void end() { }                 // Does NOTHING, you have no need to call this, here only for compatability
+    void begin(const uint32_t) { } // Does NOTHING, you have no need to call this, here only for compatibility
+    void begin() { }               // Does NOTHING, you have no need to call this, here only for compatibility
+    void end() { }                 // Does NOTHING, you have no need to call this, here only for compatibility
     int available(void) ;          // As we do not have a buffer, this always returns 0
     int peek(void)      ;          // As we do not have a buffer, this always returns -1
-    void flush(void) { }           // Does NOTHING, you have no need to call this, here only for compatability
+    void flush(void) { }           // Does NOTHING, you have no need to call this, here only for compatibility
     operator bool();               // Always returns true
 
     // Because we define our own write(uint8_t) (which incidentally is the case for EVERYTHING deriving
