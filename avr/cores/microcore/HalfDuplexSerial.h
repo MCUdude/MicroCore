@@ -35,7 +35,7 @@
     #define BAUD_RATE  19200
   #else
     #define BAUD_RATE  300
-    #error Clock speed too slow for serial communication!
+    #warning Clock speed too slow for serial communication!
   #endif
 #else
   #define BAUD_RATE CUSTOM_BAUD_RATE
