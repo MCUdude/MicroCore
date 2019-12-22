@@ -59,7 +59,7 @@ void setup()
   Serial.begin();
 
   // Prints title with ending line break
-  Serial.println(F("ASCII Table ~ Character Map"));
+  Serial.print(F("ASCII Table ~ Character Map\n"));
 
   // Wait for serial monitor to open and you to react
   delay(2000);
@@ -80,7 +80,7 @@ void loop()
   // so no modifier is needed:
   Serial.print(thisByte);
   // But you can declare the modifier for decimal if you want to.
-  //this also works if you uncomment it:
+  // This also works if you uncomment it:
 
   // Serial.print(thisByte, DEC);
 
@@ -91,7 +91,8 @@ void loop()
   Serial.print(F(", bin: "));
   // prints value as string in binary (base 2)
   // also prints ending line break:
-  Serial.println(thisByte, BIN);
+  Serial.print(thisByte, BIN);
+  Serial.write('\n');
 
   // if printed last visible character '~' or 126, stop:
   if(thisByte == 126)  // you could also use if (thisByte == '~')
