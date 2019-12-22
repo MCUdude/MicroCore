@@ -8,13 +8,15 @@
   [ See diagram: https://github.com/MCUdude/MicroCore#minimal-setup ]
 
   Tunes the internal oscillator using a software serial implementation
+  and store the calibrated value to EEPROM address 0.
 
   Start off by opening the serial monitor and select the correct baud rate.
   Make sure you're not sending any line ending characters (CR, LF).
   Repedeatly press 'x' [send] to tune the internal oscillator. After a few
   messages you'll eventually see readable text in the serial monitor, and a
-  new, stable OSCCAL value. Remember to store this value to EEPROM (or hard-code
-  it in your code) in order to have an accurate oscillator in future projects.
+  new, stable OSCCAL value. Continue doing this until you'll get a message
+  saying that the value have been stored to EEPROM address 0. After this the
+  program will halt.
 
   RECOMMENDED SETTINGS FOR THIS SKETCH
   ------------------------------------------------------------------------------
@@ -49,9 +51,10 @@
    3. You haven't sent enough 'x' characters yet
 */
 
+#include <EEPROM.h>
+
 const int8_t delta_val = 8;
 const uint8_t uart_rx_pin = 1;
-uint8_t oldOSCCAL;
 
 // Converts 4-bit nibble to ascii hex
 uint8_t nibbletohex(uint8_t value)
@@ -88,6 +91,18 @@ void rxInterrupt()
     Serial.write(nibbletohex(OSCCAL >> 4));
     Serial.write(nibbletohex(OSCCAL));
     Serial.write('\n');
+    
+    // Store new OSCCAL to EEPROM when stable
+    static uint8_t cal;
+    static uint8_t cal_counter;
+    if(cal != OSCCAL)
+      cal = OSCCAL;
+    else if(++cal_counter >= 16)
+    {
+      EEPROM.write(0, OSCCAL);
+      Serial.print(F("New OSCCAL stored to EEPROM addr. 0\n"));
+      while(true);
+    }
   }
  
   // Clear interrupt flag in case another triggered
@@ -98,10 +113,7 @@ void setup()
 {
   // Note that any baud rate specified is ignored on the ATtiny13. See header above.
   Serial.begin();
-  
-  // Store old OSCCAL value for reference
-  oldOSCCAL = OSCCAL;
-  
+
   // Prepare for sleep mode
   MCUCR = _BV(SE);
 
