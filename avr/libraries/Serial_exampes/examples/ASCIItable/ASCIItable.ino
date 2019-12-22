@@ -46,6 +46,7 @@
    3. Check OSCCAL (see OSCCAL tuner example)
 */
 
+#include <EEPROM.h>
 
 // First visible ASCII character '!' is number 33:
 uint8_t thisByte = 33;
@@ -55,11 +56,17 @@ uint8_t thisByte = 33;
 
 void setup()
 {
+  // Check if there exist any OSCCAL value in EEPROM addr. 0
+  // If not, run the oscillator tuner sketch first
+  uint8_t cal = EEPROM.read(0);
+  if(cal < 0x7F)
+    OSCCAL = cal;
+
   // Note that any baud rate specified is ignored on the ATtiny13. See header above.
   Serial.begin();
 
   // Prints title with ending line break
-  Serial.print(F("ASCII Table ~ Character Map\n"));
+  Serial.print(F("ASCII Table Map\n"));
 
   // Wait for serial monitor to open and you to react
   delay(2000);

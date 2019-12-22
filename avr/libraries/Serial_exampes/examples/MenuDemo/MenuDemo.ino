@@ -43,9 +43,16 @@
    3. Check OSCCAL (see OSCCAL tuner example)
 */
 
+#include <EEPROM.h>
 
 void setup() 
 {
+  // Check if there exist any OSCCAL value in EEPROM addr. 0
+  // If not, run the oscillator tuner sketch first
+  uint8_t cal = EEPROM.read(0);
+  if(cal < 0x7F)
+    OSCCAL = cal;
+
   // Note that any baud rate specified is ignored on the ATtiny13. See header above.
   Serial.begin();
 }
