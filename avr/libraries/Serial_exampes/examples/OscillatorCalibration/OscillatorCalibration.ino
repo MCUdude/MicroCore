@@ -23,7 +23,6 @@
 
   Tools > Board          : ATtiny13
   Tools > BOD            : [Use any BOD level you like]
-  Tools > Compiler LTO   : LTO enabled
   Tools > Clock          : 9.6 MHz or 4.8 MHz depending on what osc. to tune
   Tools > Timing         : Millis disabled, Micros disabled
 

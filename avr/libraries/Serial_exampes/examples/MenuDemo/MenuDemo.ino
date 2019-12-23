@@ -15,7 +15,6 @@
 
   Tools > Board          : ATtiny13
   Tools > BOD            : [Use any BOD level you like]
-  Tools > Compiler LTO   : LTO enabled
   Tools > Clock          : [Use any clock except 128 kHz]
   Tools > Timing         : Millis enabled, Micros disabled
 

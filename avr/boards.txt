@@ -29,6 +29,12 @@ attiny13.build.mcu_compile=attiny13a
 attiny13.build.mcu=attiny13
 attiny13.build.variant=attiny13
 
+attiny13.compiler.c.extra_flags=-Wextra -flto -g
+attiny13.compiler.c.elf.extra_flags=-w -flto -g
+attiny13.compiler.cpp.extra_flags=-Wextra -flto -g
+attiny13.compiler.flag_indicator=-D COMPILER_LTO
+attiny13.ltoarcmd=avr-gcc-ar
+
 
 ######################
 #### Clock speeds ####
@@ -98,24 +104,6 @@ attiny13.menu.BOD.1v8.bootloader.high_fuses=0xfd
 attiny13.menu.BOD.disabled=BOD disabled
 attiny13.menu.BOD.disabled.bootloader.high_fuses=0xff
 
-
-#############
-#### LTO ####
-#############
-
-attiny13.menu.lto.Os_flto=LTO enabled (default)
-attiny13.menu.lto.Os_flto.compiler.c.extra_flags=-Wextra -flto -g
-attiny13.menu.lto.Os_flto.compiler.c.elf.extra_flags=-w -flto -g
-attiny13.menu.lto.Os_flto.compiler.cpp.extra_flags=-Wextra -flto -g
-attiny13.menu.lto.Os_flto.compiler.flag_indicator=-D COMPILER_LTO
-attiny13.menu.lto.Os_flto.ltoarcmd=avr-gcc-ar
-
-attiny13.menu.lto.Os=LTO disabled
-attiny13.menu.lto.Os.compiler.c.extra_flags=
-attiny13.menu.lto.Os.compiler.c.elf.extra_flags=
-attiny13.menu.lto.Os.compiler.cpp.extra_flags=
-attiny13.menu.lto.Os.compiler.flag_indicator=
-attiny13.menu.lto.Os.ltoarcmd=avr-ar
 
 
 ################
