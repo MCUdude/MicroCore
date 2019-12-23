@@ -52,7 +52,7 @@ void shiftOut(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder, uint8_t value
   const uint8_t datapinMask = _BV(dataPin);
   const uint8_t clkpinMask = _BV(clockPin);
   uint8_t i = 8;
-  uint8_t portbits = (PORTB & ~(datapinMask | clkpinMask));
+  uint8_t portbits = (PORTB &= ~(datapinMask | clkpinMask));
   
   #if defined(SAFEMODE)
     if(clockPin > 5 || dataPin > 5) // Return if pin number is too high
