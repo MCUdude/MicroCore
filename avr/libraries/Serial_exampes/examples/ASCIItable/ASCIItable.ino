@@ -8,8 +8,8 @@
   [ See diagram: https://github.com/MCUdude/MicroCore#minimal-setup ]
 
   Prints out byte values in all possible formats:
-  * As raw binary values
-  * As ASCII-encoded decimal, hex, octal, and binary values
+    As raw binary values
+    As ASCII-encoded decimal, hex, octal, and binary values
 
   For more on ASCII, see http://www.asciitable.com and http://en.wikipedia.org/wiki/ASCII
 
@@ -47,66 +47,50 @@
 
 #include <EEPROM.h>
 
-// First visible ASCII character '!' is number 33:
-uint8_t thisByte = 33;
-// You can also write ASCII characters in single quotes.
-// For example; '!' is the same as 33, so you could also use this:
-// uint8_t thisByte = '!';
-
 void setup()
 {
   // Check if there exist any OSCCAL value in EEPROM addr. 0
   // If not, run the oscillator tuner sketch first
   uint8_t cal = EEPROM.read(0);
-  if(cal < 0x7F)
+  if (cal < 0x7F)
     OSCCAL = cal;
 
   // Note that any baud rate specified is ignored on the ATtiny13. See header above.
   Serial.begin();
 
-  // Prints title with ending line break
-  Serial.print(F("ASCII Table Map\n"));
+  // First visible ASCII character '!' is number 33
+  // Last visible ASCII character '~' is number 126
+  for (uint8_t asciiChar = 33; asciiChar < 127; asciiChar++)
+  {
+    // Prints value unaltered, i.e. the raw binary version of the
+    // byte. The serial monitor interprets all bytes as
+    // ASCII, so 33, the first number,  will show up as '!'
+    Serial.print(F("Char: "));
+    Serial.write(asciiChar);
 
-  // Wait for serial monitor to open and you to react
-  delay(2000);
+    Serial.print(F(", dec: "));
+    // Prints value as string as an ASCII-encoded decimal (base 10).
+    // Decimal is the  default format for Serial.print() and Serial.println(),
+    // so no modifier is needed:
+    Serial.print(asciiChar);
+    // But you can declare the modifier for decimal if you want to.
+    // This also works if you uncomment it:
+
+    // Serial.print(thisByte, DEC);
+
+    Serial.print(F(", hex: "));
+    // Prints value as string in hexadecimal (base 16):
+    Serial.print(asciiChar, HEX);
+
+    Serial.print(F(", bin: "));
+    // prints value as string in binary (base 2)
+    // also prints ending line break:
+    Serial.print(asciiChar, BIN);
+    Serial.write('\n');
+  }
 }
-
 
 void loop()
 {
-  // Prints value unaltered, i.e. the raw binary version of the
-  // byte. The serial monitor interprets all bytes as
-  // ASCII, so 33, the first number,  will show up as '!'
-  Serial.print(F("Char: "));
-  Serial.write(thisByte);
 
-  Serial.print(F(", dec: "));
-  // Prints value as string as an ASCII-encoded decimal (base 10).
-  // Decimal is the  default format for Serial.print() and Serial.println(),
-  // so no modifier is needed:
-  Serial.print(thisByte);
-  // But you can declare the modifier for decimal if you want to.
-  // This also works if you uncomment it:
-
-  // Serial.print(thisByte, DEC);
-
-  Serial.print(F(", hex: "));
-  // Prints value as string in hexadecimal (base 16):
-  Serial.print(thisByte, HEX);
-
-  Serial.print(F(", bin: "));
-  // prints value as string in binary (base 2)
-  // also prints ending line break:
-  Serial.print(thisByte, BIN);
-  Serial.write('\n');
-
-  // if printed last visible character '~' or 126, stop:
-  if(thisByte == 126)  // you could also use if (thisByte == '~')
-  {
-    // This loop loops forever and does nothing
-    while(true);
-  }
-  
-  // Go on to the next character
-  thisByte++;
 }
