@@ -16,10 +16,9 @@ env:
     # Arduino IDE 1.6.3-1.6.5-r5 on Linux don't seem to include the MicroCore bundled library files (this information copied from MegaCore so may not apply to MicroCore).
     # Arduino IDE 1.6.6 has many function prototype generation failures.
     # So testing is done with milestone Arduino IDE versions, 1.6.7 and newer.
-    - IDE_VERSIONS_BEFORE_OLDEST_IDE_VERSION_TO_TEST_WITH_LTO='"1.6.7" "1.6.9"'
     - IDE_VERSIONS_FROM_OLDEST_IDE_VERSION_TO_TEST_WITH_LTO='"'"$OLDEST_IDE_VERSION_TO_TEST_WITH_LTO"'" "1.6.13" "1.8.0" "1.8.5" "newest"'
     - IDE_VERSION_LIST_LTO='('"$IDE_VERSIONS_FROM_OLDEST_IDE_VERSION_TO_TEST_WITH_LTO"')'
-    - IDE_VERSION_LIST_FULL='('"${IDE_VERSIONS_BEFORE_OLDEST_IDE_VERSION_TO_TEST_WITH_LTO} ${IDE_VERSIONS_FROM_OLDEST_IDE_VERSION_TO_TEST_WITH_LTO}"')'
+    - IDE_VERSION_LIST_FULL='('"${IDE_VERSIONS_FROM_OLDEST_IDE_VERSION_TO_TEST_WITH_LTO}"')'
 
 
   matrix:
