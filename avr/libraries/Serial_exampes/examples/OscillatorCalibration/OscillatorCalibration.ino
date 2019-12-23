@@ -52,7 +52,7 @@
 
 #include <EEPROM.h>
 
-const int8_t delta_val = 8;
+const int8_t delta_val = 5;
 const uint8_t uart_rx_pin = 1;
 
 // Converts 4-bit nibble to ascii hex
@@ -76,12 +76,14 @@ void rxInterrupt()
     // End of interval, reset counter
     TCCR0B = 0;
     TCNT0 = 0;
-    // 'x' begins with 3 zeros + start bit = 4
-    uint8_t target = (uint8_t)(4 * F_CPU / BAUD_RATE);
-    int8_t delta = target - current;
+    // The 'x' character begins with 3 zeros + start bit = 4
+    // Match speed to soft uart timing of 7 + TXDELAYCONT * 3
+    uint8_t expected = (uint8_t)(4 * (7 + TXDELAYCOUNT * 3));
+    int8_t delta = expected - current;
     if (delta > delta_val)  OSCCAL++;
     if (delta < -delta_val) OSCCAL--;
     asm("lpm"); // 3 cycle delay
+
     // Print calculation
     Serial.print(F("Delta: 0x"));
     Serial.write(nibbletohex(delta >> 4));
@@ -128,15 +130,15 @@ void setup()
   Serial.write('x');
   Serial.write('\n');
   
+  wait_x:
   // Wait for tuning character to ensure not reading noise
   // before entering tuning mode
-  wait_x:
   uint8_t counter = 0;
-  while (digitalRead(uart_rx_pin));
+  while (PINB & _BV(uart_rx_pin));
   do 
   {
     counter++;
-  } while (digitalRead(uart_rx_pin) == 0);
+  } while ((PINB & _BV(uart_rx_pin)) == 0);
 
   // Low period should be 4 bit-times
   uint8_t margin = BIT_CYCLES/8;
@@ -149,6 +151,10 @@ void setup()
   }
 
   delay(1); // Skip remaining bits in frame
+
+  // Reset counter for first interrupt
+  TCCR0B = 0;
+  TCNT0 = 0;
 }
 
 void loop() 
