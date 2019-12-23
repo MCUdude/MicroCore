@@ -32,7 +32,7 @@ attiny13.build.variant=attiny13
 attiny13.compiler.c.extra_flags=-Wextra -flto -g
 attiny13.compiler.c.elf.extra_flags=-w -flto -g
 attiny13.compiler.cpp.extra_flags=-Wextra -flto -g
-attiny13.compiler.flag_indicator=-D COMPILER_LTO
+attiny13.compiler.flag_indicator=
 attiny13.ltoarcmd=avr-gcc-ar
 
 
