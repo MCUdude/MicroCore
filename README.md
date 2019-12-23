@@ -11,7 +11,9 @@ If you're into low level AVR programming, I'm happy to tell you that all relevan
 * [Supported clock frequencies](#supported-clock-frequencies)
 * [LTO](#lto)
 * [BOD option](#bod-option)
-* [Timing options](#timing-option)
+* [Timing options](#timing-options)
+* [Serial support](#serial-support)
+  - [Internal oscillator calibration](#internal-oscillator-calibration)
 * [Programmers](#programmers)
 * **[Core settings](#core-settings)**
 * **[How to install](#how-to-install)**
@@ -40,7 +42,7 @@ The ATtiny13 has several internal oscillators, and these are the available clock
 * 600 kHz internal oscillator
 * 128 kHz internal watchdog oscillator <b>*</b>
 
-If you want other or higher clock frequencies, you can apply an external clock source. Note that the ATtiny13 requires an external clock signal, and is not able to drive a resonator circuit itself. You may use a [quartz crystal oscillator](https://en.wikipedia.org/wiki/Crystal_oscillator#/media/File:18MHZ_12MHZ_Crystal_110.jpg).
+If you want other or higher clock frequencies, you can apply an external clock source. Note that the ATtiny13 requires an external clock signal, and is not able to drive a resonator circuit itself. You may use a quartz crystal oscillator or a crystal driver (shown in [minimal setup](#minimal-setup)).
 Supported external clock frequencies:
 * 20 MHz external oscillator
 * 16 MHz external oscillator
@@ -69,8 +71,38 @@ These are the available BOD options:
 
 
 ## Timing options
-You can choose to enable or disable millis() and micros() directly from the Timing menu. Great if you want to save some flash memory!
+You can choose to enable or disable millis() and micros() directly from the timing menu. Great if you want to save some flash memory!
 
+## Serial support
+MicroCore features a brilliant, ultra-lightweight software UART library wrapped by `Serial`. This means you can use regular `Serial.print()`if you need to. Note that the baud rate has to be defined at compile-time and cannot be defined in the sketch. The table below shows a list of which clock frequencies use which baud rates by default. If you need a different baud rate for a specific clock frequency, you may modify the [core_settings.h file](#core-settings).
+
+If you want to use the UART functionality you will have to have the right hardware connected to the right pins on the ATtiny13. See the [minimal setup section](#minimal-setup) for more information. Also, please have a look at the provided [serial example sketches](https://github.com/MCUdude/MicroCore/tree/master/avr/libraries/Serial_exampes/examples).
+
+| Clock              | Baud rate     |
+|--------------------|---------------|
+| (External) 20 MHz  | 115200        |
+| (External) 16 MHz  | 115200        |
+| (External) 12 MHz  | 115200        |
+| (External) 8 MHz   | 115200        |
+| (External) 1 MHz   | 19200         |
+| (Internal) 9.6 MHz | 115200        |
+| (Internal) 4.8 MHz | 57600         |
+| (Internal) 1.2 MHz | 19200         |
+| (Internal) 600 kHz | 9600          |
+| (Internal) 128 kHz | Not supported |
+
+### Internal oscillator calibration
+The internal 9.6 and 4.8 MHz internal oscillators (yes, these are separate) in the ATtiny13 are usually not very accurate. This is OK for many applications, but when you're using an asynchronous protocol like UART, ±3-4% off simply won't work. To solve this problem MicroCore provides a very user-friendly [Oscillator calibration sketch](https://github.com/MCUdude/MicroCore/blob/master/avr/libraries/Serial_exampes/examples/OscillatorCalibration/OscillatorCalibration.ino) that calculate a new OSCCAL value based on a received character over UART. All you need to do is to load the sketch, select the correct baud rate in the serial monitor, select *No line ending* and send the `x` character many times (`x` [send], `x` [send] ...). After a few tries, you should gradually see readable text in the serial monitor. After the calibration value has stabilized it's automatically stored in EEPROM address 0 for future use. This value is not loaded by default, but has to be loaded "manually" in your sketch like so:
+
+```c++
+  // Check if there exist any OSCCAL value in EEPROM addr. 0
+  // If not, run the oscillator tuner sketch first
+  uint8_t cal = EEPROM.read(0);
+  if(cal < 0x7F)
+    OSCCAL = cal;
+```
+
+Huge thanks to [Ralph Doncaster](https://github.com/nerdralph) for providing his excellent sofware serial library and his oscillator calibration code. None of this would be close to possible if it weren't for his brilliant work!
 
 ## Programmers
 When the ATtiny13 is running from the internal 128 kHz oscillator, it's too slow to interact with the programming tool. That's why this core adds some additional programmers to the list, with the suffix *(slow)*. These options makes the programmers run at a lower clock speed, so the microcontroller can keep up.
@@ -87,7 +119,7 @@ If you know what you're doing and want full control, you can disable the safemod
 
 ## How to install
 #### Boards Manager Installation
-This installation method requires Arduino IDE version 1.6.4 or greater.
+MicroCore requires Arduino IDE version 1.6.13 or greater.
 * Open the Arduino IDE.
 * Open the **File > Preferences** menu item.
 * Enter the following URL in **Additional Boards Manager URLs**: `https://mcudude.github.io/MicroCore/package_MCUdude_MicroCore_index.json`
@@ -124,11 +156,12 @@ This diagram shows the pinout and the peripherals of ATtiny13. The Arduino pinou
 
 
 ## Minimal setup
-<br/>
-<img src="http://i.imgur.com/SjCN7oZ.png" width="600">
+<b>Click to enlarge:</b> 
+</br> </br>
+<img src="https://i.imgur.com/TI43e2k.png" width="600">
 
 
-## Working Arduino functions and libaraies
+## Working Arduino functions and libraries
 Due to the limited hardware not all default Arduino functions and libraries is supported by the ATtiny13. Here's a list of all working Arduino functions and libraries that's included in the MicroCore package.
 
 ### Arduino functions

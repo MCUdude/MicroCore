@@ -63,7 +63,7 @@ specific hardware definitions.
 #define digitalPinToPCMSKbit(p)    (p)
 
 
-#define LED_BUILTIN 0
+#define LED_BUILTIN 2
 static const uint8_t MOSI = 0;
 static const uint8_t MISO = 1;
 static const uint8_t SCK  = 2;

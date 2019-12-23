@@ -25,11 +25,14 @@ https://github.com/MCUdude/MicroCore
 // Millis counter variable defined in millis.S
 extern uint32_t wdt_interrupt_counter;
 
+// timer0 count variable defined in wiring.c
+extern volatile uint32_t timer0_overflow;
+
 // Throw error if LTO is enabled and GCC version is lower than 4.9.2
 #define GCC_VERSION (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
-#if defined(COMPILER_LTO) && GCC_VERSION < 40902
-#error Your compiler does not support LTO. Please either upgrade Arduino AVR Boards or select Tools > Compiler LTO > Disabled.
-#endif  //defined(COMPILER_LTO) && GCC_VERSION < 40902
+#if GCC_VERSION < 40902
+#error Your compiler does not support LTO. Please either upgrade Arduino AVR Boards and/or your IDE
+#endif  //GCC_VERSION < 40902
 
 #ifdef __cplusplus
 extern "C"{
@@ -112,6 +115,9 @@ extern "C"{
 
 
 #ifdef __cplusplus
+
+  #include "HalfDuplexSerial.h"
+
   // Tone functions
   void tone(uint8_t pin, uint16_t frequency, uint32_t duration = 0);
   void toneRaw(uint8_t pin, uint8_t midPoint, uint32_t lengthTicks, uint8_t prescaleBitMask);
