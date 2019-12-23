@@ -65,10 +65,6 @@ need in order to free up space.
 //#define ADC_PRESCALER_128   // ADC sample rate = (F_CPU/13) / 128
 
 
-// If you're not using the PWM or want to set it up yourself, you can disable it here
-#define SETUP_PWM
-
-
 // Here's the PWM settings for Timer0
 // These settings will also be disabled if SETUP_PWM is commented out
 // Note that ENABLE_MICROS will override this setting
