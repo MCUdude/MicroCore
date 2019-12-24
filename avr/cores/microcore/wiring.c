@@ -130,14 +130,6 @@ void delay(uint16_t ms)
 // and what's not.
 void init()
 {
-  // Enable WDT interrupt and enable global interrupts
-  #ifdef ENABLE_MILLIS
-    // Set up WDT interrupt with 16 ms prescaler
-    WDTCR = _BV(WDTIE);
-    // Enable global interrupts
-    sei();
-  #endif
-
   // WARNING! Enabling micros() will affect timing functions!
   #ifdef ENABLE_MICROS
     // Set a suited prescaler based on F_CPU
