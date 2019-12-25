@@ -71,7 +71,8 @@ These are the available BOD options:
 
 
 ## Timing options
-You can choose to enable or disable millis() and micros() directly from the timing menu. Great if you want to save some flash memory!
+You can choose to enable or disable micros() directly from the timing menu. Great if you want to save some flash memory!  
+millis() is automatically linked in when used.
 
 ## Serial support
 MicroCore features a brilliant, ultra-lightweight software UART library wrapped by `Serial`. This means you can use regular `Serial.print()`if you need to. Note that the baud rate has to be defined at compile-time and cannot be defined in the sketch. The table below shows a list of which clock frequencies use which baud rates by default. If you need a different baud rate for a specific clock frequency, you may modify the [core_settings.h file](#core-settings).
@@ -158,7 +159,7 @@ This diagram shows the pinout and the peripherals of ATtiny13. The Arduino pinou
 ## Minimal setup
 <b>Click to enlarge:</b> 
 </br> </br>
-<img src="https://i.imgur.com/TI43e2k.png" width="600">
+<img src="https://i.imgur.com/TI43e2k.png" width="500">
 
 
 ## Working Arduino functions and libraries
@@ -187,13 +188,13 @@ Due to the limited hardware not all default Arduino functions and libraries is s
 * [map()](https://www.arduino.cc/en/Reference/Map)
 * [max()](https://www.arduino.cc/en/Reference/Max)
 * [min()](https://www.arduino.cc/en/Reference/Min)
-* [micros()](https://www.arduino.cc/en/Reference/Micros)   *Must be manually enabled in the [core settings](https://github.com/MCUdude/MicroCore/blob/master/avr/cores/microcore/core_settings.h)*
+* [micros()](https://www.arduino.cc/en/Reference/Micros)   *micros() must be enabled from the Tools menu*
 * [millis()](https://www.arduino.cc/en/Reference/Millis)   *Watchdog timer based. Will increase with steps of 16*
 * [noInterrupts()](https://www.arduino.cc/en/Reference/NoInterrupts)
 * [noTone()](https://www.arduino.cc/en/Reference/NoTone)
 * [pinMode()](https://www.arduino.cc/en/Reference/PinMode)
 * [pow()](https://www.arduino.cc/en/Reference/Pow)
-* [pulseIn()](https://www.arduino.cc/en/Reference/PulseIn)   *micros() must be enabled in the [core settings](https://github.com/MCUdude/MicroCore/blob/master/avr/cores/microcore/core_settings.h) first* 
+* [pulseIn()](https://www.arduino.cc/en/Reference/PulseIn)   *micros() must be enabled from the Tools menu* 
 * [radians()](https://github.com/MCUdude/MicroCore/blob/83b192f46fa5c58f8b7a60d7a678b2199d167ba5/avr/cores/microcore/Arduino.h#L55)
 * [random()](https://www.arduino.cc/en/Reference/Random)
 * [randomSeed()](https://www.arduino.cc/en/Reference/RandomSeed)

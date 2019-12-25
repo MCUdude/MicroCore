@@ -81,14 +81,6 @@ need in order to free up space.
 //#define PWM_PHASE_CORRECT
 
 
-// If you're not using millis(), you can save about 100 bytes by commenting this out.
-// Note that the millis() interrupt is based on the watch dog timer, and will interrupt
-// every 16th ms (which is very little. This means the millis() function will not be
-// accurate down to 1 ms, but will increase with steps of 16.
-// NOTE THAT THIS MACRO CAN BE OVERRIDDEN IN ARDUINO IDE TOOLS MENU
-//#define ENABLE_MILLIS
-
-
 // Enabling micros() will cause the processor to interrupt more often (every 2048th clock cycle if
 // F_CPU < 4.8 MHz, every 16384th clock cycle if F_CPU >= 4.8 MHz. This will add some overhead when F_CPU is
 // less than 4.8 MHz. It's disabled by default because it occupies precious flash space and loads the CPU with

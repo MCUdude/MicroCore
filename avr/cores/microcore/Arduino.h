@@ -23,7 +23,7 @@ https://github.com/MCUdude/MicroCore
 #include "binary.h"
 
 // Millis counter variable defined in millis.S
-extern uint32_t wdt_interrupt_counter;
+extern volatile uint32_t wdt_interrupt_counter;
 
 // timer0 count variable defined in wiring.c
 extern volatile uint32_t timer0_overflow;

@@ -21,17 +21,16 @@ timers.
 // The millis counter is based on the watchdog timer, and takes very little processing time and power.
 // If 16 ms accuracy is enough, I strongly recommend you to use millis() instead of micros().
 // The WDT uses it's own clock, so this function is valid for all F_CPUs.
-#ifdef ENABLE_MILLIS
+
+// C wrapper function for millis asm code
+// reduces compiler register pressure vs avr-gcc calling convention
+// http://nerdralph.blogspot.ca/2015/12/lightweight-avr-assembler-functions.html
 uint32_t millis()
 {
   uint32_t m;
-  cli();
-  m = wdt_interrupt_counter;
-  sei();
+  asm volatile ("rcall _millis" : "=w" (m) :: "r30");
   return m;
 }
-#endif // ENABLE_MILLIS
-
 
 /***** MICROS() *****/
 // Enabling micros() will cause the processor to interrupt more often (every 2048th clock cycle if
@@ -129,14 +128,6 @@ void delay(uint16_t ms)
 // and what's not.
 void init()
 {
-  // Enable WDT interrupt and enable global interrupts
-  #ifdef ENABLE_MILLIS
-    // Set up WDT interrupt with 16 ms prescaler
-    WDTCR = _BV(WDTIE);
-    // Enable global interrupts
-    sei();
-  #endif
-
   // WARNING! Enabling micros() will affect timing functions!
   #ifdef ENABLE_MICROS
     // Set a suited prescaler based on F_CPU
