@@ -39,7 +39,7 @@ The ATtiny13 has several internal oscillators, and these are the available clock
 * 9.6 MHz internal oscillator *(default)*
 * 4.8 MHz internal oscillator
 * 1.2 MHz internal oscillator
-* 600 kHz internal oscillator
+* 600 kHz internal oscillator  <b>*</b>
 * 128 kHz internal watchdog oscillator <b>*</b>
 
 If you want other or higher clock frequencies, you can apply an external clock source. Note that the ATtiny13 requires an external clock signal, and is not able to drive a resonator circuit itself. You may use a quartz crystal oscillator or a crystal driver (shown in [minimal setup](#minimal-setup)).
@@ -51,7 +51,7 @@ Supported external clock frequencies:
 * 1 MHz external oscillator
 
 Select the ATtiny13 in the boards menu, then select the clock frequency. You'll have to hit "Burn bootloader" in order to set the correct fuses. Make sure you connect an ISP programmer, and select the correct one in the "Programmers" menu. <br/> <br/>
-<b>*</b> Make sure to use one of the "slow" programmer options when using the 128 kHz option (e.g _USBtinyISP (slow)_).
+<b>*</b> Make sure to use one of the "slow" programmer options when using the 600 or 128 kHz option (e.g _USBtinyISP (slow)_).
 </br></br>
 
 
@@ -106,8 +106,7 @@ The internal 9.6 and 4.8 MHz internal oscillators (yes, these are separate) in t
 Huge thanks to [Ralph Doncaster](https://github.com/nerdralph) for providing his excellent sofware serial library and his oscillator calibration code. None of this would be close to possible if it weren't for his brilliant work!
 
 ## Programmers
-When the ATtiny13 is running from the internal 128 kHz oscillator, it's too slow to interact with the programming tool. That's why this core adds some additional programmers to the list, with the suffix *(slow)*. These options makes the programmers run at a lower clock speed, so the microcontroller can keep up.
-The `externalprogrammers.txt` file is for use with [the Arduino Eclipse plugin](http://eclipse.baeyens.it), and will not appear under the "Programmers" menu in the Arduino IDE.
+When the ATtiny13 is running from the internal 600 or 128 kHz oscillator, it may be too slow to interact with the programming tool. That's why this core adds some additional programmers to the list, with the suffix *(slow)*. These options makes the programmers run at a lower clock speed, so the microcontroller can keep up.
  
 Select your microcontroller in the boards menu, then select the clock frequency. You'll have to hit "Burn bootloader" in order to set the correct fuses and upload the correct bootloader. <br/>
 Make sure you connect an ISP programmer, and select the correct one in the "Programmers" menu. 
@@ -143,7 +142,7 @@ Ok, so you have downloaded and installed MicroCore, but how do you get the wheel
 * Select your prefered BOD option. Read more about BOD [here](#bod-option).
 * Select your prefered clock frequency. **9.6 MHz internal oscillator** is the default setting. Do not use the external oscillator option if you don't have an external clock source. Remember that a regular two pin crystal will not work on the ATtiny13.
 * If you want you can change the compiler flags for further optimization. Leave this on the default setting if you don't know what compiler flags are. 
-* Select what kind of programmer you're using under the **Programmers** menu. Use one of the **slow** programmers if you're using the 128 kHz oscillator option, e.g **USBtinyISP (slow)**.
+* Select what kind of programmer you're using under the **Programmers** menu. Use one of the **slow** programmers if you're using the 600 or 128 kHz oscillator option, e.g **USBtinyISP (slow)**.
 * Hit **Burn Bootloader** to burn the fuses. The "settings" are now stored on the microcontroller!
 * Now that the correct fuse settings is sat you can upload your code by using your programmer tool. Simply hit *Upload*, and the code will be uploaded to the microcontroller.
 * If you want to do some changes; change the BOD option for instance, you'll have to hit **Burn Bootloader** again.
