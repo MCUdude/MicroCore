@@ -16,6 +16,10 @@ need in order to free up space.
 // to reduce the compiled size. The default settings allows you to do pretty much exactly what an "ordinary"
 // Arduino would support.
 
+// Pins to use for Tx and Rx
+#define UART_TX_PIN  PB0
+#define UART_RX_PIN  PB1
+
 // What should be the largest supported number?
 #define PRINT_MAX_INT_TYPE PRINT_INT_TYPE_LONG // PRINT_INT_TYPE_INT, PRINT_INT_TYPE_BYTE and PRINT_INT_TYPE_LONG supported.
 

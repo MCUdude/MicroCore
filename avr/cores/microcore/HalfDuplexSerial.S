@@ -19,10 +19,9 @@ Interrupt service routines (ISRs) must save and restore each register they use.
 /* needed for <avr/io.h> to give io constant addresses */
 #define __SFR_OFFSET 0
 #include <avr/io.h>
+#include "core_settings.h"
 
 #define UART_Port PORTB
-#define UART_Tx 0
-#define UART_Rx 1
 
 #define delayArg r22
 
@@ -35,8 +34,8 @@ Interrupt service routines (ISRs) must save and restore each register they use.
 ; AVR305 has 1 cycle of jitter per bit, this has none
 .global TxByte
 TxByte:
-  sbi UART_Port-1, UART_Tx    ; set Tx line to output
-  cbi UART_Port, UART_Tx      ; start bit
+  sbi UART_Port-1, UART_TX_PIN    ; set Tx line to output
+  cbi UART_Port, UART_TX_PIN      ; start bit
   in r0, UART_Port
   ldi r25, 7            ; stop bit & idle state
 TxLoop:
@@ -46,7 +45,7 @@ TxDelay:
     dec delayArg
   brne TxDelay
   bst r24, 0            ; store lsb in T
-  bld r0, UART_Tx
+  bld r0, UART_TX_PIN
   lsr r25
   ror r24             ; 2-byte shift register
   out UART_Port, r0
@@ -57,10 +56,10 @@ TxDelay:
 ; receive byte into r24
 .global RxByte
 RxByte:
-  sbic UART_Port-2, UART_Rx  ; wait for start edge
+  sbic UART_Port-2, UART_RX_PIN  ; wait for start edge
   rjmp RxByte
-;  ldi r24, 0x80              ; bit shift counter
-;  ldi delayArg, RXSTART      ; 1.5 bit delay
+;  ldi r24, 0x80                 ; bit shift counter
+;  ldi delayArg, RXSTART         ; 1.5 bit delay
 GotStartBit:
   push r16
   in r16, SREG               ; Save status register
@@ -72,7 +71,7 @@ RxBit:
   rcall Delay3Cycle          ; delay and clear carry
   ldi delayArg, RXDELAY
   lsr r24
-  sbic UART_Port-2, UART_Rx
+  sbic UART_Port-2, UART_RX_PIN
   ori r24, 0x80
     nop                      ; match 7-cycle Tx loop
   brcc RxBit
@@ -94,17 +93,17 @@ Delay3Cycle:
 
 ; Non-Blocking RX Byte with zero return
 RxByteNBZeroReturn:
-  sbic UART_Port-2, UART_Rx  ; wait for start edge
-  rjmp NoWaitRxZeroReturn    ; if no start, drop out with a zero return
-  rjmp GotStartBit           ; otherwise read the byte in
+  sbic UART_Port-2, UART_RX_PIN ; wait for start edge
+  rjmp NoWaitRxZeroReturn       ; if no start, drop out with a zero return
+  rjmp GotStartBit              ; otherwise read the byte in
 
 RxByteNBNegOneReturn:
-  sbic UART_Port-2, UART_Rx  ; wait for start edge
-  rjmp NoWaitRxNegOneReturn  ; if no start, drop out with a zero return
-  ldi r25, 0x00              ; this routine will return an int,
-                             ; because Serial.write() does normally return -1 when no data is read
-                             ; since we are returning data set the upper byte of the int to zero
-  rjmp GotStartBit           ; read the bit in
+  sbic UART_Port-2, UART_RX_PIN ; wait for start edge
+  rjmp NoWaitRxNegOneReturn     ; if no start, drop out with a zero return
+  ldi r25, 0x00                 ; this routine will return an int,
+                                ; because Serial.write() does normally return -1 when no data is read
+                                ; since we are returning data set the upper byte of the int to zero
+  rjmp GotStartBit              ; read the bit in
 
 NoWaitRxNegOneReturn:
   ldi r25, 0xFF              ; In non blocking mode we follow the standard "Serial.read()" return value of
