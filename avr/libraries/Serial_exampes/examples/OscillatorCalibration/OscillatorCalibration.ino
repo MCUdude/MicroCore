@@ -98,7 +98,7 @@ void rxInterrupt()
     static uint8_t cal_counter;
     if(cal != OSCCAL)
       cal = OSCCAL;
-    else if(++cal_counter >= 16)
+    else if(++cal_counter >= 10)
     {
       EEPROM.write(0, OSCCAL);
       Serial.print(F("New OSCCAL stored to EEPROM addr. 0\n"));
