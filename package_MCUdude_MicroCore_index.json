@@ -86,8 +86,8 @@
           "category": "Contributed",
           "url": "https://MCUdude.github.io/MicroCore/MicroCore-1.0.5.tar.bz2",
           "archiveFileName": "MicroCore-1.0.5.tar.bz2",
-          "checksum": "SHA-256:4a8b64f4ee46b108f86f08b17434c80df4a5f4b093a9bcc17c06b545085752f0",
-          "size": "85623",
+          "checksum": "SHA-256:cc46ff0351aaeac5e2517fea74a4fb8021a777e1aad857064af3e80e13b59a40",
+          "size": "85974",
           "boards": [
             {"name": "ATtiny13"}
           ],
