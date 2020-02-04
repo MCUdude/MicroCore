@@ -29,19 +29,19 @@ HalfDuplexSerial Serial;
 
 // Public Methods //////////////////////////////////////////////////////////////
 
-int HalfDuplexSerial::available(void)
+int16_t HalfDuplexSerial::available(void)
 {
   // There is never anything available, we have no buffer
   return 0;
 }
 
-int HalfDuplexSerial::peek(void)
+int16_t HalfDuplexSerial::peek(void)
 {
   // We have no buffer, no peeking
   return -1;
 }
 
-int HalfDuplexSerial::read(void)
+int16_t HalfDuplexSerial::read(void)
 {
   #ifdef HALF_DUPLEX_SERIAL_DISABLE_READ
   return -1;
@@ -52,7 +52,7 @@ int HalfDuplexSerial::read(void)
 
 // This is the same as Serial.read() in that it is a
 // non blocking read, returning -1 if no data was read
-int HalfDuplexSerial::read_byte(void)
+int16_t HalfDuplexSerial::read_byte(void)
 {
   return RxByteNBNegOneReturn();
 }
@@ -97,195 +97,175 @@ void HalfDuplexSerial::read_str(char buf[], uint8_t length)
   buf[i] = 0;
 }
 
-size_t HalfDuplexSerial::write(uint8_t ch)
+void HalfDuplexSerial::write(uint8_t ch)
 {
   TxByte(ch);
-  return 1;
 }
 
-size_t HalfDuplexSerial::write(const uint8_t *buffer, size_t size)
+void HalfDuplexSerial::write(const uint8_t *buffer, size_t size)
 {
   for(size_t n = 0; n < size; n++)
-    write(buffer[n]);
-  return size;
+    TxByte(buffer[n]);
 }
 
-size_t HalfDuplexSerial::print(const __FlashStringHelper *ifsh)
+void HalfDuplexSerial::print(const __FlashStringHelper *ifsh)
 {
   PGM_P p = reinterpret_cast<PGM_P>(ifsh);
-  size_t n = 0;
+  uint8_t c;
 
   do
   {
-    uint8_t c = pgm_read_byte(p++);
-    if (c == 0) break;
-    write(c);
-  } while(++n);
-
-  return n;
+    c = pgm_read_byte(p++);
+    TxByte(c);
+  } while(c);
 }
 
-size_t HalfDuplexSerial::print(const String &s)
+void HalfDuplexSerial::print(const String &s)
 {
-  size_t n = 0;
   for (uint16_t i = 0; i < s.length(); i++)
-    n += write(s[i]);
-  return n;
+    write(s[i]);
 }
 
-size_t HalfDuplexSerial::print(const char str[])
+void HalfDuplexSerial::print(const char str[])
 {
-  return write(str);
+  write((const uint8_t *)str, strlen(str));
 }
 
-size_t HalfDuplexSerial::print(char c)
+void HalfDuplexSerial::print(char c)
 {
-  return write(c);
+  TxByte(c);
 }
 
 #if PRINT_MAX_INT_TYPE != PRINT_INT_TYPE_BYTE
-size_t HalfDuplexSerial::print(unsigned char b, uint8_t base)
+void HalfDuplexSerial::print(unsigned char b, uint8_t base)
 {
-  return print((UNSIGNED_PRINT_INT_TYPE) b, base);
+  print((UNSIGNED_PRINT_INT_TYPE) b, base);
 }
 #endif
 
 #if PRINT_MAX_INT_TYPE != PRINT_INT_TYPE_INT
-size_t HalfDuplexSerial::print(int n, uint8_t base)
+void HalfDuplexSerial::print(int n, uint8_t base)
 {
-  return print((PRINT_INT_TYPE) n, base);
+  print((PRINT_INT_TYPE) n, base);
 }
 
-size_t HalfDuplexSerial::print(unsigned int n, uint8_t base)
+void HalfDuplexSerial::print(unsigned int n, uint8_t base)
 {
-  return print((UNSIGNED_PRINT_INT_TYPE) n, base);
+  print((UNSIGNED_PRINT_INT_TYPE) n, base);
 }
 #endif
 
 #if PRINT_MAX_INT_TYPE != PRINT_INT_TYPE_LONG
-size_t HalfDuplexSerial::print(long n, uint8_t base)
+void HalfDuplexSerial::print(long n, uint8_t base)
 {
-  return print((PRINT_INT_TYPE) n, base);
+  print((PRINT_INT_TYPE) n, base);
 }
 
-size_t HalfDuplexSerial::print(unsigned long n, uint8_t base)
+void HalfDuplexSerial::print(unsigned long n, uint8_t base)
 {
-  return print((UNSIGNED_PRINT_INT_TYPE) n, base);
+  print((UNSIGNED_PRINT_INT_TYPE) n, base);
 }
 #endif
 
-size_t HalfDuplexSerial::print(PRINT_INT_TYPE n, uint8_t base)
+void HalfDuplexSerial::print(PRINT_INT_TYPE n, uint8_t base)
 {
   if (base == 10 && n < 0)
   {
-    write('-');
-    return printNumber(-n,base)+1;
+    TxByte('-');
+    printNumber(-n,base);
   }
   else
-    return printNumber(n, base);
+    printNumber(n, base);
 }
 
-size_t HalfDuplexSerial::print(UNSIGNED_PRINT_INT_TYPE n, uint8_t base)
+void HalfDuplexSerial::print(UNSIGNED_PRINT_INT_TYPE n, uint8_t base)
 {
-  return printNumber(n,base);
+  printNumber(n,base);
 }
 
-size_t HalfDuplexSerial::print(double n, uint8_t digits)
+void HalfDuplexSerial::print(double n, uint8_t digits)
 {
-  return printFloat(n, digits);
+  printFloat(n, digits);
 }
 
-size_t HalfDuplexSerial::println(const __FlashStringHelper *ifsh)
+void HalfDuplexSerial::println(const __FlashStringHelper *ifsh)
 {
-  size_t n = print(ifsh);
-  n += println();
-  return n;
+  print(ifsh);
+  println();
 }
 
-size_t HalfDuplexSerial::println(void)
+void HalfDuplexSerial::println(void)
 {
-  print('\r');
-  print('\n');
-  return 2;
+  TxByte('\r');
+  TxByte('\n');
 }
 
-size_t HalfDuplexSerial::println(const String &s)
+void HalfDuplexSerial::println(const String &s)
 {
-  size_t n = print(s);
-  n += println();
-  return n;
+  print(s);
+  println();
 }
 
-size_t HalfDuplexSerial::println(const char c[])
+void HalfDuplexSerial::println(const char c[])
 {
-  size_t n = print(c);
-  n += println();
-  return n;
+  print(c);
+  println();
 }
 
-size_t HalfDuplexSerial::println(char c)
+void HalfDuplexSerial::println(char c)
 {
-  size_t n = print(c);
-  n += println();
-  return n;
+  print(c);
+  println();
 }
 #if PRINT_MAX_INT_TYPE != PRINT_INT_TYPE_BYTE
-size_t HalfDuplexSerial::println(unsigned char b, uint8_t base)
+void HalfDuplexSerial::println(unsigned char b, uint8_t base)
 {
-  size_t n = print(b, base);
-  n += println();
-  return n;
+  print(b, base);
+  println();
 }
 #endif
 #if PRINT_MAX_INT_TYPE != PRINT_INT_TYPE_INT
-size_t HalfDuplexSerial::println(int num, uint8_t base)
+void HalfDuplexSerial::println(int num, uint8_t base)
 {
-  size_t n = print(num, base);
-  n += println();
-  return n;
+  print(num, base);
+  println();
 }
 
-size_t HalfDuplexSerial::println(unsigned int num, uint8_t base)
+void HalfDuplexSerial::println(unsigned int num, uint8_t base)
 {
-  size_t n = print(num, base);
-  n += println();
-  return n;
+  print(num, base);
+  println();
 }
 #endif
 #if PRINT_MAX_INT_TYPE != PRINT_INT_TYPE_LONG
-size_t HalfDuplexSerial::println(long num, uint8_t base)
+void HalfDuplexSerial::println(long num, uint8_t base)
 {
-  size_t n = print(num, base);
-  n += println();
-  return n;
+  print(num, base);
+  println();
 }
 
-size_t HalfDuplexSerial::println(unsigned long num, uint8_t base)
+void HalfDuplexSerial::println(unsigned long num, uint8_t base)
 {
-  size_t n = print(num, base);
-  n += println();
-  return n;
+  print(num, base);
+  println();
 }
 #endif
-size_t HalfDuplexSerial::println(PRINT_INT_TYPE num, uint8_t base)
+void HalfDuplexSerial::println(PRINT_INT_TYPE num, uint8_t base)
 {
-  size_t n = print(num, base);
-  n += println();
-  return n;
+  print(num, base);
+  println();
 }
 
-size_t HalfDuplexSerial::println(UNSIGNED_PRINT_INT_TYPE num, uint8_t base)
+void HalfDuplexSerial::println(UNSIGNED_PRINT_INT_TYPE num, uint8_t base)
 {
-  size_t n = print(num, base);
-  n += println();
-  return n;
+  print(num, base);
+  println();
 }
 
-size_t HalfDuplexSerial::println(double num, int digits)
+void HalfDuplexSerial::println(double num, int digits)
 {
-  size_t n = print(num, digits);
-  n += println();
-  return n;
+  print(num, digits);
+  println();
 }
 
 // Private Methods /////////////////////////////////////////////////////////////
@@ -323,7 +303,7 @@ size_t HalfDuplexSerial::println(double num, int digits)
 // it will suck your ram, but you can use arbitrary bases.
 
 
-size_t HalfDuplexSerial::printNumber(UNSIGNED_PRINT_INT_TYPE n, uint8_t base)
+void HalfDuplexSerial::printNumber(UNSIGNED_PRINT_INT_TYPE n, uint8_t base)
 {
   static const char digits[] PROGMEM = "0123456789ABCDEF";
 
@@ -381,7 +361,6 @@ size_t HalfDuplexSerial::printNumber(UNSIGNED_PRINT_INT_TYPE n, uint8_t base)
   #endif
 
   UNSIGNED_PRINT_INT_TYPE const * bt;
-  uint8_t leadingzero = 0;
   switch(base)
   {
     default:
@@ -417,26 +396,22 @@ size_t HalfDuplexSerial::printNumber(UNSIGNED_PRINT_INT_TYPE n, uint8_t base)
     #endif
   }
 
-  // Reuse base for counting the digits since we don't need it any more.
-  base = 0;
+  uint8_t digit;
+  uint8_t leadingzero = 0;
   do
   {
     UNSIGNED_PRINT_INT_TYPE b = PGM_READ_MAX_INT_TYPE(&*bt++);
-    uint8_t digit = 0;
+    digit = 0;
     while (n >= b)
     {
-      digit++;
+      ++digit;
       n = n - b;
     }
     leadingzero = leadingzero ? leadingzero : digit;
     if (b == 1 || leadingzero)
-    {
-      ++base;
       write(pgm_read_byte(&digits[digit]));
-    }
   }
   while (PGM_READ_MAX_INT_TYPE(&*bt));
-  return base;
 }
 
 #else
@@ -450,7 +425,7 @@ size_t HalfDuplexSerial::printNumber(UNSIGNED_PRINT_INT_TYPE n, uint8_t base)
 //
 // VERY, VERY HEAVY
 
-size_t HalfDuplexSerial::printNumber(UNSIGNED_PRINT_INT_TYPE n, uint8_t base)
+void HalfDuplexSerial::printNumber(UNSIGNED_PRINT_INT_TYPE n, uint8_t base)
 {
 
   // This is super wasteful because it assumes you are using binary in the
@@ -473,18 +448,17 @@ size_t HalfDuplexSerial::printNumber(UNSIGNED_PRINT_INT_TYPE n, uint8_t base)
     *--str = c < 10 ? c + '0' : c + 'A' - 10;
   } while(n);
 
-  return write(str);
+  write(str);
 }
 #endif
 
-size_t HalfDuplexSerial::printFloat(double number, uint8_t digits)
+void HalfDuplexSerial::printFloat(double number, uint8_t digits)
 {
-  size_t n = 0;
 
   // Handle negative numbers
   if (number < 0.0)
   {
-     n += print('-');
+     TxByte('-');
      number = -number;
   }
 
@@ -500,12 +474,12 @@ size_t HalfDuplexSerial::printFloat(double number, uint8_t digits)
   // Extract the integer part of the number and print it
   unsigned long int_part = (unsigned long)number;
   double remainder = number - (double)int_part;
-  n += print(int_part);
+  print(int_part);
 
   // Print the decimal point, but only if there are digits beyond
   if (digits > 0)
   {
-    n += print('.');
+    TxByte('.');
   }
 
   // Extract digits from the remainder one at a time
@@ -513,9 +487,8 @@ size_t HalfDuplexSerial::printFloat(double number, uint8_t digits)
   {
     remainder *= 10.0;
     int toPrint = int(remainder);
-    n += print(toPrint);
+    print(toPrint);
     remainder -= toPrint;
   }
-
-  return n;
+  
 }

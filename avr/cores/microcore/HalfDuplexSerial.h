@@ -179,7 +179,7 @@ extern "C" {
 
   // These two functions are non-blocking variants
   unsigned char RxByteNBZeroReturn();  // NBZeroReturn will return a zero when there is no byte read
-  int RxByteNBNegOneReturn();          // NBNegOneReturn returns -1; which is the same as standard Serial.write()
+  int16_t RxByteNBNegOneReturn();      // NBNegOneReturn returns -1; which is the same as standard Serial.write()
 
 #ifdef __cplusplus
 }
@@ -246,17 +246,17 @@ asm (
 class HalfDuplexSerial
 {
   private:
-    size_t printNumber(UNSIGNED_PRINT_INT_TYPE, uint8_t);
-    size_t printFloat(double, uint8_t);
+    void printNumber(UNSIGNED_PRINT_INT_TYPE, uint8_t);
+    void printFloat(double, uint8_t);
   protected:
     void setWriteError(int err = 1) { (void)err; }
   public:
     void begin(const uint32_t) { } // Does NOTHING, you have no need to call this, here only for compatibility
     void begin() { }               // Does NOTHING, you have no need to call this, here only for compatibility
     void end() { }                 // Does NOTHING, you have no need to call this, here only for compatibility
-    int available(void) ;          // As we do not have a buffer, this always returns 0
-    int peek(void)      ;          // As we do not have a buffer, this always returns -1
-    void flush(void) { }           // Does NOTHING, you have no need to call this, here only for compatibility
+    int16_t available();           // As we do not have a buffer, this always returns 0
+    int16_t peek();                // As we do not have a buffer, this always returns -1
+    void flush() { }               // Does NOTHING, you have no need to call this, here only for compatibility
 
     /** Read a byte, non-blocking.
      *
@@ -270,7 +270,7 @@ class HalfDuplexSerial
      * @return int  -1 for no-data-read, 0 or greater is the byte read
      */
 
-    int read(void);
+    int16_t read(void);
 
     /** Read a byte, non-blocking, will optimize-out.
      *
@@ -278,10 +278,10 @@ class HalfDuplexSerial
      * optimized out if unused, as a result it is available for you to use even if you
      * define HALF_DUPLEX_SERIAL_DISABLE_READ
      *
-     * @return int  -1 for no-data-read, 0 or greater is the byte read
+     * @return int16_t  -1 for no-data-read, 0 or greater is the byte read
      */
 
-    int read_byte(void);
+    int16_t read_byte(void);
 
     /** Read a char, non-blocking.
      *
@@ -346,19 +346,18 @@ class HalfDuplexSerial
      * @return  Always returns 1
      */
 
-    size_t write(uint8_t ch);
 
-    //int getWriteError() { return write_error; }
-    int getWriteError() { return 0; }
+    int16_t getWriteError() { return 0; }
     void clearWriteError() { setWriteError(0); }
 
-    size_t write(const uint8_t *buffer, size_t size);
-    size_t write(const char *str) { return write((const uint8_t *)str, strlen(str)); }
+    void write(uint8_t ch);
+    void write(const uint8_t *buffer, size_t size);
+    void write(const char *str) { return write((const uint8_t *)str, strlen(str)); }
 
-    size_t print(const __FlashStringHelper *);
-    size_t print(const String &);
-    size_t print(const char[]);
-    size_t print(char);
+    void print(const __FlashStringHelper *);
+    void print(const String &);
+    void print(const char[]);
+    void print(char);
 
     // by using these conditionals we can cut-out some pointless
     // function calls and casting when our "primary" integer type
@@ -367,39 +366,39 @@ class HalfDuplexSerial
     // primary type (PRINT_INT_TYPE or UNSIGNED_PRINT_INT_TYPE
     // as appropriate).
     #if PRINT_MAX_INT_TYPE != PRINT_INT_TYPE_BYTE
-    size_t print(unsigned char, uint8_t = DEC);
+    void print(unsigned char, uint8_t = DEC);
     #endif
     #if PRINT_MAX_INT_TYPE != PRINT_INT_TYPE_INT
-    size_t print(int, uint8_t = DEC);
-    size_t print(unsigned int, uint8_t = DEC);
+    void print(int, uint8_t = DEC);
+    void print(unsigned int, uint8_t = DEC);
     #endif
     #if PRINT_MAX_INT_TYPE != PRINT_INT_TYPE_LONG
-    size_t print(long, uint8_t = DEC);
-    size_t print(unsigned long, uint8_t = DEC);
+    void print(long, uint8_t = DEC);
+    void print(unsigned long, uint8_t = DEC);
     #endif
-    size_t print(PRINT_INT_TYPE, uint8_t = DEC);
-    size_t print(UNSIGNED_PRINT_INT_TYPE, uint8_t = DEC);
-    size_t print(double, uint8_t = 2);
+    void print(PRINT_INT_TYPE, uint8_t = DEC);
+    void print(UNSIGNED_PRINT_INT_TYPE, uint8_t = DEC);
+    void print(double, uint8_t = 2);
 
-    size_t println(const __FlashStringHelper *);
-    size_t println(const String &s);
-    size_t println(const char[]);
-    size_t println(char);
+    void println(const __FlashStringHelper *);
+    void println(const String &s);
+    void println(const char[]);
+    void println(char);
     #if PRINT_MAX_INT_TYPE != PRINT_INT_TYPE_BYTE
-    size_t println(unsigned char, uint8_t = DEC);
+    void println(unsigned char, uint8_t = DEC);
     #endif
     #if PRINT_MAX_INT_TYPE != PRINT_INT_TYPE_INT
-    size_t println(int, uint8_t = DEC);
-    size_t println(unsigned int, uint8_t = DEC);
+    void println(int, uint8_t = DEC);
+    void println(unsigned int, uint8_t = DEC);
     #endif
     #if PRINT_MAX_INT_TYPE != PRINT_INT_TYPE_LONG
-    size_t println(long, uint8_t = DEC);
-    size_t println(unsigned long, uint8_t = DEC);
+    void println(long, uint8_t = DEC);
+    void println(unsigned long, uint8_t = DEC);
     #endif
-    size_t println(PRINT_INT_TYPE, uint8_t = DEC);
-    size_t println(UNSIGNED_PRINT_INT_TYPE, uint8_t = DEC);
-    size_t println(double, int = 2);
-    size_t println(void);
+    void println(PRINT_INT_TYPE, uint8_t = DEC);
+    void println(UNSIGNED_PRINT_INT_TYPE, uint8_t = DEC);
+    void println(double, int = 2);
+    void println(void);
 
 };
 

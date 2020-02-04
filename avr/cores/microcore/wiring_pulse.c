@@ -32,34 +32,27 @@ uint32_t pulseIn(uint8_t pin, uint8_t state, uint32_t timeout)
   // Convert the timeout from microseconds to a number of times through
   // the initial loop; it takes 16 clock cycles per iteration.
   uint32_t numloops = 0;
-  uint32_t maxloops = microsecondsToClockCycles(timeout) >> 4; // Same as dividing by 16
-  uint32_t width = 0; // Keep initialization out of time critical area
+  uint32_t maxloops = microsecondsToClockCycles(timeout); // Same as dividing by 16
+  __uint24 width = 0; // Keep initialization out of time critical area
 
   // Wait for any previous pulse to end
   while(!!(PINB & _BV(pin)) == state)
   {
-    if(numloops++ == maxloops) {return 0;}
-    asm("nop \n");
-    asm("nop \n");
+    if(numloops++ >= maxloops) {return 0;}
+    asm("nop");
+    asm("nop");
   }
   // Wait for the pulse to start
   while(!!(PINB & _BV(pin)) != state)
-  {
-    if(numloops++ == maxloops) {return 0;}
-    asm("nop \n");
-    asm("nop \n");
-    asm("nop \n");
-  }
+    if(++numloops >= maxloops) {return 0;}
+
   // Wait for the pulse to stop This loop is 16 instructions long
   while(!!(PINB & _BV(pin)) == state)
   {
-    if(numloops++ == maxloops) {return 0;}
-    width++;
-    asm("nop \n");
-    asm("nop \n");
-    asm("nop \n");
+    if(numloops++ >= maxloops) {return 0;}
+    ++width;
   }
 
   // Convert the reading to microseconds.
-  return clockCyclesToMicroseconds(width << 4); // Multiply by 16
+  return (width); // Multiply by 16
 }
