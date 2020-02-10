@@ -5,6 +5,13 @@
 MicroCore is a lightweight Arduino hardware package for ATtiny13, ATtiny13A and ATtiny13V. It's easy to install, easy to use, have lots of features and support most Arduino functions.
 If you're into low level AVR programming, I'm happy to tell you that all relevant keywords are being highlighted by the IDE through a separate keywords file. Make sure to check out the [example files](https://github.com/MCUdude/MicroCore/tree/master/avr/libraries/AVR_examples/examples) (File > Examples > AVR C code examples).
 
+If you're looking for a great development board for the ATtiny13, and DIP-8 ATtinys in general, I got you covered! This board has all the bells and whistles you need from a board like this, and still, it measures only 42x42mm!  
+<br/>
+**[Read more and purchase on my Tindie store!](https://www.tindie.com/products/MCUdude/attiny-arduino-compatible-development-board/)** 
+<br/>
+<br/>
+<img src="https://i.imgur.com/wKva9mL.jpg" width="350">  <img src="https://i.imgur.com/KOW6Tej.jpg" width="340">
+
 
 ## Table of contents
 * [Why use the ATtiny13 in an Arduino project?](#why-use-the-attiny13-in-an-arduino-project)
