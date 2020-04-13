@@ -34,6 +34,13 @@ extern volatile uint32_t timer0_overflow;
 #error Your compiler does not support LTO. Please either upgrade Arduino AVR Boards and/or your IDE
 #endif  //GCC_VERSION < 40902
 
+#define PIN_PB0 0
+#define PIN_PB1 1
+#define PIN_PB2 2
+#define PIN_PB3 3
+#define PIN_PB4 4
+#define PIN_PB5 5
+
 #ifdef __cplusplus
 extern "C"{
 #endif
