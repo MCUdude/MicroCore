@@ -188,10 +188,10 @@ void stopTone()
     #endif
     
     // Set waveform generation mode
-    #if defined(PWM_FAST)
-      TCCR0A |= _BV(WGM00) | _BV(WGM01);
-    #elif defined(PWM_PHASE_CORRECT)
+    #if defined(PWM_PHASE_CORRECT)
       TCCR0A |= _BV(WGM00);
+    #else // (PWM_FAST)
+      TCCR0A |= _BV(WGM00) | _BV(WGM01);
     #endif
   #endif  
   

@@ -24,13 +24,7 @@ void analogWrite(uint8_t pin, uint8_t val)
 {
   // Set Timer0 prescaler
   #if !defined(ENABLE_MICROS)
-    #if defined(PWM_PRESCALER_AUTO)
-      #if F_CPU >= 4800000L
-        TCCR0B = _BV(CS00) | _BV(CS01); // PWM frequency = (F_CPU/256) / 64
-      #else
-        TCCR0B = _BV(CS01);             // PWM frequency = (F_CPU/256) / 8
-      #endif
-    #elif defined(PWM_PRESCALER_NONE)   // PWM frequency = (F_CPU/256) / 1
+    #if defined(PWM_PRESCALER_NONE)     // PWM frequency = (F_CPU/256) / 1
       TCCR0B = _BV(CS00);
     #elif defined(PWM_PRESCALER_8)      // PWM frequency = (F_CPU/256) / 8
       TCCR0B = _BV(CS01);
@@ -40,6 +34,12 @@ void analogWrite(uint8_t pin, uint8_t val)
       TCCR0B = _BV(CS02);
     #elif defined(PWM_PRESCALER_1024)   // PWM frequency = (F_CPU/256) / 1024
       TCCR0B = _BV(CS00) | _BV(CS02);
+    #else // (PWM_PRESCALER_AUTO)       // Automatic prescaler calculation
+      #if F_CPU >= 4800000L
+        TCCR0B = _BV(CS00) | _BV(CS01); // PWM frequency = (F_CPU/256) / 64
+      #else
+        TCCR0B = _BV(CS01);             // PWM frequency = (F_CPU/256) / 8
+      #endif
     #endif
   #endif
 
@@ -68,10 +68,10 @@ void analogWrite(uint8_t pin, uint8_t val)
     if(pin == 1)
     {
       // Set waveform generation mode and output number
-      #if defined(PWM_FAST)
-        TCCR0A |= _BV(WGM00) | _BV(WGM01) | _BV(COM0B1);
-      #elif defined(PWM_PHASE_CORRECT)
+      #if defined(PWM_PHASE_CORRECT)
         TCCR0A |= _BV(WGM00) | _BV(COM0B1);
+      #else // (PWM_FAST)
+        TCCR0A |= _BV(WGM00) | _BV(WGM01) | _BV(COM0B1);
       #endif
       OCR0B = val;
     }
@@ -84,10 +84,10 @@ void analogWrite(uint8_t pin, uint8_t val)
     #endif
     {
       // Set waveform generation mode and output number
-      #if defined(PWM_FAST)
-        TCCR0A |= _BV(WGM00) | _BV(WGM01) | _BV(COM0A1);
-      #elif defined(PWM_PHASE_CORRECT)
+      #if defined(PWM_PHASE_CORRECT)
         TCCR0A |= _BV(WGM00) | _BV(COM0A1);
+      #else // (PWM_FAST)
+        TCCR0A |= _BV(WGM00) | _BV(WGM01) | _BV(COM0A1);
       #endif
       OCR0A = val;
     }

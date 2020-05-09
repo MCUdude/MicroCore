@@ -17,17 +17,26 @@ need in order to free up space.
 // Arduino would support.
 
 // Pins to use for Tx and Rx
-#define UART_TX_PIN  PB0
-#define UART_RX_PIN  PB1
+#ifndef UART_TX_PIN
+  #define UART_TX_PIN  PB0
+#endif
+#ifndef UART_RX_PIN
+  #define UART_RX_PIN  PB1
+#endif
+
 
 // What should be the largest supported number?
-#define PRINT_MAX_INT_TYPE PRINT_INT_TYPE_LONG // PRINT_INT_TYPE_INT, PRINT_INT_TYPE_BYTE and PRINT_INT_TYPE_LONG supported.
+#ifndef PRINT_MAX_INT_TYPE
+  #define PRINT_MAX_INT_TYPE PRINT_INT_TYPE_LONG // PRINT_INT_TYPE_INT, PRINT_INT_TYPE_BYTE and PRINT_INT_TYPE_LONG supported.
+#endif
+
 
 // What bases should be supported?
 #define PRINT_USE_BASE_BIN
 #define PRINT_USE_BASE_DEC
 #define PRINT_USE_BASE_HEX
 //#define PRINT_USE_BASE_OCT
+
 
 // Baudrate is automatically selected based on F_CPU. If a different speed is needed, BAUD_RATE can be defined
 // to reflect this.
@@ -53,7 +62,9 @@ need in order to free up space.
 // Enabling SAFEMODE takes up more flash space, but "makes sure" you don't screw up, like by reading the
 // state of a pin while it's outputting a PWM signal. If you know what you're doing, like explicitly writing
 // a pin as an output before using the analogWrite() function, you can save a lot of space by disabling this.
-#define SAFEMODE
+#ifndef DISABLE_SAFEMODE // Trigger for PlatformIO
+  #define SAFEMODE
+#endif
 
 
 // This is the ADC settings
