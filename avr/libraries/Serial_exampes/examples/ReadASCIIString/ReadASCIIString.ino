@@ -13,7 +13,7 @@
   Serial on the ATtiny13.  Because of a lack of hardware serial support
   interrupts are disabled for the ENTIRE READ of the string. This means that
   millis() will "lose time" for the period you are reading the string.
-  Just bear that in mind.
+  Just bear that in mind. Remember to turn on newline in the serial monitor!
 
   RECOMMENDED SETTINGS FOR THIS SKETCH
   ------------------------------------------------------------------------------
@@ -63,13 +63,9 @@ void setup()
 
 void loop()
 {
-  Serial.println(F("What is your name traveler?"));
   char buf[15];
-  do
-  {
-    Serial.read_str(buf, sizeof(buf));
-  } while (!buf[0]);
-
+  Serial.println(F("What is your name traveler?"));
+  Serial.read_str(buf, sizeof(buf), '\n'); // Exit on newline
   Serial.print(F("Nice to meet you "));
   Serial.println(buf);
 }

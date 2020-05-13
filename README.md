@@ -82,7 +82,7 @@ You can choose to enable or disable micros() directly from the timing menu. Grea
 millis() is automatically linked in when used.
 
 ## Serial support
-MicroCore features a brilliant, ultra-lightweight software UART library wrapped by `Serial`. This means you can use regular `Serial.print()`if you need to. Note that the baud rate has to be defined at compile-time and cannot be defined in the sketch. The table below shows a list of which clock frequencies use which baud rates by default. If you need a different baud rate for a specific clock frequency, you may modify the [core_settings.h file](#core-settings).
+MicroCore features a brilliant, ultra-lightweight software UART library called [picoUART](https://github.com/nerdralph/picoUART), wrapped by `Serial`. This means you can use regular `Serial.print()`if you need to. Note that the baud rate has to be defined at compile-time and cannot be defined in the sketch. The table below shows a list of which clock frequencies use which baud rates by default. If you need a different baud rate for a specific clock frequency, you may modify the [core_settings.h file](#core-settings).
 
 If you want to use the UART functionality you will have to have the right hardware connected to the right pins on the ATtiny13. See the [minimal setup section](#minimal-setup) for more information. Also, please have a look at the provided [serial example sketches](https://github.com/MCUdude/MicroCore/tree/master/avr/libraries/Serial_exampes/examples).
 
@@ -100,7 +100,7 @@ If you want to use the UART functionality you will have to have the right hardwa
 | (Internal) 128 kHz | Not supported |
 
 ### Internal oscillator calibration
-The internal 9.6 and 4.8 MHz internal oscillators (yes, these are separate) in the ATtiny13 are usually not very accurate. This is acceptable for many applications, but when you're using an asynchronous protocol like UART, ±3-4% off simply won't work. To solve this problem MicroCore provides a user-friendly [Oscillator calibration sketch](https://github.com/MCUdude/MicroCore/blob/master/avr/libraries/Serial_exampes/examples/OscillatorCalibration/OscillatorCalibration.ino) that calculate a new OSCCAL value based on a received character over UART. All you need to do is to load the sketch, select the correct baud rate in the serial monitor, select *No line ending* and send the `x` character many times (`x` [send], `x` [send] ...). After a few tries, you should gradually see readable text in the serial monitor. After the calibration value has stabilized it's automatically stored in EEPROM address 0 for future use. This value is not loaded by default, but has to be loaded "manually" in your sketch like so:
+The internal 9.6 and 4.8 MHz internal oscillators (yes, these are separate in some silicon revisions) in the ATtiny13 are usually not very accurate. This is acceptable for many applications, but when you're using an asynchronous protocol like UART, ±3-4% off simply won't work. To solve this problem MicroCore provides a user-friendly [Oscillator calibration sketch](https://github.com/MCUdude/MicroCore/blob/master/avr/libraries/Serial_exampes/examples/OscillatorCalibration/OscillatorCalibration.ino) that calculate a new OSCCAL value based on a received character over UART. All you need to do is to load the sketch, select the correct baud rate in the serial monitor, select *No line ending* and send the `x` character many times (`x` [send], `x` [send] ...). After a few tries, you should gradually see readable text in the serial monitor. After the calibration value has stabilized it's automatically stored in EEPROM address 0 for future use. This value is not loaded by default, but has to be loaded "manually" in your sketch like so:
 
 ```c++
   // Check if there exist any OSCCAL value in EEPROM addr. 0
@@ -112,7 +112,7 @@ The internal 9.6 and 4.8 MHz internal oscillators (yes, these are separate) in t
 
 The reason why it checks if the calibration value is less than 0x80 is that the OSCCAL value can only be 0x7F or less, and the default value when the EEPROM is erased and empty is 0xFF. The code snippet above is just a primitive way to check if a value that could be loaded into the OSCCAL register is present.
 
-Huge thanks to [Ralph Doncaster](https://github.com/nerdralph) for providing his excellent sofware serial library and his oscillator calibration code. None of this would be close to possible if it weren't for his brilliant work!
+Huge thanks to [Ralph Doncaster](https://github.com/nerdralph) for providing his excellent picoUART library and his oscillator calibration code. None of this would be close to possible if it weren't for his brilliant work!
 
 ## Programmers
 When the ATtiny13 is running from the internal 600 or 128 kHz oscillator, it may be too slow to interact with the programming tool. That's why this core adds some additional programmers to the list, with the suffix *(slow)*. These options makes the programmers run at a lower clock speed, so the microcontroller can keep up.
@@ -174,7 +174,6 @@ This diagram shows the pinout and the peripherals of ATtiny13. The Arduino pinou
 Due to the limited hardware not all default Arduino functions and libraries is supported by the ATtiny13. Here's a list of all working Arduino functions and libraries that's included in the MicroCore package.
 
 ### Arduino functions
-* [abs()](https://www.arduino.cc/en/Reference/Abs)
 * [analogRead()](https://www.arduino.cc/en/Reference/AnalogRead)
 * [analogWrite()](https://www.arduino.cc/en/Reference/AnalogWrite)
 * [attachInterrupt()](https://www.arduino.cc/en/Reference/AttachInterrupt)
@@ -237,5 +236,4 @@ Due to the limited hardware not all default Arduino functions and libraries is s
   - [put()](https://www.arduino.cc/en/Reference/EEPROMPut)
 
 ## Acknowledgements
-MicroCore is based Smeezekitty's [core13](https://sourceforge.net/projects/ard-core13/), which is an Arduino ATTiny13 hardware package for IDE 1.0.x.
-
+MicroCore is based Smeezekitty's [core13](https://sourceforge.net/projects/ard-core13/), which is an Arduino ATtiny13 hardware package for IDE 1.0.x.

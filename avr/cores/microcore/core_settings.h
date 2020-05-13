@@ -17,12 +17,16 @@ need in order to free up space.
 // Arduino would support.
 
 // Pins to use for Tx and Rx
+// Note that you can use the same pin for TX and TX by giving them the same number
 #ifndef UART_TX_PIN
-  #define UART_TX_PIN  PB0
+  #define UART_TX_PIN B,0
 #endif
 #ifndef UART_RX_PIN
-  #define UART_RX_PIN  PB1
+  #define UART_RX_PIN B,1
 #endif
+
+// Use PCINT interrupts for receiving serial data
+//#define INTERRUPT_SERIAL_RX
 
 
 // What should be the largest supported number?
@@ -40,9 +44,10 @@ need in order to free up space.
 
 // Baudrate is automatically selected based on F_CPU. If a different speed is needed, BAUD_RATE can be defined
 // to reflect this.
-// See table below for all supported baud rates.
+// See table below for all supported baud rates. Note that when using interrupt based RX, supported RX speed
+// will be lower.
 
-//#define CUSTOM_BAUD_RATE 38400
+//#define CUSTOM_BAUD_RATE 19200
 
 // | Clock & baud | 460800 | 250000 | 230400 | 115200   | 57600    | 38400 | 19200    | 9600     | 4800 | 2400 | 1200 |
 // |--------------|--------|--------|--------|----------|----------|-------|----------|----------|------|------|------|
@@ -51,8 +56,8 @@ need in order to free up space.
 // | 12 MHz       |        | X      | X      | X (def.) | X        | X     |          |          |      |      |      |
 // | 9.6 MHz      |        | X      | X      | X (def.) | X        | X     |          |          |      |      |      |
 // | 8 MHz        |        | X      | X      | X (def.) | X        | X     |          |          |      |      |      |
-// | 4.8 MHz      |        |        |        | X        | X (def.) | X     | X        | X        |      |      |      |
-// | 1.2 MHz      |        |        |        |          |          | X     | X (def.) | X        | X    | X    |      |
+// | 4.8 MHz      |        | X      | X      | X        | X (def.) | X     | X        | X        |      |      |      |
+// | 1.2 MHz      |        |        |        |          | X        | X     | X (def.) | X        | X    | X    |      |
 // | 1 MHz        |        |        |        |          |          | X     | X (def.) | X        | X    | X    |      |
 // | 600 kHz      |        |        |        |          |          |       | X        | X (def.) | X    | X    | X    |
 // | 128 kHz      |        |        |        |          |          |       |          |          |      |      |      |

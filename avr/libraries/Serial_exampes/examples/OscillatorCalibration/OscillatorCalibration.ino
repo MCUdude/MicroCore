@@ -1,7 +1,7 @@
 /*
   ATtiny13 internal oscillator tuner
 
-  By Ralph Doncaster (2019)
+  By Ralph Doncaster (2020)
   Tweaked and tuned by MCUdude
   ------------------------------------------------------------------------------
 
@@ -52,109 +52,131 @@
 
 #include <EEPROM.h>
 
-const int8_t delta_val = 5;
-const uint8_t uart_rx_pin = 1;
+// Add 0.5 for integer rounding
+const uint8_t CYCLES_PER_BIT = (uint8_t)(PUBIT_CYCLES + 0.5);
 
-// Converts 4-bit nibble to ascii hex
+// converts 4-bit nibble to ascii hex
 uint8_t nibbletohex(uint8_t value)
 {
   value &= 0x0F;
-  if (value > 9)
+  if ( value > 9 )
     value += 'A' - ':';
   return value + '0';
 }
 
-// Function to run when Rx interrupt occurs
-void rxInterrupt()
+void printHex(uint8_t value)
 {
+  putx(nibbletohex(value/16));
+  putx(nibbletohex(value));
+}
+
+// RX interrupt
+ISR(PCINT0_vect)
+{
+  static uint8_t cal_counter;
+  
   // Start timer when pin transitions low
-  if ((PINB & _BV(uart_rx_pin)) == 0)
+  if ((PINB & _BV(PURXBIT)) == 0)
     TCCR0B = _BV(CS00);
   else
   {
-    uint8_t current = TCNT0;
+    uint8_t current = TCNT0;    
     // End of interval, reset counter
     TCCR0B = 0;
     TCNT0 = 0;
-    // The 'x' character begins with 3 zeros + start bit = 4
-    // Match speed to soft uart timing of 7 + TXDELAYCONT * 3
-    uint8_t expected = (uint8_t)(4 * (7 + TXDELAYCOUNT * 3));
-    int8_t delta = expected - current;
-    if (delta > delta_val)  OSCCAL++;
-    if (delta < -delta_val) OSCCAL--;
-    asm("lpm"); // 3 cycle delay
 
-    // Print calculation
-    Serial.print(F("Delta: 0x"));
-    Serial.write(nibbletohex(delta >> 4));
-    Serial.write(nibbletohex(delta));
-    Serial.print(F("  New cal: 0x"));
-    Serial.write(nibbletohex(OSCCAL >> 4));
-    Serial.write(nibbletohex(OSCCAL));
-    Serial.write('\n');
-    
-    // Store new OSCCAL to EEPROM when stable
-    static uint8_t cal;
-    static uint8_t cal_counter;
-    if(cal != OSCCAL)
-      cal = OSCCAL;
-    else if(++cal_counter >= 10)
+    // 'x' begins with 3 zeros + start bit = 4 * bit-time
+    // Match speed to soft uart bit time
+    // Use mod256 math to handle potential uint8_t overflow
+    uint16_t expected = (uint16_t)(PUBIT_CYCLES * 4 + 0.5);
+    int8_t delta = (expected & 0xFF) - current;
+    prints(F("OSCCAL: 0x"));
+    printHex(OSCCAL);
+    if (delta > 3)
     {
-      EEPROM.write(0, OSCCAL);
-      Serial.print(F("New OSCCAL stored to EEPROM addr. 0\n"));
-      while(true);
+      OSCCAL++;
+      prints(F(" - slow\n"));
+    }
+    else if (delta < -3)
+    {
+      OSCCAL--;
+      prints(F(" - fast\n"));
+    }
+    else
+    {
+      prints(F(" - good\n"));
+      cal_counter++;
     }
   }
- 
+
+  // Store new OSCCAL to EEPROM when stable    
+  if(cal_counter >= 5)
+  {
+    EEPROM.write(0, OSCCAL);
+    prints(F("New OSCCAL stored to EEPROM addr. 0\n"));
+    while(true);
+  }
+  
   // Clear interrupt flag in case another triggered
-  GIFR = _BV(INTF0);
+  GIFR = _BV(PCIF);
 }
 
-void setup() 
+void setup()
 {
-  // Note that any baud rate specified is ignored on the ATtiny13. See header above.
-  Serial.begin();
-
-  // Prepare for sleep mode
-  MCUCR = _BV(SE);
-
-  // Enable Rx pin pullup
-  digitalWrite(uart_rx_pin,HIGH);
+  // Serial monitor open delay
+  delay(500);
   
-  // Setup RX interrupt
-  attachInterrupt(0, rxInterrupt, CHANGE);
-  
-  delay(1000);
+  // Pullup RX line
+  PORTB |= _BV(PURXBIT);
 
-  // Print default message
-  Serial.write('x');
-  Serial.write('\n');
-  
+  printHex(OSCCAL);
+  prints(F(" Hit x to test.\n"));
+
   wait_x:
   // Wait for tuning character to ensure not reading noise
   // before entering tuning mode
   uint8_t counter = 0;
-  while (PINB & _BV(uart_rx_pin));
+  while (PINB & _BV(PURXBIT));
   do 
   {
     counter++;
-  } while ((PINB & _BV(uart_rx_pin)) == 0);
-
-  // Low period should be 4 bit-times
-  uint8_t margin = BIT_CYCLES/8;
-  if (counter - (uint8_t)BIT_CYCLES > margin)
-    goto wait_x;
-  else
+  } while ((PINB & _BV(PURXBIT)) == 0);
+  
+  // Low period should be 4 bit-times for 'x'
+  // Counter loop is 4 cycles, so counter =~ cycles/bit
+  // 1/4 = 25% timing margin
+  uint8_t margin = CYCLES_PER_BIT / 4;
+  uint8_t delta = __builtin_abs(counter - CYCLES_PER_BIT);
+  if (delta > margin)
   {
-    if ((uint8_t)BIT_CYCLES - counter > margin)
-      goto wait_x;
+    prints(F("Noise skipped\n"));
+    goto wait_x;
   }
+  
+  // Skip remaining bits in frame
+  delay(1);
 
-  delay(1); // Skip remaining bits in frame
-
+  prints(F(" OSCCAL "));
+  if (delta < 2)
+  { 
+    prints(F("OK\n"));
+    return;
+  }
+  prints(F("Imperfect\n"));
+  
   // Reset counter for first interrupt
   TCCR0B = 0;
   TCNT0 = 0;
+
+  // Prepare RX interrupt
+  PCMSK = _BV(PURXBIT);
+  GIMSK = _BV(PCIE);
+
+  // Enable interrupts
+  sei();
+
+  // Prepare sleep
+  MCUCR |= _BV(SE);
 }
 
 void loop() 

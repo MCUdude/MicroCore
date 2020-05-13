@@ -12,5 +12,5 @@
 #######################################
 read_byte	KEYWORD2
 read_char	KEYWORD2
-read_char_blocking	KEYWORD2
+read_blocking	KEYWORD2
 read_str	KEYWORD2

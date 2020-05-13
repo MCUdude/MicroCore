@@ -64,7 +64,7 @@ void loop()
   Serial.println(F("3. Sing"));
   Serial.println(F("4. Jack"));
 
-  switch(Serial.read_char_blocking())
+  switch(Serial.read_blocking())
   {
     case '1':
       Serial.println(F(">> Hello"));
@@ -76,8 +76,11 @@ void loop()
       Serial.println(F(">> Daisy, daisy, give me your answer do."));
       break;
     case '4':
-      for(uint8_t x = 0; x < 100; x++)
-        Serial.println(F("All work and no play makes Jack a dull boy."));       
+      for(uint8_t i = 1; i <= 100; i++)
+      {
+        Serial.print(i);
+        Serial.println(F(": All work and no play makes Jack a dull boy."));       
+      }
       break;
     default:
       Serial.println(F("* Unkown Command *"));

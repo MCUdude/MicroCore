@@ -31,81 +31,70 @@ HalfDuplexSerial Serial;
 
 int16_t HalfDuplexSerial::available(void)
 {
-  // There is never anything available, we have no buffer
-  return 0;
+  // Data is ready when PCINT is disabled
+  #ifdef INTERRUPT_SERIAL_RX
+    // Data is ready when PCINT is disabled
+    return purx_dataready();
+  #else
+    return -1;
+  #endif
 }
 
 int16_t HalfDuplexSerial::peek(void)
 {
-  // We have no buffer, no peeking
-  return -1;
+  #ifdef INTERRUPT_SERIAL_RX
+    return pu_peek();
+  #else
+    return -1;
+  #endif
 }
 
 int16_t HalfDuplexSerial::read(void)
 {
-  #ifdef HALF_DUPLEX_SERIAL_DISABLE_READ
-  return -1;
+  #ifdef INTERRUPT_SERIAL_RX
+    return pu_read();
   #else
-  return RxByteNBNegOneReturn();
+    return purx();
   #endif
 }
 
-// This is the same as Serial.read() in that it is a
-// non blocking read, returning -1 if no data was read
-int16_t HalfDuplexSerial::read_byte(void)
+int16_t HalfDuplexSerial::read_blocking(void)
 {
-  return RxByteNBNegOneReturn();
+  #ifdef INTERRUPT_SERIAL_RX
+    while(!purx_dataready());
+    return pu_read();
+  #else
+    return purx();
+  #endif
 }
 
-char HalfDuplexSerial::read_char(void)
+int16_t HalfDuplexSerial::read_str(char buf[], uint8_t buflen, char endchar)
 {
-  return RxByteNBZeroReturn();
-}
-
-char HalfDuplexSerial::read_char_blocking(void)
-{
-  cli();
-  return RxByte();
-}
-
-void HalfDuplexSerial::read_str(char buf[], uint8_t length)
-{
-  uint16_t t = 0xFFFF; // every time we attempt to read and fail, we decrement,
-                       // when we hit zero time is up.  FIXME to use a more
-                       // definite timing!
-  uint8_t i = 0;
-  buf[length - 1] = 0; // enforce null termination
-
-  // Caution! There's no buffering in our serial routine, no interrupt driven
-  // collection, so we need to have this loop pretty tight to avoid missed-bits
-  // and corrupted bytes.
-  //
-  // The usefulness of this routine is questionable at best.
-  //
-  // Interrupts are disabled during the entire read
-  uint8_t oldSREG = SREG;
-  cli();
+  uint8_t count = 0;
+  char c;
   do
   {
-    while( (!(buf[i] = RxByteNBZeroReturn())) && --t);
-  } while((++i < (length-1)) && t);
-  SREG = oldSREG; // Put back interrupts again
-
-  // i ends up as the index of the next character to read
-  // this is at most length-1 so we can simply set i to be
-  // null and we have our null-terminated string
-  buf[i] = 0;
+    #ifdef INTERRUPT_SERIAL_RX
+      while ( !purx_dataready() );   // wait for data
+      c = pu_read();
+    #else
+      c = purx();
+    #endif
+    buf[count++] = c;
+  } while ( (c != endchar) && (count < buflen - 1) );
+  buf[count] = '\0';
+  return count;
 }
 
 void HalfDuplexSerial::write(uint8_t ch)
 {
-  TxByte(ch);
+  putx(ch);
 }
 
 void HalfDuplexSerial::write(const uint8_t *buffer, size_t size)
 {
   for(size_t n = 0; n < size; n++)
-    TxByte(buffer[n]);
+    putx(buffer[n]);
 }
 
 void HalfDuplexSerial::print(const __FlashStringHelper *ifsh)
@@ -116,7 +105,7 @@ void HalfDuplexSerial::print(const __FlashStringHelper *ifsh)
   do
   {
     c = pgm_read_byte(p++);
-    TxByte(c);
+    putx(c);
   } while(c);
 }
 
@@ -133,7 +122,7 @@ void HalfDuplexSerial::print(const char str[])
 
 void HalfDuplexSerial::print(char c)
 {
-  TxByte(c);
+  putx(c);
 }
 
 #if PRINT_MAX_INT_TYPE != PRINT_INT_TYPE_BYTE
@@ -171,7 +160,7 @@ void HalfDuplexSerial::print(PRINT_INT_TYPE n, uint8_t base)
 {
   if (base == 10 && n < 0)
   {
-    TxByte('-');
+    putx('-');
     printNumber(-n,base);
   }
   else
@@ -196,8 +185,8 @@ void HalfDuplexSerial::println(const __FlashStringHelper *ifsh)
 
 void HalfDuplexSerial::println(void)
 {
-  TxByte('\r');
-  TxByte('\n');
+  putx('\r');
+  putx('\n');
 }
 
 void HalfDuplexSerial::println(const String &s)
@@ -458,7 +447,7 @@ void HalfDuplexSerial::printFloat(double number, uint8_t digits)
   // Handle negative numbers
   if (number < 0.0)
   {
-     TxByte('-');
+     putx('-');
      number = -number;
   }
 
@@ -479,7 +468,7 @@ void HalfDuplexSerial::printFloat(double number, uint8_t digits)
   // Print the decimal point, but only if there are digits beyond
   if (digits > 0)
   {
-    TxByte('.');
+    putx('.');
   }
 
   // Extract digits from the remainder one at a time
