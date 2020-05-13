@@ -101,12 +101,9 @@ void HalfDuplexSerial::print(const __FlashStringHelper *ifsh)
 {
   PGM_P p = reinterpret_cast<PGM_P>(ifsh);
   uint8_t c;
-
-  do
-  {
-    c = pgm_read_byte(p++);
+  
+  while ((c = pgm_read_byte(p++)))
     putx(c);
-  } while(c);
 }
 
 void HalfDuplexSerial::print(const String &s)
