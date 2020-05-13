@@ -69,12 +69,9 @@ extern "C"{
   #define NOT_A_PIN 0
   #define TIMER0A 1
   #define TIMER0B 2
-  #ifdef abs
-    #undef abs
-  #endif
+
   #define min(a,b) ((a)<(b)?(a):(b))
   #define max(a,b) ((a)>(b)?(a):(b))
-  #define abs(x)   ((x)>0?(x):-(x))
   #define constrain(amt,low,high) ((amt)<(low)?(low):((amt)>(high)?(high):(amt)))
   #define round(x)     ((x)>=0?(int32_t)((x)+0.5):(int32_t)((x)-0.5))
   #define radians(deg) ((deg)*DEG_TO_RAD)
