@@ -9,57 +9,83 @@
 ## IDE are located.
 #########################################
 
-usbasp.name=USBasp (slow)
+usbasp.name=USBasp (MicroCore)
 usbasp.communication=usb
 usbasp.protocol=usbasp
 usbasp.upload.protocol=usbasp
 usbasp.program.protocol=usbasp
 usbasp.program.tool=avrdude
-usbasp.program.extra_params=-Pusb -B32
+usbasp.program.extra_params=-Pusb
 
-usbtinyisp.name=USBtinyISP (slow)
+usbasp_slow.name=USBasp slow (MicroCore)
+usbasp_slow.communication=usb
+usbasp_slow.protocol=usbasp
+usbasp_slow.upload.protocol=usbasp
+usbasp_slow.program.protocol=usbasp
+usbasp_slow.program.tool=avrdude
+usbasp_slow.program.extra_params=-Pusb -B32
+
+usbtinyisp.name=USBtinyISP (MicroCore)
 usbtinyisp.protocol=usbtiny
 usbtinyisp.upload.protocol=usbtiny
 usbtinyisp.program.tool=avrdude
-usbtinyisp.program.extra_params=-B32
+usbtinyisp.program.extra_params=
 
-arduinoasisp.name=Arduino as ISP (slow)
+usbtinyisp_slow.name=USBtinyISP slow (MicroCore)
+usbtinyisp_slow.protocol=usbtiny
+usbtinyisp_slow.upload.protocol=usbtiny
+usbtinyisp_slow.program.tool=avrdude
+usbtinyisp_slow.program.extra_params=-B32
+
+arduinoasisp.name=Arduino as ISP (MicroCore)
 arduinoasisp.communication=serial
 arduinoasisp.protocol=stk500v1
 arduinoasisp.upload.protocol=stk500v1
 arduinoasisp.speed=19200
 arduinoasisp.program.protocol=stk500v1
-arduinoasisp.program.speed=250
+arduinoasisp.program.speed=19200
 arduinoasisp.program.tool=avrdude
 arduinoasisp.program.extra_params=-P{serial.port} -b{program.speed}
 
-avrisp.name=AVR ISP (slow)
+arduinoasisp_slow.name=Arduino as ISP slow (MicroCore)
+arduinoasisp_slow.communication=serial
+arduinoasisp_slow.protocol=stk500v1
+arduinoasisp_slow.upload.protocol=stk500v1
+arduinoasisp_slow.speed=19200
+arduinoasisp_slow.program.protocol=stk500v1
+arduinoasisp_slow.program.speed=19200
+arduinoasisp_slow.program.tool=avrdude
+arduinoasisp_slow.program.extra_params=-P{serial.port} -b{program.speed} -B32
+
+avrisp.name=AVR ISP (MicroCore)
 avrisp.communication=serial
 avrisp.protocol=stk500v1
 avrisp.program.protocol=stk500v1
 avrisp.program.tool=avrdude
-avrisp.program.extra_params=-P{serial.port} -B32
+avrisp.program.extra_params=-P{serial.port}
 
-avrispmkii.name=AVRISP mkII (slow)
+avrisp_slow.name=AVR ISP slow (MicroCore)
+avrisp_slow.communication=serial
+avrisp_slow.protocol=stk500v1
+avrisp_slow.program.protocol=stk500v1
+avrisp_slow.program.tool=avrdude
+avrisp_slow.program.extra_params=-P{serial.port} -B32
+
+avrispmkii.name=AVRISP mkII (MicroCore)
 avrispmkii.communication=usb
 avrispmkii.protocol=stk500v2
 avrispmkii.upload.protocol=stk500v2
 avrispmkii.program.protocol=stk500v2
 avrispmkii.program.tool=avrdude
-avrispmkii.program.extra_params=-Pusb -B32
+avrispmkii.program.extra_params=-Pusb
 
-arduinoisp.name=ArduinoISP (slow)
-arduinoisp.protocol=arduinoisp
-arduinoisp.upload.protocol=arduinoisp
-arduinoisp.program.tool=avrdude
-arduinoisp.program.extra_params=-B32
-
-arduinoisporg.name=ArduinoISP.org (slow)
-arduinoisporg.protocol=arduinoisporg
-arduinoisporg.upload.protocol=arduinoisporg
-arduinoisporg.program.tool=avrdude
-arduinoisporg.program.extra_params=-B32
-
+avrispmkii_slow.name=AVRISP mkII slow (MicroCore)
+avrispmkii_slow.communication=usb
+avrispmkii_slow.protocol=stk500v2
+avrispmkii_slow.upload.protocol=stk500v2
+avrispmkii_slow.program.protocol=stk500v2
+avrispmkii_slow.program.tool=avrdude
+avrispmkii_slow.program.extra_params=-Pusb -B32
 
 
 # STK500 firmware version v1 and v2 use different serial protocols.
@@ -75,24 +101,18 @@ arduinoisporg.program.extra_params=-B32
 #stk500.program.tool=avrdude
 #stk500.program.extra_params=-P{serial.port} -B32
 
-## Notes about Dangerous Prototypes Bus Pirate as ISP
-## Bus Pirate V3 need Firmware v5.10 or later
-## Bus Pirate V4 need Firmware v6.3-r2151 or later
-## Could happen that BP does not have enough current to power an Arduino board 
-## through the ICSP connector. In this case disconnect the +Vcc from ICSP connector
-## and power Arduino board in the normal way.
-buspirate.name=BusPirate as ISP (slow)
-buspirate.communication=serial
-buspirate.protocol=buspirate
-buspirate.upload.protocol=buspirate
-buspirate.program.protocol=buspirate
-buspirate.program.tool=avrdude
-buspirate.program.extra_params=-P{serial.port} -B32
-
-atmel_ice.name=Atmel-ICE (AVR) (slow)
+atmel_ice.name=Atmel ICE (MicroCore)
 atmel_ice.communication=usb
 atmel_ice.protocol=atmelice_isp
 atmel_ice.upload.protocol=atmelice_isp
 atmel_ice.program.protocol=atmelice_isp
 atmel_ice.program.tool=avrdude
-atmel_ice.program.extra_params=-Pusb -B32
+atmel_ice.program.extra_params=-Pusb
+
+atmel_ice_slow.name=Atmel ICE slow (MicroCore)
+atmel_ice_slow.communication=usb
+atmel_ice_slow.protocol=atmelice_isp
+atmel_ice_slow.upload.protocol=atmelice_isp
+atmel_ice_slow.program.protocol=atmelice_isp
+atmel_ice_slow.program.tool=avrdude
+atmel_ice_slow.program.extra_params=-Pusb -B32
