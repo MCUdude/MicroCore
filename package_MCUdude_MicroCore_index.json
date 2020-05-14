@@ -19,7 +19,9 @@
           "checksum": "SHA-256:e6b783bab8b00ed6850a48a9d0a8fbd246193438dcb99936cc9483257d8bdffc",
           "size": "42801",
           "boards": [
-            {"name": "ATtiny13"}
+            {
+              "name": "ATtiny13"
+            }
           ],
           "toolsDependencies": []
         },
@@ -33,7 +35,9 @@
           "checksum": "SHA-256:ed0f7e870b0985d3052d296c2fc60187755d2561da86d77f980635f303bc2750",
           "size": "40461",
           "boards": [
-            {"name": "ATtiny13"}
+            {
+              "name": "ATtiny13"
+            }
           ],
           "toolsDependencies": []
         },
@@ -47,7 +51,9 @@
           "checksum": "SHA-256:3d9b077ff79bd90718c5502b846e221efa1b03d9579371dd645acff61cd0946d",
           "size": "41381",
           "boards": [
-            {"name": "ATtiny13"}
+            {
+              "name": "ATtiny13"
+            }
           ],
           "toolsDependencies": []
         },
@@ -61,7 +67,9 @@
           "checksum": "SHA-256:ffce37797a5c1df0016e4e30da29707fe41d6e72bdf2af2235e9c2ddd3d1a0fa",
           "size": "47676",
           "boards": [
-            {"name": "ATtiny13"}
+            {
+              "name": "ATtiny13"
+            }
           ],
           "toolsDependencies": []
         },
@@ -75,7 +83,9 @@
           "checksum": "SHA-256:450316cef63178cbdd52dd04d0ddbc8ac52a91321b1e57efdc5b6c48f485bc4e",
           "size": "50612",
           "boards": [
-            {"name": "ATtiny13"}
+            {
+              "name": "ATtiny13"
+            }
           ],
           "toolsDependencies": []
         },
@@ -89,7 +99,25 @@
           "checksum": "SHA-256:cc46ff0351aaeac5e2517fea74a4fb8021a777e1aad857064af3e80e13b59a40",
           "size": "85974",
           "boards": [
-            {"name": "ATtiny13"}
+            {
+              "name": "ATtiny13"
+            }
+          ],
+          "toolsDependencies": []
+        },
+        {
+          "name": "MicroCore",
+          "architecture": "avr",
+          "version": "1.0.6",
+          "category": "Contributed",
+          "url": "https://MCUdude.github.io/MicroCore/MicroCore-1.0.6.tar.bz2",
+          "archiveFileName": "MicroCore-1.0.6.tar.bz2",
+          "checksum": "SHA-256:07ff6bd51c12d88f3cd225f9e8231fec65f54584ab173d7d45d9ed82edcf77bd",
+          "size": "84293",
+          "boards": [
+            {
+              "name": "ATtiny13/A"
+            }
           ],
           "toolsDependencies": []
         }
