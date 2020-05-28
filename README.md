@@ -26,6 +26,7 @@ If you're looking for a great development board for the ATtiny13, and DIP-8 ATti
 * **[How to install](#how-to-install)**
   - [Boards Manager Installation](#boards-manager-installation)
   - [Manual Installation](#manual-installation)
+  - [PlatformIO](#platformio)
 * **[Getting started with MicroCore](#getting-started-with-microcore)**
 * [Pinout](#pinout)
 * [Minimal setup](#minimal-setup)
@@ -142,6 +143,12 @@ MicroCore requires Arduino IDE version 1.6.13 or greater.
 #### Manual Installation
 Click on the "Clone or download" button in the upper right corner. Extract the ZIP file, and move the extracted folder to the location "**~/Documents/Arduino/hardware**". Create the "hardware" folder if it doesn't exist.
 Open Arduino IDE, and a new category in the boards menu called "MicroCore" will show up.
+
+
+#### PlatformIO
+[PlatformIO](http://platformio.org) is an open source ecosystem for IoT and embedded development, and supports MicroCore.
+
+**See [PlatformIO.md](https://github.com/MCUdude/MicroCore/blob/master/PlatformIO.md) for more information.*
 
 
 ## Getting started with MicroCore
