@@ -44,7 +44,7 @@ framework = arduino
 ; PlatformIO requires the board parameter
 board = ATtiny13
 ; Clock frequency in [Hz]
-board_build.f_cpu = 96000000L
+board_build.f_cpu = 9600000L
 
 ; HARDWARE SETTINGS
 ; Oscillator option (will use internal oscillator if not defined)
@@ -66,8 +66,8 @@ upload_protocol = usbasp
 ;upload_port = 
 ; Aditional upload flags (each flag has to be on its own line)
 upload_flags =
--Pusb
--B8
+  -Pusb
+  -B8
 
 ; SERIAL MONITOR OPTIONS
 ; Serial monitor port
