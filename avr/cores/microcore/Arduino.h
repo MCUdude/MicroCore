@@ -139,7 +139,7 @@ extern "C"{
   template <typename A, typename B, typename C, typename D, typename E> 
   int32_t map(A x, B in_min, C in_max, D out_min, E out_max)
   {
-    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+    return (int32_t)(x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
   }
   
 #endif
