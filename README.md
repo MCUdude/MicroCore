@@ -183,7 +183,7 @@ This diagram shows the pinout and the peripherals of ATtiny13. The Arduino pinou
 ## Minimal setup
 <b>Click to enlarge:</b> 
 </br> </br>
-<img src="https://i.imgur.com/TI43e2k.png" width="500">
+<img src="https://i.imgur.com/MXXCirE.png" width="500">
 
 
 ## Working Arduino functions and libraries
