@@ -17,7 +17,7 @@ need in order to free up space.
 // Arduino would support.
 
 // Pins to use for Tx and Rx
-// Note that you can use the same pin for TX and TX by giving them the same number
+// Note that you can use the same pin for TX and RX by giving them the same number
 #ifndef UART_TX_PIN
   #define UART_TX_PIN B,0
 #endif
