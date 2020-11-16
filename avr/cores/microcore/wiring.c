@@ -117,9 +117,8 @@ uint32_t micros()
 // Wrapper to deal with _delay_ms(), which is an inline function
 void delay(uint16_t ms)
 {
-  do
+  while(ms--)
     _delay_ms(1);
-  while(--ms);
 }
 
 
