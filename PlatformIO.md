@@ -14,10 +14,24 @@ And best of all, MicroCore is supported!
 ## MicroCore + PlatformIO
 MicroCore and PlatformIO goes great together. You can upload using your favorite programmer and print to the serial monitor. But you can also let PlatformIO calulate the fuses, just like Arduino IDE does!
 
-PlatformIO uses the information provided in platformio.ini to calculate what fuse bits to load.  Simply provide enough information and run the following command:  
-`pio run --target fuses`
+PlatformIO uses the information provided in platformio.ini to calculate what fuse bits and what bootloader file to load.  
+Simply provide enough information and run the following commands:  
 
-You can find a platformio.ini template you can use when creating a project for a MicroCore compatible device below. The most common functionality is available in this template. More information on what each line means can be found futher down on this page.
+```ini
+; Set fuses
+pio run -t fuses -e set_fuses
+; (where "set_fuses" can be replace with a different environment to match your build configuration)
+```
+
+You can find a platformio.ini template you can use when creating a project for the ATtiny13 below.  
+The most common functionality is available in this template. As you can see, the templated is divided into multiple environments.  
+
+* The default build environment are defined under `[platformio]`.
+* All parameters that are common for all environments are defined under `[env]`.
+* Use the `[env:Upload_ISP]` to upload to your target.
+* Use `[env:set_fuses]` to set the fuses.
+
+More information on what each line means can be found futher down on this page.
 
 ``` ini
 ; PlatformIO template project configuration file for MicroCore
@@ -35,24 +49,20 @@ You can find a platformio.ini template you can use when creating a project for a
 ; https://docs.platformio.org/en/latest/platforms/atmelavr.html
 
 
-; ENVIRONMENT SETTINGS
-[env:MicroCore]
+[platformio]
+default_envs = Upload_ISP ; Default build target
+
+
+; Common settings for all environments
+[env]
 platform = atmelavr
 framework = arduino
 
 ; TARGET SETTINGS
-; PlatformIO requires the board parameter
+; Chip in use
 board = ATtiny13
 ; Clock frequency in [Hz]
 board_build.f_cpu = 9600000L
-
-; HARDWARE SETTINGS
-; Oscillator option (will use internal oscillator if not defined)
-board_hardware.oscillator = internal
-; Brown-out detection
-board_hardware.bod = 2.7v
-; EEPROM retain
-board_hardware.eesave = yes
 
 ; BUILD OPTIONS
 ; Extra build flags
@@ -60,26 +70,44 @@ build_flags =
 ; Uflag existing flags
 build_unflags =
 
-; UPLOAD SETTINGS
-upload_protocol = usbasp
-; Upload port (only needed for UART based programmers)
-;upload_port = 
-; Aditional upload flags (each flag has to be on its own line)
-upload_flags =
-  -Pusb
-  -B8
-
 ; SERIAL MONITOR OPTIONS
 ; Serial monitor port
-;monitor_port = 
+monitor_port = /dev/cu.usberserial*
 ; Serial monitor baud rate
 monitor_speed = 115200
+
+
+; Run the following command to upload with this environment
+; pio run -e Upload_ISP -t upload
+[env:Upload_ISP]
+; Custom upload procedure
+upload_protocol = custom
+; Avrdude upload flags
+upload_flags =
+  -C$PROJECT_PACKAGES_DIR/tool-avrdude/avrdude.conf
+  -p$BOARD_MCU
+  -PUSB
+  -cusbasp
+; Avrdude upload command
+upload_command = avrdude $UPLOAD_FLAGS -U flash:w:$SOURCE:i
+
+
+; Run the following command to set fuses
+; pio run -e set_fuses -t fuses
+[env:set_fuses]
+board_hardware.oscillator = internal ; Oscillator type
+board_hardware.bod = 2.7v            ; Set brown-out detection
+board_hardware.eesave = yes          ; Preserve EEPROM when uploading using programmer
+upload_protocol = usbasp             ; Use the USBasp as programmer
+upload_flags =                       ; Select USB as upload port and divide the SPI clock by 8
+  -PUSB
+  -B8
+
 ```
 
 
 ### `board`
 PlatformIO requires the `board` parameter to be present.
-The table below shows what board name should be used for each target
 
 | Target     | Board name |
 |------------|------------|
