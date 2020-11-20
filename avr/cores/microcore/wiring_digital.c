@@ -10,15 +10,10 @@ digitalWrite() and digitalRead().
 */
 
 #include "wiring_private.h"
-#include "core_settings.h"
 
 void pinMode(uint8_t pin, uint8_t mode)
 {
-  // SAFEMODE prevents you from inserting a pin number out of range
-  #ifdef SAFEMODE
-    if(pin > 5)
-      return;
-  #endif
+ check_valid_digital_pin(pin);
   
   if(mode == OUTPUT) // Pin as output
     DDRB |= _BV(pin);
@@ -34,15 +29,7 @@ void pinMode(uint8_t pin, uint8_t mode)
 
 void digitalWrite(uint8_t pin, uint8_t val)
 {
-  // SAFEMODE prevents you from inserting a pin number out of range, and disables PWM if turned on
-  #if defined(SAFEMODE)
-    if(pin > 5)
-      return;
-    #if defined(SETUP_PWM)
-      if(pin < 2)
-        turnOffPWM(pin); // If it's a PWM pin, make sure PWM is off
-    #endif
-  #endif  
+  check_valid_digital_pin(pin);
     
   if(val)
     PORTB |= _BV(pin);  // Set pin high
@@ -53,15 +40,7 @@ void digitalWrite(uint8_t pin, uint8_t val)
 
 uint8_t digitalRead(uint8_t pin)
 {
-  // SAFEMODE prevents you from inserting a pin number out of range, and disables PWM if turned on
-  #ifdef SAFEMODE
-    if(pin > 5)
-      return 0;
-    #if defined(SETUP_PWM)
-      if(pin < 2)
-        turnOffPWM(pin); // If it's a PWM pin, make sure PWM is off
-    #endif
-  #endif
+  check_valid_digital_pin(pin);
   
   return !!(PINB & _BV(pin));
 }

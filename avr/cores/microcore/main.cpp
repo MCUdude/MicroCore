@@ -11,7 +11,8 @@ runs.
   
 #include "Arduino.h"
 
-int main(void)
+__attribute__(( section(".init9") ))
+int main()
 {
   init();  // Call init routine (wiring.c)
   setup(); // Call user provided setup()
