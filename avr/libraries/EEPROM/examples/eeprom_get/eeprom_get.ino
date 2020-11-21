@@ -22,12 +22,7 @@ void setup() {
   float f = 0.00f;   //Variable to store data read from EEPROM.
   int eeAddress = 0; //EEPROM address to start reading from
 
-  /* If you want to implement serial output on the ATtiny13,
-  you should check out Ralph Doncaster's BasicSerial3 library!
-  http://nerdralph.blogspot.no/2014/01/avr-half-duplex-software-uart.html
-  */
-  
-  //Serial.begin(9600);
+  //Serial.begin();
 
   //Serial.print("Read float from EEPROM: ");
 

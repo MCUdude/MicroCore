@@ -1,7 +1,7 @@
 /***
    EEPROM Update method
 
-   Stores values read from analog input 0 into the EEPROM.
+   Stores values read from analog input 3 into the EEPROM.
    These values will stay in the EEPROM when the board is
    turned off and may be retrieved later by another sketch.
 
@@ -17,7 +17,7 @@
 unsigned int address = 0;
 
 void setup() {
-  /** EMpty setup **/
+  /** Empty setup **/
 }
 
 void loop() {
@@ -26,7 +26,7 @@ void loop() {
     0 to 1023 and each byte of the EEPROM can only hold a
     value from 0 to 255.
   ***/
-  int val = analogRead(0) / 4;
+  int val = analogRead(A3) / 4;
 
   /***
     Update the particular EEPROM cell.

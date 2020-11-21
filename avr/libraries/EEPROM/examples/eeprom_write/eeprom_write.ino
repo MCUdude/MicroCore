@@ -1,7 +1,7 @@
 /*
  * EEPROM Write
  *
- * Stores values read from analog input 0 into the EEPROM.
+ * Stores values read from analog input 3 into the EEPROM.
  * These values will stay in the EEPROM when the board is
  * turned off and may be retrieved later by another sketch.
  */
@@ -22,7 +22,7 @@ void loop() {
     value from 0 to 255.
   ***/
 
-  int val = analogRead(0) / 4;
+  int val = analogRead(A3) / 4;
 
   /***
     Write the value to the appropriate byte of the EEPROM.
