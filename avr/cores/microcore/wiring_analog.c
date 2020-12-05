@@ -24,8 +24,6 @@ void analogReference(uint8_t mode)
 
 int16_t analogRead(analog_pin_t pin)
 {
-  check_valid_analog_pin(pin);
-
   // MUX1 & MUX0 are 2 lowest bits in ADMUX
   ADMUX = (ADMUX & 0xFC) | pin;
 

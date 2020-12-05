@@ -134,19 +134,6 @@ extern "C"{
       badArg("Digital pin must be a constant");
   }
 
-  // Check for valid analog pin (A0 .. A3)
-  __attribute__((always_inline))
-  inline void check_valid_analog_pin(analog_pin_t pin)
-  {
-    if(__builtin_constant_p(pin))
-    {
-      if(pin >= BAD_ANALOG_PIN)
-        badArg("Analog pin out of range");
-    }
-    else
-      badArg("Analog pin must be a constant");
-  }
-
   // Check for valid PWM pin (0 .. 1)
   __attribute__((always_inline))
   inline void check_valid_pwm_pin(uint8_t pin)
