@@ -82,6 +82,5 @@ typedef enum
   A0 = 0,
   A1 = 1,
   A2 = 2,
-  A3 = 3,
-  BAD_ANALOG_PIN = 4
+  A3 = 3
 } analog_pin_t;
