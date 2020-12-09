@@ -21,13 +21,6 @@ dozen microseconds before the start of the pulse.
 // However it will only work properly with LTO enabled.
 uint32_t pulseIn(uint8_t pin, uint8_t state, uint32_t timeout)
 {
-  check_valid_digital_pin(pin);
-
-  #if defined(SAFEMODE)
-    if(pin < 2)
-      turnOffPWM(c); // If it's a PWM pin, make sure PWM is off
-  #endif
-
   // Convert the timeout from microseconds to a number of times through
   // the initial loop; it takes 16 clock cycles per iteration.
   uint32_t numloops = 0;

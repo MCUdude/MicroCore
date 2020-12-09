@@ -115,38 +115,6 @@ extern "C"{
   void loop(void);
   void yield(void) __attribute__ ((weak, alias("__empty")));
   static void __empty() { /* Empty*/ }
-
-  // Constant checks error handler
-  void badArg(const char*) __attribute__((error("")));
-  #define ASSERT_CONST(pin) \
-    if(!__builtin_constant_p(pin)) badArg("Pin must be a constant")
-
-  // Check for valid PWM pin (0 .. 5)
-  __attribute__((always_inline))
-  inline void check_valid_digital_pin(uint8_t pin)
-  {
-    if(__builtin_constant_p(pin))
-    {
-      if(pin >= NUM_DIGITAL_PINS)
-        badArg("Digtial pin out of range");
-    }
-    else
-      badArg("Digital pin must be a constant");
-  }
-
-  // Check for valid PWM pin (0 .. 1)
-  __attribute__((always_inline))
-  inline void check_valid_pwm_pin(uint8_t pin)
-  {
-    if(__builtin_constant_p(pin))
-    {
-      if(pin > 1)
-        badArg("PWM pin out of range");
-    }
-    else
-      badArg("PWM pin must be a constant");
-  }
-
 #ifdef __cplusplus
 } // extern "C"
 

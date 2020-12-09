@@ -13,19 +13,14 @@ analogWrite().
 
 void turnOffPWM(uint8_t pin)
 {
-  check_valid_pwm_pin(pin);
-
   if(pin == 0)
     TCCR0A &= ~_BV(COM0A1);
   else
     TCCR0A &= ~_BV(COM0B1);
 }
 
-
 void analogWrite(uint8_t pin, uint8_t val)
 {
-  check_valid_pwm_pin(pin);
-
   // Set Timer0 prescaler
   #if !defined(ENABLE_MICROS)
     #if defined(PWM_PRESCALER_NONE)     // PWM frequency = (F_CPU/256) / 1
@@ -47,7 +42,8 @@ void analogWrite(uint8_t pin, uint8_t val)
     #endif
   #endif
 
-  pinMode(pin, OUTPUT);
+  // Set pin to output
+  DDRB |= _BV(pin);
 
   // Handle off condition
   if(val == 0)
