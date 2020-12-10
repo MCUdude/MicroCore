@@ -11,6 +11,11 @@ analogWrite().
 #include "core_settings.h"
 
 
+/**
+ * @brief Turns of PWM functionality on a pin
+ *
+ * @param pin Pin to disable PWM on
+ */
 void turnOffPWM(uint8_t pin)
 {
   if(pin == 0)
@@ -19,6 +24,12 @@ void turnOffPWM(uint8_t pin)
     TCCR0A &= ~_BV(COM0B1);
 }
 
+/**
+ * @brief Writes a PWM value to a PWM compatible pin
+ *
+ * @param pin PWM pin (digital pin 0 or 1)
+ * @param val PWM value to write (8-bit, 0 - 255)
+ */
 void analogWrite(uint8_t pin, uint8_t val)
 {
   // Set Timer0 prescaler

@@ -25,6 +25,13 @@ timers.
 // C wrapper function for millis asm code
 // reduces compiler register pressure vs avr-gcc calling convention
 // http://nerdralph.blogspot.ca/2015/12/lightweight-avr-assembler-functions.html
+
+/**
+ * @brief Returns the number of milliseconds passed since the microcontroller
+ *        began running the current program.
+ *
+ * @return uint32_t Number of milliseconds passed since the program started
+ */
 uint32_t millis()
 {
   uint32_t m;
@@ -47,6 +54,12 @@ ISR(TIM0_OVF_vect)
   timer0_overflow++; // Increment counter by one
 }
 
+/**
+ * @brief Returns the number of microseconds since the microcontroller
+ *        began running the current program.
+ *
+ * @return uint32_t Number of microseconds passed since the program started
+ */
 uint32_t micros()
 {
   uint32_t x;
@@ -114,7 +127,12 @@ uint32_t micros()
 #endif // ENABLE_MICROS
 
 
-// Wrapper to deal with _delay_ms(), which is an inline function
+/**
+ * @brief Pauses the program for the amount of time (in milliseconds)
+ *        specified as parameter.
+ *
+ * @param ms The number of milliseconds to pause
+ */
 void delay(uint16_t ms)
 {
   while(ms--)
@@ -122,9 +140,10 @@ void delay(uint16_t ms)
 }
 
 
-// This init() function will be executed before the setup() function does
-// Edit the core_settings.h file to choose what's going to be initialized
-// and what's not.
+/**
+ * @brief Initializing function that runs before setup().
+ *        This is where timer0 is set up to count micros() if enabled.
+ */
 void init()
 {
   // WARNING! Enabling micros() will affect timing functions!

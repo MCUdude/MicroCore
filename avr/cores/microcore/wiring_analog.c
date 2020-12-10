@@ -13,6 +13,14 @@ and analogReference().
 #include "core_settings.h"
 
 
+/**
+ * @brief Configures the reference voltage used for analog input (the value
+ *        used as the top of the input range)
+ *
+ * @param mode Analog reference level. Valid options are:
+ *        EXTERNAL - Use Vcc as reference,
+ *        INTERNAL1V1 - Use the internal 1.1V reference
+ */
 void analogReference(uint8_t mode)
 {
   if (mode == DEFAULT)
@@ -22,6 +30,12 @@ void analogReference(uint8_t mode)
 }
 
 
+/**
+ * @brief Reads the value from the specified analog input
+ *
+ * @param pin Analog pin number (use A0..A3)
+ * @return int16_t Analog reading on the pin (10-bit, 0-1023)
+ */
 int16_t analogRead(analog_pin_t pin)
 {
   // MUX1 & MUX0 are 2 lowest bits in ADMUX

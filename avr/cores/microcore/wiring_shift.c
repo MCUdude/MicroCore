@@ -11,6 +11,18 @@ functions shiftIn() and shiftOut().
 #include "wiring_private.h"
 
 
+/**
+ * @brief Shifts in a byte of data one bit at a time. Starts from either the
+ *        most (i.e. the leftmost) or least (rightmost) significant bit. For
+ *        each bit, the clock pin is pulled high, the next bit is read from the
+ *        data line, and then the clock pin is taken low.
+ *
+ * @param dataPin Digital input pin to receive serial data
+ * @param clockPin The pin to toggle to signal a read from dataPin
+ * @param bitOrder Which order to shift in the bits
+ *        MSBFIRST or LSBFIRST are valid options
+ * @return uint8_t The value read
+ */
 uint8_t shiftIn(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder)
 {
   uint8_t value = 0;
@@ -37,6 +49,18 @@ uint8_t shiftIn(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder)
 }
 
 
+/**
+ * @brief Shifts out a byte of data one bit at a time. Starts from either the
+ *        most (i.e. the leftmost) or least (rightmost) significant bit. Each
+ *        bit is written in turn to a data pin, after which a clock pin is
+ *        pulsed (taken high, then low) to indicate that the bit is available.
+ *
+ * @param dataPin The pin on which to output each bit
+ * @param clockPin The pin to toggle once the dataPin has been set to the correct value
+ * @param bitOrder Which order to shift in the bits
+ *        MSBFIRST or LSBFIRST are valid options
+ * @param value The data to shift out
+ */
 void shiftOut(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder, uint8_t value)
 {
   const uint8_t datapinMask = _BV(dataPin);

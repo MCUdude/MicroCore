@@ -16,9 +16,15 @@ dozen microseconds before the start of the pulse.
 #include "wiring_private.h"
 
 
-// This pulseIn function is a complete rewrite of the original one,
-// and does not depend on micros() to work.
-// However it will only work properly with LTO enabled.
+/**
+ * @brief Reads the pulse length (either HIGH or LOW) on a pin
+ *
+ * @param pin Pin number to read
+ * @param state state if the pulse to read (HIGH or LOW pulse)
+ * @param timeout Optional parameter. How long to wait before operation
+ *        is skipped
+ * @return uint32_t pulse length in microseconds
+ */
 uint32_t pulseIn(uint8_t pin, uint8_t state, uint32_t timeout)
 {
   // Convert the timeout from microseconds to a number of times through

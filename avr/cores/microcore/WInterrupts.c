@@ -22,6 +22,21 @@ detachInterrupt().
 
 static volatile voidFuncPtr intFunc;
 
+/**
+ * @brief Initialize and enable the external interrupt pin (INT0)
+ *
+ * @param interruptNum Interrupt number. Optional parameter since ATtiny13 only
+ *        has one interrupt pin
+ * @param userFunc The function to call when the interrupt occurs This function
+ *        must take no parameters and return nothing. This function is sometimes
+ *        referred to as an interrupt service routine.
+ * @param mode Defines when the interrupt should be triggered.
+ *        Four constants are predefined as valid values:
+ *        LOW to trigger the interrupt whenever the pin is low,
+ *        CHANGE to trigger the interrupt whenever the pin changes value,
+ *        RISING to trigger when the pin goes from low to high,
+ *        FALLING for when the pin goes from high to low.
+ */
 void attachInterrupt(__attribute__((unused)) uint8_t interruptNum, void (*userFunc)(void), uint8_t mode)
 {
   #if !defined(SAFEMODE)
@@ -49,7 +64,12 @@ void attachInterrupt(__attribute__((unused)) uint8_t interruptNum, void (*userFu
   GIMSK |= _BV(INT0);
 }
 
-
+/**
+ * @brief Turns off the INT0 interrupt pin
+ *
+ * @param interruptNum Interrupt number. Optional parameter since ATtiny13 only
+ *        has one interrupt pin
+ */
 void detachInterrupt(__attribute__((unused)) uint8_t interruptNum)
 {
   // Disable INT0 on pin PB1
@@ -58,7 +78,7 @@ void detachInterrupt(__attribute__((unused)) uint8_t interruptNum)
 }
 
 
-// AttachInterrupt ISR
+// attachInterrupt ISR
 ISR(INT0_vect)
 {
   intFunc();
