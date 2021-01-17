@@ -84,6 +84,15 @@ These are the available BOD options:
 If you want the EEPROM to be erased every time you burn the bootloader or upload using a programmer, you can turn off this option. You'll have to connect an ISP programmer and hit "Burn bootloader" to enable or disable EEPROM retain. Note that when uploading using a bootloader, the EEPROM will always be retained.
 
 
+## Analog pins
+MicroCore requires you to refer to analog pins like so: `analogRead(A3);`. The compiler will throw an error if you use the digital pin number instead.
+If you're storing the analog pin number as a variable, you'll have to use the `analog_pin_t` typedef:
+```c
+analog_pin_t myPin = A3;
+digitalRead(myPin);
+```
+
+
 ## Timing options
 You can choose to enable or disable micros() directly from the timing menu. Great if you want to save some flash memory!  
 millis() is automatically linked in when used.
