@@ -19,6 +19,7 @@ If you're looking for a great development board for the ATtiny13, and DIP-8 ATti
 * [LTO](#lto)
 * [BOD option](#bod-option)
 * [EEPROM retain option](#eeprom-option)
+* [Analog pins](#analog-pins)
 * [Timing options](#timing-options)
 * [Serial support](#serial-support)
   - [Internal oscillator calibration](#internal-oscillator-calibration)
@@ -86,8 +87,9 @@ If you want the EEPROM to be erased every time you burn the bootloader or upload
 
 ## Analog pins
 MicroCore requires you to refer to analog pins like so: `analogRead(A3);`. The compiler will throw an error if you use the digital pin number instead.
-If you're storing the analog pin number as a variable, you'll have to use the `analog_pin_t` typedef:
+If you're storing the analog pin number as a variable, you'll have to use the `analog_pin_t` typedef or `#define`
 ```c
+#define MYPIN A3
 analog_pin_t myPin = A3;
 digitalRead(myPin);
 ```
