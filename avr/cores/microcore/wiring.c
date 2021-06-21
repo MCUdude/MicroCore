@@ -158,7 +158,8 @@ void init()
     TIMSK0 = _BV(TOIE0);
     // Set timer0 couter to zero
     TCNT0 = 0;
-    // Turn on global interrupts
-    sei();
   #endif
+
+  // Turn on global interrupts
+  sei();
 }
