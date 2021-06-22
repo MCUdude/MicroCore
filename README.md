@@ -1,13 +1,13 @@
 # MicroCore
-[![Build Status](https://travis-ci.org/MCUdude/MicroCore.svg?branch=master)](https://travis-ci.org/MCUdude/MicroCore)
+[![Build Status](https://travis-ci.com/MCUdude/MicroCore.svg?branch=master)](https://travis-ci.com/MCUdude/MicroCore)
 [![MicroCore forum thread](https://img.shields.io/badge/support-forum-blue.svg)](https://forum.arduino.cc/index.php?topic=426153.0)
 
 MicroCore is a lightweight Arduino hardware package for ATtiny13, ATtiny13A and ATtiny13V. It's easy to install, easy to use, have lots of features and support most Arduino functions.
 If you're into low level AVR programming, I'm happy to tell you that all relevant keywords are being highlighted by the IDE through a separate keywords file. Make sure to check out the [example files](https://github.com/MCUdude/MicroCore/tree/master/avr/libraries/AVR_examples/examples) (File > Examples > AVR C code examples).
 
-If you're looking for a great development board for the ATtiny13, and DIP-8 ATtinys in general, I got you covered! This board has all the bells and whistles you need from a board like this, and still, it measures only 42x42mm!  
+If you're looking for a great development board for the ATtiny13, and DIP-8 ATtinys in general, I got you covered! This board has all the bells and whistles you need from a board like this, and still, it measures only 42x42mm!
 <br/>
-**[Read more and purchase on my Tindie store!](https://www.tindie.com/products/MCUdude/attiny-arduino-compatible-development-board/)** 
+**[Read more and purchase on my Tindie store!](https://www.tindie.com/products/MCUdude/attiny-arduino-compatible-development-board/)**
 <br/>
 <br/>
 <img src="https://i.imgur.com/Lzkqtm2.jpg" width="350">  <img src="https://i.imgur.com/GVE88sJ.jpg" width="380">
@@ -96,7 +96,7 @@ digitalRead(myPin);
 
 
 ## Timing options
-You can choose to enable or disable micros() directly from the timing menu. Great if you want to save some flash memory!  
+You can choose to enable or disable micros() directly from the timing menu. Great if you want to save some flash memory!
 millis() is automatically linked in when used.
 
 
@@ -137,13 +137,13 @@ Huge thanks to [Ralph Doncaster](https://github.com/nerdralph) for providing his
 
 ## Programmers
 When the ATtiny13 is running from the internal 600 or 128 kHz oscillator, it may be too slow to interact with the programming tool. That's why this core adds some additional programmers to the list, with the suffix *(slow)*. These options makes the programmers run at a lower clock speed, so the microcontroller can keep up.
- 
+
 Select your microcontroller in the boards menu, then select the clock frequency. You'll have to hit "Burn bootloader" in order to set the correct fuses and upload the correct bootloader. <br/>
-Make sure you connect an ISP programmer, and select the correct one in the "Programmers" menu. 
+Make sure you connect an ISP programmer, and select the correct one in the "Programmers" menu.
 
 
 ## Core settings
-To make sure you're able to fit your whole project into this tiny microcontroller and still be able to use Arduino functions, I've added some <b>core settings</b>. By modifying the [`core_settings.h`](https://github.com/MCUdude/MicroCore/blob/master/avr/cores/microcore/core_settings.h) file you can enable or disable core functions you need or don't need. 
+To make sure you're able to fit your whole project into this tiny microcontroller and still be able to use Arduino functions, I've added some <b>core settings</b>. By modifying the [`core_settings.h`](https://github.com/MCUdude/MicroCore/blob/master/avr/cores/microcore/core_settings.h) file you can enable or disable core functions you need or don't need.
 If you know what you're doing and want full control, you can disable the safemode. For instance safemode makes sure that PWM gets turned off if a pin drives high or low, or digital pins don't exceed the number 5 (6 digital pins in total). By disabling safemode you'll gain some speed and flash space.
 
 
@@ -177,7 +177,7 @@ Ok, so you have downloaded and installed MicroCore, but how do you get the wheel
 * Open the **Tools > Board** menu item, and select ATtiny13.
 * Select your prefered BOD option. Read more about BOD [here](#bod-option).
 * Select your prefered clock frequency. **9.6 MHz internal oscillator** is the default setting. Do not use the external oscillator option if you don't have an external clock source. Remember that a regular two pin crystal will not work on the ATtiny13.
-* If you want you can change the compiler flags for further optimization. Leave this on the default setting if you don't know what compiler flags are. 
+* If you want you can change the compiler flags for further optimization. Leave this on the default setting if you don't know what compiler flags are.
 * Select what kind of programmer you're using under the **Programmers** menu. Use one of the **slow** programmers if you're using the 600 or 128 kHz oscillator option, e.g **USBtinyISP (slow)**.
 * Hit **Burn Bootloader** to burn the fuses. The "settings" are now stored on the microcontroller!
 * Now that the correct fuse settings is sat you can upload your code by using your programmer tool. Simply hit *Upload*, and the code will be uploaded to the microcontroller.
@@ -186,13 +186,13 @@ Ok, so you have downloaded and installed MicroCore, but how do you get the wheel
 
 ## Pinout
 This diagram shows the pinout and the peripherals of ATtiny13. The Arduino pinout is directly mapped to the port number to minimize code footprint.
-<b>Click to enlarge:</b> 
+<b>Click to enlarge:</b>
 </br> </br>
 <img src="http://i.imgur.com/JsbguPV.jpg" width="800">
 
 
 ## Minimal setup
-<b>Click to enlarge:</b> 
+<b>Click to enlarge:</b>
 </br> </br>
 <img src="https://i.imgur.com/MXXCirE.png" width="500">
 
@@ -228,7 +228,7 @@ Due to the limited hardware not all default Arduino functions and libraries is s
 * [noTone()](https://www.arduino.cc/en/Reference/NoTone)
 * [pinMode()](https://www.arduino.cc/en/Reference/PinMode)
 * [pow()](https://www.arduino.cc/en/Reference/Pow)
-* [pulseIn()](https://www.arduino.cc/en/Reference/PulseIn)   *micros() must be enabled from the Tools menu* 
+* [pulseIn()](https://www.arduino.cc/en/Reference/PulseIn)   *micros() must be enabled from the Tools menu*
 * [radians()](https://github.com/MCUdude/MicroCore/blob/83b192f46fa5c58f8b7a60d7a678b2199d167ba5/avr/cores/microcore/Arduino.h#L55)
 * [random()](https://www.arduino.cc/en/Reference/Random)
 * [randomSeed()](https://www.arduino.cc/en/Reference/RandomSeed)
