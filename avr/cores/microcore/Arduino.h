@@ -88,7 +88,6 @@ extern "C"{
   #define bitSet(value, bit)   ((value) |= (1UL << (bit)))
   #define bitClear(value, bit) ((value) &= ~(1UL << (bit)))
   #define bitWrite(value, bit, bitvalue) (bitvalue ? bitSet(value, bit) : bitClear(value, bit))
-  #define delayMicroseconds(us) _delay_us(us) // _delay_us function wrapper
   #define bit(b) (1UL << (b))
   typedef uint16_t word;
   typedef uint8_t byte;
@@ -115,6 +114,33 @@ extern "C"{
   void loop(void);
   void yield(void) __attribute__ ((weak, alias("__empty")));
   static void __empty() { /* Empty*/ }
+
+  /**
+   * @brief Pauses the program for the amount of time (in microseconds)
+   *        specified as parameter. Accepts both constant and non-constant values
+   *
+   * @param us The number of microseconds to pause
+   */
+  __attribute__((always_inline)) static inline void delayMicroseconds(uint16_t us)
+  {
+    // If us is a compile-time constant result is accurate to 1 cycle
+    if(__builtin_constant_p(us))
+    {
+      _delay_us(us);
+      return;
+    }
+
+    // When us is not known at compile time, delay is accurate to +/- 2us
+    // plus an overhead of 3 CPU cycles
+    const float fMHz = (F_CPU / 1000000.0);
+    // Subtract two for rounding before dividing by 4
+    us -= 2;
+    delay4us:
+      // Delay 4us per loop, less 4 cycles for overhead
+      _delay_us(4.0 - (4.0 / fMHz));
+      asm volatile ("sbiw %[us], 4" : [us]"+d"(us));
+    asm goto("brpl %l[delay4us]" :::: delay4us);
+  }
 #ifdef __cplusplus
 } // extern "C"
 

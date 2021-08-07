@@ -212,7 +212,7 @@ Due to the limited hardware not all default Arduino functions and libraries is s
 * [constrain()](https://www.arduino.cc/en/Reference/Constrain)
 * [degrees()](https://github.com/MCUdude/MicroCore/blob/83b192f46fa5c58f8b7a60d7a678b2199d167ba5/avr/cores/microcore/Arduino.h#L56)
 * [delay()](https://www.arduino.cc/en/Reference/Delay)
-* [delayMicroseconds()](https://www.arduino.cc/en/Reference/DelayMicroseconds)   *Macro wrapper for _delay_us() (inline function)*
+* [delayMicroseconds()](https://www.arduino.cc/en/Reference/DelayMicroseconds)
 * [detachInterrupt()](https://www.arduino.cc/en/Reference/DetachInterrupt)
 * [digitalRead()](https://www.arduino.cc/en/Reference/DigitalRead)
 * [digitalWrite()](https://www.arduino.cc/en/Reference/DigitalWrite)
