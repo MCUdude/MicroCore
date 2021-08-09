@@ -27,3 +27,4 @@ readNack	KEYWORD2
 #######################################
 SDA	LITERAL1
 SCL	LITERAL1
+FREQ	LITERAL1

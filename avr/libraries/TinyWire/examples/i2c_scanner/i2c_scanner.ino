@@ -2,6 +2,7 @@
 
 const uint8_t TinyWire::SCL = 3;
 const uint8_t TinyWire::SDA = 4;
+const uint32_t TinyWire::FREQ = MAX_SPEED;
 
 void setup()
 {

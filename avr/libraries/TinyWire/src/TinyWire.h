@@ -3,14 +3,19 @@
 
 #include <stdint.h>
 #include <avr/io.h>
+#include <util/delay.h>
 
 #ifndef I2C_DDR
   #define I2C_DDR DDRB
   #define I2C_PIN PINB
 #endif
 
+#define TWICLK(FREQ) (((1000000.0f / (FREQ / 0.5)) < (12.0 * (1000000.0f / F_CPU)) ? 0.0 : ((1000000.0f / (FREQ / 0.5)) - (12.0 * (1000000.0f / F_CPU)))))
+
 const uint8_t SUCCESS = 0;
 const uint8_t ADDR_NAK = 2;
+
+const uint32_t MAX_SPEED = 1000000L;
 
 class TinyWire
 {
@@ -26,15 +31,14 @@ class TinyWire
     static uint8_t readAck();
     static uint8_t readNack();
 
+    static const uint8_t  SCL;  // Port number for SDA pin
+    static const uint8_t  SDA;  // Port number for SCL pin
+    static const uint32_t FREQ; // Clock frequency
+
   private:
     static void start();
     __attribute__((always_inline)) static inline void scl_hi();
-    // Combined i2c read/write routine. Pass 0xFF when reading
-    static uint8_t rw(uint8_t data);
-
-    // PORT pin numbers for SDA & SCL (0-7)
-    static const uint8_t SCL;
-    static const uint8_t SDA;
+    static uint8_t rw(uint8_t data); // Combined i2c read/write routine. Pass 0xFF when reading
 
     static uint8_t status;
 };

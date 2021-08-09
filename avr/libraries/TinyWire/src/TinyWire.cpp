@@ -49,8 +49,10 @@ uint8_t TinyWire::restartRead(uint8_t addr)
 uint8_t TinyWire::endTransmission()
 {
   I2C_DDR |= (1 << SDA);          // SDA low
+  _delay_us(TWICLK(FREQ));
   I2C_DDR &= ~(1 << SCL);         // Release SCL
-  asm ("lpm" ::: "r0");        // 3 cycle delay
+  asm ("lpm" ::: "r0");           // 3 cycle delay
+  _delay_us(TWICLK(FREQ));
   I2C_DDR &= ~(1 << SDA);         // Release SDA
   return status;
 }
@@ -63,7 +65,7 @@ uint8_t TinyWire::read(uint8_t ack)
   if (ack)
     I2C_DDR |= (1 << SDA);      // SDA low = ACK
   scl_hi();
-  asm ("nop");               // Delay
+  asm ("nop");                  // Delay
   I2C_DDR |= (1 << SCL);        // SCL low
 
   return data;
@@ -90,10 +92,12 @@ void TinyWire::start()
 
 __attribute__((always_inline)) inline void TinyWire::scl_hi()
 {
+  _delay_us(TWICLK(FREQ));
   // Set SCL to input mode for high
   I2C_DDR &= ~(1 << SCL);
   // Check for clock stretching
   while ((I2C_PIN & (1 << SCL)) == 0);
+  _delay_us(TWICLK(FREQ));
 }
 
 uint8_t TinyWire::rw(uint8_t data)
