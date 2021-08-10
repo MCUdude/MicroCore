@@ -19,8 +19,6 @@ requestFrom	KEYWORD2
 restartRead	KEYWORD2
 endTransmission	KEYWORD2
 read	KEYWORD2
-readAck	KEYWORD2
-readNack	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
