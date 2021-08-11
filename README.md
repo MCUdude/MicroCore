@@ -14,27 +14,30 @@ If you're looking for a great development board for the ATtiny13, and DIP-8 ATti
 
 
 ## Table of contents
-* [Why use the ATtiny13 in an Arduino project?](#why-use-the-attiny13-in-an-arduino-project)
-* [Supported clock frequencies](#supported-clock-frequencies)
-* [LTO](#lto)
-* [BOD option](#bod-option)
-* [EEPROM retain option](#eeprom-option)
-* [Analog pins](#analog-pins)
-* [Timing options](#timing-options)
-* [Serial support](#serial-support)
-  - [Internal oscillator calibration](#internal-oscillator-calibration)
-* [Programmers](#programmers)
-* **[Core settings](#core-settings)**
-* **[How to install](#how-to-install)**
-  - [Boards Manager Installation](#boards-manager-installation)
-  - [Manual Installation](#manual-installation)
-  - [PlatformIO](#platformio)
-* **[Getting started with MicroCore](#getting-started-with-microcore)**
-* [Pinout](#pinout)
-* [Minimal setup](#minimal-setup)
-* [Working Arduino functions and libraries](#working-arduino-functions-and-libraries)
-  - [Arduino functions](#arduino-functions)
-  - [Arduino libraries](#arduino-libraries)
+- [MicroCore](#microcore)
+  - [Table of contents](#table-of-contents)
+  - [Why use the ATtiny13 in an Arduino project?](#why-use-the-attiny13-in-an-arduino-project)
+  - [Supported clock frequencies](#supported-clock-frequencies)
+  - [LTO](#lto)
+  - [BOD option](#bod-option)
+  - [EEPROM option](#eeprom-option)
+  - [Analog pins](#analog-pins)
+  - [Timing options](#timing-options)
+  - [Serial support](#serial-support)
+    - [Internal oscillator calibration](#internal-oscillator-calibration)
+  - [Programmers](#programmers)
+  - [Core settings](#core-settings)
+  - [How to install](#how-to-install)
+      - [Boards Manager Installation](#boards-manager-installation)
+      - [Manual Installation](#manual-installation)
+      - [PlatformIO](#platformio)
+  - [Getting started with MicroCore](#getting-started-with-microcore)
+  - [Pinout](#pinout)
+  - [Minimal setup](#minimal-setup)
+  - [Working Arduino functions and libraries](#working-arduino-functions-and-libraries)
+    - [Arduino functions](#arduino-functions)
+    - [Arduino libraries](#arduino-libraries)
+  - [Acknowledgements](#acknowledgements)
 
 
 ## Why use the ATtiny13 in an Arduino project?
@@ -242,7 +245,7 @@ Due to the limited hardware not all default Arduino functions and libraries is s
 * [tone()](https://www.arduino.cc/en/Reference/Tone)
 
 ### Arduino libraries
-* [SPI library, **TinySPI.h** (software implementation)](https://www.arduino.cc/en/Reference/SPI)
+* [SPI master library, **TinySPI.h** (software implementation)](https://www.arduino.cc/en/Reference/SPI)
   - [SPISettings](https://www.arduino.cc/en/Reference/SPISettings)
   - [begin()](https://www.arduino.cc/en/Reference/SPIBegin)
   - [end()](https://www.arduino.cc/en/Reference/SPIEnd)
@@ -254,6 +257,19 @@ Due to the limited hardware not all default Arduino functions and libraries is s
   - [transfer()](https://www.arduino.cc/en/Reference/SPITransfer)
   - ~~[usingInterrupt()](https://www.arduino.cc/en/Reference/SPIusingInterrupt)~~ **Not implemented**
 
+
+* [I2C master library, **TinyWire.h** (software implementation)](https://www.arduino.cc/en/reference/wire)
+  - [begin()](https://www.arduino.cc/en/Reference/WireBegin)
+  - [beginTransmission()](https://www.arduino.cc/en/Reference/WireBeginTransmission)
+  - [endTransmission()](https://www.arduino.cc/en/Reference/WireEndTransmission)
+  - [write()](https://www.arduino.cc/en/Reference/WireWrite)
+  - [requestFrom()](https://www.arduino.cc/en/Reference/WireRequestFrom)
+  - [read()](https://www.arduino.cc/en/Reference/WireRead)
+  - [transfer()](https://www.arduino.cc/en/Reference/SPITransfer)
+  - ~~[available()](https://www.arduino.cc/en/Reference/SPIusingInterrupt)~~ **Not implemented**
+  - ~~[onReceive()](https://www.arduino.cc/en/Reference/WireOnReceive)~~ **Not implemented**
+  - ~~[onRequest()](https://www.arduino.cc/en/Reference/WireOnRequest)~~ **Not implemented**
+
 * [EEPROM library, **EEPROM.h**](https://www.arduino.cc/en/reference/EEPROM)
   - [EEPROM[]](https://www.arduino.cc/en/Reference/EEPROMObject)
   - [read()](https://www.arduino.cc/en/Reference/EEPROMRead)
@@ -264,3 +280,5 @@ Due to the limited hardware not all default Arduino functions and libraries is s
 
 ## Acknowledgements
 MicroCore is based Smeezekitty's [core13](https://sourceforge.net/projects/ard-core13/), which is an Arduino ATtiny13 hardware package for IDE 1.0.x.
+
+The software serial and software i2c implementation is based on the excellent work done by [Ralph Doncaster](https://github.com/nerdralph).
