@@ -1,0 +1,27 @@
+#######################################
+# Syntax Coloring Map Flash
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+Flash	KEYWORD1
+flash	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+erase_page	KEYWORD2
+fill_page	KEYWORD2
+write_page	KEYWORD2
+read	KEYWORD2
+get_address	KEYWORD2
+put	KEYWORD2
+get	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+flash_space	LITERAL1
+

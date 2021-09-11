@@ -37,6 +37,7 @@ If you're looking for a great development board for the ATtiny13, and DIP-8 ATti
   - [Working Arduino functions and libraries](#working-arduino-functions-and-libraries)
     - [Arduino functions](#arduino-functions)
     - [Arduino libraries](#arduino-libraries)
+    - [Other libraries](#other-libraries)
   - [Acknowledgements](#acknowledgements)
 
 
@@ -277,6 +278,16 @@ Due to the limited hardware not all default Arduino functions and libraries is s
   - [update()](https://www.arduino.cc/en/Reference/EEPROMUpdate)
   - [get()](https://www.arduino.cc/en/Reference/EEPROMGet)
   - [put()](https://www.arduino.cc/en/Reference/EEPROMPut)
+
+### Other libraries
+* [Flash library, **Flash.h**](https://github.com/MCUdude/MicroCore/tree/master/avr/libraries/Flash)
+  - [erase_page()](https://github.com/MCUdude/MicroCore/tree/master/avr/libraries/Flash/README.md#erase_page)
+  - [fill_page()](https://github.com/MCUdude/MicroCore/tree/master/avr/libraries/Flash/README.md#fill_page)
+  - [write_page()](https://github.com/MCUdude/MicroCore/tree/master/avr/libraries/Flash/README.md#write_page)
+  - [read()](https://github.com/MCUdude/MicroCore/tree/master/avr/libraries/Flash/README.md#read)
+  - [get_address()](https://github.com/MCUdude/MicroCore/tree/master/avr/libraries/Flash/README.md#get_address)
+  - [put()](https://github.com/MCUdude/MicroCore/tree/master/avr/libraries/Flash/README.md#put)
+  - [get()](https://github.com/MCUdude/MicroCore/tree/master/avr/libraries/Flash/README.md#get)
 
 ## Acknowledgements
 MicroCore is based Smeezekitty's [core13](https://sourceforge.net/projects/ard-core13/), which is an Arduino ATtiny13 hardware package for IDE 1.0.x.
