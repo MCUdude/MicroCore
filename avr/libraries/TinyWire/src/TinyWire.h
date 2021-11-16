@@ -50,6 +50,6 @@ class TinyWire
     static uint16_t read_bytes;
 };
 
-extern TinyWire Wire;
+static TinyWire Wire;
 
 #endif

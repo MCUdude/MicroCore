@@ -1,7 +1,5 @@
 #include "TinyWire.h"
 
-// Predefined object
-TinyWire Wire;
 
 /**
  * @brief Construct a new TinyWire object

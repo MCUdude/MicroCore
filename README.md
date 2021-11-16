@@ -258,7 +258,6 @@ Due to the limited hardware not all default Arduino functions and libraries is s
   - [transfer()](https://www.arduino.cc/en/Reference/SPITransfer)
   - ~~[usingInterrupt()](https://www.arduino.cc/en/Reference/SPIusingInterrupt)~~ **Not implemented**
 
-
 * [I2C master library, **TinyWire.h** (software implementation)](https://www.arduino.cc/en/reference/wire)
   - [begin()](https://www.arduino.cc/en/Reference/WireBegin)
   - [beginTransmission()](https://www.arduino.cc/en/Reference/WireBeginTransmission)
@@ -288,6 +287,9 @@ Due to the limited hardware not all default Arduino functions and libraries is s
   - [get_address()](https://github.com/MCUdude/MicroCore/tree/master/avr/libraries/Flash/README.md#get_address)
   - [put()](https://github.com/MCUdude/MicroCore/tree/master/avr/libraries/Flash/README.md#put)
   - [get()](https://github.com/MCUdude/MicroCore/tree/master/avr/libraries/Flash/README.md#get)
+
+* [Capacitive touch, **ADCTouch.h**](https://github.com/MCUdude/MicroCore/tree/master/avr/libraries/ADCTouch)
+  - [read()](https://github.com/MCUdude/MicroCore/tree/master/avr/libraries/ADCTouch/README.md#read)
 
 ## Acknowledgements
 MicroCore is based Smeezekitty's [core13](https://sourceforge.net/projects/ard-core13/), which is an Arduino ATtiny13 hardware package for IDE 1.0.x.
