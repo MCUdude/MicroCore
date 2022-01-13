@@ -25,7 +25,7 @@ int16_t ADCTouch::read(const analog_pin_t adc_channel)
   uint8_t digitalPin = pgm_read_byte(analog_pin_to_digital_pin + adc_channel);
   do
   {
-    ADMUX = (1 << ADLAR) | adc_channel; // Select ADC channel
+    ADMUX = adc_channel;                // Select ADC channel
     DDRB |= (1 << digitalPin);          // Discharge touchpad
 
     ADCSRA |= (1 << ADEN);              // Enable ADC & discharge S/H cap
@@ -42,7 +42,7 @@ int16_t ADCTouch::read(const analog_pin_t adc_channel)
 
     ADCSRA |= (1 << ADSC);              // Start ADC conversion
     while (bit_is_set(ADCSRA, ADSC));   // Wait for conversion to complete
-    level += ADCH;
+    level += ADCW;
     ADCSRA = 0;                         // ADC off
   }
   while(--samples_left);

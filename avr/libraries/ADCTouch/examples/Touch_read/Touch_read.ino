@@ -29,6 +29,7 @@
 |***********************************************************************/
 
 #include <ADCTouch.h>
+#include <EEPROM.h>
 
 // Sample each touch pin 32 times
 const uint16_t ADCTouch::samples = 32;
@@ -39,11 +40,14 @@ int16_t ref_A3;
 
 // Touch threshold for turning on or off the LEDs
 // Lower is more sensitive
-const uint8_t threshold = 20;
+const uint8_t threshold = 50;
 
 
 void setup()
 {
+  uint8_t cal = EEPROM.read(0);
+  if (cal < 0x80)
+    OSCCAL = cal;
   Serial.begin();
 
   // Reference values to account for the capacitance of the touch pad
@@ -57,6 +61,16 @@ void loop()
   int16_t val_A2 = Touch.read(A2);
   int16_t val_A3 = Touch.read(A3);
 
+  // Drift compensation
+  if(val_A2 > ref_A2)
+    ref_A2++;
+  else
+    ref_A2 = (val_A2 + ref_A2)/2;
+  if(val_A3 > ref_A3)
+    ref_A3++;
+  else
+    ref_A3 = (val_A3 + ref_A3)/2;
+
   // Remove offset
   val_A2 -= ref_A2;
   val_A3 -= ref_A3;
@@ -65,11 +79,15 @@ void loop()
   Serial.print(val_A2 > threshold); // Send (boolean) pressed or not pressed
   Serial.print(F(", A2 touch value: "));
   Serial.print(val_A2);
+  Serial.print(F(", A2 ref value: "));
+  Serial.print(ref_A2);
 
   Serial.print(F("\tA3 touch bool: "));
   Serial.print(val_A3 > threshold); // Send (boolean) pressed or not pressed
   Serial.print(F(", A3 touch value: "));
   Serial.print(val_A3);
+  Serial.print(F(", A3 ref value: "));
+  Serial.print(ref_A3);
   Serial.print('\n');
   delay(100);
 }
