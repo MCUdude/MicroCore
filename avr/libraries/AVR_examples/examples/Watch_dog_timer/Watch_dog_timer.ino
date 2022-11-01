@@ -22,7 +22,7 @@ int main(void)
   //DDRB |= 0x04;       // Alternative method
   //DDRB |= (1 << PB2); // Alternative method
 
-  DDRB &= _BV(PB0);     // Set PB0 as input, ignore the rest
+  DDRB &= ~ _BV(PB0);     // Set PB0 as input, ignore the rest
   //DDRB &= ~0x01;      // Alternative method
   //DDRB &= ~(1 << PB0);// Alternative method
   
