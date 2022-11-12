@@ -20,9 +20,9 @@ int main(void)
    A few different ways to set a pin as output and 
    ignore the rest of the pins. Pick your favorite!
   *************************************************/
-  DDRB |= 0x04;     // XXXXXXXX | 00000100 = XXXXX1XX
-  //DDRB |= _BV(PB2);  // Set PB1 as output, ignore the rest
-  //DDRB |= (1 << PB2); // Shift the number '1' left 'PB1' times (PB1 = 2)
+  DDRB |= 0x08;     // XXXXXXXX | 00000100 = XXXXX1XX
+  //DDRB |= _BV(PB3);  // Set PB1 as output, ignore the rest
+  //DDRB |= (1 << PB3); // Shift the number '1' left 'PB1' times (PB1 = 2)
 
 
 
@@ -30,9 +30,9 @@ int main(void)
    A few different ways to set a pin as input and 
    ignore the rest of the pins.
   *************************************************/
-  //DDRB &= ~0x04; //00000100 -> 11111011 & XXXXXXXX = XXXXX0XX
-  //DDRB &= ~_BV(PB2); 
-  //DDRB &= ~(1 << PB2);
+  //DDRB &= ~0x08; //00000100 -> 11111011 & XXXXXXXX = XXXXX0XX
+  //DDRB &= ~_BV(PB3); 
+  //DDRB &= ~(1 << PB3);
     
   
   // Infinite loop
@@ -42,10 +42,10 @@ int main(void)
      A few different ways to set a pin high and 
      ignore the rest of the pins. 
     ************************************************/
-    PORTB |= 0x04;  // XXXXXXXX | 00000100 = XXXXX1XX
-    //PORTB |= _BV(PB2);
-    //PORTB |= (1 << PB2);
-    //SetPinHigh(&PORTB, 2); 
+    PORTB |= 0x08;  // XXXXXXXX | 00000100 = XXXXX1XX
+    //PORTB |= _BV(PB3);
+    //PORTB |= (1 << PB3);
+    //SetPinHigh(&PORTB, 3); 
     _delay_ms(1000);
     
     
@@ -53,10 +53,10 @@ int main(void)
      A few different ways to set a pin low and 
      ignore the rest of the pins.
     ************************************************/
-    PORTB &= ~0x04;  // 00000100 -> 11111001 & XXXXXXXX = XXXXX0XX
-    //PORTB &= ~_BV(PB2);
-    //PORTB &= ~(1 << PB2);
-    //SetPinLow(&PORTB, 2);
+    PORTB &= ~0x08;  // 00000100 -> 11111001 & XXXXXXXX = XXXXX0XX
+    //PORTB &= ~_BV(PB3);
+    //PORTB &= ~(1 << PB3);
+    //SetPinLow(&PORTB, 3);
     _delay_ms(1000);
   }
     
