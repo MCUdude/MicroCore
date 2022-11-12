@@ -1,6 +1,6 @@
 /***************************************************
  Simple AVR sketch to blink an LED (or similar)
- connected to PB2 (Arduino pin D2)
+ connected to PB3 (Arduino pin D3)
  Note that the compiled sketch is significantly
  smaller than the original Arduino blink sketch.
  A detailed explanation about debugging, port and
