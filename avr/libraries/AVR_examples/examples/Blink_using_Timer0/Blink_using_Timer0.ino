@@ -22,7 +22,7 @@ uint8_t timeCount = 0;
 
 int main (void)
 {
-  DDRB |= _BV(PB2); //Set PB2 as output, ignore the rest
+  DDRB |= _BV(PB3); //Set PB3 as output, ignore the rest
 
   TCCR0B = _BV(CS02) | _BV(CS00); // clock frequency / 1024 
   OCR0B = 0x00;  // Output compare
@@ -40,7 +40,7 @@ ISR(TIM0_OVF_vect) //Timer 0 overflow vector - this runs every time timer0 overf
   timeCount++;
   if(timeCount == 37) //Timer overflown for the 37th time
   {
-    PORTB ^= _BV(PB2); //toggle PB2
+    PORTB ^= _BV(PB3); //toggle PB3
     timeCount = 0;
   }
 }
