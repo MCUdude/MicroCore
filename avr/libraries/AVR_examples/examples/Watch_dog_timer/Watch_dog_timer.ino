@@ -18,9 +18,9 @@ uint16_t counter = 0;
 int main(void)
 {
  
-  DDRB |= _BV(PB2);     // Set PB2 as output, ignore the rest
-  //DDRB |= 0x04;       // Alternative method
-  //DDRB |= (1 << PB2); // Alternative method
+  DDRB |= _BV(PB3);     // Set PB2 as output, ignore the rest
+  //DDRB |= 0x08;       // Alternative method
+  //DDRB |= (1 << PB3); // Alternative method
 
   DDRB &= ~_BV(PB0);     // Set PB0 as input, ignore the rest
   //DDRB &= ~0x01;      // Alternative method
@@ -31,7 +31,7 @@ int main(void)
   
   while((PINB & _BV(PB0)) == 1) // Wait for PB0 to be pulled down
   {
-    PORTB ^= _BV(PB2); //Toggle PB2 while waiting
+    PORTB ^= _BV(PB3); //Toggle PB2 while waiting
     _delay_ms(100);
   }
 
@@ -46,7 +46,7 @@ int main(void)
 
     if(counter >= 50000)
     {
-      PORTB ^= _BV(PB2); // Toggle PB2 every 50000th time
+      PORTB ^= _BV(PB3); // Toggle PB2 every 50000th time
       counter = 0;
     }
   }
