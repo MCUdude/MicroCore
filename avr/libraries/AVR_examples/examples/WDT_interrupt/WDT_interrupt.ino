@@ -16,7 +16,7 @@ int main(void)
 {
   cli(); // Turn off global interrupts
 
-  DDRB |= _BV(PB2); // Set PB2 as output
+  DDRB |= _BV(PB3); // Set PB3 as output
   
   wdt_reset(); // Reset watchdog
 
@@ -35,7 +35,7 @@ int main(void)
 // This will run every time the WDT causes an interrupt
 ISR(WDT_vect)
 {
-  // Toggle PB2
-  PORTB ^= _BV(PB2);
+  // Toggle PB3
+  PORTB ^= _BV(PB3);
 }
 
