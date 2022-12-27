@@ -95,7 +95,7 @@ If you're storing the analog pin number as a variable, you'll have to use the `a
 ```c
 #define MYPIN A3
 analog_pin_t myPin = A3;
-digitalRead(myPin);
+analogRead(myPin);
 ```
 
 
