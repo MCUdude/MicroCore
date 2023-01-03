@@ -180,20 +180,22 @@ void noTone(uint8_t pin)
  */
 void stopTone()
 {
-  // Resets timer0 to it's default value defined in core_settings.h
-  #ifdef ENABLE_MICROS
-  // Set a suited prescaler based on F_CPU
-  #if F_CPU >= 4800000L
-    TCCR0B = _BV(CS00) | _BV(CS01); // F_CPU/64
-  #else
-    TCCR0B = _BV(CS01);             // F_CPU/8
-  #endif
-  // Enable overflow interrupt on Timer0
-  TIMSK0 = _BV(TOIE0);
-  // Set timer0 couter to zero
-  TCNT0 = 0;
-  // Turn on global interrupts
-  sei();
+  #if defined(PWM_PRESCALER_NONE)     // PWM frequency = (F_CPU/256) / 1
+    TCCR0B = _BV(CS00);
+  #elif defined(PWM_PRESCALER_8)      // PWM frequency = (F_CPU/256) / 8
+    TCCR0B = _BV(CS01);
+  #elif defined(PWM_PRESCALER_64)     // PWM frequency = (F_CPU/256) / 64
+    TCCR0B = _BV(CS00) | _BV(CS01);
+  #elif defined(PWM_PRESCALER_256)    // PWM frequency = (F_CPU/256) / 256
+    TCCR0B = _BV(CS02);
+  #elif defined(PWM_PRESCALER_1024)   // PWM frequency = (F_CPU/256) / 1024
+    TCCR0B = _BV(CS00) | _BV(CS02);
+  #else // (PWM_PRESCALER_AUTO)       // Automatic prescaler calculation
+    #if F_CPU >= 4800000L
+      TCCR0B = _BV(CS00) | _BV(CS01); // PWM frequency = (F_CPU/256) / 64
+    #else
+      TCCR0B = _BV(CS01);             // PWM frequency = (F_CPU/256) / 8
+    #endif
   #endif
 }
 

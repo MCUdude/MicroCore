@@ -22,7 +22,6 @@ If you're looking for a great development board for the ATtiny13, and DIP-8 ATti
   - [BOD option](#bod-option)
   - [EEPROM option](#eeprom-option)
   - [Analog pins](#analog-pins)
-  - [Timing options](#timing-options)
   - [Serial support](#serial-support)
     - [Internal oscillator calibration](#internal-oscillator-calibration)
   - [Programmers](#programmers)
@@ -97,11 +96,6 @@ If you're storing the analog pin number as a variable, you'll have to use the `a
 analog_pin_t myPin = A3;
 analogRead(myPin);
 ```
-
-
-## Timing options
-You can choose to enable or disable micros() directly from the timing menu. Great if you want to save some flash memory!
-millis() is automatically linked in when used.
 
 
 ## Serial support
@@ -226,13 +220,13 @@ Due to the limited hardware not all default Arduino functions and libraries is s
 * [map()](https://www.arduino.cc/en/Reference/Map)
 * [max()](https://www.arduino.cc/en/Reference/Max)
 * [min()](https://www.arduino.cc/en/Reference/Min)
-* [micros()](https://www.arduino.cc/en/Reference/Micros)   *micros() must be enabled from the Tools menu*
+* [micros()](https://www.arduino.cc/en/Reference/Micros)
 * [millis()](https://www.arduino.cc/en/Reference/Millis)   *Watchdog timer based. Will increase with steps of 16*
 * [noInterrupts()](https://www.arduino.cc/en/Reference/NoInterrupts)
 * [noTone()](https://www.arduino.cc/en/Reference/NoTone)
 * [pinMode()](https://www.arduino.cc/en/Reference/PinMode)
 * [pow()](https://www.arduino.cc/en/Reference/Pow)
-* [pulseIn()](https://www.arduino.cc/en/Reference/PulseIn)   *micros() must be enabled from the Tools menu*
+* [pulseIn()](https://www.arduino.cc/en/Reference/PulseIn)
 * [radians()](https://github.com/MCUdude/MicroCore/blob/83b192f46fa5c58f8b7a60d7a678b2199d167ba5/avr/cores/microcore/Arduino.h#L55)
 * [random()](https://www.arduino.cc/en/Reference/Random)
 * [randomSeed()](https://www.arduino.cc/en/Reference/RandomSeed)

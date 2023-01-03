@@ -56,24 +56,9 @@ void delay(uint16_t ms)
 
 /**
  * @brief Initializing function that runs before setup().
- *        This is where timer0 is set up to count micros() if enabled.
  */
 void init()
 {
-  // WARNING! Enabling micros() will affect timing functions!
-  #ifdef ENABLE_MICROS
-    // Set a suited prescaler based on F_CPU
-    #if F_CPU >= 4800000L
-      TCCR0B = _BV(CS00) | _BV(CS01); // F_CPU/64
-    #else
-      TCCR0B = _BV(CS01);             // F_CPU/8
-    #endif
-    // Enable overflow interrupt on Timer0
-    TIMSK0 = _BV(TOIE0);
-    // Set timer0 couter to zero
-    TCNT0 = 0;
-  #endif
-
   // Turn on global interrupts
   sei();
 }

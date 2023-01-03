@@ -2,6 +2,25 @@
 #include <avr/interrupt.h>
 #include "wiring_private.h"
 
+#define MICROS_ENABLED
+
+void init_micros(void) __attribute__ ((naked)) __attribute__ ((used)) __attribute__ ((section (".init6")));
+
+void init_micros(void)
+{
+  // Set a suited prescaler based on F_CPU
+  #if F_CPU >= 4800000L
+    TCCR0B = _BV(CS00) | _BV(CS01); // F_CPU/64
+  #else
+    TCCR0B = _BV(CS01);             // F_CPU/8
+  #endif
+  // Enable overflow interrupt on Timer0
+  TIMSK0 = _BV(TOIE0);
+  // Set timer0 couter to zero
+  TCNT0 = 0;
+}
+
+
 
 // Enabling micros() will cause the processor to interrupt more often (every 2048th clock cycle if
 // F_CPU < 4.8 MHz, every 16384th clock cycle if F_CPU >= 4.8 MHz. This will add some overhead when F_CPU is
@@ -16,7 +35,6 @@ ISR(TIM0_OVF_vect)
 {
   timer0_overflow++; // Increment counter by one
 }
-
 
 /**
  * @brief Returns the number of microseconds since the microcontroller

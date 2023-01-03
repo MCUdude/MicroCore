@@ -11,7 +11,6 @@
 menu.BOD=BOD
 menu.eeprom=EEPROM
 menu.clock=Clock
-menu.timing=Timing
 
 # General
 13.name=ATtiny13
@@ -22,14 +21,14 @@ menu.timing=Timing
 13.bootloader.lock_bits=0x3e
 13.build.core=microcore
 13.build.board=attiny
-13.build.extra_flags={build.timing}
+13.build.extra_flags=
 13.upload.maximum_size=1024
 13.upload.maximum_data_size=64
 13.build.mcu_compile=attiny13a
 13.build.mcu=attiny13
 13.build.variant=attiny13
 
-#LTO
+# LTO
 13.compiler.c.extra_flags=-Wextra -flto -g
 13.compiler.c.elf.extra_flags=-w -flto -g
 13.compiler.cpp.extra_flags=-Wextra -flto -g
@@ -93,8 +92,3 @@ menu.timing=Timing
 13.menu.BOD.disabled=BOD disabled
 13.menu.BOD.disabled.bootloader.high_fuses=0xff
 
-# Timing
-13.menu.timing.micros_disabled=Micros disabled
-13.menu.timing.micros_disabled.build.timing=
-13.menu.timing.micros_enabled=Micros enabled
-13.menu.timing.micros_enabled.build.timing=-DENABLE_MICROS
