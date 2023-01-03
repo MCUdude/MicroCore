@@ -28,13 +28,6 @@ menu.clock=Clock
 13.build.mcu=attiny13
 13.build.variant=attiny13
 
-# LTO
-13.compiler.c.extra_flags=-Wextra -flto -g
-13.compiler.c.elf.extra_flags=-w -flto -g
-13.compiler.cpp.extra_flags=-Wextra -flto -g
-13.compiler.flag_indicator=
-13.ltoarcmd=avr-gcc-ar
-
 # Clock frequencies
 13.menu.clock.9M6=9.6 MHz internal osc.
 13.menu.clock.9M6.bootloader.low_fuses=0b0{bootloader.eesave_bit}111010
