@@ -1,9 +1,11 @@
-
 #include <avr/interrupt.h>
 #include "wiring_private.h"
 
 #define MICROS_ENABLED
 
+// The trick here is to let avr-gcc optimize away the micros() function
+// and the initialization function init_micros(). When micros() is present in the
+// user application, init_micros() is actually ran _before_ main()!
 void init_micros(void) __attribute__ ((naked)) __attribute__ ((used)) __attribute__ ((section (".init6")));
 
 void init_micros(void)
@@ -19,8 +21,6 @@ void init_micros(void)
   // Set timer0 couter to zero
   TCNT0 = 0;
 }
-
-
 
 // Enabling micros() will cause the processor to interrupt more often (every 2048th clock cycle if
 // F_CPU < 4.8 MHz, every 16384th clock cycle if F_CPU >= 4.8 MHz. This will add some overhead when F_CPU is
