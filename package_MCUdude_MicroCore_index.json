@@ -288,8 +288,8 @@
           "category": "Contributed",
           "url": "https://MCUdude.github.io/MicroCore/MicroCore-2.2.1.tar.bz2",
           "archiveFileName": "MicroCore-2.2.1.tar.bz2",
-          "checksum": "SHA-256:cf3251b2923931796cf02cb28f33d82e90ffa93d2d988dca89d22bdcb705a0d3",
-          "size": "126431",
+          "checksum": "SHA-256:c88026545a42e511fa4ef690f006978f0efab8fe552868ed9b3f4357efb75760",
+          "size": "126436",
           "boards": [
             {
               "name": "ATtiny13/A"
