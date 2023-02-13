@@ -168,9 +168,10 @@ class HalfDuplexSerial
     int16_t available();           // As we do not have a buffer, this always returns 0
     int16_t peek();                // As we do not have a buffer, this always returns -1
     void flush() { }               // Does NOTHING, you have no need to call this, here only for compatibility
+    inline operator bool() const {return true;} // Always true for compatibility with while(!Serial);
 
     int16_t read(void);
-    
+
     int16_t read_blocking(void);
 
     int16_t read_str(char buf[], uint8_t buflen, char endchar);
