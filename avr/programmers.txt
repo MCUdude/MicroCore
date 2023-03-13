@@ -108,17 +108,17 @@ snap_isp_slow.program.extra_params=-B32
 
 avrispmkii.name=AVRISP mkII
 avrispmkii.communication=usb
-avrispmkii.protocol=stk500v2
-avrispmkii.upload.protocol=stk500v2
-avrispmkii.program.protocol=stk500v2
+avrispmkii.protocol=avrispmkii
+avrispmkii.upload.protocol=avrispmkii
+avrispmkii.program.protocol=avrispmkii
 avrispmkii.program.tool=avrdude
 avrispmkii.program.extra_params=
 
 avrispmkii_slow.name=AVRISP mkII slow
 avrispmkii_slow.communication=usb
-avrispmkii_slow.protocol=stk500v2
-avrispmkii_slow.upload.protocol=stk500v2
-avrispmkii_slow.program.protocol=stk500v2
+avrispmkii_slow.protocol=avrispmkii
+avrispmkii_slow.upload.protocol=avrispmkii
+avrispmkii_slow.program.protocol=avrispmkii
 avrispmkii_slow.program.tool=avrdude
 avrispmkii_slow.program.extra_params=-B32
 
