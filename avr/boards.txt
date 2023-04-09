@@ -1,5 +1,5 @@
 #######################################
-## This file is created by MCUdude 
+## This file is created by MCUdude
 ## for use with MicroCore - an Arduino
 ## core for the ATtiny13.
 ## https://github.com/MCUdude/MicroCore
@@ -27,65 +27,115 @@ menu.bootloader=Bootloader
 13.upload.tool=avrdude
 13.upload.maximum_data_size=64
 
-
-
 # Clock frequencies
 13.menu.clock.9M6=9.6 MHz internal osc.
+13.menu.clock.9M6.bootloader.clock=internal_oscillator
 13.menu.clock.9M6.bootloader.low_fuses=0b0{bootloader.eesave_bit}111010
-13.menu.clock.9M6.bootloader.speed=9mhz6
-13.menu.clock.9M6.bootloader.baudrate=115200
+13.menu.clock.9M6.bootloader.baudrate=57600
+13.menu.clock.9M6.bootloader.speed=9600000_hz
+13.menu.clock.9M6.bootloader.speed-2=9408000_hz
+13.menu.clock.9M6.bootloader.speed-4=9216000_hz
+13.menu.clock.9M6.bootloader.speed+2=9792000_hz
+13.menu.clock.9M6.bootloader.speed+4=9984000_hz
 13.menu.clock.9M6.build.f_cpu=9600000L
 
 13.menu.clock.4M8=4.8 MHz internal osc.
+13.menu.clock.4M8.bootloader.clock=internal_oscillator
 13.menu.clock.4M8.bootloader.low_fuses=0b0{bootloader.eesave_bit}111001
-13.menu.clock.4M8.bootloader.speed=4mhz8
-13.menu.clock.4M8.bootloader.baudrate=57600
+13.menu.clock.4M8.bootloader.baudrate=38400
+13.menu.clock.4M8.bootloader.speed=4800000_hz
+13.menu.clock.4M8.bootloader.speed-2=4704000_hz
+13.menu.clock.4M8.bootloader.speed-4=4608000_hz
+13.menu.clock.4M8.bootloader.speed+2=4896000_hz
+13.menu.clock.4M8.bootloader.speed+4=4992000_hz
 13.menu.clock.4M8.build.f_cpu=4800000L
 
 13.menu.clock.1M2=1.2 MHz internal osc.
+13.menu.clock.1M2.bootloader.clock=internal_oscillator
 13.menu.clock.1M2.bootloader.low_fuses=0b0{bootloader.eesave_bit}101010
-13.menu.clock.1M2.bootloader.speed=1mhz2
-13.menu.clock.1M2.bootloader.baudrate=19200
+13.menu.clock.1M2.bootloader.baudrate=9600
+13.menu.clock.1M2.bootloader.speed=1200000_hz
+13.menu.clock.1M2.bootloader.speed-2=1176000_hz
+13.menu.clock.1M2.bootloader.speed-4=1152000_hz
+13.menu.clock.1M2.bootloader.speed+2=1224000_hz
+13.menu.clock.1M2.bootloader.speed+4=1248000_hz
 13.menu.clock.1M2.build.f_cpu=1200000L
 
 13.menu.clock.600k=600 kHz internal osc.
+13.menu.clock.600k.bootloader.clock=internal_oscillator
 13.menu.clock.600k.bootloader.low_fuses=0b0{bootloader.eesave_bit}101001
-13.menu.clock.600k.bootloader.speed=600khz
-13.menu.clock.600k.bootloader.baudrate=9600
+13.menu.clock.600k.bootloader.baudrate=4800
+13.menu.clock.600k.bootloader.speed=600000_hz
+13.menu.clock.600k.bootloader.speed-2=588000_hz
+13.menu.clock.600k.bootloader.speed-4=576000_hz
+13.menu.clock.600k.bootloader.speed+2=612000_hz
+13.menu.clock.600k.bootloader.speed+4=624000_hz
 13.menu.clock.600k.build.f_cpu=600000L
 
 13.menu.clock.128k=128 KHz internal osc.
+13.menu.clock.128k.bootloader.clock=internal_oscillator
 13.menu.clock.128k.bootloader.low_fuses=0b0{bootloader.eesave_bit}111011
+13.menu.clock.128k.bootloader.baudrate=1200
+13.menu.clock.128k.bootloader.speed=128000_hz
+13.menu.clock.128k.bootloader.speed-2=125440_hz
+13.menu.clock.128k.bootloader.speed-4=122880_hz
+13.menu.clock.128k.bootloader.speed+2=130560_hz
+13.menu.clock.128k.bootloader.speed+4=133120_hz
 13.menu.clock.128k.build.f_cpu=128000L
 
 13.menu.clock.20M=20 MHz external clock
+13.menu.clock.20M.bootloader.clock=external_oscillator
 13.menu.clock.20M.bootloader.low_fuses=0b0{bootloader.eesave_bit}111000
-13.menu.clock.20M.bootloader.speed=20mhz
 13.menu.clock.20M.bootloader.baudrate=115200
+13.menu.clock.20M.bootloader.speed=20000000_hz
+13.menu.clock.20M.bootloader.speed-2=20000000_hz
+13.menu.clock.20M.bootloader.speed-4=20000000_hz
+13.menu.clock.20M.bootloader.speed+2=20000000_hz
+13.menu.clock.20M.bootloader.speed+4=20000000_hz
 13.menu.clock.20M.build.f_cpu=20000000L
 
 13.menu.clock.16M=16 MHz external clock
+13.menu.clock.16M.bootloader.clock=external_oscillator
 13.menu.clock.16M.bootloader.low_fuses=0b0{bootloader.eesave_bit}111000
-13.menu.clock.16M.bootloader.speed=16mhz
 13.menu.clock.16M.bootloader.baudrate=115200
+13.menu.clock.16M.bootloader.speed=16000000_hz
+13.menu.clock.16M.bootloader.speed-2=16000000_hz
+13.menu.clock.16M.bootloader.speed-4=16000000_hz
+13.menu.clock.16M.bootloader.speed+2=16000000_hz
+13.menu.clock.16M.bootloader.speed+4=16000000_hz
 13.menu.clock.16M.build.f_cpu=16000000L
 
 13.menu.clock.12M=12 MHz external clock
+13.menu.clock.12M.bootloader.clock=external_oscillator
 13.menu.clock.12M.bootloader.low_fuses=0b0{bootloader.eesave_bit}111000
-13.menu.clock.12M.bootloader.speed=12mhz
 13.menu.clock.12M.bootloader.baudrate=115200
+13.menu.clock.12M.bootloader.speed=12000000_hz
+13.menu.clock.12M.bootloader.speed-2=12000000_hz
+13.menu.clock.12M.bootloader.speed-4=12000000_hz
+13.menu.clock.12M.bootloader.speed+2=12000000_hz
+13.menu.clock.12M.bootloader.speed+4=12000000_hz
 13.menu.clock.12M.build.f_cpu=12000000L
 
 13.menu.clock.8M=8 MHz external clock
+13.menu.clock.8M.bootloader.clock=external_oscillator
 13.menu.clock.8M.bootloader.low_fuses=0b0{bootloader.eesave_bit}111000
-13.menu.clock.8M.bootloader.speed=8mhz
 13.menu.clock.8M.bootloader.baudrate=115200
+13.menu.clock.8M.bootloader.speed=8000000_hz
+13.menu.clock.8M.bootloader.speed-2=8000000_hz
+13.menu.clock.8M.bootloader.speed-4=8000000_hz
+13.menu.clock.8M.bootloader.speed+2=8000000_hz
+13.menu.clock.8M.bootloader.speed+4=8000000_hz
 13.menu.clock.8M.build.f_cpu=8000000L
 
 13.menu.clock.1M=1 MHz external clock
+13.menu.clock.1M.bootloader.clock=external_oscillator
 13.menu.clock.1M.bootloader.low_fuses=0b0{bootloader.eesave_bit}111000
-13.menu.clock.1M.bootloader.speed=1mhz
 13.menu.clock.1M.bootloader.baudrate=19200
+13.menu.clock.1M.bootloader.speed=1000000_hz
+13.menu.clock.1M.bootloader.speed-2=1000000_hz
+13.menu.clock.1M.bootloader.speed-4=1000000_hz
+13.menu.clock.1M.bootloader.speed+2=1000000_hz
+13.menu.clock.1M.bootloader.speed+4=1000000_hz
 13.menu.clock.1M.build.f_cpu=1000000L
 
 # EEPROM
@@ -104,22 +154,44 @@ menu.bootloader=Bootloader
 13.menu.BOD.disabled=BOD disabled
 13.menu.BOD.disabled.fuse.bod=f
 
+
+# Bootloader
 13.menu.bootloader.no_bootloader=No bootloader
 13.menu.bootloader.no_bootloader.upload.maximum_size=1024
 13.menu.bootloader.no_bootloader.fuse.selfprogen=f
 13.menu.bootloader.no_bootloader.bootloader.flash=
 
-13.menu.bootloader.rx_pb1_tx_pb0=Yes (RX = PB1, TX = PB0)
-13.menu.bootloader.rx_pb1_tx_pb0.upload.protocol=urclock
-13.menu.bootloader.rx_pb1_tx_pb0.upload.maximum_size=768
-13.menu.bootloader.rx_pb1_tx_pb0.fuse.selfprogen=e
-13.menu.bootloader.rx_pb1_tx_pb0.bootloader.file=urboot/fcpu_{bootloader.speed}/{bootloader.baudrate}_bps/urboot_attiny13a_{bootloader.speed}_{bootloader.baudrate}bps_swio_rxb1_txb0_ur_vbl.hex
-13.menu.bootloader.rx_pb1_tx_pb0.bootloader.flash=-Uflash:w:{runtime.platform.path}/bootloaders/{bootloader.file}:i
+13.menu.bootloader.rx_pb1_tx_pb0_100=Yes (F_CPU 100%)
+13.menu.bootloader.rx_pb1_tx_pb0_100.upload.protocol=urclock
+13.menu.bootloader.rx_pb1_tx_pb0_100.upload.maximum_size=768
+13.menu.bootloader.rx_pb1_tx_pb0_100.fuse.selfprogen=e
+13.menu.bootloader.rx_pb1_tx_pb0_100.bootloader.file=urboot/{bootloader.clock}/{bootloader.speed}/{bootloader.baudrate}_baud/swio_rxb1_txb0/led+b2/urboot_attiny13a.hex
+13.menu.bootloader.rx_pb1_tx_pb0_100.bootloader.flash=-Uflash:w:{runtime.platform.path}/bootloaders/{bootloader.file}:i
 
-13.menu.bootloader.rx_pb0_tx_pb1=Yes (RX = PB0, TX = PB1)
-13.menu.bootloader.rx_pb0_tx_pb1.upload.protocol=urclock
-13.menu.bootloader.rx_pb0_tx_pb1.upload.maximum_size=768
-13.menu.bootloader.rx_pb0_tx_pb1.fuse.selfprogen=e
-13.menu.bootloader.rx_pb0_tx_pb1.bootloader.file=urboot/fcpu_{bootloader.speed}/{bootloader.baudrate}_bps/urboot_attiny13a_{bootloader.speed}_{bootloader.baudrate}bps_swio_rxb0_txb1_ur_vbl.hex
-13.menu.bootloader.rx_pb0_tx_pb1.bootloader.flash=-Uflash:w:{runtime.platform.path}/bootloaders/{bootloader.file}:i
+13.menu.bootloader.rx_pb1_tx_pb0_96=Yes (F_CPU 96%)
+13.menu.bootloader.rx_pb1_tx_pb0_96.upload.protocol=urclock
+13.menu.bootloader.rx_pb1_tx_pb0_96.upload.maximum_size=768
+13.menu.bootloader.rx_pb1_tx_pb0_96.fuse.selfprogen=e
+13.menu.bootloader.rx_pb1_tx_pb0_96.bootloader.file=urboot/{bootloader.clock}/{bootloader.speed-4}/{bootloader.baudrate}_baud/swio_rxb1_txb0/led+b2/urboot_attiny13a.hex
+13.menu.bootloader.rx_pb1_tx_pb0_96.bootloader.flash=-Uflash:w:{runtime.platform.path}/bootloaders/{bootloader.file}:i
 
+13.menu.bootloader.rx_pb1_tx_pb0_98=Yes (F_CPU 98%)
+13.menu.bootloader.rx_pb1_tx_pb0_98.upload.protocol=urclock
+13.menu.bootloader.rx_pb1_tx_pb0_98.upload.maximum_size=768
+13.menu.bootloader.rx_pb1_tx_pb0_98.fuse.selfprogen=e
+13.menu.bootloader.rx_pb1_tx_pb0_98.bootloader.file=urboot/{bootloader.clock}/{bootloader.speed-2}/{bootloader.baudrate}_baud/swio_rxb1_txb0/led+b2/urboot_attiny13a.hex
+13.menu.bootloader.rx_pb1_tx_pb0_98.bootloader.flash=-Uflash:w:{runtime.platform.path}/bootloaders/{bootloader.file}:i
+
+13.menu.bootloader.rx_pb1_tx_pb0_102=Yes (F_CPU 102%)
+13.menu.bootloader.rx_pb1_tx_pb0_102.upload.protocol=urclock
+13.menu.bootloader.rx_pb1_tx_pb0_102.upload.maximum_size=768
+13.menu.bootloader.rx_pb1_tx_pb0_102.fuse.selfprogen=e
+13.menu.bootloader.rx_pb1_tx_pb0_102.bootloader.file=urboot/{bootloader.clock}/{bootloader.speed+2}/{bootloader.baudrate}_baud/swio_rxb1_txb0/led+b2/urboot_attiny13a.hex
+13.menu.bootloader.rx_pb1_tx_pb0_102.bootloader.flash=-Uflash:w:{runtime.platform.path}/bootloaders/{bootloader.file}:i
+
+13.menu.bootloader.rx_pb1_tx_pb0_104=Yes (F_CPU 104%)
+13.menu.bootloader.rx_pb1_tx_pb0_104.upload.protocol=urclock
+13.menu.bootloader.rx_pb1_tx_pb0_104.upload.maximum_size=768
+13.menu.bootloader.rx_pb1_tx_pb0_104.fuse.selfprogen=e
+13.menu.bootloader.rx_pb1_tx_pb0_104.bootloader.file=urboot/{bootloader.clock}/{bootloader.speed+4}/{bootloader.baudrate}_baud/swio_rxb1_txb0/led+b2/urboot_attiny13a.hex
+13.menu.bootloader.rx_pb1_tx_pb0_104.bootloader.flash=-Uflash:w:{runtime.platform.path}/bootloaders/{bootloader.file}:i
