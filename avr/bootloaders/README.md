@@ -12,7 +12,7 @@ The ATtiny13A exhibits a SWIO baud rate quantisation error of -0.20% for this F_
 
 |Size|Usage|Version|Features|Hex file|
 |:-:|:-:|:-:|:-:|:--|
-|254|256|u7.7|`w-u-jPr--`|[urboot_attiny13a.hex](https://raw.githubusercontent.com/stefanrueger/urboot.hex/main/cores/microcore/attiny13a/watchdog_1_s/internal_oscillator/9600000_hz/57600_baud/swio_rxb0_txb1/no-led/urboot_attiny13a.hex)|
+|254|256|u7.7|`w-u-jPr--`|urboot_attiny13a.hex|
 
 - **Size:** Bootloader code size including small table at top end
 - **Usage:** How many bytes of flash are needed, ie, HW boot section or a multiple of the page size
