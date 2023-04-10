@@ -170,8 +170,9 @@ void noTone(uint8_t pin)
   // fix it for itself next time you analogWrite() if you need to.
   TIMSK0 &= ~_BV(OCIE0A);
 
-  // Pin goes back to input state
+  // Pin goes back to input and low state
   DDRB &= ~pin;
+  PORTB &= ~pin;
 }
 
 
