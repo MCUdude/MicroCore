@@ -80,7 +80,7 @@ This is great knowledge, so you should absolutely check it out - [AVR4027: Tips 
 ## Bootloader
 MicroCore supports the ultra light-weight and efficient [Urboot](https://github.com/stefanrueger/urboot) bootloader, written by [Stefan Rueger](https://github.com/stefanrueger). The bootloader makes it trivial to upload sketches using a USB to serial adapter (see the [minimal setup schematic](#minimal-setup)), just like with a traditional AVR-based Arduino board. But unlike other bootloaders, Urboot only occupies 256 bytes of flash and protects its patched reset vector, which means that, unlike Optiboot, it's practically impossible to mess up the reset vector and "brick" the chip. Give the bootloader option a try, and you'll be amazed at how well it works!
 
-The internal oscillator on the ATtiny13 is usually slower than it should be according to the spec. Try burning the slower and faster ones (-1.25%, +1.25%, etc.) if the  "Bootloader: _Yes_" option doesn't work.
+The internal oscillator on the ATtiny13 is usually slower than it should be according to the spec. Try burning the slower and faster ones (-1.25%, +1.25%, etc.) if the  "Bootloader: _Yes_" option doesn't work. Note that this is not applicable when using an external clock. Selecting something else than "Yes" will result in loading the same bootloader regardless.
 
 The default bootloader UART pins are `PB0 = TXD` and `PB1 = RXD`, which means PB0 connects to RXD on the USB to serial adapter, and PB1 connects to TXD.
 
