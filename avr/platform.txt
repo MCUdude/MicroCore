@@ -1,5 +1,5 @@
 #########################################
-## This file is created by MCUdude 
+## This file is created by MCUdude
 ## for use with MicroCore - an Arduino
 ## core for the ATtiny13.
 ## https://github.com/MCUdude/MicroCore
@@ -13,7 +13,7 @@ name=MicroCore
 version=2.2.1
 
 # AVR compile variables
-# --------------------- 
+# ---------------------
 
 compiler.warning_flags=-w
 compiler.warning_flags.none=-w
@@ -132,7 +132,7 @@ tools.avrdude.upload.params.quiet=-q -q
 # tools.avrdude.upload.verify is needed for backwards compatibility with AVRDUDE 6.3.0 and IDE 1.6.8 or older, IDE 1.6.9 or newer overrides this value
 tools.avrdude.upload.verify=
 tools.avrdude.upload.params.noverify=-V
-tools.avrdude.upload.pattern="{cmd.path}" "-C{config.path}" {upload.verbose} {upload.verify} -p{build.mcu} -c{upload.protocol} -P{serial.port} -b{bootloader.baudrate} "-Uflash:w:{build.path}/{build.project_name}.hex:i"
+tools.avrdude.upload.pattern="{cmd.path}" "-C{config.path}" {upload.verbose} {upload.verify} -p{build.mcu} -c{upload.protocol} -P{serial.port} -b{bootloader.baudrate} -xnometadata "-Uflash:w:{build.path}/{build.project_name}.hex:i"
 
 tools.avrdude.program.params.verbose=-v
 tools.avrdude.program.params.quiet=-q -q
