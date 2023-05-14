@@ -12,7 +12,7 @@ And best of all, MicroCore is supported!
 
 
 ## MicroCore + PlatformIO
-MicroCore and PlatformIO goes great together. You can upload using your favorite programmer and print to the serial monitor. But you can also let PlatformIO calulate the fuses, just like Arduino IDE does!
+MicroCore and PlatformIO goes great together. You can upload using your favorite programmer and print to the serial monitor. But you can also let PlatformIO calulate the fuses and load the correct bootloader file, just like Arduino IDE does!
 
 PlatformIO uses the information provided in platformio.ini to calculate what fuse bits and what bootloader file to load.  
 Simply provide enough information and run the following commands:  
@@ -21,6 +21,9 @@ Simply provide enough information and run the following commands:
 ; Set fuses
 pio run -t fuses -e set_fuses
 ; (where "set_fuses" can be replace with a different environment to match your build configuration)
+pio run -t bootloader -e fuses_bootloader
+; (where "fuses_bootloader" can be replace with a different environment to match your build configuration)
+
 ```
 
 You can find a platformio.ini template you can use when creating a project for the ATtiny13 below.  
@@ -28,8 +31,10 @@ The most common functionality is available in this template. As you can see, the
 
 * The default build environment are defined under `[platformio]`.
 * All parameters that are common for all environments are defined under `[env]`.
-* Use the `[env:Upload_ISP]` to upload to your target.
+* Use the `[env:Upload_ISP]` to upload to your target using an ISP programmer.
+* Use the `[env:Upload_UART]` to upload to your target using a USB to serial interface.
 * Use `[env:set_fuses]` to set the fuses.
+* Use `[env:fuses_bootlaoder]` to set the fuses and flash the bootloader.
 
 More information on what each line means can be found futher down on this page.
 
@@ -60,7 +65,7 @@ framework = arduino
 
 ; TARGET SETTINGS
 ; Chip in use
-board = ATtiny13
+board = ATtiny13A
 ; Clock frequency in [Hz]
 board_build.f_cpu = 9600000L
 
@@ -71,8 +76,8 @@ build_flags =
 build_unflags =
 
 ; SERIAL MONITOR OPTIONS
-; Serial monitor port
-monitor_port = /dev/cu.usberserial*
+; Serial monitor port defined in the Upload_UART environment
+monitor_port = ${env:Upload_UART.upload_port}
 ; Serial monitor baud rate
 monitor_speed = 115200
 
@@ -80,28 +85,46 @@ monitor_speed = 115200
 ; Run the following command to upload with this environment
 ; pio run -e Upload_ISP -t upload
 [env:Upload_ISP]
-; Custom upload procedure
-upload_protocol = custom
-; Avrdude upload flags
-upload_flags =
+upload_protocol = custom              ; Custom upload procedure
+upload_flags =                        ; Avrdude upload flags
   -C$PROJECT_PACKAGES_DIR/tool-avrdude/avrdude.conf
   -p$BOARD_MCU
   -PUSB
   -cusbasp
-; Avrdude upload command
-upload_command = avrdude $UPLOAD_FLAGS -U flash:w:$SOURCE:i
+  -Uflash:w:$SOURCE:i
+upload_command = avrdude $UPLOAD_FLAGS ; Avrdude upload command
 
 
-; Run the following command to set fuses
+; Run the following command to upload with this environment
+; pio run -e Upload_UART -t upload
+[env:Upload_UART]
+upload_protocol = urclock            ; Serial bootloader protocol
+board_upload.maximum_size = 768      ; Bootloader occupies 256 bytes of flash
+upload_port = /dev/cu.usbserial      ; User defined serial upload port
+board_upload.speed = ${env:fuses_bootloader.board_bootloader.speed} ; Bootloader baud rate
+upload_flags =                       ; Do not store any program metadatain flash
+  -xnometadata        
+
+
+; Run the following command to set fuses with no bootloader
 ; pio run -e set_fuses -t fuses
 [env:set_fuses]
+board_hardware.uart = no_bootloader
 board_hardware.oscillator = internal ; Oscillator type
 board_hardware.bod = 2.7v            ; Set brown-out detection
 board_hardware.eesave = yes          ; Preserve EEPROM when uploading using programmer
 upload_protocol = usbasp             ; Use the USBasp as programmer
-upload_flags =                       ; Select USB as upload port and divide the SPI clock by 8
-  -PUSB
+upload_flags =                       ; Divide SPI clock by 8
   -B8
+
+
+; Run the following command to set fuses and flash a bootloader
+; pio run -e fuses -t fuses_bootloader
+[env:fuses_bootloader]
+extends = env:set_fuses              ; Continue where set_fuses left off
+board_hardware.uart = swio_rxb1_txb0 ; Software UART, RXD=PB1, TXD=PB0
+board_hardware.f_cpu_error = +1.25   ; Percent internal clock error (-10 to 10 in 1.25 steps)
+board_bootloader.speed = 57600       ; Set bootloader baud rate
 
 ```
 
@@ -109,9 +132,9 @@ upload_flags =                       ; Select USB as upload port and divide the 
 ### `board`
 PlatformIO requires the `board` parameter to be present.
 
-| Target     | Board name |
-|------------|------------|
-| ATtiny13/A | `ATtiny13` |
+| Target     | Board name  |
+|------------|-------------|
+| ATtiny13/A | `ATtiny13A` |
 
 
 ### `board_build.f_cpu`
@@ -163,6 +186,42 @@ Specifies if the EEPROM memory should be retained when uploading using a program
 | `yes` (default) |
 | `no`            |
 
+
+### `board_hardware.uart`
+Specifies which pins to use for bootloader UART communication.
+
+| Bootloader UART pins      |                      |
+|---------------------------|----------------------|
+| `no_bootloader` (default) |                      |
+| `swio_rxb1_txb0`          | RXD = PB1, TXD = PB0 |
+| `swio_rxb0_txb1`          | RXD = PB0, TXD = PB1 |
+
+
+### `board_hardware.f_cpu_error`
+Compansate for the internal oscillator error. Valid values are -10 to +10 in 1.25 steps
+Defaults to 0 (%) if not present, and only applies when `board_hardware.oscillator = internal`.
+
+### `board_upload.speed` / `board_bootloader.speed`
+Specifies the upload baud rate. Available baud rates is shown in the table below, had has to corrolate with `build_board.f_cpu`.  
+  
+**Note that if you're using a programmer that communicates with Avrdude with a serial port (Arduino as ISP, STK500, etc.) the `board_upload.speed` field will interfere with the programmer's baud rate.  
+In this case, use `board_bootloader.speed` to set the bootloader baud rate, and `board_upload.speed` to set the baud rate for the programmer.**  
+  
+| Internal osc. | 76800  | 57600  | 38400  | 19200  | 9600   | 4800   | 2400   | 1200   | 600    | 300    |
+|---------------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
+| `9600000L`    |  X     |  X     |  X     |  X     |  X     |        |        |        |        |        |
+| `4800000L`    |        |        |  X     |  X     |  X     |  X     |        |        |        |        |
+| `1200000L`    |        |        |        |        |  X     |  X     |  X     |  X     |        |        |
+| `600000L`     |        |        |        |        |        |  X     |  X     |  X     |  X     |        |
+| `128000L`     |        |        |        |        |        |        |        |  X     |  X     |  X     |
+
+| External osc. | 500000 | 460800 | 250000 | 230400 | 115200 | 57600  | 38400  | 19200  | 9600   | 4800   | 2400   | 1200   |
+|---------------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
+| `20000000L`   |  X     |  X     |  X     |  X     |  X     |  X     |  X     |        |        |        |        |        |
+| `16000000L`   |  X     |  X     |  X     |  X     |  X     |  X     |  X     |  X     |        |        |        |        |
+| `12000000L`   |  X     |  X     |  X     |  X     |  X     |  X     |  X     |  X     |        |        |        |        |
+| `8000000L`    |        |        |  X     |  X     |  X     |  X     |  X     |  X     |  X     |        |        |        |
+| `1000000L`    |        |        |        |        |        |        |  X     |  X     |  X     |  X     |  X     |  X     |
 
 ### `build_flags`
 This parameter is used to set compiler flags. You can use this field to change the core settings rather than modifying core_settings.h like you would have to in Arduino IDE.  
@@ -226,7 +285,7 @@ Sets the serial monitor baud rate. Defaults to 9600 if not defined.
 
 
 ## Supported baudrates
-Here is a list of all supported baudrates.  
+Here is a list of all supported baudrates for use in the user program, not the bootloader.  
 See the [build_flags](#build_flags) section on how you can change the baud rate instead of using the default one:
 
 | Clock & baud | 460800 | 250000 | 230400 | 115200   | 57600    | 38400 | 19200    | 9600     | 4800 | 2400 | 1200 |
