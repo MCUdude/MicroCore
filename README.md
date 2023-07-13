@@ -10,7 +10,7 @@ If you're looking for a great development board for the ATtiny13, and DIP-8 ATti
 **[Read more and purchase on my Tindie store!](https://www.tindie.com/products/MCUdude/attiny-arduino-compatible-development-board/)**
 <br/>
 <br/>
-<img src="https://i.imgur.com/Lzkqtm2.jpg" width="350">  <img src="https://i.imgur.com/GVE88sJ.jpg" width="380">
+<img src="https://i.imgur.com/vHiyk0C.jpg" width="350">  <img src="https://i.imgur.com/J7rcxng.jpg" width="350">
 
 
 ## Table of contents
