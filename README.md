@@ -30,6 +30,7 @@ If you're looking for a great development board for the ATtiny13, and DIP-8 ATti
   - [How to install](#how-to-install)
       - [Boards Manager Installation](#boards-manager-installation)
       - [Manual Installation](#manual-installation)
+      - [Arduino CLI Installation](#arduino-cli-installation)
       - [PlatformIO](#platformio)
   - [Getting started with MicroCore](#getting-started-with-microcore)
   - [Pinout](#pinout)
@@ -174,6 +175,14 @@ MicroCore requires Arduino IDE version 1.6.13 or greater.
 #### Manual Installation
 Click on the "Clone or download" button in the upper right corner. Extract the ZIP file, and move the extracted folder to the location "**~/Documents/Arduino/hardware**". Create the "hardware" folder if it doesn't exist.
 Open Arduino IDE, and a new category in the boards menu called "MicroCore" will show up.
+
+
+#### Arduino CLI Installation
+Run the following command in a terminal:
+
+```
+arduino-cli core install MicroCore:avr --additional-urls https://mcudude.github.io/MicroCore/package_MCUdude_MicroCore_index.json
+```
 
 
 #### PlatformIO
