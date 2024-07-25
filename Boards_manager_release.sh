@@ -81,7 +81,7 @@ jq -r                                   \
     {
       "packager": "MicroCore",
       "name": "avrdude",
-      "version": "7.1-arduino.1"
+      "version": "7.2-arduino.1"
     },
     {
       "packager": "arduino",
