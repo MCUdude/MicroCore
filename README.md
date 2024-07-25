@@ -1,5 +1,4 @@
 # MicroCore
-[![Build Status](https://travis-ci.com/MCUdude/MicroCore.svg?branch=master)](https://travis-ci.com/MCUdude/MicroCore)
 [![MicroCore forum thread](https://img.shields.io/badge/support-forum-blue.svg)](https://forum.arduino.cc/index.php?topic=426153.0)
 
 MicroCore is a lightweight Arduino hardware package for ATtiny13, ATtiny13A, and ATtiny13V. It's easy to install, easy to use, has lots of features, including bootloader support, and supports most Arduino functions.
