@@ -1,7 +1,7 @@
 # PlatformIO
 
-[PlatformIO](https://platformio.org) is an open source ecosystem for embedded development. 
-It has a built-in library manager and is Arduino compatible. It supports most operating systems; Windows, MacOS, Linux 32 and 64-bit, ARM and X86.  
+[PlatformIO](https://platformio.org) is an open-source ecosystem for embedded development. 
+It has a built-in library manager and is Arduino-compatible. It supports most operating systems; Windows, MacOS, Linux 32 and 64-bit, ARM, and X86.  
 And best of all, MicroCore is supported!
 
 * [What is PlatformIO?](http://docs.platformio.org/en/latest/what-is-platformio.html)
@@ -12,7 +12,7 @@ And best of all, MicroCore is supported!
 
 
 ## MicroCore + PlatformIO
-MicroCore and PlatformIO goes great together. You can upload using your favorite programmer and print to the serial monitor. But you can also let PlatformIO calulate the fuses and load the correct bootloader file, just like Arduino IDE does!
+MicroCore and PlatformIO go great together. You can upload using your favorite programmer and print to the serial monitor. But you can also let PlatformIO calculate the fuses and load the correct bootloader file, just like Arduino IDE does!
 
 PlatformIO uses the information provided in platformio.ini to calculate what fuse bits and what bootloader file to load.  
 Simply provide enough information and run the following commands:  
@@ -20,23 +20,23 @@ Simply provide enough information and run the following commands:
 ```ini
 ; Set fuses
 pio run -t fuses -e set_fuses
-; (where "set_fuses" can be replace with a different environment to match your build configuration)
+; (where "set_fuses" can be replaced with a different environment to match your build configuration)
 pio run -t bootloader -e fuses_bootloader
-; (where "fuses_bootloader" can be replace with a different environment to match your build configuration)
+; (where "fuses_bootloader" can be replaced with a different environment to match your build configuration)
 
 ```
 
 You can find a platformio.ini template you can use when creating a project for the ATtiny13 below.  
-The most common functionality is available in this template. As you can see, the templated is divided into multiple environments.  
+The most common functionality is available in this template. As you can see, the template is divided into multiple environments.  
 
-* The default build environment are defined under `[platformio]`.
+* The default build environment is defined under `[platformio]`.
 * All parameters that are common for all environments are defined under `[env]`.
 * Use the `[env:Upload_ISP]` to upload to your target using an ISP programmer.
 * Use the `[env:Upload_UART]` to upload to your target using a USB to serial interface.
 * Use `[env:set_fuses]` to set the fuses.
 * Use `[env:fuses_bootlaoder]` to set the fuses and flash the bootloader.
 
-More information on what each line means can be found futher down on this page.
+More information on what each line means can be found further down on this page.
 
 ``` ini
 ; PlatformIO template project configuration file for MicroCore
@@ -45,10 +45,10 @@ More information on what each line means can be found futher down on this page.
 ;   Build options: build flags, source filter
 ;   Hardware options: oscillator type, BOD, EEPROM retain
 ;   Upload options: programmer type, and extra flags
-;   Library options: dependencies, extra library storages
+;   Library options: dependencies, extra library storage
 ;   Advanced options: extra scripting
 ;
-; Please visit documentation for the other options
+; Please see the documentation for the other options
 ; https://github.com/MCUdude/MicroCore/blob/master/PlatformIO.md
 ; https://docs.platformio.org/page/projectconf.html
 ; https://docs.platformio.org/en/latest/platforms/atmelavr.html
@@ -100,9 +100,9 @@ upload_command = avrdude $UPLOAD_FLAGS ; Avrdude upload command
 [env:Upload_UART]
 upload_protocol = urclock            ; Serial bootloader protocol
 board_upload.maximum_size = 768      ; Bootloader occupies 256 bytes of flash
-upload_port = /dev/cu.usbserial      ; User defined serial upload port
+upload_port = /dev/cu.usbserial      ; User-defined serial upload port
 board_upload.speed = ${env:fuses_bootloader.board_bootloader.speed} ; Bootloader baud rate
-upload_flags =                       ; Do not store any program metadatain flash
+upload_flags =                       ; Do not store any program metadata in flash
   -xnometadata        
 
 
@@ -198,11 +198,11 @@ Specifies which pins to use for bootloader UART communication.
 
 
 ### `board_hardware.f_cpu_error`
-Compansate for the internal oscillator error. Valid values are -10 to +10 in 1.25 steps
+Compensate for the internal oscillator error. Valid values are -10 to +10 in 1.25 steps
 Defaults to 0 (%) if not present, and only applies when `board_hardware.oscillator = internal`.
 
 ### `board_upload.speed` / `board_bootloader.speed`
-Specifies the upload baud rate. Available baud rates is shown in the table below, had has to corrolate with `build_board.f_cpu`.  
+Specifies the upload baud rate. Available baud rates are shown in the table below has to correlate with `build_board.f_cpu`.  
   
 **Note that if you're using a programmer that communicates with Avrdude with a serial port (Arduino as ISP, STK500, etc.) the `board_upload.speed` field will interfere with the programmer's baud rate.  
 In this case, use `board_bootloader.speed` to set the bootloader baud rate, and `board_upload.speed` to set the baud rate for the programmer.**  
@@ -229,13 +229,13 @@ Here is a list of some settings you can change:
 
 | Flag                                                                                                                                                            | Description                                                                                                                                                                                                          |
 |-----------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| -DDISABLE_SAFEMODE                                                                                                                                              | Disables safemode, which saves space but are not as "safe". However, If you know what you're doing, like explicitly writing a pin as an output before using the analogWrite() function, you can save a little space. |
+| -DDISABLE_SAFEMODE                                                                                                                                              | Disables safemode, which saves space but is not as "safe". However, If you know what you're doing, like explicitly writing a pin as an output before using the analogWrite() function, you can save a little space. |
 | -DADC_PRESCALER_2 <br/>-DADC_PRESCALER_4 <br/>-DADC_PRESCALER_8 <br/>-DADC_PRESCALER_16 <br/>-DADC_PRESCALER32 <br/>-DADC_PRESCALER_64 <br/>-DADC_PRESCALER_128 | Set the ADC prescaler. If not defined, MicroCore will select the best one based on the F_CPU. Use only one of these flags.                                                                                           |
-| -DPWM_PHASE_CORRECT                                                                                                                                             | Use phase correct PWM generation. Uses fast PWM if not defined                                                                                                                                                       |
+| -DPWM_PHASE_CORRECT                                                                                                                                             | Use phase-correct PWM generation. Uses fast PWM if not defined                                                                                                                                                       |
 | -DUART_TX_PIN=B,1                                                                                                                                               | Change the default UART TX pin. If not defined, it will default to B,0                                                                                                                                               |
 | -DUART_RX_PIN=B,0                                                                                                                                               | Change the default UART RX pin. If not defined, it will default to B,1                                                                                                                                               |
-| -DINTERRUPT_SERIAL_RX                                                                                                                                           | Use interrupt based (PCINT) UART receive                                                                                                                                                                             |
-| -DCUSTOM_BAUDRATE=19200                                                                                                                                         | Manually set UART baudrate (for `Serial.print()`).<br/>See table in below for a table of all supported baud rates vs F_CPU.                                                                                          |
+| -DINTERRUPT_SERIAL_RX                                                                                                                                           | Use interrupt-based (PCINT) UART receive                                                                                                                                                                             |
+| -DCUSTOM_BAUD_RATE=19200                                                                                                                                        | Manually set UART baud rate (for `Serial.print()`).<br/>See table below for a table of all supported baud rates vs F_CPU.                                                                                            |
 
 **Example:**
 `build_flags = -DDPWM_PHASE_CORRECT -DDISABLE_SAFEMODE`
@@ -250,10 +250,10 @@ build_unflags = -flto
 
 ### `upload_protocol`
 Specified the Avrdude compatible programmer.  
-Note that you can divide down the programmer clock speed by adding the -B flag: `-B8` will give you 1/8th speed.  
+Note that you can divide down the programmer clock speed by adding the -B flag; `-B8` will give you 1/8th speed.  
 Here's a list of some popular programmers:
 
-| Programmer name | Avrdude name | Extra flags needed | Additinal information                          |
+| Programmer name | Avrdude name | Extra flags needed | Additional information                         |
 |-----------------|--------------|--------------------|------------------------------------------------|
 | USBasp          | `usbasp`     |                    |                                                |
 | USBtinyUSP      | `usbtiny`    |                    |                                                |
@@ -263,7 +263,7 @@ Here's a list of some popular programmers:
 
 ### `upload_port`
 Specified the programmer serial port.  
-Only needed for UART based programmers such as the Arduino as ISP (stk500v1).
+Only needed for UART-based programmers such as the Arduino as ISP (stk500v1).
 
 
 ### `upload_flags`
@@ -276,7 +276,7 @@ upload_flags = -b19200
 
 
 ### `monitor_port`
-PlatformIO detects serial ports automatically. However, if you want to override this you can uncomment `monitor_port`. Use `/dev/[port]` on Unix compatible systems, and use `COMx` on Windows.  
+PlatformIO detects serial ports automatically. However, if you want to override this you can uncomment `monitor_port`. Use `/dev/[port]` on Unix-compatible systems, and use `COMx` on Windows.  
 If you're having trouble connecting to the serial port on Windows, try `\\.\COMx` instead.
 
 
@@ -284,8 +284,8 @@ If you're having trouble connecting to the serial port on Windows, try `\\.\COMx
 Sets the serial monitor baud rate. Defaults to 9600 if not defined.
 
 
-## Supported baudrates
-Here is a list of all supported baudrates for use in the user program, not the bootloader.  
+## Supported baud rates
+Here is a list of all supported baud rates for use in the user program, not the bootloader.  
 See the [build_flags](#build_flags) section on how you can change the baud rate instead of using the default one:
 
 | Clock & baud | 460800 | 250000 | 230400 | 115200   | 57600    | 38400 | 19200    | 9600     | 4800 | 2400 | 1200 |
