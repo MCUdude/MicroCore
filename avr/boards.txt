@@ -245,89 +245,89 @@ menu.bootloader=Bootloader
 13.menu.bootloader.rx_pb1_tx_pb0_0.upload.protocol=urclock
 13.menu.bootloader.rx_pb1_tx_pb0_0.upload.maximum_size=768
 13.menu.bootloader.rx_pb1_tx_pb0_0.fuse.selfprogen=e
-13.menu.bootloader.rx_pb1_tx_pb0_0.bootloader.file=urboot/watchdog_1_s/{bootloader.clock}/{bootloader.speed}/{bootloader.baudrate}_baud/swio_rxb1_txb0/no-led/urboot_attiny13a.hex
+13.menu.bootloader.rx_pb1_tx_pb0_0.bootloader.file=urboot/watchdog_1_s/{bootloader.clock}/{bootloader.speed}/{bootloader.baudrate}_baud/swio_rxb1_txb0/no-led/urboot_attiny13a_pr.hex
 13.menu.bootloader.rx_pb1_tx_pb0_0.bootloader.flash=-Uflash:w:{runtime.platform.path}/bootloaders/{bootloader.file}:i
 
 13.menu.bootloader.rx_pb1_tx_pb0_-125=Yes (F_CPU -1.25%)
 13.menu.bootloader.rx_pb1_tx_pb0_-125.upload.protocol=urclock
 13.menu.bootloader.rx_pb1_tx_pb0_-125.upload.maximum_size=768
 13.menu.bootloader.rx_pb1_tx_pb0_-125.fuse.selfprogen=e
-13.menu.bootloader.rx_pb1_tx_pb0_-125.bootloader.file=urboot/watchdog_1_s/{bootloader.clock}/{bootloader.speed-125}/{bootloader.baudrate}_baud/swio_rxb1_txb0/no-led/urboot_attiny13a.hex
+13.menu.bootloader.rx_pb1_tx_pb0_-125.bootloader.file=urboot/watchdog_1_s/{bootloader.clock}/{bootloader.speed-125}/{bootloader.baudrate}_baud/swio_rxb1_txb0/no-led/urboot_attiny13a_pr.hex
 13.menu.bootloader.rx_pb1_tx_pb0_-125.bootloader.flash=-Uflash:w:{runtime.platform.path}/bootloaders/{bootloader.file}:i
 
 13.menu.bootloader.rx_pb1_tx_pb0_-250=Yes (F_CPU -2.50%)
 13.menu.bootloader.rx_pb1_tx_pb0_-250.upload.protocol=urclock
 13.menu.bootloader.rx_pb1_tx_pb0_-250.upload.maximum_size=768
 13.menu.bootloader.rx_pb1_tx_pb0_-250.fuse.selfprogen=e
-13.menu.bootloader.rx_pb1_tx_pb0_-250.bootloader.file=urboot/watchdog_1_s/{bootloader.clock}/{bootloader.speed-250}/{bootloader.baudrate}_baud/swio_rxb1_txb0/no-led/urboot_attiny13a.hex
+13.menu.bootloader.rx_pb1_tx_pb0_-250.bootloader.file=urboot/watchdog_1_s/{bootloader.clock}/{bootloader.speed-250}/{bootloader.baudrate}_baud/swio_rxb1_txb0/no-led/urboot_attiny13a_pr.hex
 13.menu.bootloader.rx_pb1_tx_pb0_-250.bootloader.flash=-Uflash:w:{runtime.platform.path}/bootloaders/{bootloader.file}:i
 
 13.menu.bootloader.rx_pb1_tx_pb0_-375=Yes (F_CPU -3.75%)
 13.menu.bootloader.rx_pb1_tx_pb0_-375.upload.protocol=urclock
 13.menu.bootloader.rx_pb1_tx_pb0_-375.upload.maximum_size=768
 13.menu.bootloader.rx_pb1_tx_pb0_-375.fuse.selfprogen=e
-13.menu.bootloader.rx_pb1_tx_pb0_-375.bootloader.file=urboot/watchdog_1_s/{bootloader.clock}/{bootloader.speed-375}/{bootloader.baudrate}_baud/swio_rxb1_txb0/no-led/urboot_attiny13a.hex
+13.menu.bootloader.rx_pb1_tx_pb0_-375.bootloader.file=urboot/watchdog_1_s/{bootloader.clock}/{bootloader.speed-375}/{bootloader.baudrate}_baud/swio_rxb1_txb0/no-led/urboot_attiny13a_pr.hex
 13.menu.bootloader.rx_pb1_tx_pb0_-375.bootloader.flash=-Uflash:w:{runtime.platform.path}/bootloaders/{bootloader.file}:i
 
 13.menu.bootloader.rx_pb1_tx_pb0_-500=Yes (F_CPU -5.00%)
 13.menu.bootloader.rx_pb1_tx_pb0_-500.upload.protocol=urclock
 13.menu.bootloader.rx_pb1_tx_pb0_-500.upload.maximum_size=768
 13.menu.bootloader.rx_pb1_tx_pb0_-500.fuse.selfprogen=e
-13.menu.bootloader.rx_pb1_tx_pb0_-500.bootloader.file=urboot/watchdog_1_s/{bootloader.clock}/{bootloader.speed-500}/{bootloader.baudrate}_baud/swio_rxb1_txb0/no-led/urboot_attiny13a.hex
+13.menu.bootloader.rx_pb1_tx_pb0_-500.bootloader.file=urboot/watchdog_1_s/{bootloader.clock}/{bootloader.speed-500}/{bootloader.baudrate}_baud/swio_rxb1_txb0/no-led/urboot_attiny13a_pr.hex
 13.menu.bootloader.rx_pb1_tx_pb0_-500.bootloader.flash=-Uflash:w:{runtime.platform.path}/bootloaders/{bootloader.file}:i
 
 13.menu.bootloader.rx_pb1_tx_pb0_-625=Yes (F_CPU -6.25%)
 13.menu.bootloader.rx_pb1_tx_pb0_-625.upload.protocol=urclock
 13.menu.bootloader.rx_pb1_tx_pb0_-625.upload.maximum_size=768
 13.menu.bootloader.rx_pb1_tx_pb0_-625.fuse.selfprogen=e
-13.menu.bootloader.rx_pb1_tx_pb0_-625.bootloader.file=urboot/watchdog_1_s/{bootloader.clock}/{bootloader.speed-625}/{bootloader.baudrate}_baud/swio_rxb1_txb0/no-led/urboot_attiny13a.hex
+13.menu.bootloader.rx_pb1_tx_pb0_-625.bootloader.file=urboot/watchdog_1_s/{bootloader.clock}/{bootloader.speed-625}/{bootloader.baudrate}_baud/swio_rxb1_txb0/no-led/urboot_attiny13a_pr.hex
 13.menu.bootloader.rx_pb1_tx_pb0_-625.bootloader.flash=-Uflash:w:{runtime.platform.path}/bootloaders/{bootloader.file}:i
 
 13.menu.bootloader.rx_pb1_tx_pb0_-750=Yes (F_CPU -7.50%)
 13.menu.bootloader.rx_pb1_tx_pb0_-750.upload.protocol=urclock
 13.menu.bootloader.rx_pb1_tx_pb0_-750.upload.maximum_size=768
 13.menu.bootloader.rx_pb1_tx_pb0_-750.fuse.selfprogen=e
-13.menu.bootloader.rx_pb1_tx_pb0_-750.bootloader.file=urboot/watchdog_1_s/{bootloader.clock}/{bootloader.speed-750}/{bootloader.baudrate}_baud/swio_rxb1_txb0/no-led/urboot_attiny13a.hex
+13.menu.bootloader.rx_pb1_tx_pb0_-750.bootloader.file=urboot/watchdog_1_s/{bootloader.clock}/{bootloader.speed-750}/{bootloader.baudrate}_baud/swio_rxb1_txb0/no-led/urboot_attiny13a_pr.hex
 13.menu.bootloader.rx_pb1_tx_pb0_-750.bootloader.flash=-Uflash:w:{runtime.platform.path}/bootloaders/{bootloader.file}:i
 
 13.menu.bootloader.rx_pb1_tx_pb0_-875=Yes (F_CPU -8.75%)
 13.menu.bootloader.rx_pb1_tx_pb0_-875.upload.protocol=urclock
 13.menu.bootloader.rx_pb1_tx_pb0_-875.upload.maximum_size=768
 13.menu.bootloader.rx_pb1_tx_pb0_-875.fuse.selfprogen=e
-13.menu.bootloader.rx_pb1_tx_pb0_-875.bootloader.file=urboot/watchdog_1_s/{bootloader.clock}/{bootloader.speed-875}/{bootloader.baudrate}_baud/swio_rxb1_txb0/no-led/urboot_attiny13a.hex
+13.menu.bootloader.rx_pb1_tx_pb0_-875.bootloader.file=urboot/watchdog_1_s/{bootloader.clock}/{bootloader.speed-875}/{bootloader.baudrate}_baud/swio_rxb1_txb0/no-led/urboot_attiny13a_pr.hex
 13.menu.bootloader.rx_pb1_tx_pb0_-875.bootloader.flash=-Uflash:w:{runtime.platform.path}/bootloaders/{bootloader.file}:i
 
 13.menu.bootloader.rx_pb1_tx_pb0_-1000=Yes (F_CPU -10.0%)
 13.menu.bootloader.rx_pb1_tx_pb0_-1000.upload.protocol=urclock
 13.menu.bootloader.rx_pb1_tx_pb0_-1000.upload.maximum_size=768
 13.menu.bootloader.rx_pb1_tx_pb0_-1000.fuse.selfprogen=e
-13.menu.bootloader.rx_pb1_tx_pb0_-1000.bootloader.file=urboot/watchdog_1_s/{bootloader.clock}/{bootloader.speed-1000}/{bootloader.baudrate}_baud/swio_rxb1_txb0/no-led/urboot_attiny13a.hex
+13.menu.bootloader.rx_pb1_tx_pb0_-1000.bootloader.file=urboot/watchdog_1_s/{bootloader.clock}/{bootloader.speed-1000}/{bootloader.baudrate}_baud/swio_rxb1_txb0/no-led/urboot_attiny13a_pr.hex
 13.menu.bootloader.rx_pb1_tx_pb0_-1000.bootloader.flash=-Uflash:w:{runtime.platform.path}/bootloaders/{bootloader.file}:i
 
 13.menu.bootloader.rx_pb1_tx_pb0_+125=Yes (F_CPU +1.25%)
 13.menu.bootloader.rx_pb1_tx_pb0_+125.upload.protocol=urclock
 13.menu.bootloader.rx_pb1_tx_pb0_+125.upload.maximum_size=768
 13.menu.bootloader.rx_pb1_tx_pb0_+125.fuse.selfprogen=e
-13.menu.bootloader.rx_pb1_tx_pb0_+125.bootloader.file=urboot/watchdog_1_s/{bootloader.clock}/{bootloader.speed+125}/{bootloader.baudrate}_baud/swio_rxb1_txb0/no-led/urboot_attiny13a.hex
+13.menu.bootloader.rx_pb1_tx_pb0_+125.bootloader.file=urboot/watchdog_1_s/{bootloader.clock}/{bootloader.speed+125}/{bootloader.baudrate}_baud/swio_rxb1_txb0/no-led/urboot_attiny13a_pr.hex
 13.menu.bootloader.rx_pb1_tx_pb0_+125.bootloader.flash=-Uflash:w:{runtime.platform.path}/bootloaders/{bootloader.file}:i
 
 13.menu.bootloader.rx_pb1_tx_pb0_+250=Yes (F_CPU +2.50%)
 13.menu.bootloader.rx_pb1_tx_pb0_+250.upload.protocol=urclock
 13.menu.bootloader.rx_pb1_tx_pb0_+250.upload.maximum_size=768
 13.menu.bootloader.rx_pb1_tx_pb0_+250.fuse.selfprogen=e
-13.menu.bootloader.rx_pb1_tx_pb0_+250.bootloader.file=urboot/watchdog_1_s/{bootloader.clock}/{bootloader.speed+250}/{bootloader.baudrate}_baud/swio_rxb1_txb0/no-led/urboot_attiny13a.hex
+13.menu.bootloader.rx_pb1_tx_pb0_+250.bootloader.file=urboot/watchdog_1_s/{bootloader.clock}/{bootloader.speed+250}/{bootloader.baudrate}_baud/swio_rxb1_txb0/no-led/urboot_attiny13a_pr.hex
 13.menu.bootloader.rx_pb1_tx_pb0_+250.bootloader.flash=-Uflash:w:{runtime.platform.path}/bootloaders/{bootloader.file}:i
 
 13.menu.bootloader.rx_pb1_tx_pb0_+375=Yes (F_CPU +3.75%)
 13.menu.bootloader.rx_pb1_tx_pb0_+375.upload.protocol=urclock
 13.menu.bootloader.rx_pb1_tx_pb0_+375.upload.maximum_size=768
 13.menu.bootloader.rx_pb1_tx_pb0_+375.fuse.selfprogen=e
-13.menu.bootloader.rx_pb1_tx_pb0_+375.bootloader.file=urboot/watchdog_1_s/{bootloader.clock}/{bootloader.speed+375}/{bootloader.baudrate}_baud/swio_rxb1_txb0/no-led/urboot_attiny13a.hex
+13.menu.bootloader.rx_pb1_tx_pb0_+375.bootloader.file=urboot/watchdog_1_s/{bootloader.clock}/{bootloader.speed+375}/{bootloader.baudrate}_baud/swio_rxb1_txb0/no-led/urboot_attiny13a_pr.hex
 13.menu.bootloader.rx_pb1_tx_pb0_+375.bootloader.flash=-Uflash:w:{runtime.platform.path}/bootloaders/{bootloader.file}:i
 
 13.menu.bootloader.rx_pb1_tx_pb0_+500=Yes (F_CPU +5.00%)
 13.menu.bootloader.rx_pb1_tx_pb0_+500.upload.protocol=urclock
 13.menu.bootloader.rx_pb1_tx_pb0_+500.upload.maximum_size=768
 13.menu.bootloader.rx_pb1_tx_pb0_+500.fuse.selfprogen=e
-13.menu.bootloader.rx_pb1_tx_pb0_+500.bootloader.file=urboot/watchdog_1_s/{bootloader.clock}/{bootloader.speed+500}/{bootloader.baudrate}_baud/swio_rxb1_txb0/no-led/urboot_attiny13a.hex
+13.menu.bootloader.rx_pb1_tx_pb0_+500.bootloader.file=urboot/watchdog_1_s/{bootloader.clock}/{bootloader.speed+500}/{bootloader.baudrate}_baud/swio_rxb1_txb0/no-led/urboot_attiny13a_pr.hex
 13.menu.bootloader.rx_pb1_tx_pb0_+500.bootloader.flash=-Uflash:w:{runtime.platform.path}/bootloaders/{bootloader.file}:i
