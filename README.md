@@ -1,11 +1,21 @@
 # MicroCore
 [![MicroCore forum thread](https://img.shields.io/badge/support-forum-blue.svg)](https://forum.arduino.cc/index.php?topic=426153.0)
 
-MicroCore is a lightweight Arduino hardware package for ATtiny13, ATtiny13A, and ATtiny13V. It's easy to install, easy to use, has lots of features, including bootloader support, and supports most Arduino functions.
-If you're into low level AVR programming make sure to check out the [example files](https://github.com/MCUdude/MicroCore/tree/master/avr/libraries/AVR_examples/examples) (File > Examples > AVR C code examples).
+MicroCore is a lightweight Arduino hardware package for ATtiny13, ATtiny13A, and ATtiny13V. It's easy to install, easy to use, has lots of features, including bootloader support and supports most Arduino functions.
+If you're into low-level AVR programming make sure to check out the [example files](https://github.com/MCUdude/MicroCore/tree/master/avr/libraries/AVR_examples/examples) (File > Examples > AVR C code examples).
 
 If you're looking for a great development board for the ATtiny13, and DIP-8 ATtinys in general, I got you covered! This board has all the bells and whistles you need from a board like this, and still, it measures only 42x42mm!
 <br/>
+<br/>
+*Key features:*
+* On-board USB to serial adapter with status lights, and comes preloaded with the Urboot bootloader
+* The on-board crystal driver lets you use any crystal to drive the microcontroller main clock
+* Selectable 5V and 3.3V target power
+* Supports 6-12V on the VIN pin
+* The trim pot provides a simple way to obtain an analog reference voltage, for instance for LCD contrast
+* Male and female headers and two grounded mounting holes make it very convenient for use with breadboard wires or oscilloscope probes
+* Supports the ATtiny13, ATtiny15, ATtiny25, ATtiny45 and ATtiny85
+  
 **[Read more and purchase on my Tindie store!](https://www.tindie.com/products/MCUdude/attiny-arduino-compatible-development-board/)**
 <br/>
 <br/>
@@ -47,7 +57,7 @@ If you're looking for a great development board for the ATtiny13, and DIP-8 ATti
 * They're pin compatible with the ATtiny25/45/85 family and often code compatible
 * Most [Arduino functions](https://www.arduino.cc/reference/en/) are supported by MicroCore
 * Support for the ultra light-weight and efficient [Urboot](https://github.com/stefanrueger/urboot) bootloader
-* Thanks to MicroCore you can fit a lot of high level code into 1024 bytes!
+* Thanks to MicroCore you can fit a lot of high-level code into 1024 bytes!
 
 
 ## Supported clock frequencies
@@ -67,12 +77,12 @@ Supported external clock frequencies:
 * 1 MHz external oscillator
 
 Select the ATtiny13 in the boards menu, then select the clock frequency. You'll have to hit "Burn bootloader" in order to set the correct fuses. Make sure you connect an ISP programmer, and select the correct one in the "Programmers" menu. <br/> <br/>
-<b>*</b> Make sure to use one of the "slow" programmer options when using the 600 or 128 kHz option (e.g _USBasp slow_).
+<b>*</b> Make sure to use one of the "slow" programmer options when using the 600 or 128 kHz option (e.g. _USBasp slow_).
 </br></br>
 
 
 ## LTO
-LTO or link time optimization is enabled by default, and reduces the code size at compile time. If you want to learn more about compiler flags and link time optimization (LTO), head over to the [GNU GCC website](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html). Ralph Doncaster has also written a [great post about LTO](http://nerdralph.blogspot.no/2014/04/gcc-link-time-optimization-can-fix-bad.html) you should read.<br/>
+LTO or link-time optimization is enabled by default and reduces the code size at compile time. If you want to learn more about compiler flags and link time optimization (LTO), head over to the [GNU GCC website](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html). Ralph Doncaster has also written a [great post about LTO](http://nerdralph.blogspot.no/2014/04/gcc-link-time-optimization-can-fix-bad.html) you should read.<br/>
 Compiler optimization can certainly make your code smaller in size. Still, it's all about writing efficient code. Microchip have created an application note on how to write more efficient C code for AVR microcontrollers.
 This is great knowledge, so you should absolutely check it out - [AVR4027: Tips and Tricks to Optimize Your C Code for 8-bit AVR Microcontrollers](http://ww1.microchip.com/downloads/en/AppNotes/doc8453.pdf).
 
@@ -87,7 +97,7 @@ The default bootloader UART pins are `PB0 = TXD` and `PB1 = RXD`, which means PB
 Note that the 128kHz internal oscillator option is not recommended for use with a bootloader since the oscillator is too inaccurate for practical use with an asynchronous protocol like UART.
 
 ## BOD option
-Brown out detection, or BOD for short lets the microcontroller sense the input voltage and shut down if the voltage goes below the brown out setting.
+Brown-out detection, or BOD for short lets the microcontroller sense the input voltage and shut down if the voltage goes below the brown-out setting.
 These are the available BOD options:
 * 4.3V
 * 2.7V
@@ -155,7 +165,7 @@ Make sure you connect an ISP programmer, and select the correct one in the "Prog
 
 ## Core settings
 To make sure you're able to fit your whole project into this tiny microcontroller and still be able to use Arduino functions, I've added some <b>core settings</b>. By modifying the [`core_settings.h`](https://github.com/MCUdude/MicroCore/blob/master/avr/cores/microcore/core_settings.h) file you can enable or disable core functions you need or don't need.
-If you know what you're doing and want full control, you can disable the safemode. For instance safemode makes sure that PWM gets turned off if a pin drives high or low, or digital pins don't exceed the number 5 (6 digital pins in total). By disabling safemode you'll gain some speed and flash space.
+If you know what you're doing and want full control, you can disable the safemode. For instance, safemode makes sure that PWM gets turned off if a pin drives high or low, or digital pins don't exceed the number 5 (6 digital pins in total). By disabling safemode you'll gain some speed and flash space.
 
 
 ## How to install
@@ -185,7 +195,7 @@ arduino-cli core install MicroCore:avr --additional-urls https://mcudude.github.
 
 
 #### PlatformIO
-[PlatformIO](http://platformio.org) is an open source ecosystem for IoT and embedded development, and supports MicroCore.
+[PlatformIO](http://platformio.org) is an open-source ecosystem for IoT and embedded development, and supports MicroCore.
 
 **See [PlatformIO.md](https://github.com/MCUdude/MicroCore/blob/master/PlatformIO.md) for more information.*
 
@@ -194,10 +204,10 @@ arduino-cli core install MicroCore:avr --additional-urls https://mcudude.github.
 Ok, so you have downloaded and installed MicroCore, but how do you get the wheels spinning? Here's a quick start guide:
 * Hook up your microcontroller as shown in the [pinout diagram](#pinout).
 * Open the **Tools > Board** menu item, and select ATtiny13.
-* Select your prefered BOD option. Read more about BOD [here](#bod-option).
-* Select your prefered clock frequency. **9.6 MHz internal oscillator** is the default setting. Do not use the external oscillator option if you don't have an external clock source. Remember that a regular two pin crystal will not work on the ATtiny13.
+* Select your preferred BOD option. Read more about BOD [here](#bod-option).
+* Select your preferred clock frequency. **9.6 MHz internal oscillator** is the default setting. Do not use the external oscillator option if you don't have an external clock source. Remember that a regular two-pin crystal will not work on the ATtiny13.
 * If you want you can change the compiler flags for further optimization. Leave this on the default setting if you don't know what compiler flags are.
-* Select what kind of programmer you're using under the **Programmers** menu. Use one of the **slow** programmers if you're using the 600 or 128 kHz oscillator option, e.g **USBtinyISP (slow)**.
+* Select what kind of programmer you're using under the **Programmers** menu. Use one of the **slow** programmers if you're using the 600 or 128 kHz oscillator option, e.g. **USBtinyISP (slow)**.
 * Hit **Burn Bootloader** to burn the fuses. The "settings" are now stored on the microcontroller!
 * Now that the correct fuse settings is sat you can upload your code by using your programmer tool. Simply hit *Upload*, and the code will be uploaded to the microcontroller.
 * If you want to do some changes; change the BOD option for instance, you'll have to hit **Burn Bootloader** again.
@@ -217,7 +227,7 @@ This diagram shows the pinout and the peripherals of ATtiny13. The Arduino pinou
 
 
 ## Working Arduino functions and libraries
-Due to the limited hardware not all default Arduino functions and libraries is supported by the ATtiny13. Here's a list of all working Arduino functions and libraries that's included in the MicroCore package.
+Due to the limited hardware, not all default Arduino functions and libraries are supported by the ATtiny13. Here's a list of all working Arduino functions and libraries that are included in the MicroCore package.
 
 ### Arduino functions
 * [analogRead()](https://www.arduino.cc/en/Reference/AnalogRead)
