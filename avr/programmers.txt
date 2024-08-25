@@ -129,3 +129,13 @@ stk500.upload.protocol=stk500
 stk500.program.protocol=stk500
 stk500.program.tool=avrdude
 stk500.program.extra_params= -P {serial.port}
+
+stk500_slow.name=STK500 as ISP slow
+stk500_slow.communication=serial
+stk500_slow.protocol=stk500
+stk500_slow.upload.protocol=stk500
+stk500_slow.program.protocol=stk500
+stk500_slow.program.tool=avrdude
+stk500_slow.program.extra_params=-B128 -P{serial.port}
+
+
