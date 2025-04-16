@@ -35,12 +35,12 @@ compiler.optimize_flags=-Os -flto -fno-reorder-blocks -ffixed-r2 -ffixed-r3 -ffi
 # Default "compiler.path" is correct, change only if you want to overidde the initial value
 compiler.path={runtime.tools.avr-gcc.path}/bin/
 compiler.c.cmd=avr-gcc
-compiler.c.flags=-c -g {compiler.optimize_flags} {compiler.warning_flags} -std=gnu11 -ffunction-sections -fdata-sections -MMD
-compiler.c.elf.flags={compiler.warning_flags} {compiler.optimize_flags} -g -fuse-linker-plugin -Wl,--gc-sections -mrelax
+compiler.c.flags=-c -g {compiler.optimize_flags} {compiler.optimization_flags} {compiler.warning_flags} -std=gnu11 -ffunction-sections -fdata-sections -MMD
+compiler.c.elf.flags={compiler.warning_flags} {compiler.optimize_flags} {compiler.optimization_flags} -g -fuse-linker-plugin -Wl,--gc-sections -mrelax
 compiler.c.elf.cmd=avr-gcc
-compiler.S.flags=-c -g -x assembler-with-cpp {compiler.optimize_flags} -MMD
+compiler.S.flags=-c -g -x assembler-with-cpp {compiler.optimize_flags} {compiler.optimization_flags} -MMD
 compiler.cpp.cmd=avr-g++
-compiler.cpp.flags=-c -g {compiler.optimize_flags} {compiler.warning_flags} -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD
+compiler.cpp.flags=-c -g {compiler.optimization_flags} {compiler.warning_flags} -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD
 compiler.ar.cmd=avr-gcc-ar
 compiler.ar.flags=rcs
 compiler.objcopy.cmd=avr-objcopy
