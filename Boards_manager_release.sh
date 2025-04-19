@@ -9,12 +9,12 @@
 ##########################################################
 
 # Change these to match your repo
-AUTHOR=felias-fogg   # Github username
+AUTHOR=MCUdude   # Github username
 REALAUTHOR=MCUdude   # real author
 REPOSITORY=MicroCore # Github repo name
 
 AVRDUDE_VERSION="8.0-arduino.1"
-DWTOOLS_VERSION="2.1.8"
+DWTOOLSVERSION="2.1.8"
 
 # Get the download URL for the latest release from Github
 DOWNLOAD_URL=$(curl -s https://api.github.com/repos/$AUTHOR/$REPOSITORY/releases/latest | grep "tarball_url" | awk -F\" '{print $4}')
@@ -57,6 +57,7 @@ cp "package_${REALAUTHOR}_${REPOSITORY}_index.json" "package_${REALAUTHOR}_${REP
 
 # Add new boards release entry
 jq -r                                    \
+--arg dwtoolsversion $DWTOOLSVERSION     \
 --arg repository  $REPOSITORY            \
 --arg version     ${DOWNLOADED_FILE#"v"} \
 --arg url         $URL                   \
@@ -92,7 +93,12 @@ jq -r                                    \
       "packager": "arduino",
       "name": "arduinoOTA",
       "version": "1.3.0"
-    }
+    },
+    {
+      "packager": "MicroCore",
+      "name": "dw-tools",
+      "version": $dwtoolsversion
+    }   
   ]
 }' "package_${REALAUTHOR}_${REPOSITORY}_index.json.tmp" > "package_${REALAUTHOR}_${REPOSITORY}_index.json"
 

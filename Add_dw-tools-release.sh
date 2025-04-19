@@ -1,7 +1,6 @@
 #!/bin/bash
 
-AUTHOR=felias-fogg  # Github username
-REALAUTHOR=MCUdude   # Real author name
+AUTHOR=MCUdude   # Real author name
 REPOSITORY=MicroCore # Github repo name
 
 DWTOOLS_VERSION="2.1.8"
@@ -72,7 +71,7 @@ printf "File4: ${FILE4}, Host: ${HOST4}, Size: ${SIZE4}, SHA256: ${SHASUM4}, URL
 printf "File6: ${FILE6}, Host: ${HOST6}, Size: ${SIZE6}, SHA256: ${SHASUM6}, URL6: ${URL6}\n"
 printf "File7: ${FILE7}, Host: ${HOST7}, Size: ${SIZE7}, SHA256: ${SHASUM7}, URL7: ${URL7}\n"
 
-cp "package_${REALAUTHOR}_${REPOSITORY}_index.json" "package_${REALAUTHOR}_${REPOSITORY}_index.json.tmp"
+cp "package_${AUTHOR}_${REPOSITORY}_index.json" "package_${AUTHOR}_${REPOSITORY}_index.json.tmp"
 
 ### NOTE: OS platform 5 needs to be added!
 
@@ -149,7 +148,7 @@ jq -r                                  \
       "url": $url7
     }
   ]
-}' "package_${REALAUTHOR}_${REPOSITORY}_index.json.tmp" > "package_${REALAUTHOR}_${REPOSITORY}_index.json"
+}' "package_${AUTHOR}_${REPOSITORY}_index.json.tmp" > "package_${AUTHOR}_${REPOSITORY}_index.json"
 
 #rm $FILE1
 rm $FILE2
@@ -158,4 +157,4 @@ rm $FILE4
 #rm $FILE5
 rm $FILE6
 rm $FILE7
-rm "package_${REALAUTHOR}_${REPOSITORY}_index.json.tmp"
+rm "package_${AUTHOR}_${REPOSITORY}_index.json.tmp"
