@@ -2,9 +2,12 @@
 [![MicroCore forum thread](https://img.shields.io/badge/support-forum-blue.svg)](https://forum.arduino.cc/index.php?topic=426153.0)
 
 MicroCore is a lightweight Arduino hardware package for ATtiny13, ATtiny13A, and ATtiny13V. It's easy to install, easy to use, has lots of features, including bootloader support and supports most Arduino functions.
-If you're into low-level AVR programming make sure to check out the [example files](https://github.com/MCUdude/MicroCore/tree/master/avr/libraries/AVR_examples/examples) (File > Examples > AVR C code examples).
+If you're into low-level AVR programming, make sure to check out the [example files](https://github.com/MCUdude/MicroCore/tree/master/avr/libraries/AVR_examples/examples) (File > Examples > 
+AVR C code examples).
 
-If you're looking for a great development board for the ATtiny13, and DIP-8 ATtinys in general, I got you covered! This board has all the bells and whistles you need from a board like this, and still, it measures only 42x42mm!
+*From version 2.5.0 onwards, debugging in the Arduino IDE 2 is supported. You can use any of Microchip's EDBG-based hardware debuggers or the DIY debugger [dw-link](https://github.com/felias-fogg/dw-link). For documentation, see [https://github.com/felias-fogg/dw-gdbserver](https://github.com/felias-fogg/dw-gdbserver).* 
+
+If you're looking for a great development board for the ATtiny13 and DIP-8 ATtinys in general, I've got you covered! This board has all the bells and whistles you need from a board like this, and still, it measures only 42x42mm!
 <br/>
 <br/>
 *Key features:*
@@ -12,7 +15,7 @@ If you're looking for a great development board for the ATtiny13, and DIP-8 ATti
 * The on-board crystal driver lets you use any crystal to drive the microcontroller main clock
 * Selectable 5V and 3.3V target power
 * Supports 6-12V on the VIN pin
-* The trim pot provides a simple way to obtain an analog reference voltage, for instance for LCD contrast
+* The trim pot provides a simple way to obtain an analog reference voltage, for instance, for LCD contrast
 * Male and female headers and two grounded mounting holes make it very convenient for use with breadboard wires or oscilloscope probes
 * Supports the ATtiny13, ATtiny15, ATtiny25, ATtiny45 and ATtiny85
   
@@ -56,8 +59,8 @@ If you're looking for a great development board for the ATtiny13, and DIP-8 ATti
 * They come in both DIP and SOIC packages
 * They're pin compatible with the ATtiny25/45/85 family and often code compatible
 * Most [Arduino functions](https://www.arduino.cc/reference/en/) are supported by MicroCore
-* Support for the ultra light-weight and efficient [Urboot](https://github.com/stefanrueger/urboot) bootloader
-* Thanks to MicroCore you can fit a lot of high-level code into 1024 bytes!
+* Support for the ultra-light-weight and efficient [Urboot](https://github.com/stefanrueger/urboot) bootloader
+* Thanks to MicroCore, you can fit a lot of high-level code into 1024 bytes!
 
 
 ## Supported clock frequencies
@@ -68,7 +71,7 @@ The ATtiny13 has several internal oscillators, and these are the available clock
 * 600 kHz internal oscillator  <b>*</b>
 * 128 kHz internal watchdog oscillator <b>*</b>
 
-If you want other or higher clock frequencies, you can apply an external clock source. Note that the ATtiny13 requires an external clock signal, and is not able to drive a resonator circuit itself. You may use a quartz crystal oscillator or a crystal driver (shown in the [minimal setup](#minimal-setup)).
+If you want other or higher clock frequencies, you can apply an external clock source. Note that the ATtiny13 requires an external clock signal and is not able to drive a resonator circuit itself. You may use a quartz crystal oscillator or a crystal driver (shown in the [minimal setup](#minimal-setup)).
 Supported external clock frequencies:
 * 20 MHz external oscillator
 * 16 MHz external oscillator
@@ -82,22 +85,22 @@ Select the ATtiny13 in the boards menu, then select the clock frequency. You'll 
 
 
 ## LTO
-LTO or link-time optimization is enabled by default and reduces the code size at compile time. If you want to learn more about compiler flags and link time optimization (LTO), head over to the [GNU GCC website](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html). Ralph Doncaster has also written a [great post about LTO](http://nerdralph.blogspot.no/2014/04/gcc-link-time-optimization-can-fix-bad.html) you should read.<br/>
+LTO or link-time optimization is enabled by default and reduces the code size at compile time. If you want to learn more about compiler flags and link-time optimization (LTO), head over to the [GNU GCC website](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html). Ralph Doncaster has also written a [great post about LTO](http://nerdralph.blogspot.no/2014/04/gcc-link-time-optimization-can-fix-bad.html) you should read.<br/>
 Compiler optimization can certainly make your code smaller in size. Still, it's all about writing efficient code. Microchip have created an application note on how to write more efficient C code for AVR microcontrollers.
 This is great knowledge, so you should absolutely check it out - [AVR4027: Tips and Tricks to Optimize Your C Code for 8-bit AVR Microcontrollers](http://ww1.microchip.com/downloads/en/AppNotes/doc8453.pdf).
 
 
 ## Bootloader
-MicroCore supports the ultra light-weight and efficient [Urboot](https://github.com/stefanrueger/urboot) bootloader, written by [Stefan Rueger](https://github.com/stefanrueger). The bootloader makes it trivial to upload sketches using a USB to serial adapter (see the [minimal setup schematic](#minimal-setup)), just like with a traditional AVR-based Arduino board. But unlike other bootloaders, Urboot only occupies 256 bytes of flash and protects its patched reset vector, which means that, unlike Optiboot, it's practically impossible to mess up the reset vector and "brick" the chip. Give the bootloader option a try, and you'll be amazed at how well it works!
+MicroCore supports the ultra-light-weight and efficient [Urboot](https://github.com/stefanrueger/urboot) bootloader, written by [Stefan Rueger](https://github.com/stefanrueger). The bootloader makes it trivial to upload sketches using a USB-to-serial adapter (see the [minimal setup schematic](#minimal-setup)), just like with a traditional AVR-based Arduino board. But unlike other bootloaders, Urboot only occupies 256 bytes of flash and protects its patched reset vector, which means that, unlike Optiboot, it's practically impossible to mess up the reset vector and "brick" the chip. Give the bootloader option a try, and you'll be amazed at how well it works!
 
 The internal oscillator on the ATtiny13 is usually slower than it should be according to the spec. Try burning the slower and faster ones (-1.25%, +1.25%, etc.) if the  "Bootloader: _Yes_" option doesn't work. Note that this is not applicable when using an external clock. Selecting something else than "Yes" will result in loading the same bootloader regardless.
 
-The default bootloader UART pins are `PB0 = TXD` and `PB1 = RXD`, which means PB0 connects to RXD on the USB to serial adapter, and PB1 connects to TXD.
+The default bootloader UART pins are `PB0 = TXD` and `PB1 = RXD`, which means PB0 connects to RXD on the USB-to-serial adapter, and PB1 connects to TXD.
 
-Note that the 128kHz internal oscillator option is not recommended for use with a bootloader since the oscillator is too inaccurate for practical use with an asynchronous protocol like UART.
+Note that the 128 kHz internal oscillator option is not recommended for use with a bootloader since the oscillator is too inaccurate for practical use with an asynchronous protocol like UART.
 
 ## BOD option
-Brown-out detection, or BOD for short lets the microcontroller sense the input voltage and shut down if the voltage goes below the brown-out setting.
+Brown-out detection, or BOD for short, lets the microcontroller sense the input voltage and shut down if the voltage goes below the brown-out setting.
 These are the available BOD options:
 * 4.3V
 * 2.7V
@@ -120,9 +123,9 @@ analogRead(myPin);
 
 
 ## Serial support
-MicroCore features a brilliant, ultra-lightweight software UART library called [picoUART](https://github.com/nerdralph/picoUART), wrapped by `Serial`. This means you can use regular `Serial.print()`if you need to. Note that the baud rate has to be defined at compile-time and cannot be defined in the sketch. The table below shows a list of which clock frequencies use which baud rates by default. If you need a different baud rate for a specific clock frequency, you may modify the [core_settings.h file](#core-settings).
+MicroCore features a brilliant, ultra-lightweight software UART library called [picoUART](https://github.com/nerdralph/picoUART), wrapped by `Serial`. This means you can use regular `Serial.print()`if you need to. Note that the baud rate has to be defined at compile time and cannot be defined in the sketch. The table below shows a list of which clock frequencies use which baud rates by default. If you need a different baud rate for a specific clock frequency, you may modify the [core_settings.h file](#core-settings).
 
-If you want to use the UART functionality you will have to have the right hardware connected to the right pins on the ATtiny13. See the [minimal setup section](#minimal-setup) for more information. Also, please have a look at the provided [serial example sketches](https://github.com/MCUdude/MicroCore/tree/master/avr/libraries/Serial_examples/examples).
+If you want to use the UART functionality, you will have to have the right hardware connected to the right pins on the ATtiny13. See the [minimal setup section](#minimal-setup) for more information. Also, please have a look at the provided [serial example sketches](https://github.com/MCUdude/MicroCore/tree/master/avr/libraries/Serial_examples/examples).
 
 | Clock              | Baud rate     |
 |--------------------|---------------|
@@ -139,10 +142,10 @@ If you want to use the UART functionality you will have to have the right hardwa
 
 
 ### Internal oscillator calibration
-The internal 9.6 and 4.8 MHz internal oscillators (yes, these are separate in some silicon revisions) in the ATtiny13 are usually not very accurate. This is acceptable for many applications, but when you're using an asynchronous protocol like UART, ±3-4% off simply won't work. To solve this problem MicroCore provides a user-friendly [Oscillator calibration sketch](https://github.com/MCUdude/MicroCore/blob/master/avr/libraries/Serial_examples/examples/OscillatorCalibration/OscillatorCalibration.ino) that calculate a new OSCCAL value based on a received character over UART. All you need to do is to load the sketch, select the correct baud rate in the serial monitor, select *No line ending* and send the `x` character many times (`x` [send], `x` [send] ...). After a few tries, you should gradually see readable text in the serial monitor. After the calibration value has stabilized it's automatically stored in EEPROM address 0 for future use. This value is not loaded by default, but has to be loaded "manually" in your sketch like so:
+The internal 9.6 and 4.8 MHz oscillators (yes, these are separate in some silicon revisions) in the ATtiny13 are usually not very accurate. This is acceptable for many applications, but when you're using an asynchronous protocol like UART, ±3-4% off simply won't work. To solve this problem, MicroCore provides a user-friendly [Oscillator calibration sketch](https://github.com/MCUdude/MicroCore/blob/master/avr/libraries/Serial_examples/examples/OscillatorCalibration/OscillatorCalibration.ino) that calculates a new OSCCAL value based on a received character over UART. All you need to do is to load the sketch, select the correct baud rate in the serial monitor, select *No line ending*, and send the `x` character many times (`x` [send], `x` [send] ...). After a few tries, you should gradually see readable text in the serial monitor. After the calibration value has stabilized, it's automatically stored in EEPROM address 0 for future use. This value is not loaded by default, but has to be loaded "manually" in your sketch like so:
 
 ```c++
-  // Check if there exist any OSCCAL value in EEPROM addr. 0
+  // Check if there exists any OSCCAL value in EEPROM addr. 0
   // If not, run the oscillator tuner sketch first
   uint8_t cal = EEPROM.read(0);
   if (cal < 0x80)
@@ -157,14 +160,14 @@ Huge thanks to [Ralph Doncaster](https://github.com/nerdralph) for providing his
 
 
 ## Programmers
-When the ATtiny13 is running from the internal 600 or 128 kHz oscillator, it may be too slow to interact with the programming tool. That's why this core adds some additional programmers to the list, with the suffix *(slow)*. These options makes the programmers run at a lower clock speed, so the microcontroller can keep up.
+When the ATtiny13 is running from the internal 600 or 128 kHz oscillator, it may be too slow to interact with the programming tool. That's why this core adds some additional programmers to the list, with the suffix *(slow)*. These options make the programmers run at a lower clock speed, so the microcontroller can keep up.
 
 Select your microcontroller in the boards menu, then select the clock frequency. You'll have to hit "Burn bootloader" in order to set the correct fuses and upload the correct bootloader. <br/>
 Make sure you connect an ISP programmer, and select the correct one in the "Programmers" menu.
 
 
 ## Core settings
-To make sure you're able to fit your whole project into this tiny microcontroller and still be able to use Arduino functions, I've added some <b>core settings</b>. By modifying the [`core_settings.h`](https://github.com/MCUdude/MicroCore/blob/master/avr/cores/microcore/core_settings.h) file you can enable or disable core functions you need or don't need.
+To make sure you're able to fit your whole project into this tiny microcontroller and still be able to use Arduino functions, I've added some <b>core settings</b>. By modifying the [`core_settings.h`](https://github.com/MCUdude/MicroCore/blob/master/avr/cores/microcore/core_settings.h) file, you can enable or disable core functions you need or don't need.
 If you know what you're doing and want full control, you can disable the safemode. For instance, safemode makes sure that PWM gets turned off if a pin drives high or low, or digital pins don't exceed the number 5 (6 digital pins in total). By disabling safemode you'll gain some speed and flash space.
 
 
@@ -206,11 +209,11 @@ Ok, so you have downloaded and installed MicroCore, but how do you get the wheel
 * Open the **Tools > Board** menu item, and select ATtiny13.
 * Select your preferred BOD option. Read more about BOD [here](#bod-option).
 * Select your preferred clock frequency. **9.6 MHz internal oscillator** is the default setting. Do not use the external oscillator option if you don't have an external clock source. Remember that a regular two-pin crystal will not work on the ATtiny13.
-* If you want you can change the compiler flags for further optimization. Leave this on the default setting if you don't know what compiler flags are.
-* Select what kind of programmer you're using under the **Programmers** menu. Use one of the **slow** programmers if you're using the 600 or 128 kHz oscillator option, e.g. **USBtinyISP (slow)**.
+* If you want, you can change the compiler flags for further optimization. Leave this on the default setting if you don't know what compiler flags are.
+* Select what kind of programmer you're using under the **Programmers** menu. Use one of the **slow** programmers if you're using the 600 or 128 kHz oscillator option, e.g., **USBtinyISP (slow)**.
 * Hit **Burn Bootloader** to burn the fuses. The "settings" are now stored on the microcontroller!
-* Now that the correct fuse settings is sat you can upload your code by using your programmer tool. Simply hit *Upload*, and the code will be uploaded to the microcontroller.
-* If you want to do some changes; change the BOD option for instance, you'll have to hit **Burn Bootloader** again.
+* Now that the correct fuse settings are set you can upload your code by using your programmer tool. Simply hit *Upload*, and the code will be uploaded to the microcontroller.
+* If you want to do some changes, change the BOD option for instance, you'll have to hit **Burn Bootloader** again.
 
 
 ## Pinout
@@ -319,4 +322,4 @@ Due to the limited hardware, not all default Arduino functions and libraries are
 ## Acknowledgements
 MicroCore is based Smeezekitty's [core13](https://sourceforge.net/projects/ard-core13/), which is an Arduino ATtiny13 hardware package for IDE 1.0.x.
 
-The software serial and software i2c implementation is based on the excellent work done by [Ralph Doncaster](https://github.com/nerdralph).
+The software serial and software I2C implementation is based on the excellent work done by [Ralph Doncaster](https://github.com/nerdralph).
