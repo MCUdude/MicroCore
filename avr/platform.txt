@@ -40,7 +40,7 @@ compiler.c.elf.flags={compiler.warning_flags} {compiler.optimize_flags} {compile
 compiler.c.elf.cmd=avr-gcc
 compiler.S.flags=-c -g -x assembler-with-cpp {compiler.optimize_flags} {compiler.optimization_flags} -MMD
 compiler.cpp.cmd=avr-g++
-compiler.cpp.flags=-c -g {compiler.optimization_flags} {compiler.warning_flags} -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD
+compiler.cpp.flags=-c -g {compiler.optimize_flags} {compiler.optimization_flags} {compiler.warning_flags} -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD
 compiler.ar.cmd=avr-gcc-ar
 compiler.ar.flags=rcs
 compiler.objcopy.cmd=avr-objcopy
