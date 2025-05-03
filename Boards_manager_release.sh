@@ -14,7 +14,7 @@ REALAUTHOR=MCUdude   # real author
 REPOSITORY=MicroCore # Github repo name
 
 AVRDUDE_VERSION="8.0-arduino.1"
-DWTOOLSVERSION="2.2.0"
+DWTOOLSVERSION="2.2.1"
 
 # Get the download URL for the latest release from Github
 DOWNLOAD_URL=$(curl -s https://api.github.com/repos/$AUTHOR/$REPOSITORY/releases/latest | grep "tarball_url" | awk -F\" '{print $4}')
