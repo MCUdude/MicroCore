@@ -5,6 +5,7 @@ usbasp.upload.protocol=usbasp
 usbasp.program.protocol=usbasp
 usbasp.program.tool=avrdude
 usbasp.program.extra_params=
+usbasp.bl_fuses_sck=-B32
 
 usbasp_slow.name=USBasp slow
 usbasp_slow.communication=usb
@@ -12,7 +13,8 @@ usbasp_slow.protocol=usbasp
 usbasp_slow.upload.protocol=usbasp
 usbasp_slow.program.protocol=usbasp
 usbasp_slow.program.tool=avrdude
-usbasp_slow.program.extra_params= -B32
+usbasp_slow.program.extra_params=-B32
+usbasp_slow.bl_fuses_sck=-B32
 
 usbtinyisp.name=USBtinyISP
 usbtinyisp.protocol=usbtiny
@@ -20,6 +22,7 @@ usbtinyisp.upload.protocol=usbtiny
 usbtinyisp.program.protocol=usbtiny
 usbtinyisp.program.tool=avrdude
 usbtinyisp.program.extra_params=
+usbtinyisp.bl_fuses_sck=-B32
 
 usbtinyisp_slow.name=USBtinyISP slow
 usbtinyisp_slow.protocol=usbtiny
@@ -27,6 +30,7 @@ usbtinyisp_slow.upload.protocol=usbtiny
 usbtinyisp_slow.program.protocol=usbtiny
 usbtinyisp_slow.program.tool=avrdude
 usbtinyisp_slow.program.extra_params=-B32
+usbtinyisp_slow.bl_fuses_sck=-B32
 
 arduinoasisp.name=Arduino as ISP
 arduinoasisp.communication=serial
@@ -35,6 +39,7 @@ arduinoasisp.upload.protocol=arduino_as_isp
 arduinoasisp.program.protocol=arduino_as_isp
 arduinoasisp.program.tool=avrdude
 arduinoasisp.program.extra_params=-P{serial.port}
+arduinoasisp.bl_fuses_sck=
 
 arduinoasispatmega32u4.name=Arduino Leonardo/Pro Micro as ISP
 arduinoasispatmega32u4.communication=serial
@@ -45,6 +50,7 @@ arduinoasispatmega32u4.program.protocol=arduino
 arduinoasispatmega32u4.program.speed=19200
 arduinoasispatmega32u4.program.tool=avrdude
 arduinoasispatmega32u4.program.extra_params=-P{serial.port} -b{program.speed}
+arduinoasispatmega32u4.bl_fuses_sck=
 
 atmel_ice.name=Atmel-ICE ISP
 atmel_ice.communication=usb
@@ -53,6 +59,7 @@ atmel_ice.upload.protocol=atmelice_isp
 atmel_ice.program.protocol=atmelice_isp
 atmel_ice.program.tool=avrdude
 atmel_ice.program.extra_params=
+atmel_ice.bl_fuses_sck=-B32
 
 atmel_ice_slow.name=Atmel-ICE ISP slow
 atmel_ice_slow.communication=usb
@@ -61,6 +68,7 @@ atmel_ice_slow.upload.protocol=atmelice_isp
 atmel_ice_slow.program.protocol=atmelice_isp
 atmel_ice_slow.program.tool=avrdude
 atmel_ice_slow.program.extra_params=-B32
+atmel_ice_slow.bl_fuses_sck=-B32
 
 pickit4_isp.name=PICkit4 ISP
 pickit4_isp.communication=usb
@@ -69,6 +77,7 @@ pickit4_isp.upload.protocol=pickit4_isp
 pickit4_isp.program.protocol=pickit4_isp
 pickit4_isp.program.tool=avrdude
 pickit4_isp.program.extra_params=
+pickit4_isp.bl_fuses_sck=-B32
 
 pickit4_isp_slow.name=PICkit4 ISP slow
 pickit4_isp_slow.communication=usb
@@ -77,6 +86,7 @@ pickit4_isp_slow.upload.protocol=pickit4_isp
 pickit4_isp_slow.program.protocol=pickit4_isp
 pickit4_isp_slow.program.tool=avrdude
 pickit4_isp_slow.program.extra_params=-B32
+pickit4_isp_slow.bl_fuses_sck=-B32
 
 snap_isp.name=MPLAB SNAP ISP
 snap_isp.communication=usb
@@ -85,6 +95,7 @@ snap_isp.upload.protocol=snap_isp
 snap_isp.program.protocol=snap_isp
 snap_isp.program.tool=avrdude
 snap_isp.program.extra_params=
+snap_isp.bl_fuses_sck=-B32
 
 snap_isp_slow.name=MPLAB SNAP ISP slow
 snap_isp_slow.communication=usb
@@ -93,6 +104,7 @@ snap_isp_slow.upload.protocol=snap_isp
 snap_isp_slow.program.protocol=snap_isp
 snap_isp_slow.program.tool=avrdude
 snap_isp_slow.program.extra_params=-B32
+usbasp.bl_fuses_sck=-B32
 
 avrispmkii.name=AVRISP mkII
 avrispmkii.communication=usb
@@ -101,6 +113,7 @@ avrispmkii.upload.protocol=avrispmkii
 avrispmkii.program.protocol=avrispmkii
 avrispmkii.program.tool=avrdude
 avrispmkii.program.extra_params=
+usbasp.bl_fuses_sck=-B32
 
 avrispmkii_slow.name=AVRISP mkII slow
 avrispmkii_slow.communication=usb
@@ -109,6 +122,7 @@ avrispmkii_slow.upload.protocol=avrispmkii
 avrispmkii_slow.program.protocol=avrispmkii
 avrispmkii_slow.program.tool=avrdude
 avrispmkii_slow.program.extra_params=-B32
+usbasp.bl_fuses_sck=-B32
 
 stk500.name=STK500 as ISP
 stk500.communication=serial
@@ -117,3 +131,4 @@ stk500.upload.protocol=stk500
 stk500.program.protocol=stk500
 stk500.program.tool=avrdude
 stk500.program.extra_params= -P {serial.port}
+usbasp.bl_fuses_sck=-B32
