@@ -30,23 +30,11 @@ usbtinyisp_slow.program.extra_params=-B32
 
 arduinoasisp.name=Arduino as ISP
 arduinoasisp.communication=serial
-arduinoasisp.protocol=stk500v1
-arduinoasisp.upload.protocol=stk500v1
-arduinoasisp.speed=19200
-arduinoasisp.program.protocol=stk500v1
-arduinoasisp.program.speed=19200
+arduinoasisp.protocol=arduino_as_isp
+arduinoasisp.upload.protocol=arduino_as_isp
+arduinoasisp.program.protocol=arduino_as_isp
 arduinoasisp.program.tool=avrdude
-arduinoasisp.program.extra_params=-P{serial.port} -b{program.speed}
-
-arduinoasisp_slow.name=Arduino as ISP slow
-arduinoasisp_slow.communication=serial
-arduinoasisp_slow.protocol=stk500v1
-arduinoasisp_slow.upload.protocol=stk500v1
-arduinoasisp_slow.speed=19200
-arduinoasisp_slow.program.protocol=stk500v1
-arduinoasisp_slow.program.speed=19200
-arduinoasisp_slow.program.tool=avrdude
-arduinoasisp_slow.program.extra_params=-P{serial.port} -b{program.speed} -B32
+arduinoasisp.program.extra_params=-P{serial.port}
 
 arduinoasispatmega32u4.name=Arduino Leonardo/Pro Micro as ISP
 arduinoasispatmega32u4.communication=serial
