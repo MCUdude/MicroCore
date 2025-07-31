@@ -104,7 +104,43 @@ snap_isp_slow.upload.protocol=snap_isp
 snap_isp_slow.program.protocol=snap_isp
 snap_isp_slow.program.tool=avrdude
 snap_isp_slow.program.extra_params=-B32
-usbasp.bl_fuses_sck=-B32
+snap_isp_slow.bl_fuses_sck=-B32
+
+powerdebugger.name=Power Debugger ISP
+powerdebugger.communication=usb
+powerdebugger.protocol=powerdebugger_isp
+powerdebugger.upload.protocol=powerdebugger_isp
+powerdebugger.program.protocol=powerdebugger_isp
+powerdebugger.program.tool=avrdude
+powerdebugger.program.extra_params=
+powerdebugger.bl_fuses_sck=-B32
+
+powerdebugger_slow.name=Power Debugger ISP slow
+powerdebugger_slow.communication=usb
+powerdebugger_slow.protocol=powerdebugger_isp
+powerdebugger_slow.upload.protocol=powerdebugger_isp
+powerdebugger_slow.program.protocol=powerdebugger_isp
+powerdebugger_slow.program.tool=avrdude
+powerdebugger_slow.program.extra_params=-B32
+powerdebugger_slow.bl_fuses_sck=-B32
+
+jtagice3.name=JTAGICE3 ISP
+jtagice3.communication=usb
+jtagice3.protocol=jtagice3_isp
+jtagice3.upload.protocol=jtagice3_isp
+jtagice3.program.protocol=jtagice3_isp
+jtagice3.program.tool=avrdude
+jtagice3.program.extra_params=
+jtagice3.bl_fuses_sck=-B32
+
+jtagice3_slow.name=JTAGICE3 ISP slow
+jtagice3_slow.communication=usb
+jtagice3_slow.protocol=jtagice3_isp
+jtagice3_slow.upload.protocol=jtagice3_isp
+jtagice3_slow.program.protocol=jtagice3_isp
+jtagice3_slow.program.tool=avrdude
+jtagice3_slow.program.extra_params=-B32
+jtagice3_slow.bl_fuses_sck=-B32
 
 avrispmkii.name=AVRISP mkII
 avrispmkii.communication=usb
@@ -113,7 +149,7 @@ avrispmkii.upload.protocol=avrispmkii
 avrispmkii.program.protocol=avrispmkii
 avrispmkii.program.tool=avrdude
 avrispmkii.program.extra_params=
-usbasp.bl_fuses_sck=-B32
+avrispmkii.bl_fuses_sck=-B32
 
 avrispmkii_slow.name=AVRISP mkII slow
 avrispmkii_slow.communication=usb
@@ -122,7 +158,7 @@ avrispmkii_slow.upload.protocol=avrispmkii
 avrispmkii_slow.program.protocol=avrispmkii
 avrispmkii_slow.program.tool=avrdude
 avrispmkii_slow.program.extra_params=-B32
-usbasp.bl_fuses_sck=-B32
+avrispmkii_slow.bl_fuses_sck=-B32
 
 stk500.name=STK500 as ISP
 stk500.communication=serial
@@ -131,4 +167,4 @@ stk500.upload.protocol=stk500
 stk500.program.protocol=stk500
 stk500.program.tool=avrdude
 stk500.program.extra_params= -P {serial.port}
-usbasp.bl_fuses_sck=-B32
+stk500.bl_fuses_sck=-B32
