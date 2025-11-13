@@ -12,7 +12,7 @@ menu.BOD=BOD
 menu.eeprom=EEPROM
 menu.clock=Clock
 menu.bootloader=Bootloader
-menu.rstdisbl=Enable Reset (Disable PB5)
+menu.rstdisbl=Pin 1 Function
 
 # General
 13.name=ATtiny13
@@ -28,9 +28,9 @@ menu.rstdisbl=Enable Reset (Disable PB5)
 13.upload.tool=avrdude
 13.upload.maximum_data_size=64
 
-13.menu.rstdisbl.enable=Reset Enabled
+13.menu.rstdisbl.enable=Pin 1 is RESET
 13.menu.rstdisbl.enable.fuse.rstdisbl_b=1
-13.menu.rstdisbl.disable=Reset Disabled/Enable PB5 (HV Programmer Required After Disabling!)
+13.menu.rstdisbl.disable=Pin 1 is PB5 (Disables RESET - HV Programmer Required After Disabling!)
 13.menu.rstdisbl.disable.fuse.rstdisbl_b=0
 
 # Clock frequencies
