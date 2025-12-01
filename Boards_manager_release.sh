@@ -9,12 +9,12 @@
 ##########################################################
 
 # Change these to match your repo
-AUTHOR=MCUdude   # Github username
+AUTHOR=felias-fogg   # Github username
 REALAUTHOR=MCUdude   # real author
 REPOSITORY=MicroCore # Github repo name
 
 AVRDUDE_VERSION="8.0-arduino.1"
-DWTOOLSVERSION="2.3.2"
+AVROCDVERSION="0.18.0"
 
 # Get the download URL for the latest release from Github
 DOWNLOAD_URL=$(curl -s https://api.github.com/repos/$AUTHOR/$REPOSITORY/releases/latest | grep "tarball_url" | awk -F\" '{print $4}')
@@ -60,7 +60,7 @@ cp "package_${REALAUTHOR}_${REPOSITORY}_index.json" "package_${REALAUTHOR}_${REP
 
 # Add new boards release entry
 jq -r                                    \
---arg dwtoolsversion $DWTOOLSVERSION     \
+--arg avrocdversion $AVROCDVERSION     \
 --arg repository  $REPOSITORY            \
 --arg version     ${DOWNLOADED_FILE#"v"} \
 --arg url         $URL                   \
@@ -99,8 +99,8 @@ jq -r                                    \
     },
     {
       "packager": "MicroCore",
-      "name": "dw-tools",
-      "version": $dwtoolsversion
+      "name": "avrocd-tools",
+      "version": $avrocdversion
     }   
   ]
 }' "package_${REALAUTHOR}_${REPOSITORY}_index.json.tmp" > "package_${REALAUTHOR}_${REPOSITORY}_index.json"
