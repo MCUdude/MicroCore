@@ -5,7 +5,7 @@ MicroCore is a lightweight Arduino hardware package for ATtiny13, ATtiny13A, and
 If you're into low-level AVR programming, make sure to check out the [example files](https://github.com/MCUdude/MicroCore/tree/master/avr/libraries/AVR_examples/examples) (File > Examples > 
 AVR C code examples).
 
-*From version 2.5.0 onwards, debugging in the Arduino IDE 2 is supported. You can use any of Microchip's EDBG-based hardware debuggers or the DIY debugger [dw-link](https://github.com/felias-fogg/dw-link). For documentation, see [https://github.com/felias-fogg/dw-gdbserver](https://github.com/felias-fogg/dw-gdbserver).* 
+*From version 2.5.0 onwards, debugging in the Arduino IDE 2 is supported. You can use any of Microchip's EDBG-based hardware debuggers or the DIY debugger [dw-link](https://github.com/felias-fogg/dw-link). For documentation, see [https://felias-fogg.github.io/PyAvrOCD/](https://felias-fogg.github.io/PyAvrOCD/).*
 
 If you're looking for a great development board for the ATtiny13 and DIP-8 ATtinys in general, I've got you covered! This board has all the bells and whistles you need from a board like this, and still, it measures only 42x42mm!
 <br/>
