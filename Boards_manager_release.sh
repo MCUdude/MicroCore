@@ -10,7 +10,7 @@
 
 # Change these to match your repo
 PAOOWNER=felias-fogg # Github owner of PyAvrOCD  
-AUTHOR=MCUdude   # Github user name
+AUTHOR=MCUdude       # Github user name
 REALAUTHOR=MCUdude   # real author
 REPOSITORY=MicroCore # Github repo name
 
@@ -21,23 +21,28 @@ AVRDUDE_VERSION="8.0-arduino.1"
 PAOVERSION=$(curl -s https://api.github.com/repos/$PAOOWNER/PyAvrOCD/releases/latest | grep "tag_name" |  awk -F\" '{print $4}')
 AVROCDVERSION=${PAOVERSION#"v"}
 
+# Get the download URL for the latest release from Github
+DOWNLOAD_URL=$(curl -s https://api.github.com/repos/$AUTHOR/$REPOSITORY/releases/latest | grep "tarball_url" | awk -F\" '{print $4}')
+
+# Get filename
+DOWNLOADED_FILE=$(echo $DOWNLOAD_URL | awk -F/ '{print $8}')
+
+# Check whether most recent board file is already in the index
+if grep -q ${REPOSITORY}-${DOWNLOADED_FILE#"v"} package_${REALAUTHOR}_${REPOSITORY}_index.json; then
+    echo "Most recent board version is already in the index file. Nothing to do."
+    exit 1
+fi
+
 # Check whether already part of the index
-echo "Checking whether current PyAvrOCD version ${AVROCDVERSION} is already in index" 
 if grep -q "avrocd-tools-"${AVROCDVERSION} package_${REALAUTHOR}_${REPOSITORY}_index.json; then
-    echo "Current PyAvrOCD version is in index"
+    echo "Current PyAvrOCD version is in index. Continue ..."
 else
     echo "Current PyAvrOCD version is not in index. Add it first."
     exit 1
 fi
 
-# Get the download URL for the latest release from Github
-DOWNLOAD_URL=$(curl -s https://api.github.com/repos/$AUTHOR/$REPOSITORY/releases/latest | grep "tarball_url" | awk -F\" '{print $4}')
-
 # Download file
 wget --no-verbose $DOWNLOAD_URL
-
-# Get filename
-DOWNLOADED_FILE=$(echo $DOWNLOAD_URL | awk -F/ '{print $8}')
 
 # Add .tar.bz2 extension to downloaded file
 mv $DOWNLOADED_FILE ${DOWNLOADED_FILE}.tar.bz2
