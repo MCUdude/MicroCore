@@ -10,7 +10,7 @@
 #########################################
 
 name=MicroCore
-version=2.5.3
+version=2.5.2
 
 # AVR compile variables
 # ---------------------
