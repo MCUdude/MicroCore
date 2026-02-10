@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash 
 
 ##########################################################
 ##                                                      ##
@@ -9,21 +9,40 @@
 ##########################################################
 
 # Change these to match your repo
-AUTHOR=MCUdude   # Github username
+PAOOWNER=felias-fogg # Github owner of PyAvrOCD  
+AUTHOR=MCUdude       # Github user name
 REALAUTHOR=MCUdude   # real author
 REPOSITORY=MicroCore # Github repo name
 
+
 AVRDUDE_VERSION="8.0-arduino.1"
-DWTOOLSVERSION="2.3.2"
+
+# Get the version number of most recent PyAvrOCD version
+PAOVERSION=$(curl -s https://api.github.com/repos/$PAOOWNER/PyAvrOCD/releases/latest | grep "tag_name" |  awk -F\" '{print $4}')
+AVROCDVERSION=${PAOVERSION#"v"}
 
 # Get the download URL for the latest release from Github
 DOWNLOAD_URL=$(curl -s https://api.github.com/repos/$AUTHOR/$REPOSITORY/releases/latest | grep "tarball_url" | awk -F\" '{print $4}')
 
-# Download file
-wget --no-verbose $DOWNLOAD_URL
-
 # Get filename
 DOWNLOADED_FILE=$(echo $DOWNLOAD_URL | awk -F/ '{print $8}')
+
+# Check whether most recent board file is already in the index
+if grep -q ${REPOSITORY}-${DOWNLOADED_FILE#"v"} package_${REALAUTHOR}_${REPOSITORY}_index.json; then
+    echo "Most recent board version is already in the index file. Nothing to do."
+    exit 1
+fi
+
+# Check whether already part of the index
+if grep -q "avrocd-tools-"${AVROCDVERSION} package_${REALAUTHOR}_${REPOSITORY}_index.json; then
+    echo "Current PyAvrOCD version is in index. Continue ..."
+else
+    echo "Current PyAvrOCD version is not in index. Add it first."
+    exit 1
+fi
+
+# Download file
+wget --no-verbose $DOWNLOAD_URL
 
 # Add .tar.bz2 extension to downloaded file
 mv $DOWNLOADED_FILE ${DOWNLOADED_FILE}.tar.bz2
@@ -60,7 +79,7 @@ cp "package_${REALAUTHOR}_${REPOSITORY}_index.json" "package_${REALAUTHOR}_${REP
 
 # Add new boards release entry
 jq -r                                    \
---arg dwtoolsversion $DWTOOLSVERSION     \
+--arg avrocdversion $AVROCDVERSION     \
 --arg repository  $REPOSITORY            \
 --arg version     ${DOWNLOADED_FILE#"v"} \
 --arg url         $URL                   \
@@ -99,8 +118,8 @@ jq -r                                    \
     },
     {
       "packager": "MicroCore",
-      "name": "dw-tools",
-      "version": $dwtoolsversion
+      "name": "avrocd-tools",
+      "version": $avrocdversion
     }   
   ]
 }' "package_${REALAUTHOR}_${REPOSITORY}_index.json.tmp" > "package_${REALAUTHOR}_${REPOSITORY}_index.json"
