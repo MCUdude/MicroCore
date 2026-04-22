@@ -37,6 +37,7 @@ If you're looking for a great development board for the ATtiny13 and DIP-8 ATtin
   - [Analog pins](#analog-pins)
   - [Serial support](#serial-support)
     - [Internal oscillator calibration](#internal-oscillator-calibration)
+  - [millis() and micros](#millis-and-micros)
   - [Programmers](#programmers)
   - [Core settings](#core-settings)
   - [How to install](#how-to-install)
@@ -157,6 +158,13 @@ The reason why it checks if the calibration value is less than 0x80 is that the 
 Huge thanks to [Ralph Doncaster](https://github.com/nerdralph) for providing his excellent picoUART library and his oscillator calibration code. None of this would be close to possible if it weren't for his brilliant work!
 
 <img src="https://i.imgur.com/wsZ4Neu.gif" width="500">
+
+
+## millis() and micros()
+The `millis()` function is implemented using the watchdog timer to save space and resources. The WDT operates on its own independent clock source, making the function valid regardless of the CPU clock frequency selected. As a result of this, `millis()` will increase in steps of 16. The inherent inaccuracy of the WDT oscillator means millis() should not be relied upon where precise timing is required. The internal WDT setup functions and interrupt routine will automatically me optimized out of millis() is not used in the sketch. If your sketch depends on `millis()` and uses one of the deeper sleep modes, the WDT may have to be disabled before entering sleep mode.  
+Disabl the WDT by adding this line, `WDTCR &= ~(1 << WDTIE);` and enable it again after waking up using `WDTCR |= (1 << WDTIE);`. 
+
+The `micros()` function, is implemented using Timer0. The calculation depends on the CPU clock frequency and the internally configured prescaler. It is important to note that since `micros()` occupies Timer0, it may conflict with any user application that also requires Timer0. For instance, changing the default PWM frequency will change the `micros()` timing.
 
 
 ## Programmers
