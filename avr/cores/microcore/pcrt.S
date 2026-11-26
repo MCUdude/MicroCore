@@ -53,3 +53,29 @@ __init:
     .global main
 ; main must go in .init9 to save rjmp
 ;    rjmp main
+
+; The device information avr-libc's start-up code records, which MicroCore does without because it
+; links with -nostartfiles: debuggers (PyAvrOCD, for instance) read the MCU an ELF file was built for
+; from here. The section is not loaded into flash. Byte for byte what avr-libc writes.
+#define STR_(x) #x
+#define STR(x) STR_(x)
+  .section .note.gnu.avr.deviceinfo, "", @note
+  .long 4                       ; length of the note's name
+  .long 2f - 1f                 ; length of the description
+  .long 1                       ; note type
+  .asciz "AVR"
+  .balign 4
+1:
+  .long 0                       ; flash start
+  .long FLASHEND + 1            ; flash size
+  .long RAMSTART                ; SRAM start
+  .long RAMEND - RAMSTART + 1   ; SRAM size
+  .long 0                       ; EEPROM start
+  .long E2END + 1               ; EEPROM size
+  .long 8                       ; size of the offset table
+  .long 1                       ; offset of the device name in the string table
+  .byte 0                       ; string table: the empty string, the device name, the end
+  .asciz STR(__AVR_DEVICE_NAME__)
+  .byte 0
+2:
+  .balign 4
